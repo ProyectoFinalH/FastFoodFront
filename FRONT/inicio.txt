@@ -1,2 +1,3 @@
 Navbar aca
-agrego ruleta verificada
+ruleta de colores ok
+
