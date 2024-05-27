@@ -1,2 +1,2 @@
-Bd aca ok
-
+Bd aca
+cambiando la BD hecha por Jose
