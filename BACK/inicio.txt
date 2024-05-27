@@ -1,2 +1,3 @@
 Bd aca
 cambiando la BD hecha por Jose
+se actualizo las errores
