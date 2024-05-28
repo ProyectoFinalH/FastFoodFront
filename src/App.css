@@ -1,0 +1,88 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Opcional: Para eliminar cualquier scroll si es necesario */
+  background-color: rgb(247, 250, 249); /* Aplicar fondo al body */
+}
+
+.App {
+  text-align: center;
+
+}
+
+.App-logo {
+  
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/*Botones 1*/
+.ov-btn-grow-box {
+  background: red; /* color de fondo */
+  width: 150px;
+  color: white; /* color de fuente */
+  border: 2px solid black; /*#4741d7;  tamaño y color de borde */
+  padding: 5px 10px;
+  border-radius: 20px; /* redondear bordes */
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+}
+.ov-btn-grow-box:hover {
+  color: #fff;/* color de fuente hover */
+  cursor: pointer;
+}
+.ov-btn-grow-box::after {
+  content: "";
+  background: green; /* color de fondo hover */
+  border: 2px groove red;
+  border-radius: 20px; /* redondear bordes */
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+}
+.ov-btn-grow-box:hover::after {
+  transition: all 0.3s ease-out;
+  transform: scale(1, 1);
+}
