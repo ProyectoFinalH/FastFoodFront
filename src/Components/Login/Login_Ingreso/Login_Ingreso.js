@@ -35,6 +35,7 @@ const LoginIngreso = ({ setView }) => {
     setAttemptedSubmit(true);
 
     if (Object.keys(validationErrors).length === 0) {
+      // Aquí puedes hacer algo con los datos del formulario si es necesario
     }
   };
 
@@ -64,7 +65,7 @@ const LoginIngreso = ({ setView }) => {
             value={userData.pass}
             onChange={handleChange}
             maxLength={15}
-            placeholder="Password"
+            placeholder="Contraseña"
           />
           <img
             src={keyver ? icono_ocultar : icono_ver}
@@ -100,14 +101,18 @@ const LoginIngreso = ({ setView }) => {
           <div
             className="Registrate"
             onClick={() => {
+              setView("registro");
+            }}
+          >
+            ¿No tienes una cuenta? Regístrate aquí
+          </div>
+          <div
+            className="Registrate"
+            onClick={() => {
               setView("invitado");
             }}
           >
             Ingresa como Invitado
-          </div>
-
-          <div className="Registrate">
-            ¿No tienes una cuenta? Regístrate aquí
           </div>
         </div>
       </div>

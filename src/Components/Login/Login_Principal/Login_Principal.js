@@ -1,8 +1,10 @@
 import "./Login_Principal.css";
+import React, { useState } from "react";
 import Carrucel from "../Carrucel/Carrucel";
 import LoginIngreso from "../Login_Ingreso/Login_Ingreso";
 import Recuperarkey from "../Login_Recuperar/Login_Recuperar_key";
-import { useEffect, useState } from "react";
+import Registrarse from "../Login_Registrarse/Login_Registrarse";
+import { useEffect } from "react";
 import Loading from "../../loading/Loading";
 
 const LoginPrincipal = () => {
@@ -27,6 +29,7 @@ const LoginPrincipal = () => {
         <div className="derechaGeneral">
           {logueo === "login" && <LoginIngreso setView={setLogueo} />}
           {logueo === "recuperarkey" && <Recuperarkey setView={setLogueo} />}
+          {logueo === "registro" && <Registrarse setView={setLogueo} />}
         </div>
       </div>
     </div>
