@@ -16,6 +16,8 @@ const Registrarse = ({ setView }) => {
       ...userData,
       [name]: value,
     });
+    // Validar el campo modificado en tiempo real
+    setErrors(validateField(name, value));
   };
 
   const handleSubmit = (event) => {
@@ -62,6 +64,47 @@ const Registrarse = ({ setView }) => {
     }
 
     return errors;
+  };
+
+  const validateField = (name, value) => {
+    let fieldErrors = {};
+
+    switch (name) {
+      case "username":
+        if (!value.trim()) {
+          fieldErrors.username = "El nombre de usuario es requerido";
+        } else if (value.trim().length < 4 || value.trim().length > 20) {
+          fieldErrors.username =
+            "El nombre de usuario debe tener entre 4 y 20 caracteres";
+        }
+        break;
+      case "email":
+        if (!value.trim()) {
+          fieldErrors.email = "El correo electrónico es requerido";
+        } else if (!/\S+@\S+\.\S+/.test(value)) {
+          fieldErrors.email = "El correo electrónico ingresado no es válido";
+        }
+        break;
+      case "password":
+        if (!value.trim()) {
+          fieldErrors.password = "La contraseña es requerida";
+        } else if (!/^[a-zA-Z0-9]{5,20}$/.test(value)) {
+          fieldErrors.password =
+            "La contraseña debe contener solo letras y números, y tener entre 5 y 20 caracteres";
+        }
+        break;
+      case "confirmPassword":
+        if (!value.trim()) {
+          fieldErrors.confirmPassword = "Por favor confirma tu contraseña";
+        } else if (userData.password !== value) {
+          fieldErrors.confirmPassword = "Las contraseñas no coinciden";
+        }
+        break;
+      default:
+        break;
+    }
+
+    return fieldErrors;
   };
 
   const handleLoginLinkClick = () => {
