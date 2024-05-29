@@ -168,3 +168,9 @@
   transition: all 0.3s ease-out;
   transform: scale(1, 1);
 }
+
+.espacioError {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 0.2em;
+}
