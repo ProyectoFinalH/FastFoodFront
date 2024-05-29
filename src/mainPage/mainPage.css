@@ -1,0 +1,84 @@
+.App {
+    text-align: center;
+    background-color: #ffffff;
+    width: 100%;
+  }
+  
+  .App-header {
+    background-color: rgb(255, 255, 255);
+    padding: 0px 50px 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .App-header input, .App-header button{
+    font-size: 1.2rem;
+    color: #ffffff;
+    background-color: rgb(245, 0, 0);
+    padding: 10px;
+    border-radius: 5px;
+    border: #ffffff;
+    cursor: pointer;
+  }
+  .promo-banner {
+    background-color: yellow;
+    padding: 60px;
+    margin-top: 20px;
+    margin: 0% 15% 0px 15%;
+  }
+  
+  .options, .restaurant-options {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 15% 0px 15%;
+  }
+  .welcome-text {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .restaurant, .payment-methods, .reviews {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 20px;
+  }
+
+  .restaurant{
+    width: 300px;
+    height: 300px;
+  }
+
+  .payment-methods, .reviews{
+    width: 250px;
+  }
+  
+  .chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: red;
+    color: white;
+    padding: 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+
+  .chat-button:hover, .App-header button:hover, .App-header input:hover{
+    background-color: #ffc209;
+    transform: scale(1.1);
+  }
+
+  .star-rating {
+    font-size: 24px;
+  }
+  
+  .star {
+    color: #ccc;
+    cursor: pointer;
+  }
+  
+  .star.filled {
+    color: gold;
+  }
+  
