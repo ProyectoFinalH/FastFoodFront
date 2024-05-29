@@ -1,220 +1,170 @@
 .bodyIngreso {
-    width: 350px;
-    height: 97%;
-  /*  border: 2px rgba(255, 0, 0, 0.336) groove;*/
-    display: flex;
-    flex-direction: column; /* Establecer dirección de columna para que los elementos se alineen verticalmente */
-    align-items: center; /* Centrar horizontalmente en el eje X */
-    justify-content: center; /* Centrar verticalmente en el eje Y */
-    border-radius: 20px;
+  width: 350px;
+  height: 97%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .imageningreso {
-    width: 250px;
-   
+  width: 250px;
 }
 
 .contenedoringreso {
-    display: flex;
-    flex-direction: column; /* Establecer dirección de columna para que los elementos se alineen verticalmente */
-    align-items: center; /* Centrar horizontalmente en el eje X */
-    justify-content: center; /* Centrar verticalmente en el eje Y */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .Grupoinput {
-    display: flex;
-    align-items: center; /* Centrar horizontalmente los elementos */
-    justify-content: center; /* Centrar verticalmente los elementos */
-    border: 2px groove gainsboro;
-    border-radius: 10px;
-    height: 30px;
-    margin-top: 20px;
-    padding: 5px;
-    width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px groove gainsboro;
+  border-radius: 10px;
+  height: 35px;
+  margin-top: 20px;
+  padding: 5px;
+  width: 350px;
 }
 
 .Grupoinput input {
-    height: 100%;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    width: 90%;
-    font-size: 16px;
-    text-align: justify;
+  height: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 90%;
+  font-size: 16px;
 }
 
 .Grupoinput img {
-    width: 20px;
-    height: 20px;
-    margin: 5px;
-}
-
-.verocultar {
-    cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
 }
 
 .centrarlogogoogle {
-    display: flex;
-    align-items: center; /* Centrar horizontalmente los elementos */
-    justify-content: center; /* Centrar verticalmente los elementos */
-    border-radius: 10px;
-    width: 175px;
-    height: 30px;
-    margin-top: 20px;
-    padding: 4px;
-    border: 2px gainsboro groove;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  width: 350px;
+  height: 35px;
+  margin-top: 20px;
+  padding: 4px;
+  border: 2px gainsboro groove;
+  cursor: pointer;
 }
+
 .centrarlogogoogle img {
-    width: 25px;
+  width: 25px;
 }
 
-.btn_ingreso{
-    width: 100px;
-    height: 40px;
-    border: 2px red solid;
-    display: flex;
-    align-items: center; /* Centrar horizontalmente los elementos */
-    justify-content: center; /* Centrar verticalmente los elementos */
-    background-color: red;
-    color: white;
-    font-weight: bolder;
-    border-radius: 10px;
-}
-.btn_ingreso:hover{
-    background-color: yellowgreen;
-    color: black;
-    font-weight: bolder;
-    border-radius: 10px;
-    border: 2px red solid;
-    cursor: pointer;
+.olvidastekey {
+  position: relative;
+  display: block;
+  padding: 2px;
+  margin-top: 10px;
+  color: rgb(78, 78, 78);
+  font-weight: bolder;
 }
 
-.espacioError{
-    width: 100%;
-    height: 40px;
-}
-.olvidastekey{
-    margin: 5px;
-    padding: 5px;
-    color: black;
-    font-weight: bolder;
-}
-.olvidastekey:hover{
-    cursor: pointer;
-    text-decoration: underline;
-    color: brown;
+.olvidastekey::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
 }
 
-
-.seleccion{
-    font-weight: bolder;
-}
-.ver{
-    cursor: pointer;
+.olvidastekey:hover::before {
+  transform: scaleX(1);
 }
 
+.Registrate {
+  position: relative;
+  display: block;
+  padding: 2px;
+  margin-top: 10px;
+  color: rgb(78, 78, 78);
+  font-weight: bolder;
+}
 
+.Registrate::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
 
+.Registrate:hover {
+  cursor: pointer;
+}
+.Registrate {
+  margin-top: 5px;
+}
 
-/* Boton para iniciar */
-.btn {
-    overflow: visible;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    font: inherit;
-    line-height: normal;
-    cursor: pointer;
-    /*-moz-user-select: toggle;*/
-    display: block;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 10px 30px 15px;
-    background-color:red; /* #fff;*/
-    color: white;/* #666;*/
-    border: 2px solid #666;
-    border-radius: 6px;
-    margin-bottom: 16px;
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-  }
-  .btn:-moz-focus-inner {
-    padding: 0;
-    border: 0;
-  }
-  .btn--stripe {
-    overflow: hidden;
-    position: relative;
-  }
-  .btn--stripe:after {
-    content: '';
-    display: block;
-    height: 7px;
-    width: 100%;
-    background-image: repeating-linear-gradient(45deg, #666, #666 1px, transparent 2px, transparent 5px);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-top: 1px solid #666;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    background-size: 7px 7px;
-  }
-  .btn--stripe:hover {
-    background-color: #666;
-    color: #fff;
-    border-color: #000;
-  }
-  .btn--stripe:hover:after {
-    background-image: repeating-linear-gradient(45deg, #fff, #fff 1px, transparent 2px, transparent 5px);
-    border-top: 1px solid #000;
-    -webkit-animation: stripe-slide 12s infinite linear forwards;
-            animation: stripe-slide 12s infinite linear forwards;
-  }
-  .btn--large {
-    width: 50%;
-  }
-  .btn--radius {
-    border-radius: 36px;
-  }
+.Registrate:hover::before {
+  transform: scaleX(1);
+}
 
+.error-message {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+}
 
-  /* link a*/
+.Grupoinput {
+  position: relative;
+}
 
-
-  .Registrate {
-    position: relative;
-    display: block;
-    padding: 2px;
-    margin-top: 10px;
-    color: red;
-    font-weight: bolder;
-  }
-  
-  .Registrate::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
-    z-index: 1;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s ease-in-out;
-  }
-  .Registrate:hover{
-    cursor: pointer;
-
-  }
-  
-  .Registrate:hover::before {
-    
-    transform: scaleX(1);
-  }
-  
-  
-  
+.ov-btn-grow-box {
+  margin-top: 20px;
+  height: 20px;
+  background: linear-gradient(283deg, #ff2426, #ff9259);
+  width: 350px;
+  color: white;
+  border: 2px solid black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+}
+.ov-btn-grow-box:hover {
+  color: #fff;
+  cursor: pointer;
+}
+.ov-btn-grow-box::after {
+  content: "";
+  background: #29d884;
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+}
+.ov-btn-grow-box:hover::after {
+  transition: all 0.3s ease-out;
+  transform: scale(1, 1);
+}
