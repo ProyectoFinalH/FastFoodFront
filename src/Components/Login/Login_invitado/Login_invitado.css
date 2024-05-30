@@ -1,57 +1,4 @@
-.bodyRecuperar {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.formRecuperar {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
-}
-
-.formRecuperar h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333333;
-}
-
-.formRecuperar p {
-  font-size: 16px;
-  margin-bottom: 20px;
-  color: #666666;
-}
-
-.formRecuperar input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.formRecuperar button {
-  width: 100%;
-  padding: 10px;
-  background-color: #ff0000;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.formRecuperar button:hover {
-  background-color: #cc0000;
-}
-
-.bodyIngreso {
+.bodyinvitado {
     width: 350px;
     height: 97%;
     display: flex;
@@ -61,11 +8,6 @@
   }
   .ver{
     cursor: pointer;
-  }
-
-  .bodyIngreso p{
-    text-align: justify;
-    font-weight: 600;
   }
   .imageningreso {
     width: 250px;
@@ -78,7 +20,7 @@
     justify-content: center;
   }
   
-  .Grupoinput {
+  .Gruporadiobuton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,7 +32,7 @@
     width: 350px;
   }
   
-  .Grupoinput input {
+  .Gruporadiobuton input {
     height: 100%;
     border: none;
     outline: none;
@@ -99,10 +41,11 @@
     font-size: 16px;
   }
   
-  .Grupoinput img {
-    width: 20px;
+  .Gruporadiobuton div {
+    width: 100px;
     height: 20px;
     margin: 5px;
+    display: flex;
   }
   
   .centrarlogogoogle {
@@ -230,3 +173,4 @@
     transition: all 0.3s ease-out;
     transform: scale(1, 1);
   }
+  
