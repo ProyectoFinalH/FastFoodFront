@@ -39,7 +39,8 @@ const LoginIngreso = ({ setView }) => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      //los datos del formulario
+      // Lógica para enviar los datos del formulario al servidor
+      console.log("Datos del formulario:", formData);
     }
   };
 
@@ -99,6 +100,9 @@ const LoginIngreso = ({ setView }) => {
           </div>
           <div className="Registrate" onClick={() => setView("registro")}>
             ¿No tienes una cuenta? Regístrate aquí
+          </div>
+          <div className="Registrate" onClick={() => setView("registroEmpresa")}>
+            ¿Eres una empresa? Regístrate aquí
           </div>
           <div className="Registrate" onClick={() => setView("invitado")}>
             Ingresa como Invitado
