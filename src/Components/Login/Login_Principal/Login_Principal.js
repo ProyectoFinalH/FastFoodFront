@@ -7,7 +7,6 @@ import Registrarse from "../Login_Registrarse/Login_Registrarse";
 import { useEffect } from "react";
 import Loading from "../../loading/Loading";
 import LoginInvitado from "../Login_invitado/Login_invitado";
-import Registrarse from "../Login_Registrarse/Login_Registrarse";
 
 const LoginPrincipal = () => {
   const [logueo, setLogueo] = useState("login");
