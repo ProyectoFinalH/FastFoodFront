@@ -66,6 +66,7 @@
 
 .olvidastekey {
   position: relative;
+  cursor: pointer;
   display: block;
   padding: 2px;
   margin-top: 10px;
@@ -87,6 +88,7 @@
 }
 
 .olvidastekey:hover::before {
+  
   transform: scaleX(1);
 }
 
