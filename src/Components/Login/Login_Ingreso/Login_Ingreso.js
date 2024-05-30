@@ -9,80 +9,80 @@ import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 import validationIngreso from "./Validar_Login_ingreso";
 
 const LoginIngreso = ({ setView }) => {
-  const [keyver, setKeyver] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "",
-    pass: "",
+  const [keyVisible, setKeyVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    emailOrPhone: "",
+    password: "",
   });
   const [errors, setErrors] = useState({});
-  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
-  const handlever = () => {
-    setKeyver(!keyver);
+  const toggleVisibility = () => {
+    setKeyVisible(!keyVisible);
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setUserData({
-      ...userData,
+    setFormData({
+      ...formData,
       [name]: value,
     });
+    setErrors(
+      validationIngreso({
+        ...formData,
+        [name]: value,
+      })
+    );
   };
 
   const handleSubmit = () => {
-    const validationErrors = validationIngreso(userData);
+    const validationErrors = validationIngreso(formData);
     setErrors(validationErrors);
-    setAttemptedSubmit(true);
 
     if (Object.keys(validationErrors).length === 0) {
+      //los datos del formulario
     }
   };
 
   return (
     <div className="bodyIngreso">
-      <img src={imagen} alt="Logo Fast Foot" className="imageningreso" />
+      <img src={imagen} alt="Logo Fast Food" className="imageningreso" />
       <div className="contenedoringreso">
         <div className="Grupoinput">
           <img src={icono_usuario} alt="icono ingreso" />
           <input
             type="text"
-            name="name"
-            value={userData.name}
+            name="emailOrPhone"
+            value={formData.emailOrPhone}
             onChange={handleChange}
             maxLength={100}
             placeholder="Celular/Correo"
           />
-          {attemptedSubmit && errors.name && (
-            <div className="espacioError">{errors.name}</div>
-          )}
         </div>
+        {errors.emailOrPhone && (
+          <div className="espacioError">{errors.emailOrPhone}</div>
+        )}
         <div className="Grupoinput">
           <img src={icono_key} alt="icono ingreso" />
           <input
-            type={!keyver ? "password" : "text"}
-            name="pass"
-            value={userData.pass}
+            type={keyVisible ? "text" : "password"}
+            name="password"
+            value={formData.password}
             onChange={handleChange}
             maxLength={15}
-            placeholder="Password"
+            placeholder="Contraseña"
           />
           <img
-            src={keyver ? icono_ocultar : icono_ver}
+            src={keyVisible ? icono_ocultar : icono_ver}
             alt="Mostrar/Ocultar"
-            onClick={handlever}
+            onClick={toggleVisibility}
             className="ver"
           />
-          {attemptedSubmit && errors.pass && (
-            <div className="espacioError">{errors.pass}</div>
-          )}
         </div>
 
-        <div
-          className="olvidastekey"
-          onClick={() => {
-            setView("recuperarkey");
-          }}
-        >
+        {errors.password && (
+          <div className="espacioError">{errors.password}</div>
+        )}
+        <div className="olvidastekey" onClick={() => setView("recuperarkey")}>
           ¿Olvidaste tu Contraseña?
         </div>
 
@@ -95,19 +95,13 @@ const LoginIngreso = ({ setView }) => {
         <div className="Grupoingreso">
           <div className="centrarlogogoogle">
             <img src={icono_google} alt="icono ingreso" />
-            <div> ingresar con google</div>
+            <div>Ingresar con Google</div>
           </div>
-          <div
-            className="Registrate"
-            onClick={() => {
-              setView("invitado");
-            }}
-          >
-            Ingresa como Invitado
-          </div>
-
-          <div className="Registrate">
+          <div className="Registrate" onClick={() => setView("registro")}>
             ¿No tienes una cuenta? Regístrate aquí
+          </div>
+          <div className="Registrate" onClick={() => setView("invitado")}>
+            Ingresa como Invitado
           </div>
         </div>
       </div>
