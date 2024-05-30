@@ -20,7 +20,7 @@
     justify-content: center;
   }
   
-  .Grupoinput {
+  .Gruporadiobuton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,7 +32,7 @@
     width: 350px;
   }
   
-  .Grupoinput input {
+  .Gruporadiobuton input {
     height: 100%;
     border: none;
     outline: none;
@@ -41,10 +41,11 @@
     font-size: 16px;
   }
   
-  .Grupoinput img {
-    width: 20px;
+  .Gruporadiobuton div {
+    width: 100px;
     height: 20px;
     margin: 5px;
+    display: flex;
   }
   
   .centrarlogogoogle {

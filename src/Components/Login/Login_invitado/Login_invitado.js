@@ -56,25 +56,27 @@ const LoginInvitado = ({ setView }) => {
           )}
         </div>
 
-        <div className="Grupoinput">
-  <input
-    type="radio"
-    id="restaurante"
-    name="deliveryType"
-    value="restaurante"
-    checked={deliveryType === "restaurante"}
-    onChange={(e) => setDeliveryType(e.target.value)}
-  />
-  <div htmlFor="restaurante">Restaurante</div>
-  <input
-    type="radio"
-    id="domicilio"
-    name="deliveryType"
-    value="domicilio"
-    checked={deliveryType === "domicilio"}
-    onChange={(e) => setDeliveryType(e.target.value)}
-  />
-  <div htmlFor="domicilio">Domicilio</div>
+        <div className="Gruporadiobuton">
+                <div>
+                    <input
+                        type="radio"
+                        id="restaurante"
+                        name="deliveryType"
+                        value="restaurante"
+                        checked={deliveryType === "restaurante"}
+                        onChange={(e) => setDeliveryType(e.target.value)}
+                    />
+                Restaurante</div>
+                <div>
+                        <input
+                            type="radio"
+                            id="domicilio"
+                            name="deliveryType"
+                            value="domicilio"
+                            checked={deliveryType === "domicilio"}
+                            onChange={(e) => setDeliveryType(e.target.value)}
+                        />
+                Domicilio</div>
 </div>
 
 
