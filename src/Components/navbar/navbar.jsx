@@ -1,0 +1,64 @@
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import logo from "../../images/logo.png";
+import carrito from "../../images/carrito.svg";
+import inicio from "../../images/inicio.png";
+import configuracion from "../../images/configuracion.png";
+import pedidos from "../../images/pedidos.png";
+import cerrarSesion from "../../images/cerrarSesion.png";
+import "./navbar.css";
+
+function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <div className="navContainer">
+      <div>
+        <div className="menu" onClick={() => { setMenuOpen(!menuOpen) }}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className="menuUl">
+        <ul className={menuOpen ? "open" : ""}>
+          <li>
+            <NavLink to="/home">
+            <img src={inicio} alt=""/>
+              Inicio
+              </NavLink>
+          </li>
+          <li>
+            <NavLink to="/Configuration">
+          <img src={configuracion} alt="" />
+              Ajustes
+              </NavLink>
+          </li>
+          <li>
+            <NavLink to="/order">
+          <img src={pedidos} alt="" />
+              Mi Pedido
+              </NavLink>
+          </li>
+          <li>
+            <NavLink to="/login">
+          <img src={cerrarSesion} alt="" />
+              Cerrar sesion
+              </NavLink>
+          </li>
+        </ul>
+        </div>
+      </div>
+      <div className="logoContainer">
+        <img src={logo} alt="logo" className="logo" />
+      </div>
+      <div className="overlay" style={{ display: menuOpen ? "block" : "none" }}></div>
+      <div className="carritoContainer">
+        <Link to="/carrito">
+          <img src={carrito} alt="Carrito" className="carrito-img" />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default Navbar;

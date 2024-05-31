@@ -1,0 +1,118 @@
+
+.menu {
+  margin: 1rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 2.25rem;
+  height: 2rem;
+  z-index: 5 ;
+}
+
+.menu span {
+  height: 0.4rem;
+  width: 100%;
+  background-color: #c90a06;
+  border-radius: 0.2rem;
+}
+
+
+.overlay {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 16%;
+  height: 55%;
+  background-color:#f4f3f3;
+  box-shadow: inset;
+  z-index: 3;
+  display: none;
+  border: 1px solid rgb(211, 210, 210);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.menuUl ul.open {
+  display: flex;
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  z-index: 4;
+}
+.menuUl ul.open img{
+  align-items: center;
+  margin-right: 1%;
+  margin-bottom: -0.5%;
+  width: 2%;
+  height: auto;
+  
+
+  
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  top: 0;
+  padding: 0 1rem;
+}
+
+.logoContainer {
+  text-align: center;
+}
+
+.logo {
+  width: 25%;
+}
+
+.menuUl ul {
+  display: none;
+  list-style: none;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.menuUl ul li {
+  width: 100%;
+  text-align: left;
+  align-items: center;
+  font-size: 150%;
+  z-index: 3;
+  a{
+    text-decoration: none;
+  }
+  margin: 30px;
+}
+
+
+.navContainer ul li a {
+  margin: 0.2rem 0.5rem;
+  color: #c90a06;
+}
+
+.carritoContainer {
+  margin-top: 1%;
+  padding: 10px;
+  width: 50px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: #c90a06; 
+  cursor: pointer; 
+}
+
+.carritoContainer img {
+  filter: brightness(0) invert(1);
+  width: 100%;
+  height: 100%;
+}
+
+.carritoContainer:hover {
+  background-color: #f4ca0e; 
+}
