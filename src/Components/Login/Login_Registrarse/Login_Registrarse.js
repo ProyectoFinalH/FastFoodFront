@@ -16,7 +16,6 @@ const Registrarse = ({ setView }) => {
       ...userData,
       [name]: value,
     });
-    // Validar el campo modificado en tiempo real
     setErrors(validateField(name, value));
   };
 

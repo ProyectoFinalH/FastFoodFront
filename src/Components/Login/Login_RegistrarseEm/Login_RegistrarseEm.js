@@ -30,6 +30,10 @@ const RegistrarseEmpresa = ({ setView }) => {
     }
   };
 
+  const handleLoginLinkClick = () => {
+    setView("login");
+  };
+
   const validateForm = (data) => {
     let errors = {};
 
@@ -163,6 +167,9 @@ const RegistrarseEmpresa = ({ setView }) => {
         <button type="submit" className="registerButton">
           Registrar Empresa
         </button>
+        <div className="loginLink" onClick={handleLoginLinkClick}>
+          ¿Ya tienes una cuenta? Inicia sesión aquí
+        </div>
       </form>
     </div>
   );
