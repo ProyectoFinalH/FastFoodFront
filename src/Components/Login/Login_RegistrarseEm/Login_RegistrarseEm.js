@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./Login_RegistrarseEm.css";
 
+import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
+import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
+
 const RegistrarseEmpresa = ({ setView }) => {
+  const [keyVisible, setKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -18,6 +22,12 @@ const RegistrarseEmpresa = ({ setView }) => {
     });
     setErrors(validateField(name, value));
   };
+
+
+  const toggleVisibility = () => {
+    setKeyVisible(!keyVisible);
+  };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +47,7 @@ const RegistrarseEmpresa = ({ setView }) => {
       errors.username = "El nombre de usuario es requerido";
     } else if (
       data.username.trim().length < 4 ||
-      data.username.trim().length > 20
+      data.username.trim().length > 60
     ) {
       errors.username =
         "El nombre de usuario debe tener entre 4 y 20 caracteres";
@@ -136,33 +146,49 @@ const RegistrarseEmpresa = ({ setView }) => {
         </div>
         <div className="formGroup">
           <label htmlFor="password">Contraseña</label>
-          <input
-            type="password"
+          <div className="pass_display_flex">
+            <input
+            type={keyVisible ? "text" : "password" }
             id="password"
             name="password"
             value={userData.password}
             onChange={handleChange}
+            
           />
+          <img
+            src={keyVisible ? icono_ocultar : icono_ver}
+            alt="Mostrar/Ocultar"
+            onClick={toggleVisibility}
+            className="ver"
+          />
+          </div>
+          
           {errors.password && (
             <span className="errorMessage">{errors.password}</span>
           )}
         </div>
         <div className="formGroup">
           <label htmlFor="confirmPassword">Confirmar contraseña</label>
+          <div className="pass_display_flex">
           <input
-            type="password"
+            type={keyVisible ? "text" : "password" }
             id="confirmPassword"
             name="confirmPassword"
             value={userData.confirmPassword}
             onChange={handleChange}
           />
+          </div>
           {errors.confirmPassword && (
             <span className="errorMessage">{errors.confirmPassword}</span>
           )}
         </div>
-        <button type="submit" className="registerButton">
+        <button type="submit" className="buttonSubmit">
           Registrar Empresa
         </button>
+        <div className="loginLink" onClick={() => {
+    setView("login");}}>
+          ¿Ya tienes una cuenta? Inicia sesión aquí
+        </div>
       </form>
     </div>
   );

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./Login_Registrarse.css";
 
+import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
+import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
+
 const Registrarse = ({ setView }) => {
+  const [keyVisible, setKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -9,7 +13,9 @@ const Registrarse = ({ setView }) => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
-
+  const toggleVisibility = () => {
+    setKeyVisible(!keyVisible);
+  };
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserData({
@@ -38,7 +44,7 @@ const Registrarse = ({ setView }) => {
       errors.username = "El nombre de usuario es requerido";
     } else if (
       data.username.trim().length < 4 ||
-      data.username.trim().length > 20
+      data.username.trim().length > 60
     ) {
       errors.username =
         "El nombre de usuario debe tener entre 4 y 20 caracteres";
@@ -73,7 +79,7 @@ const Registrarse = ({ setView }) => {
       case "username":
         if (!value.trim()) {
           fieldErrors.username = "El nombre de usuario es requerido";
-        } else if (value.trim().length < 4 || value.trim().length > 20) {
+        } else if (value.trim().length < 4 || value.trim().length > 600) {
           fieldErrors.username =
             "El nombre de usuario debe tener entre 4 y 20 caracteres";
         }
@@ -141,13 +147,22 @@ const Registrarse = ({ setView }) => {
         </div>
         <div className="formGroup">
           <label htmlFor="password">Contraseña</label>
+          <div className="pass_display_flex">
           <input
-            type="password"
+            type={keyVisible ? "text" : "password" }
             id="password"
             name="password"
             value={userData.password}
             onChange={handleChange}
           />
+        <img
+            src={keyVisible ? icono_ocultar : icono_ver}
+            alt="Mostrar/Ocultar"
+            onClick={toggleVisibility}
+            className="ver"
+          />
+
+</div>
           {errors.password && (
             <span className="errorMessage">{errors.password}</span>
           )}
@@ -155,7 +170,7 @@ const Registrarse = ({ setView }) => {
         <div className="formGroup">
           <label htmlFor="confirmPassword">Confirmar Contraseña</label>
           <input
-            type="password"
+            type={keyVisible ? "text" : "password" }
             id="confirmPassword"
             name="confirmPassword"
             value={userData.confirmPassword}

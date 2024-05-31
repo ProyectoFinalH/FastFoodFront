@@ -4,8 +4,9 @@ import imagen from "../Login_imagenes/food_sin_fondosi.png";
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
-import icono_google from "../Login_imagenes/iconos/icons8-google-48.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
+import icono_google from "../Login_imagenes/iconos/icons8-google-48.png";
+
 import validationIngreso from "./Validar_Login_ingreso";
 
 const LoginIngreso = ({ setView }) => {

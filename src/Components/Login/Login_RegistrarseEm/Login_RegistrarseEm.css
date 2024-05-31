@@ -34,7 +34,15 @@
   border: 1px solid #ccc;
   border-radius: 3px;
 }
+.pass_display_flex{
+  display: flex;
+  align-items: center;
+}
+.pass_display_flex img {
+  width: 25px;
+  height: 25px;
 
+}
 .errorMessage {
   color: red;
   font-size: 14px;
