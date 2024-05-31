@@ -24,12 +24,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px groove gainsboro;
-  border-radius: 10px;
-  height: 35px;
-  margin-top: 20px;
+  height: 30px;
+  margin-top: 10px;
   padding: 5px;
   width: 350px;
+  border: none;
 }
 
 .Gruporadiobuton input {

@@ -57,7 +57,8 @@ const LoginInvitado = ({ setView }) => {
 
         <div className="Gruporadiobuton">
           <div>
-            <input
+          <input
+              className="input-radio-buton"
               type="radio"
               id="restaurante"
               name="deliveryType"
@@ -68,51 +69,37 @@ const LoginInvitado = ({ setView }) => {
             Restaurante
           </div>
           <div>
-            <input
+          <input
               type="radio"
-              id="domicilio"
+              id="restaurante"
               name="deliveryType"
-              value="domicilio"
-              checked={deliveryType === "domicilio"}
+              value="restaurante"
+              checked={deliveryType === "restaurante"}
               onChange={(e) => setDeliveryType(e.target.value)}
             />
             Domicilio
           </div>
         </div>
 
-        {deliveryType === "domicilio" ? (
+        
           <div className="Grupoinput">
-            <img src={icono_home} alt="icono ingreso" />
+            <img src={deliveryType === "domicilio" ? icono_home:icono_mesa} alt="icono ingreso" />
             <input
               type="text"
               name="domicilio"
               value={userData.domicilio}
               onChange={handleChange}
               maxLength={15}
-              placeholder="Direccion"
+              placeholder={deliveryType === "domicilio" ? "Direccion":"Número de la mesa"} 
             />
 
             {attemptedSubmit && errors.pass && (
               <div className="espacioError">{errors.pass}</div>
             )}
           </div>
-        ) : (
-          <div className="Grupoinput">
-            <img src={icono_mesa} alt="icono ingreso" />
-            <input
-              type="text"
-              name="mesa"
-              value={userData.mesa}
-              onChange={handleChange}
-              maxLength={15}
-              placeholder="Número de la mesa"
-            />
-
-            {attemptedSubmit && errors.pass && (
-              <div className="espacioError">{errors.pass}</div>
-            )}
-          </div>
-        )}
+      
+          
+      
         <div className="ov-btn-container">
           <div className="ov-btn-grow-box" onClick={handleSubmit}>
             Ingresar

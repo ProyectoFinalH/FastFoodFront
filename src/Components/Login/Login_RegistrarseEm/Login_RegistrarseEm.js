@@ -40,9 +40,7 @@ const RegistrarseEmpresa = ({ setView }) => {
     }
   };
 
-  const handleLoginLinkClick = () => {
-    setView("login");
-  };
+ 
 
   const validateForm = (data) => {
     let errors = {};
