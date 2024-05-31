@@ -1,3 +1,21 @@
+<<<<<<< HEAD
 a {
   text-decoration-line: none;
 }
+=======
+body {
+ 
+  background-color: #f7e1e1;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+>>>>>>> fbdfb1df2033c2bad6695721c336aeb37ffb27a9
