@@ -1,6 +1,7 @@
 import './mainPage.css';
 import React, { useState } from 'react';
 import StarRating from '../components/starRating/starRating.jsx';
+import { filterFoodByType } from '../components/filter/Filter.jsx';
 
 function MainPage() {
   const [rating, setRating] = useState(0);
