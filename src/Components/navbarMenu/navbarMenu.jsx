@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState } from "react";
 import "./navbarMenu.css";
 
 function NavbarMenu() {
@@ -23,7 +22,7 @@ function NavbarMenu() {
         </div>
       </form>
       <div className="navbarMenuSelect">
-        <div className='ulContainer' onClick={Options1}>
+        <div className="ulContainer" onClick={Options1}>
           <span>Ordenar ⮟</span>
           {isOpen1 && (
             <ul>
@@ -32,8 +31,8 @@ function NavbarMenu() {
             </ul>
           )}
         </div>
-        <div className='ulContainer2' onClick={Options2}>
-          <span >Categorías ⮟</span>
+        <div className="ulContainer2" onClick={Options2}>
+          <span>Categorías ⮟</span>
           {isOpen2 && (
             <ul>
               <li>Carne</li>
