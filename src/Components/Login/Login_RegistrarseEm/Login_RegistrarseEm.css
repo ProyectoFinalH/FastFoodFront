@@ -49,13 +49,19 @@
 }
 
 .registerButton {
-  width: 100%;
-  padding: 10px;
-  background-color: #4caf50;
+  margin-top: 20px;
+  height: 30px;
+  background: linear-gradient(283deg, #ff2426, #ff9259);
+  width: 350px;
   color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+  border: 2px solid black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
 }
 
 .registerButton:hover {
