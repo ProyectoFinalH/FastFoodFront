@@ -24,6 +24,7 @@ const reducer = (state= initialState, {type, payload})=>{
                     ...state, Registrado:payload
              } 
         case USERLOGIN:
+            alert("entro al reducer " + payload)
              return{
                     ...state, USER:payload
              } 

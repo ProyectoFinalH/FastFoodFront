@@ -46,7 +46,7 @@ const LoginIngreso = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       // Lógica para enviar los datos del formulario al servidor
       console.log("Datos del formulario:", formData);
-      alert("Ingreso en el login_ "+ formData.password)
+     // alert("Ingreso en el login_ "+ formData.password)
       dispatch(login_User(formData))
     }
   };
