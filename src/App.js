@@ -1,4 +1,5 @@
 import './App.css';
+import LoginAdmin from './Components/Login/Login_Admin/Login_Admin';
 import LoginPrincipal from './Components/Login/Login_Principal/Login_Principal';
 import Detail from "./views/detail/detail"
 import Account from "./views/account/account"
@@ -14,11 +15,13 @@ function App() {
     <div className="App">
          <Navbar/>
        <Routes>
-           <Route path='/' element={<LoginPrincipal/>}/>
-           <Route path="/home" element={<Home/>}/>
+          <Route path='/' element={<LoginPrincipal/>}/>
+          <Route path='/LoginAdmin' element={<LoginAdmin/>}/>
+          <Route path="/home" element={<Home/>}/>
           <Route path="/menu" element={<Menu/>}/>
           <Route path="/menu/:id" element={<Detail/>}/>
           <Route path="/account" element={<Account/>}/>
+
       </Routes>
     </div>
   );

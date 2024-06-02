@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login_Registrarse.css";
 
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
 import { register_user } from "../../../Redux/actions"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Registrarse = ({ setView }) => {
   const dispatch = useDispatch();
+   const Register = useSelector((state) => state.RegisterUserData);
   const [keyVisible, setKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
@@ -120,6 +121,14 @@ const Registrarse = ({ setView }) => {
   const handleLoginLinkClick = () => {
     setView("login");
   };
+
+  useEffect(() => {
+    if (Register) {
+      alert('Bienvenido ' + Register.username + " ahora puedes continuar")
+       setView('login')
+    }
+  }, [Register, setView]);
+  
 
   return (
     <div className="bodyregister">

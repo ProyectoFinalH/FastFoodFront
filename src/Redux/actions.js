@@ -4,12 +4,8 @@ import {
   RECOVERYKEY,
   USERLOGIN,
   USERLOGINGOOGLE,
-  // GET_RESTAURANT,
-  // GET_MENUS,
-  // GET_MENUITEMS,
-  // // GET_CATEGORIES,
-  // GET_MENUITEMS_BYNAME,
 } from "./action-types";
+
 import axios from "axios";
 
 //Registramos usuario
@@ -190,3 +186,8 @@ export function getMenuItemsByName(name) {
     });
   };
 }
+
+
+
+
+

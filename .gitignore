@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 node_modulesnode_modules/.cache/.eslintcache
 node_modules
 node_modules
 node_modules
+=======
+node_modules
+node_modules/.cache/.eslintcache
+
+>>>>>>> dev
