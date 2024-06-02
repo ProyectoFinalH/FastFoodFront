@@ -1,9 +1,10 @@
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, HAMBURGUER } from "./action-types"
 
 const initialState = {
     USER: null,
     RegisterUserData:null,
-    RegisterBusiness:null
+    RegisterBusiness:null,
+    FilterHamburguer: null
 }
 
 const reducer = (state= initialState, {type, payload})=>{
@@ -31,7 +32,8 @@ const reducer = (state= initialState, {type, payload})=>{
         case USERLOGINGOOGLE:
              return{
                     ...state, USER:payload
-             }   
+             }  
+             
             default:
                 return {...state}
         }
