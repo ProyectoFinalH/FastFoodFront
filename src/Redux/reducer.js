@@ -1,4 +1,5 @@
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, HAMBURGUER } from "./action-types"
+import { filter_hamburguer } from "./actions"
 
 const initialState = {
     USER: null,
@@ -31,6 +32,10 @@ const reducer = (state= initialState, {type, payload})=>{
         case USERLOGINGOOGLE:
              return{
                     ...state, USER:payload
+             }
+             case HAMBURGUER:
+             return{
+                    ...state, filter_hamburguer:payload
              }   
             default:
                 return {...state}
@@ -94,5 +99,7 @@ const reducer = (state= initialState, {type, payload})=>{
             }
       
 }*/
+
+
 
 export default reducer;

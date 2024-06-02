@@ -1,4 +1,4 @@
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, HAMBURGUER } from "./action-types"
 import axios from 'axios'
 
 
@@ -143,6 +143,25 @@ export const login_User_Google = (dataquery)=>{
 
             dispatch({
                         type:USERLOGINGOOGLE,
+                        payload:response
+                 })
+        } catch (error) {
+            console.log("Error al enviar mensaje", error.message);
+        }
+
+    }
+}
+
+export const filter_hamburguer = (dataquery)=>{
+    return async (dispatch) => {
+        try {
+            const endpoint = 'http://localhost:3001/types';
+            
+            const response = await axios.get(`${endpoint}?${dataquery}`)
+
+
+            dispatch({
+                        type:HAMBURGUER,
                         payload:response
                  })
         } catch (error) {

@@ -4,4 +4,6 @@ export const  RECOVERYKEY = 'RECOVERYKEY'
 export const USERLOGIN = 'USERLOGIN'
 export const USERLOGINGOOGLE = 'USERLOGINGOOGLE'
 
+export const HAMBURGUER = 'HAMBURGUER'
+
 
