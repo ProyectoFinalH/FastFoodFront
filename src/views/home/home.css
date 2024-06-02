@@ -1,0 +1,20 @@
+
+.cardContainer {
+    display: flex;
+    justify-content:space-between;
+    padding: 2%;
+    a {
+        text-decoration: none;
+    }
+}
+
+
+.cardOtherContainer {
+    display: flex;
+    justify-content: space-between;
+    width:710px;
+  }
+
+.cardOtherItem {
+    margin-right: 100px;
+  }
