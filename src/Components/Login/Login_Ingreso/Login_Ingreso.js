@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login_ingreso.css";
 import imagen from "../Login_imagenes/food_sin_fondosi.png";
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
@@ -9,11 +9,14 @@ import icono_google from "../Login_imagenes/iconos/icons8-google-48.png";
 import { login_User } from "../../../Redux/actions"
 
 import validationIngreso from "./Validar_Login_ingreso";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
+  const USER = useSelector((state) => state.USER);
   const [keyVisible, setKeyVisible] = useState(false);
+  const navigator = useNavigate();
 
   const [formData, setFormData] = useState({
     emailOrPhone: "",
@@ -50,6 +53,12 @@ const LoginIngreso = ({ setView }) => {
       dispatch(login_User(formData))
     }
   };
+
+  useEffect(() => {
+    if (USER === true ) {
+        navigator('/mainPage')
+    }
+}, [USER, navigator])
 
   return (
     <div className="bodyIngreso">
