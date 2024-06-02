@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import "./Login_ingreso.css";
+import "./Login_Admin.css";
 import imagen from "../Login_imagenes/food_sin_fondosi.png";
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-import icono_google from "../Login_imagenes/iconos/icons8-google-48.png";
+
 import { login_User } from "../../../Redux/actions"
-import validationIngreso from "./Validar_Login_ingreso";
+import validationIngreso from "./Validar_Login_Admin";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const LoginIngreso = ({ setView }) => {
+const LoginAdmin = ({ setView }) => {
   const dispatch = useDispatch();
   const USER = useSelector((state) => state.USER);
   const [keyVisible, setKeyVisible] = useState(false);
@@ -52,10 +52,7 @@ const LoginIngreso = ({ setView }) => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    //window.location.href = "https://2ba5-190-18-139-235.ngrok-free.app/auth/google";
-    window.open("https://2ba5-190-18-139-235.ngrok-free.app/auth/google", "popup", "width=600,height=600");
-  };
+
 
   useEffect(() => {
     if (USER === true) {
@@ -75,7 +72,7 @@ const LoginIngreso = ({ setView }) => {
             value={formData.emailOrPhone}
             onChange={handleChange}
             maxLength={100}
-            placeholder="Celular/Correo"
+            placeholder="Datos de Administrador"
           />
         </div>
         {errors.emailOrPhone && (
@@ -109,24 +106,10 @@ const LoginIngreso = ({ setView }) => {
             Ingresar
           </div>
         </div>
-        <div className="Grupoingreso">
-          <div className="centrarlogogoogle" onClick={handleGoogleLogin} style={{ cursor: 'pointer' }}>
-            <img src={icono_google} alt="icono ingreso" />
-            <div>Ingresar con Google</div>
-          </div>
-          <div className="Registrate" onClick={() => setView("registro")}>
-            ¿No tienes una cuenta? Regístrate aquí
-          </div>
-          <div className="Registrate" onClick={() => setView("registroEmpresa")}>
-            ¿Eres una empresa? Regístrate aquí
-          </div>
-          <div className="Registrate" onClick={() => setView("invitado")}>
-            Ingresa como Invitado
-          </div>
-        </div>
+        
       </div>
     </div>
   );
 };
 
-export default LoginIngreso;
+export default LoginAdmin;
