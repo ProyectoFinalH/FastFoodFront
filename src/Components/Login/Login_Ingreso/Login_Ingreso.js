@@ -6,11 +6,15 @@ import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 import icono_google from "../Login_imagenes/iconos/icons8-google-48.png";
+import { login_User } from "../../../Redux/actions"
 
 import validationIngreso from "./Validar_Login_ingreso";
+import { useDispatch } from "react-redux";
 
 const LoginIngreso = ({ setView }) => {
+  const dispatch = useDispatch();
   const [keyVisible, setKeyVisible] = useState(false);
+
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     password: "",
@@ -42,6 +46,8 @@ const LoginIngreso = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       // Lógica para enviar los datos del formulario al servidor
       console.log("Datos del formulario:", formData);
+      alert("Ingreso en el login_ "+ formData.password)
+      dispatch(login_User(formData))
     }
   };
 

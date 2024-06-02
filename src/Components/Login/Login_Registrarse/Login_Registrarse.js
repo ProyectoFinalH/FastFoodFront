@@ -4,7 +4,11 @@ import "./Login_Registrarse.css";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
+import { register_user } from "../../../Redux/actions"
+import { useDispatch } from "react-redux";
+
 const Registrarse = ({ setView }) => {
+  const dispatch = useDispatch();
   const [keyVisible, setKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
@@ -33,6 +37,7 @@ const Registrarse = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
       // lógica para enviar los datos del formulario al servidor
+      dispatch(register_user(userData))
     }
   };
 

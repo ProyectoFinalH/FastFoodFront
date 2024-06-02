@@ -1,21 +1,23 @@
 import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
 
 const initialState = {
-    Registrado: null,
-    copydogs:[],
-    temperamento:[]
+    USER: null,
+    RegisterUserData:null,
+    RegisterBusiness:null
 }
 
 const reducer = (state= initialState, {type, payload})=>{
    // console.log("entro al reducer la informacion" + payload);
+   
     switch( type ){
         case REGISTERUSER:
+            //alert("Entro al register user paiload "+  JSON.stringify(payload))
             return{
-                ...state, Registrado:payload
+                ...state, RegisterUserData:payload
             }
         case REGISTERBUSINESS:
             return{
-                ...state, Registrado:payload
+                ...state, RegisterBusiness:payload
             }
          case RECOVERYKEY:
              return{
@@ -23,11 +25,11 @@ const reducer = (state= initialState, {type, payload})=>{
              } 
         case USERLOGIN:
              return{
-                    ...state, Registrado:payload
+                    ...state, USER:payload
              } 
         case USERLOGINGOOGLE:
              return{
-                    ...state, Registrado:payload
+                    ...state, USER:payload
              }   
             default:
                 return {...state}

@@ -6,23 +6,29 @@ import axios from 'axios'
 export const register_user = (dataquery) => {
     return async (dispatch) => {
         try {
-            const endpoint = 'http://localhost:3001/atleticos/register';
-            const response = await axios.post(endpoint, dataquery);
-            const userData = response.data;
+           // alert("Entro al dispach")
+            const userData = {
+                                username:dataquery.username,
+                                email:dataquery.email,
+                                password:dataquery.password
+            }
+          //  alert ("usuario "+userData.username)
+            const endpoint = 'http://localhost:5000/users/create';
+            
+            const response = await axios.post(endpoint, userData);
+            const {id, username, email, password, google_id, role_id } =response.data
 
+           // alert("El data es " + {id, username, email, password, google_id, role_id })
 
+           
 
-            console.log("Datos encontrados", JSON.stringify(userData));
-
-            if (userData && userData.save === 'yes') {
-
+            const userDatauser= {id, username, email, password, google_id, role_id }
+           // console.log("Datos encontrados", JSON.stringify(userDatauser));
             dispatch({
                 type: REGISTERUSER,
-                payload: userData,
+                payload: userDatauser,
             });
-        }else{
-            alert('Error al registrar el usuario');
-        }
+      
         } catch (error) {
             console.log("Error al enviar la información", error.message);
         }
@@ -92,7 +98,7 @@ export const recovery_key_user = (dataquery) => {
 export const login_User = (dataquery)=>{
     return async (dispatch) => {
         try {
-            const endpoint = 'http://localhost:3001/atleticos/recuperarkey';
+            const endpoint = 'http://localhost:5000/users/login';
             
             const response = await axios.post(endpoint, dataquery)
 
