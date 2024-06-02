@@ -7,7 +7,7 @@ function CardPagos() {
     <div>
       <img src={imgpagos}/>
       </div>
-      <div>
+      <div className="textContainer">
       <h2>Metodos de pago</h2>
       <p>Descubre todas las Opciones</p>
       </div>

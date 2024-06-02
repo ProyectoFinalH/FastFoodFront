@@ -3,6 +3,7 @@ import {
   GET_MENUS,
   GET_MENUITEMS,
   // GET_CATEGORIES,
+  GET_MENUITEMS_BYNAME,
 } from "./actions";
 
 let initialState = {
@@ -38,6 +39,12 @@ const dataReducer = (state = initialState, action) => {
     //     ...state,
     //     allCountries: action.payload,
     //   };
+
+    case GET_MENUITEMS_BYNAME:
+    return {
+      ...state,
+      allMenuItems: action.payload
+    };
     default:
       return state;
   }

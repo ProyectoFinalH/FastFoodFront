@@ -4,6 +4,7 @@ import axios from 'axios';
 export const GET_MENUS ="GET_MENUS"
 export const GET_MENUITEMS ="GET_MENUITEMS"
 // export const GET_CATEGORIES ="GET_CATEGORIES"
+export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME"
 
 export const fetchData = () => async (dispatch) => {
   try {
@@ -54,3 +55,13 @@ export function  getAllMenuitems(){
 //       })
 //   }
 // }
+
+export function  getMenuItemsByName(name){
+  return async function(dispatch){
+      const response = await axios(`http://localhost:5000/menuitems?name=${name}`)
+      return dispatch({
+          type:"GET_MENUITEMS_BYNAME",
+          payload:response.data
+      })
+  }
+}

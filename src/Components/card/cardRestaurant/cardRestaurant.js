@@ -8,10 +8,13 @@ function CardRestaurant() {
       <div>
         <img src={imgRest}/>
         </div>
-        <div>
+        <div className="textContainer">
+
         <h1>EL CORRAL</h1>
-        <h3>Comida Rapida</h3>
-        <h4>⭐5</h4>
+        <p>Comida Rapida</p>
+        <div className="cardValoration">
+        <h2 >⭐5</h2>
+        </div>
         </div>
     </div>
   )

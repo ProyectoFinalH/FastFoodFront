@@ -1,16 +1,18 @@
 /* eslint-disable react/prop-types */
 
-import CardMenu from "../../card/cardMenu/cardMenu";
-import "./cardsMenu.css";
+import CardMenuItems from "../../card/cardMenuItems/cardMenuItems";
+import "./cardsMenuItems.css";
 
-function CardsMenu({ AllMenuitems }) {
+function CardsMenuItems({ AllMenuitems }) {
+
+  
   return (
     <div className="cardsContainer">
 
       {AllMenuitems && AllMenuitems.map((menu) => (
-        <CardMenu 
+        <CardMenuItems 
         key={menu?.id}
-        menuid={menu?.menu_id}
+        id={menu?.id}
         category={menu?.category_id}
         name={menu?.name}
         description={menu?.description}
@@ -22,4 +24,4 @@ function CardsMenu({ AllMenuitems }) {
   );
 }
 
-export default CardsMenu;
+export default CardsMenuItems;

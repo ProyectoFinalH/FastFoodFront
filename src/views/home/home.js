@@ -1,4 +1,3 @@
-
 import Slider from "../../Components/slider";
 import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
 import Image1 from "../../images/Image1.jpg";
@@ -17,19 +16,24 @@ function Home() {
       <Slider images={mockImges} />
       <div className="cardContainer">
         <div className="cardRestContainer">
-        <Link to="/menu">
-          <CardsRestaurant/>
-        </Link>
+
+          <Link to="/menu">
+            <CardsRestaurant />
+          </Link>
         </div>
-        <Link to="/opiniones">
-
-        <CardOpiniones />
-        </Link>
-
-        <Link to="/pagos">
-
-        <CardPagos />
-        </Link>
+    
+        <div className="cardOtherContainer">
+          <div className="cardOtherItem">
+          <Link to="/opiniones">
+            <CardOpiniones />
+          </Link>
+          </div>
+          <div className="cardOtherItem">
+          <Link to="/pagos">
+            <CardPagos />
+          </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

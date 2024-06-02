@@ -8,7 +8,7 @@ function CardOpiniones() {
     <div>
       <img src={imgOpiniones}/>
       </div>
-      <div>
+      <div className="textContainer">
       <h2>Opiniones</h2>
       <p>Contanos como fue tu experiencia</p>
       </div>

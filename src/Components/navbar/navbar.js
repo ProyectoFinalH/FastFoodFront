@@ -3,9 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../images/logo.png";
 import carrito from "../../images/carrito.svg";
 import inicio from "../../images/inicio.png";
-import configuracion from "../../images/configuracion.png";
+import usuario from "../../images/usuario.png";
 import pedidos from "../../images/pedidos.png";
-import cerrarSesion from "../../images/cerrarSesion.png";
+// import cerrarSesion from "../../images/cerrarSesion.png";
 import "./navbar.css";
 
 function Navbar() {
@@ -28,9 +28,9 @@ function Navbar() {
               </NavLink>
           </li>
           <li>
-            <NavLink to="/Configuration">
-          <img src={configuracion} alt="" />
-              Ajustes
+            <NavLink to="/account">
+          <img src={usuario} alt="" />
+              Mi cuenta
               </NavLink>
           </li>
           <li>
@@ -39,12 +39,12 @@ function Navbar() {
               Mi Pedido
               </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/login">
           <img src={cerrarSesion} alt="" />
               Cerrar sesion
               </NavLink>
-          </li>
+          </li> */}
         </ul>
         </div>
       </div>
