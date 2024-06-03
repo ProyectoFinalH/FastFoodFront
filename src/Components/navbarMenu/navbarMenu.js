@@ -2,14 +2,18 @@
 import { useState } from "react";
 import "./navbarMenu.css";
 import lupa from "../../images/lupas.png"
+import { useSelector } from "react-redux";
 
-function NavbarMenu({ handleChange, handleSubmit }) {
+function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
 
-  const Options1 = () => {
+  
+
+  const Options1 = (sortBy) => {
     setIsOpen1(!isOpen1);
+    handleSort(sortBy);
   };
 
   const Options2 = () => {
@@ -20,9 +24,11 @@ function NavbarMenu({ handleChange, handleSubmit }) {
     setIsOpen3(!isOpen3);
   };
 
-  const handleLiClick = (e) => {
+  const handleLiClick = (e, sortBy) => {
     e.stopPropagation();
+    handleSort(sortBy);
   };
+
 
   return (
     <div className="navbarMenuContainer">
@@ -35,11 +41,12 @@ function NavbarMenu({ handleChange, handleSubmit }) {
       <div className="navbarMenuSelect">
         <div onClick={Options1}>
           <span>Ordenar por: ⮟</span>
-          {isOpen1 && (
-            <ul>
-              <li  onClick={handleLiClick}>Menor precio</li>
-              <li  onClick={handleLiClick}>Mayor precio</li>
+          {isOpen1 && (            
+              <ul>
+              <li onClick={(e) => handleLiClick(e, "menorPrecio")}>Menor precio</li>
+              <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>Mayor precio</li>
             </ul>
+            
           )}
         </div>
         <div onClick={Options3}>
@@ -64,7 +71,7 @@ function NavbarMenu({ handleChange, handleSubmit }) {
             </ul>
           )}
         </div>
-      </div>
+      </div>      
     </div>
   );
 }

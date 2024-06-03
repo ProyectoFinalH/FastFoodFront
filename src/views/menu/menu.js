@@ -21,6 +21,7 @@ function Menu() {
   const [selectMenuItem, setSelectMenuItem] = useState(null)
   // const allCategories = useSelector((state)=> state.allCategories)
   const [searchString, setSearchString] = useState("")
+  const [sortBy, setSortBy] = useState(null);
 
 
 
@@ -53,14 +54,27 @@ function Menu() {
   //   }
   //   setSelectMenuItem(filterMenuItem)
   // }, [allMenuitems, searchString])
+  
 
  const handleSelectMenu = (menuItem) => {
   setSelectMenuItem((prevId) => (prevId === menuItem ? null : menuItem))
  } 
  
- const filteredMenuItems = selectMenuItem
+ let filteredMenuItems = selectMenuItem
  ? allMenuitems.filter((menu) => menu.menu_id === selectMenuItem)
  : allMenuitems;
+
+ const handleSort = (sortBy,e) => {
+  setSortBy(sortBy);
+}
+
+ if (sortBy === "menorPrecio") {
+  filteredMenuItems = filteredMenuItems.sort((a, b) => a.price - b.price);
+} else if (sortBy === "mayorPrecio") {
+  filteredMenuItems = filteredMenuItems.sort((a, b) => b.price - a.price);
+}
+
+console.log(filteredMenuItems)
 
 
   return (
@@ -75,6 +89,7 @@ function Menu() {
       </div>
       <div className="navCardContainer">
       <NavbarMenu handleChange={handleChange}  handleSubmit={handleSubmit}/>
+      <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} handleSort={handleSort} />
       <CardsMenuItem AllMenuitems = {filteredMenuItems} selectMenuItem={selectMenuItem}/>
       
       </div>

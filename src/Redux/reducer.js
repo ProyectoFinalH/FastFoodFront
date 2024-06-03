@@ -6,7 +6,8 @@ import {
   USERLOGINGOOGLE, 
   GET_MENUS,
   GET_MENUITEMS,
-  GET_MENUITEMS_BYNAME
+  GET_MENUITEMS_BYNAME,
+  SORTER_ASC,
 
 } from "../Redux/action-types";
 // export const GET_RESTAURANT = "GET_RESTAURANT"
@@ -78,6 +79,11 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allMenuItems: payload
       };
+      case SORTER_ASC:
+        return {
+          ...state,
+          allMenuItems: payload
+        };
     default:
       return { ...state };
   }

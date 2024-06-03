@@ -11,7 +11,7 @@ function CardMenu(id) {
 
 
 <Link to={`/menu/${menuid}`}>
-        <img src={image}/>
+        <img alt="" src={image}/>
         <h2>{name}</h2>
         <p>{description}</p>
         <p>{price}</p>

@@ -4,6 +4,7 @@ import CardMenu from "../../card/cardMenu/cardMenu";
 import "./cardsMenu.css";
 
 function CardsMenu({ AllMenuitems }) {
+  
   return (
     <div className="cardsContainer">
 
