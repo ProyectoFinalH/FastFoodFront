@@ -58,7 +58,7 @@ const LoginIngreso = ({ setView }) => {
   };
 
   const handleGoogleLogin = () => {
-    window.open("https://2ba5-190-18-139-235.ngrok-free.app/auth/google", "popup", "width=600,height=600");
+
   };
 
   const handleInvitado = () =>{
@@ -66,11 +66,13 @@ const LoginIngreso = ({ setView }) => {
   }
 
   useEffect(() => {
+
     if (User) {
       navigate('/home');
     } else {
       navigate('/');
     }
+   
   }, [User, navigate]);
 
   useEffect(() => {
@@ -155,14 +157,21 @@ const LoginIngreso = ({ setView }) => {
           </div>
         </div>
         <div className="Grupoingreso">
-          <div className="centrarlogogoogle" onClick={handleGoogleLogin} style={{ cursor: 'pointer' }}>
+          <div
+            className="centrarlogogoogle"
+            onClick={handleGoogleLogin}
+            style={{ cursor: "pointer" }}
+          >
             <img src={icono_google} alt="icono ingreso" />
             <div>Ingresar con Google</div>
           </div>
           <div className="Registrate" onClick={() => setView("registro")}>
             ¿No tienes una cuenta? Regístrate aquí
           </div>
-          <div className="Registrate" onClick={() => setView("registroEmpresa")}>
+          <div
+            className="Registrate"
+            onClick={() => setView("registroEmpresa")}
+          >
             ¿Eres una empresa? Regístrate aquí
           </div>
           <div className="Registrate" onClick={handleInvitado}>

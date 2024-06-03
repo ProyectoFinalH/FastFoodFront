@@ -57,7 +57,7 @@ const LoginInvitado = ({ setView }) => {
 
         <div className="Gruporadiobuton">
           <div>
-          <input
+            <input
               className="input-radio-buton"
               type="radio"
               id="restaurante"
@@ -69,7 +69,7 @@ const LoginInvitado = ({ setView }) => {
             Restaurante
           </div>
           <div>
-          <input
+            <input
               type="radio"
               id="restaurante"
               name="deliveryType"
@@ -81,25 +81,27 @@ const LoginInvitado = ({ setView }) => {
           </div>
         </div>
 
-        
-          <div className="Grupoinput">
-            <img src={deliveryType === "domicilio" ? icono_home:icono_mesa} alt="icono ingreso" />
-            <input
-              type="text"
-              name="domicilio"
-              value={userData.domicilio}
-              onChange={handleChange}
-              maxLength={15}
-              placeholder={deliveryType === "domicilio" ? "Direccion":"Número de la mesa"} 
-            />
+        <div className="Grupoinput">
+          <img
+            src={deliveryType === "domicilio" ? icono_home : icono_mesa}
+            alt="icono ingreso"
+          />
+          <input
+            type="text"
+            name="domicilio"
+            value={userData.domicilio}
+            onChange={handleChange}
+            maxLength={15}
+            placeholder={
+              deliveryType === "domicilio" ? "Direccion" : "Número de la mesa"
+            }
+          />
 
-            {attemptedSubmit && errors.pass && (
-              <div className="espacioError">{errors.pass}</div>
-            )}
-          </div>
-      
-          
-      
+          {attemptedSubmit && errors.pass && (
+            <div className="espacioError">{errors.pass}</div>
+          )}
+        </div>
+
         <div className="ov-btn-container">
           <div className="ov-btn-grow-box" onClick={handleSubmit}>
             Ingresar

@@ -23,11 +23,9 @@ const RegistrarseEmpresa = ({ setView }) => {
     setErrors(validateField(name, value));
   };
 
-
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,8 +37,6 @@ const RegistrarseEmpresa = ({ setView }) => {
       // lógica para enviar los datos del formulario al servidor
     }
   };
-
- 
 
   const validateForm = (data) => {
     let errors = {};
@@ -150,21 +146,20 @@ const RegistrarseEmpresa = ({ setView }) => {
           <label htmlFor="password">Contraseña</label>
           <div className="pass_display_flex">
             <input
-            type={keyVisible ? "text" : "password" }
-            id="password"
-            name="password"
-            value={userData.password}
-            onChange={handleChange}
-            
-          />
-          <img
-            src={keyVisible ? icono_ocultar : icono_ver}
-            alt="Mostrar/Ocultar"
-            onClick={toggleVisibility}
-            className="ver"
-          />
+              type={keyVisible ? "text" : "password"}
+              id="password"
+              name="password"
+              value={userData.password}
+              onChange={handleChange}
+            />
+            <img
+              src={keyVisible ? icono_ocultar : icono_ver}
+              alt="Mostrar/Ocultar"
+              onClick={toggleVisibility}
+              className="ver"
+            />
           </div>
-          
+
           {errors.password && (
             <span className="errorMessage">{errors.password}</span>
           )}
@@ -172,13 +167,13 @@ const RegistrarseEmpresa = ({ setView }) => {
         <div className="formGroup">
           <label htmlFor="confirmPassword">Confirmar contraseña</label>
           <div className="pass_display_flex">
-          <input
-            type={keyVisible ? "text" : "password" }
-            id="confirmPassword"
-            name="confirmPassword"
-            value={userData.confirmPassword}
-            onChange={handleChange}
-          />
+            <input
+              type={keyVisible ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
+              value={userData.confirmPassword}
+              onChange={handleChange}
+            />
           </div>
           {errors.confirmPassword && (
             <span className="errorMessage">{errors.confirmPassword}</span>
@@ -187,8 +182,12 @@ const RegistrarseEmpresa = ({ setView }) => {
         <button type="submit" className="buttonSubmit">
           Registrar Empresa
         </button>
-        <div className="loginLink" onClick={() => {
-    setView("login");}}>
+        <div
+          className="loginLink"
+          onClick={() => {
+            setView("login");
+          }}
+        >
           ¿Ya tienes una cuenta? Inicia sesión aquí
         </div>
       </form>
