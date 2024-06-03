@@ -2,13 +2,11 @@
 import { useState } from "react";
 import "./navbarMenu.css";
 import lupa from "../../images/lupas.png"
-import { useSelector } from "react-redux";
 
 function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
-
   
 
   const Options1 = (sortBy) => {

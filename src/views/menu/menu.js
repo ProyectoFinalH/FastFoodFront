@@ -57,6 +57,7 @@ function Menu() {
   
 
  const handleSelectMenu = (menuItem) => {
+
   setSelectMenuItem((prevId) => (prevId === menuItem ? null : menuItem))
  } 
  
@@ -66,6 +67,7 @@ function Menu() {
 
  const handleSort = (sortBy,e) => {
   setSortBy(sortBy);
+  
 }
 
  if (sortBy === "menorPrecio") {
