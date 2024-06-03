@@ -33,6 +33,11 @@ function Menu() {
     // dispatch(getAllCategories())
   },[dispatch])
 
+  const applyPriceRangeFilter = (menuItems, range) => {
+    const [min, max] = range.split("-").map(Number);
+    return menuItems.filter((menu) => menu.price >= min && menu.price <= max);
+  };
+
   console.log("este son los menu",allMenus)
   function handleChange (e) {
     setSearchString(e.target.value)
@@ -81,15 +86,8 @@ const handlePriceRange = (range) => {
   setPriceRange(range);
  };
 
- if (priceRange === "1-30") {
-  filteredMenuItems = filteredMenuItems.filter((menu) => menu.price >= 1 && menu.price <= 30);
-  console.log(filteredMenuItems)
-} else if (priceRange === "31-60") {
-  filteredMenuItems = filteredMenuItems.filter((menu) => menu.price >= 31 && menu.price <= 60);
-} else if (priceRange === "61-100") {
-  filteredMenuItems = filteredMenuItems.filter((menu) => menu.price >= 61 && menu.price <= 100);
-} else if (priceRange === "100-1000") {
-  filteredMenuItems = filteredMenuItems.filter((menu) => menu.price >= 100 && menu.price <= 1000);
+ if (priceRange) {
+  filteredMenuItems = applyPriceRangeFilter(filteredMenuItems, priceRange);
 }
 
 console.log("1-30",filteredMenuItems)
