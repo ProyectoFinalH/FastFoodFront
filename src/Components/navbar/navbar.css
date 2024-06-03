@@ -8,6 +8,7 @@
   width: 2.25rem;
   height: 2rem;
   z-index: 5 ;
+  cursor: pointer;
 }
 
 .menu span {
@@ -57,7 +58,7 @@
 .navContainer {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   top: 0;
   padding: 0 1rem;
 }
