@@ -107,15 +107,18 @@ export const login_User = (dataquery) => {
 
       const response = await axios.post(endpoint, userData);
       const userDatauser = response.data;
+      
       // console.log("lo que tengo de retorno "+ userDatauser[0])
       console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
       //const userDatauser= {id, username, email, password, google_id, role_id }
-
-      dispatch({
-        type: USERLOGIN,
-        payload: userDatauser,
-      });
+      
+        dispatch({
+          type: USERLOGIN,
+          payload: userDatauser,
+        });
+     
     } catch (error) {
+      alert("Usuario no encontrado")
       console.log("Error al enviar mensaje", error.message);
     }
   };
