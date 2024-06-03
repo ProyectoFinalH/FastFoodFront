@@ -63,7 +63,7 @@ const LoginIngreso = ({ setView }) => {
 
   useEffect(() => {
     if (USER === true) {
-      navigate("/mainPage");
+      navigate("/home");
     }
   }, [USER, navigate]);
 
