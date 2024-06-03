@@ -6,7 +6,7 @@ import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
-import { login_User } from "../../../Redux/actions"
+import { login_User } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_Admin";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -46,67 +46,65 @@ const LoginAdmin = ({ setView }) => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      // Lógica para enviar los datos del formulario al servidor
       console.log("Datos del formulario:", formData);
       dispatch(login_User(formData));
     }
   };
 
-
-
   useEffect(() => {
     if (USER === true) {
-      navigate('/mainPage');
+      navigate("/home");
     }
   }, [USER, navigate]);
 
   return (
-    <div className="bodyIngreso">
-      <img src={imagen} alt="Logo Fast Food" className="imageningreso" />
-      <div className="contenedoringreso">
-        <div className="Grupoinput">
-          <img src={icono_usuario} alt="icono ingreso" />
-          <input
-            type="text"
-            name="emailOrPhone"
-            value={formData.emailOrPhone}
-            onChange={handleChange}
-            maxLength={100}
-            placeholder="Datos de Administrador"
-          />
-        </div>
-        {errors.emailOrPhone && (
-          <div className="espacioError">{errors.emailOrPhone}</div>
-        )}
-        <div className="Grupoinput">
-          <img src={icono_key} alt="icono ingreso" />
-          <input
-            type={keyVisible ? "text" : "password"}
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            maxLength={15}
-            placeholder="Contraseña"
-          />
-          <img
-            src={keyVisible ? icono_ocultar : icono_ver}
-            alt="Mostrar/Ocultar"
-            onClick={toggleVisibility}
-            className="ver"
-          />
-        </div>
-        {errors.password && (
-          <div className="espacioError">{errors.password}</div>
-        )}
-        <div className="olvidastekey" onClick={() => setView("recuperarkey")}>
-          ¿Olvidaste tu Contraseña?
-        </div>
-        <div className="ov-btn-container">
-          <div className="ov-btn-grow-box" onClick={handleSubmit}>
-            Ingresar
+    <div className="login-admin-container">
+      <div className="login-admin-bodyIngreso">
+        <img src={imagen} alt="Logo Fast Food" className="login-admin-imageningreso" />
+        <div className="login-admin-contenedoringreso">
+          <div className="login-admin-Grupoinput">
+            <img src={icono_usuario} alt="icono ingreso" />
+            <input
+              type="text"
+              name="emailOrPhone"
+              value={formData.emailOrPhone}
+              onChange={handleChange}
+              maxLength={100}
+              placeholder="Datos de Administrador"
+            />
+          </div>
+          {errors.emailOrPhone && (
+            <div className="login-admin-espacioError">{errors.emailOrPhone}</div>
+          )}
+          <div className="login-admin-Grupoinput">
+            <img src={icono_key} alt="icono ingreso" />
+            <input
+              type={keyVisible ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              maxLength={15}
+              placeholder="Contraseña"
+            />
+            <img
+              src={keyVisible ? icono_ocultar : icono_ver}
+              alt="Mostrar/Ocultar"
+              onClick={toggleVisibility}
+              className="login-admin-ver"
+            />
+          </div>
+          {errors.password && (
+            <div className="login-admin-espacioError">{errors.password}</div>
+          )}
+          <div className="login-admin-olvidastekey" onClick={() => setView("recuperarkey")}>
+            ¿Olvidaste tu Contraseña?
+          </div>
+          <div className="login-admin-ov-btn-container">
+            <div className="login-admin-ov-btn-grow-box" onClick={handleSubmit}>
+              Ingresar
+            </div>
           </div>
         </div>
-        
       </div>
     </div>
   );

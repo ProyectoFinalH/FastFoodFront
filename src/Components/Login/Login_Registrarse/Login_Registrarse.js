@@ -4,12 +4,12 @@ import "./Login_Registrarse.css";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
-import { register_user } from "../../../Redux/actions"
+import { register_user } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Registrarse = ({ setView }) => {
   const dispatch = useDispatch();
-   const Register = useSelector((state) => state.RegisterUserData);
+  const Register = useSelector((state) => state.RegisterUserData);
   const [keyVisible, setKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
@@ -38,7 +38,7 @@ const Registrarse = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
       // lógica para enviar los datos del formulario al servidor
-      dispatch(register_user(userData))
+      dispatch(register_user(userData));
     }
   };
 
@@ -124,11 +124,10 @@ const Registrarse = ({ setView }) => {
 
   useEffect(() => {
     if (Register) {
-      alert('Bienvenido ' + Register.username + " ahora puedes continuar")
-       setView('login')
+      alert("Bienvenido " + Register.username + " ahora puedes continuar");
+      setView("login");
     }
   }, [Register, setView]);
-  
 
   return (
     <div className="bodyregister">
@@ -141,6 +140,8 @@ const Registrarse = ({ setView }) => {
             id="username"
             name="username"
             value={userData.username}
+            maxLength={45}
+            title="Solo se adminten 45 caractres"
             onChange={handleChange}
           />
           {errors.username && (
@@ -154,6 +155,8 @@ const Registrarse = ({ setView }) => {
             id="email"
             name="email"
             value={userData.email}
+            maxLength={60}
+            title="Solo se adminten 60 caractres"
             onChange={handleChange}
           />
           {errors.email && <span className="errorMessage">{errors.email}</span>}
@@ -161,12 +164,15 @@ const Registrarse = ({ setView }) => {
         <div className="formGroup">
           <label htmlFor="password">Contraseña</label>
           <div className="pass_display_flex">
+
           <input
             type={keyVisible ? "text" : "password" }
             id="password"
             name="password"
+            maxLength={15}
             value={userData.password}
             onChange={handleChange}
+            title="Solo se adminten 15 caractres"
           />
         <img
             src={keyVisible ? icono_ocultar : icono_ver}
@@ -176,6 +182,7 @@ const Registrarse = ({ setView }) => {
           />
 
 </div>
+
           {errors.password && (
             <span className="errorMessage">{errors.password}</span>
           )}
@@ -183,10 +190,11 @@ const Registrarse = ({ setView }) => {
         <div className="formGroup">
           <label htmlFor="confirmPassword">Confirmar Contraseña</label>
           <input
-            type={keyVisible ? "text" : "password" }
+            type={keyVisible ? "text" : "password"}
             id="confirmPassword"
             name="confirmPassword"
             value={userData.confirmPassword}
+            maxLength={15}
             onChange={handleChange}
           />
           {errors.confirmPassword && (

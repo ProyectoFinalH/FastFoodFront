@@ -13,27 +13,28 @@ function Slider({ images }) {
     return null;
   }
 
-
   const nextImage = () =>
-    setImageActual(imageActual === imagesCant -1 ? 0 : imageActual + 1)
+    setImageActual(imageActual === imagesCant - 1 ? 0 : imageActual + 1);
 
   const prevImage = () =>
-    setImageActual(imageActual === 0 ?imagesCant -1 : imageActual - 1)
-
+    setImageActual(imageActual === 0 ? imagesCant - 1 : imageActual - 1);
 
   return (
     <div className="ContainerSlider">
-      <button className="prevButton" onClick={prevImage}>◄</button>
+      <button className="prevButton" onClick={prevImage}>
+        ◄
+      </button>
       {images.map((image, index) => (
         <img
           key={index}
           src={image}
           alt="a1"
           className={imageActual === index ? "slide active" : "slide"}
-
         />
       ))}
-      <button className="nextButton" onClick={nextImage}>►</button>
+      <button className="nextButton" onClick={nextImage}>
+        ►
+      </button>
     </div>
   );
 }
