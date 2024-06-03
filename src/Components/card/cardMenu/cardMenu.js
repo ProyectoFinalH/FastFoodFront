@@ -6,8 +6,12 @@ function CardMenu(id) {
 
   return (
     <div className="cardMenuContainer">
-      <Link to={`/menu/${menuid}`}>
-        <img src={image} />
+
+
+
+<Link to={`/menu/${menuid}`}>
+        <img alt="" src={image}/>
+
         <h2>{name}</h2>
         <p>{description}</p>
         <p>{price}</p>

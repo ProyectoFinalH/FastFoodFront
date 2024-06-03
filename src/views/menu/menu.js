@@ -22,7 +22,12 @@ function Menu() {
   const allMenuitems = useSelector((state) => state.allMenuItems);
   const [selectMenuItem, setSelectMenuItem] = useState(null);
   // const allCategories = useSelector((state)=> state.allCategories)
-  const [searchString, setSearchString] = useState("");
+
+  const [searchString, setSearchString] = useState("")
+  const [sortBy, setSortBy] = useState(null);
+  const [priceRange, setPriceRange] = useState("");
+
+
 
   useEffect(() => {
     // dispatch(getAllRestaurants())
@@ -31,9 +36,16 @@ function Menu() {
     // dispatch(getAllCategories())
   }, [dispatch]);
 
-  console.log("este son los menu", allMenus);
-  function handleChange(e) {
-    setSearchString(e.target.value);
+
+  const applyPriceRangeFilter = (menuItems, range) => {
+    const [min, max] = range.split("-").map(Number);
+    return menuItems.filter((menu) => menu.price >= min && menu.price <= max);
+  };
+
+  console.log("este son los menu",allMenus)
+  function handleChange (e) {
+    setSearchString(e.target.value)
+
   }
 
   function handleSubmit(e) {
@@ -52,14 +64,40 @@ function Menu() {
   //   }
   //   setSelectMenuItem(filterMenuItem)
   // }, [allMenuitems, searchString])
+  
 
-  const handleSelectMenu = (menuItem) => {
-    setSelectMenuItem((prevId) => (prevId === menuItem ? null : menuItem));
-  };
 
-  const filteredMenuItems = selectMenuItem
-    ? allMenuitems.filter((menu) => menu.menu_id === selectMenuItem)
-    : allMenuitems;
+ const handleSelectMenu = (menuItem) => {
+
+  setSelectMenuItem((prevId) => (prevId === menuItem ? null : menuItem))
+ } 
+ 
+ let filteredMenuItems = selectMenuItem
+ ? allMenuitems.filter((menu) => menu.menu_id === selectMenuItem)
+ : allMenuitems;
+
+ const handleSort = (sortBy) => {
+  setSortBy(sortBy);
+
+}
+
+if (sortBy === "menorPrecio") {
+  filteredMenuItems = filteredMenuItems.sort((a, b) => a.price - b.price);
+} else if (sortBy === "mayorPrecio") {
+  filteredMenuItems = filteredMenuItems.sort((a, b) => b.price - a.price);
+}
+
+const handlePriceRange = (range) => {
+  setPriceRange(range);
+ };
+
+ if (priceRange) {
+  filteredMenuItems = applyPriceRangeFilter(filteredMenuItems, priceRange);
+}
+
+console.log("1-30",filteredMenuItems)
+
+
 
   return (
     <div className="menuContainer">
@@ -73,11 +111,11 @@ function Menu() {
         </div>
       </div>
       <div className="navCardContainer">
-        <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} />
-        <CardsMenuItem
-          AllMenuitems={filteredMenuItems}
-          selectMenuItem={selectMenuItem}
-        />
+
+      <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} handleSort={handleSort} handlePriceRange={handlePriceRange}/>
+      <CardsMenuItem AllMenuitems = {filteredMenuItems} selectMenuItem={selectMenuItem}/>
+      
+
       </div>
     </div>
   );

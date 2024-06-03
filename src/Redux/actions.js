@@ -192,3 +192,16 @@ export function getMenuItemsByName(name) {
     });
   };
 }
+
+
+export function sortedMenuItemsAsc(sortedMenuItems){
+  return ({
+    type: "SORTER_ASC",
+    payload: sortedMenuItems,
+})
+}
+
+
+
+
+
