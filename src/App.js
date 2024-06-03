@@ -8,12 +8,25 @@ import Menu from "./views/menu/menu"
 import Navbar from "./Components/navbar/navbar"
 
 import { Routes,Route} from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 
 function App() {
+  const User = useSelector((state) => state.USER);
+  const [nav, setNav] =useState(false)
+ useEffect(()=>{
+if(User){
+setNav(true)
+}
+ },[User])
   return (
     <div className="App">
-         <Navbar/>
+        {
+          nav 
+          ?<Navbar/>
+          :null
+          } 
        <Routes>
           <Route path='/' element={<LoginPrincipal/>}/>
           <Route path='/LoginAdmin' element={<LoginAdmin/>}/>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import "./Login_ingreso.css";
 import imagen from "../Login_imagenes/food_sin_fondosi.png";
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
@@ -13,7 +13,8 @@ import { useNavigate } from "react-router-dom";
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
-  const USER = useSelector((state) => state.USER);
+
+  const User = useSelector((state) => state.USER);
   const [keyVisible, setKeyVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -41,14 +42,16 @@ const LoginIngreso = ({ setView }) => {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validationIngreso(formData);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       // Lógica para enviar los datos del formulario al servidor
       console.log("Datos del formulario:", formData);
-      dispatch(login_User(formData));
+      await dispatch(login_User(formData));
+
+      
     }
   };
 
@@ -56,12 +59,14 @@ const LoginIngreso = ({ setView }) => {
     //window.location.href = "https://2ba5-190-18-139-235.ngrok-free.app/auth/google";
     window.open("https://2ba5-190-18-139-235.ngrok-free.app/auth/google", "popup", "width=600,height=600");
   };
-
-  useEffect(() => {
-    if (USER === true) {
-      navigate('/mainPage');
+  useEffect(()=>{ 
+    if(User){
+        navigate('/home');
+      }else{
+        navigate('/');
     }
-  }, [USER, navigate]);
+}, [User, navigate])
+ 
 
   return (
     <div className="bodyIngreso">

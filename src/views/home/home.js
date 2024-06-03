@@ -6,11 +6,22 @@ import Image3 from "../../images/image3.jpg";
 import "./home.css";
 import CardOpiniones from "../../Components/card/cardOpiniones/cardOpiniones";
 import CardPagos from "../../Components/card/cardPagos/cardPagos";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+
 
 const mockImges = [Image1, Image2, Image3];
 
+
 function Home() {
+  const User = useSelector((state) => state.USER);
+  const navigate = useNavigate();
+  useEffect(()=>{
+            if(!User){
+              navigate('/')
+            }
+    },[User, navigate]);
   return (
     <div className="homeContainer">
       <Slider images={mockImges} />
