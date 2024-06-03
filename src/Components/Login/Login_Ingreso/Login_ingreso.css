@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
 }
-.ver{
+.ver {
   cursor: pointer;
 }
 .imageningreso {
@@ -88,7 +88,6 @@
 }
 
 .olvidastekey:hover::before {
-  
   transform: scaleX(1);
 }
 

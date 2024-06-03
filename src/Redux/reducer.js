@@ -3,7 +3,7 @@
 //   REGISTERBUSINESS,
 //   RECOVERYKEY,
 //   USERLOGIN,
-//   USERLOGINGOOGLE, 
+//   USERLOGINGOOGLE,
 //   // // GET_RESTAURANT,
 //   // GET_MENUS,
 //   // GET_MENUITEMS,
@@ -11,10 +11,10 @@
 //   // GET_MENUITEMS_BYNAME,
 // } from "./action-types";
 // export const GET_RESTAURANT = "GET_RESTAURANT"
-export const GET_MENUS ="GET_MENUS"
-export const GET_MENUITEMS ="GET_MENUITEMS"
+export const GET_MENUS = "GET_MENUS";
+export const GET_MENUITEMS = "GET_MENUITEMS";
 // export const GET_CATEGORIES ="GET_CATEGORIES"
-export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME"
+export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME";
 const initialState = {
   USER: null,
   RegisterUserData: null,
@@ -56,26 +56,26 @@ const reducer = (state = initialState, { type, payload }) => {
     //     ...state,
     //     USER: payload,
     //   };
-      case GET_MENUS:
-        return {
-          ...state,
-          allMenus: payload,
-        };
-      case GET_MENUITEMS:
-        return {
-          ...state,
-          allMenuItems: payload,
-        };
-      // case GET_CATEGORIES:
-      //   return {
-      //     ...state,
-      //     allCountries: action.payload,
-      //   };
-  
-      case GET_MENUITEMS_BYNAME:
+    case GET_MENUS:
       return {
         ...state,
-        allMenuItems: payload
+        allMenus: payload,
+      };
+    case GET_MENUITEMS:
+      return {
+        ...state,
+        allMenuItems: payload,
+      };
+    // case GET_CATEGORIES:
+    //   return {
+    //     ...state,
+    //     allCountries: action.payload,
+    //   };
+
+    case GET_MENUITEMS_BYNAME:
+      return {
+        ...state,
+        allMenuItems: payload,
       };
     default:
       return { ...state };

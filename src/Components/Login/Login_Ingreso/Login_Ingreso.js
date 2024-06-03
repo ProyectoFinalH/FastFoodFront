@@ -6,7 +6,7 @@ import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 import icono_google from "../Login_imagenes/iconos/icons8-google-48.png";
-import { login_User } from "../../../Redux/actions"
+import { login_User } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -54,12 +54,16 @@ const LoginIngreso = ({ setView }) => {
 
   const handleGoogleLogin = () => {
     //window.location.href = "https://2ba5-190-18-139-235.ngrok-free.app/auth/google";
-    window.open("https://2ba5-190-18-139-235.ngrok-free.app/auth/google", "popup", "width=600,height=600");
+    window.open(
+      "https://2ba5-190-18-139-235.ngrok-free.app/auth/google",
+      "popup",
+      "width=600,height=600"
+    );
   };
 
   useEffect(() => {
     if (USER === true) {
-      navigate('/mainPage');
+      navigate("/mainPage");
     }
   }, [USER, navigate]);
 
@@ -110,14 +114,21 @@ const LoginIngreso = ({ setView }) => {
           </div>
         </div>
         <div className="Grupoingreso">
-          <div className="centrarlogogoogle" onClick={handleGoogleLogin} style={{ cursor: 'pointer' }}>
+          <div
+            className="centrarlogogoogle"
+            onClick={handleGoogleLogin}
+            style={{ cursor: "pointer" }}
+          >
             <img src={icono_google} alt="icono ingreso" />
             <div>Ingresar con Google</div>
           </div>
           <div className="Registrate" onClick={() => setView("registro")}>
             ¿No tienes una cuenta? Regístrate aquí
           </div>
-          <div className="Registrate" onClick={() => setView("registroEmpresa")}>
+          <div
+            className="Registrate"
+            onClick={() => setView("registroEmpresa")}
+          >
             ¿Eres una empresa? Regístrate aquí
           </div>
           <div className="Registrate" onClick={() => setView("invitado")}>

@@ -1,8 +1,7 @@
-.cardsContainer{
-    display: flex;
-    justify-content: center;
+.cardsContainer {
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 5%;
   margin-bottom: 5%;
-
 }

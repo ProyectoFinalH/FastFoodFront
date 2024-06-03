@@ -6,7 +6,7 @@ import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
-import { login_User } from "../../../Redux/actions"
+import { login_User } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_Admin";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -52,11 +52,9 @@ const LoginAdmin = ({ setView }) => {
     }
   };
 
-
-
   useEffect(() => {
     if (USER === true) {
-      navigate('/mainPage');
+      navigate("/mainPage");
     }
   }, [USER, navigate]);
 
@@ -106,7 +104,6 @@ const LoginAdmin = ({ setView }) => {
             Ingresar
           </div>
         </div>
-        
       </div>
     </div>
   );

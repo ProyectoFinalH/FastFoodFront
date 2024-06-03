@@ -186,8 +186,3 @@ export function getMenuItemsByName(name) {
     });
   };
 }
-
-
-
-
-

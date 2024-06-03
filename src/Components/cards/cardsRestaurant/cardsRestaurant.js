@@ -1,12 +1,11 @@
-
-import CardRestaurant from "../../card/cardRestaurant/cardRestaurant"
+import CardRestaurant from "../../card/cardRestaurant/cardRestaurant";
 
 function CardsRestaurant() {
   return (
     <div>
-        <CardRestaurant/>
+      <CardRestaurant />
     </div>
-  )
+  );
 }
 
-export default CardsRestaurant
+export default CardsRestaurant;
