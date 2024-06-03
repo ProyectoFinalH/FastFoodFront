@@ -1,7 +1,6 @@
 .navbarMenuContainer {
   display: flex;
   flex-direction: column;
-  
 }
 
 .navbarMenuContainer form {
@@ -47,30 +46,23 @@
   background-color: #f5f5f5;
   border: 1px solid rgb(211, 210, 210);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-
-}  
-
-
+}
 
 .navbarMenuContainer ul li {
   list-style: none;
   padding: 10px;
-
- 
- 
 }
 
 .navbarMenuContainer li:hover {
   background-color: #c90a06;
 }
 
-.searchContainer img 
-  {
-    height: 70%;
-    
-    object-fit: contain;
-    position: absolute;
-   top: 50%;
-   left: 50%; 
-   transform: translate(-50%, -50%);
-   }
+.searchContainer img {
+  height: 70%;
+
+  object-fit: contain;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

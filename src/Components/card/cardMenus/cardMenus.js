@@ -1,19 +1,20 @@
 /* eslint-disable react/prop-types */
-import "./cardMenus.css"
+import "./cardMenus.css";
 
-function CardMenus({id, name, handleSelectMenu}) {
-  
+function CardMenus({ id, name, handleSelectMenu }) {
   const handleClick = () => {
-    handleSelectMenu(id)
-  }
+    handleSelectMenu(id);
+  };
 
   return (
     <div>
-        <div className="cardMenusContainer">
-          <button className="buttonMenus" onClick={handleClick}>{name}</button>
+      <div className="cardMenusContainer">
+        <button className="buttonMenus" onClick={handleClick}>
+          {name}
+        </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default CardMenus
+export default CardMenus;
