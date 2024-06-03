@@ -1,12 +1,5 @@
-import {
-  REGISTERUSER,
-  REGISTERBUSINESS,
-  RECOVERYKEY,
-  USERLOGIN,
-  USERLOGINGOOGLE,
-} from "./action-types";
-
-import axios from "axios";
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
+import axios from 'axios'
 
 //Registramos usuario
 export const register_user = (dataquery) => {
