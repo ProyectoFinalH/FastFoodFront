@@ -179,8 +179,3 @@ export function getMenuItemsByName(name) {
     });
   };
 }
-
-
-
-
-
