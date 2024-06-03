@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./navbarMenu.css";
 import lupa from "../../images/lupas.png"
 
-function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
+function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }) {
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
@@ -22,9 +22,10 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
     setIsOpen3(!isOpen3);
   };
 
-  const handleLiClick = (e, sortBy) => {
+  const handleLiClick = (e, sortBy, range) => {
     e.stopPropagation();
     handleSort(sortBy);
+    handlePriceRange(range)
   };
 
 
@@ -51,7 +52,7 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
           <span>Rango de precio ⮟</span>
           {isOpen3 && (
             <ul>
-              <li  onClick={handleLiClick}>$</li>
+              <li onClick={(e) => handleLiClick(e, "1-30")}>1-30</li>
               <li  onClick={handleLiClick}>$$ </li>
               <li  onClick={handleLiClick}>$$$ </li>
               <li  onClick={handleLiClick}>$$$$ </li>

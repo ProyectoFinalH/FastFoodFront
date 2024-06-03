@@ -22,6 +22,7 @@ function Menu() {
   // const allCategories = useSelector((state)=> state.allCategories)
   const [searchString, setSearchString] = useState("")
   const [sortBy, setSortBy] = useState(null);
+  const [priceRange, setPriceRange] = useState("");
 
 
 
@@ -65,18 +66,33 @@ function Menu() {
  ? allMenuitems.filter((menu) => menu.menu_id === selectMenuItem)
  : allMenuitems;
 
- const handleSort = (sortBy,e) => {
+ const handleSort = (sortBy) => {
   setSortBy(sortBy);
-  
+
 }
 
- if (sortBy === "menorPrecio") {
+if (sortBy === "menorPrecio") {
   filteredMenuItems = filteredMenuItems.sort((a, b) => a.price - b.price);
 } else if (sortBy === "mayorPrecio") {
   filteredMenuItems = filteredMenuItems.sort((a, b) => b.price - a.price);
 }
 
-console.log(filteredMenuItems)
+const handlePriceRange = (range) => {
+  setPriceRange(range);
+ };
+
+ if (priceRange === "1-30") {
+  filteredMenuItems = filteredMenuItems.filter((menu) => menu.price >= 1 && menu.price <= 30);
+  console.log(filteredMenuItems)
+} else if (priceRange === "31-60") {
+  filteredMenuItems = filteredMenuItems.filter((menu) => menu.price >= 31 && menu.price <= 60);
+} else if (priceRange === "61-100") {
+  filteredMenuItems = filteredMenuItems.filter((menu) => menu.price >= 61 && menu.price <= 100);
+} else if (priceRange === "100-1000") {
+  filteredMenuItems = filteredMenuItems.filter((menu) => menu.price >= 100 && menu.price <= 1000);
+}
+
+console.log("1-30",filteredMenuItems)
 
 
   return (
@@ -90,8 +106,7 @@ console.log(filteredMenuItems)
       </div>
       </div>
       <div className="navCardContainer">
-      <NavbarMenu handleChange={handleChange}  handleSubmit={handleSubmit}/>
-      <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} handleSort={handleSort} />
+      <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} handleSort={handleSort} handlePriceRange={handlePriceRange}/>
       <CardsMenuItem AllMenuitems = {filteredMenuItems} selectMenuItem={selectMenuItem}/>
       
       </div>
