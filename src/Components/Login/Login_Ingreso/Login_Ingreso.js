@@ -16,6 +16,10 @@ const LoginIngreso = ({ setView }) => {
   const User = useSelector((state) => state.USER);
   const [keyVisible, setKeyVisible] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+
+  const [userType, setUserType] = useState(""); 
+
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -57,6 +61,10 @@ const LoginIngreso = ({ setView }) => {
     window.open("https://2ba5-190-18-139-235.ngrok-free.app/auth/google", "popup", "width=600,height=600");
   };
 
+  const handleInvitado = () =>{
+    dispatch(login_User('invitado'))
+  }
+
   useEffect(() => {
     if (User) {
       navigate('/home');
@@ -66,14 +74,40 @@ const LoginIngreso = ({ setView }) => {
   }, [User, navigate]);
 
   useEffect(() => {
-    // Habilitar el botón solo si ambos campos están llenos
-    setIsButtonEnabled(formData.emailOrPhone.trim() !== "" && formData.password.trim() !== "");
-  }, [formData]);
-
+    setIsButtonEnabled(
+      formData.emailOrPhone.trim() !== "" && 
+      formData.password.trim() !== "" &&
+      userType !== ""
+    );
+  }, [formData, userType]);
+  const handleUserTypeChange = (event) => {
+    setUserType(event.target.value); // Actualiza el tipo de usuario seleccionado
+  };
   return (
     <div className="bodyIngreso">
       <img src={imagen} alt="Logo Fast Food" className="imageningreso" />
       <div className="contenedoringreso">
+      
+      <div className="raio_select">
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="user"
+              checked={userType === "user"}
+              onChange={handleUserTypeChange}
+            /> Usuario
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="business"
+              checked={userType === "business"}
+              onChange={handleUserTypeChange}
+            /> Empresa
+          </label>
+        </div>
         <div className="Grupoinput">
           <img src={icono_usuario} alt="icono ingreso" />
           <input
@@ -131,7 +165,7 @@ const LoginIngreso = ({ setView }) => {
           <div className="Registrate" onClick={() => setView("registroEmpresa")}>
             ¿Eres una empresa? Regístrate aquí
           </div>
-          <div className="Registrate" onClick={() => setView("invitado")}>
+          <div className="Registrate" onClick={handleInvitado}>
             Ingresa como Invitado
           </div>
         </div>

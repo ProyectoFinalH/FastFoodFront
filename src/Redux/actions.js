@@ -92,30 +92,40 @@ export const recovery_key_user = (dataquery) => {
 export const login_User = (dataquery) => {
   return async (dispatch) => {
     try {
-      const userData = {
-        email: dataquery.emailOrPhone,
-        password: dataquery.password,
-      };
-
-      // const params = new URLSearchParams(userData).toString();
-
-      // alert ("Lo que tienen el username en el anme es "+ userData.username )
-
-      const endpoint = "http://localhost:5000/users/login";
-
-      //const response = await axios.get(`${endpoint}?${params}`);
-
-      const response = await axios.post(endpoint, userData);
-      const userDatauser = response.data;
-      
-      // console.log("lo que tengo de retorno "+ userDatauser[0])
-      console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
-      //const userDatauser= {id, username, email, password, google_id, role_id }
-      
+      if(dataquery === "invitado"){
         dispatch({
           type: USERLOGIN,
-          payload: userDatauser,
+          payload: dataquery,
         });
+      }else{
+
+        const userData = {
+          email: dataquery.emailOrPhone,
+          password: dataquery.password,
+        };
+  
+        // const params = new URLSearchParams(userData).toString();
+  
+        // alert ("Lo que tienen el username en el anme es "+ userData.username )
+  
+        const endpoint = "http://localhost:5000/users/login";
+  
+        //const response = await axios.get(`${endpoint}?${params}`);
+  
+        const response = await axios.post(endpoint, userData);
+        const userDatauser = response.data;
+        
+        // console.log("lo que tengo de retorno "+ userDatauser[0])
+        console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
+        //const userDatauser= {id, username, email, password, google_id, role_id }
+        
+          dispatch({
+            type: USERLOGIN,
+            payload: userDatauser,
+          });
+      }
+      
+   
      
     } catch (error) {
       alert("Usuario no encontrado")

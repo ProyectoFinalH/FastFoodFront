@@ -7,9 +7,11 @@ import usuario from "../../images/usuario.png";
 import pedidos from "../../images/pedidos.png";
 // import cerrarSesion from "../../images/cerrarSesion.png";
 import "./navbar.css";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const User = useSelector((state) => state.USER);
 
   return (
     <div className="navContainer">
@@ -52,11 +54,19 @@ function Navbar() {
         <img src={logo} alt="logo" className="logo" />
       </div>
       <div className="overlay" style={{ display: menuOpen ? "block" : "none" }}></div>
-      <div className="carritoContainer">
-        <Link to="/carrito">
-          <img src={carrito} alt="Carrito" className="carrito-img" />
-        </Link>
-      </div>
+      
+          {
+              User==='invitado'
+              ?null
+            :
+            <div className="carritoContainer"><Link to="/carrito">
+            <img src={carrito} alt="Carrito" className="carrito-img" />
+          </Link>
+          </div>
+
+          }
+        
+      
     </div>
   );
 }

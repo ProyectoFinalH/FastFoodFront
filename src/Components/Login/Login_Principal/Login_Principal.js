@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login_Principal.css";
-import Carrucel from "../Carrucel/Carrucel";
+//import Carrucel from "../Carrucel/Carrucel";
 import LoginIngreso from "../Login_Ingreso/Login_Ingreso";
 import Recuperarkey from "../Login_Recuperar/Login_Recuperar_key";
 import Registrarse from "../Login_Registrarse/Login_Registrarse";
@@ -26,16 +26,16 @@ const LoginPrincipal = () => {
       {loading && <Loading />}
       <div className="BodyLogin">
         <div className="izquierdaGeneral">
-          <Carrucel className="carrucel" />
+        {
+         // <Carrucel className="carrucel" />
+        }  
         </div>
         <div className="derechaGeneral">
           {logueo === "login" && <LoginIngreso setView={setLogueo} />}
           {logueo === "recuperarkey" && <Recuperarkey setView={setLogueo} />}
           {logueo === "registro" && <Registrarse setView={setLogueo} />}
-          {logueo === "registroEmpresa" && (
-            <RegistrarseEmpresa setView={setLogueo} />
-          )}
-          {logueo === "invitado" && <LoginInvitado setView={setLogueo} />}
+          {logueo === "registroEmpresa" && <RegistrarseEmpresa setView={setLogueo} />}
+          {logueo === "null" && <LoginInvitado setView={setLogueo} />}
         </div>
       </div>
     </div>
