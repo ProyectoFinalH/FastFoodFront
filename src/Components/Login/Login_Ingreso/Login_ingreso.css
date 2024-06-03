@@ -6,9 +6,11 @@
   align-items: center;
   justify-content: center;
 }
+
 .ver {
   cursor: pointer;
 }
+
 .imageningreso {
   width: 250px;
 }
@@ -116,6 +118,7 @@
 .Registrate:hover {
   cursor: pointer;
 }
+
 .Registrate {
   margin-top: 5px;
 }
@@ -148,11 +151,15 @@
   overflow: hidden;
   display: inline-block;
   font-weight: bolder;
+  transition: all 0.3s ease; /* Añadido para suavizar la transición */
+  font-weight: 500;
 }
+
 .ov-btn-grow-box:hover {
   color: #fff;
   cursor: pointer;
 }
+
 .ov-btn-grow-box::after {
   content: "";
   background: #29d884;
@@ -167,13 +174,38 @@
   transform: scale(0, 0);
   transition: all 0.3s ease;
 }
+
 .ov-btn-grow-box:hover::after {
   transition: all 0.3s ease-out;
   transform: scale(1, 1);
+}
+
+.ov-btn-grow-box.disabled {
+  background-color: grey;
+  cursor: not-allowed;
+  color: #ccc; /* Cambia el color del texto para mayor claridad */
+  font-weight: 500;
+}
+
+.ov-btn-grow-box.disabled:hover {
+  color: #ccc; /* Asegúrate de que el color del texto no cambie */
+  cursor: not-allowed;
+}
+
+.ov-btn-grow-box.disabled::after {
+  display: none; /* Deshabilita el efecto */
 }
 
 .espacioError {
   color: red;
   font-size: 0.8em;
   margin-top: 0.2em;
+}
+
+.raio_select{
+  display: flex;
+  font-size: 16px;
+  margin-top: 15px;
+  font-weight: 500;
+  /*display: none;*/
 }

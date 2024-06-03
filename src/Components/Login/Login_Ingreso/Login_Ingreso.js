@@ -13,8 +13,13 @@ import { useNavigate } from "react-router-dom";
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
-  const USER = useSelector((state) => state.USER);
+  const User = useSelector((state) => state.USER);
   const [keyVisible, setKeyVisible] = useState(false);
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+
+  const [userType, setUserType] = useState(""); 
+
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -41,36 +46,70 @@ const LoginIngreso = ({ setView }) => {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validationIngreso(formData);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       // Lógica para enviar los datos del formulario al servidor
       console.log("Datos del formulario:", formData);
-      dispatch(login_User(formData));
+      await dispatch(login_User(formData));
     }
   };
 
   const handleGoogleLogin = () => {
-    //window.location.href = "https://2ba5-190-18-139-235.ngrok-free.app/auth/google";
-    window.open(
-      "https://2ba5-190-18-139-235.ngrok-free.app/auth/google",
-      "popup",
-      "width=600,height=600"
-    );
+
   };
 
-  useEffect(() => {
-    if (USER === true) {
-      navigate("/home");
-    }
-  }, [USER, navigate]);
+  const handleInvitado = () =>{
+    dispatch(login_User('invitado'))
+  }
 
+  useEffect(() => {
+
+    if (User) {
+      navigate('/home');
+    } else {
+      navigate('/');
+    }
+   
+  }, [User, navigate]);
+
+  useEffect(() => {
+    setIsButtonEnabled(
+      formData.emailOrPhone.trim() !== "" && 
+      formData.password.trim() !== "" &&
+      userType !== ""
+    );
+  }, [formData, userType]);
+  const handleUserTypeChange = (event) => {
+    setUserType(event.target.value); // Actualiza el tipo de usuario seleccionado
+  };
   return (
     <div className="bodyIngreso">
       <img src={imagen} alt="Logo Fast Food" className="imageningreso" />
       <div className="contenedoringreso">
+      
+      <div className="raio_select">
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="user"
+              checked={userType === "user"}
+              onChange={handleUserTypeChange}
+            /> Usuario
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="business"
+              checked={userType === "business"}
+              onChange={handleUserTypeChange}
+            /> Empresa
+          </label>
+        </div>
         <div className="Grupoinput">
           <img src={icono_usuario} alt="icono ingreso" />
           <input
@@ -109,7 +148,11 @@ const LoginIngreso = ({ setView }) => {
           ¿Olvidaste tu Contraseña?
         </div>
         <div className="ov-btn-container">
-          <div className="ov-btn-grow-box" onClick={handleSubmit}>
+          <div 
+            className={`ov-btn-grow-box ${isButtonEnabled ? '' : 'disabled'}`} 
+            onClick={isButtonEnabled ? handleSubmit : null}
+            style={{ cursor: isButtonEnabled ? 'pointer' : 'not-allowed' }}
+          >
             Ingresar
           </div>
         </div>
@@ -131,7 +174,7 @@ const LoginIngreso = ({ setView }) => {
           >
             ¿Eres una empresa? Regístrate aquí
           </div>
-          <div className="Registrate" onClick={() => setView("invitado")}>
+          <div className="Registrate" onClick={handleInvitado}>
             Ingresa como Invitado
           </div>
         </div>

@@ -140,6 +140,8 @@ const Registrarse = ({ setView }) => {
             id="username"
             name="username"
             value={userData.username}
+            maxLength={45}
+            title="Solo se adminten 45 caractres"
             onChange={handleChange}
           />
           {errors.username && (
@@ -153,6 +155,8 @@ const Registrarse = ({ setView }) => {
             id="email"
             name="email"
             value={userData.email}
+            maxLength={60}
+            title="Solo se adminten 60 caractres"
             onChange={handleChange}
           />
           {errors.email && <span className="errorMessage">{errors.email}</span>}
@@ -160,20 +164,25 @@ const Registrarse = ({ setView }) => {
         <div className="formGroup">
           <label htmlFor="password">Contraseña</label>
           <div className="pass_display_flex">
-            <input
-              type={keyVisible ? "text" : "password"}
-              id="password"
-              name="password"
-              value={userData.password}
-              onChange={handleChange}
-            />
-            <img
-              src={keyVisible ? icono_ocultar : icono_ver}
-              alt="Mostrar/Ocultar"
-              onClick={toggleVisibility}
-              className="ver"
-            />
-          </div>
+
+          <input
+            type={keyVisible ? "text" : "password" }
+            id="password"
+            name="password"
+            maxLength={15}
+            value={userData.password}
+            onChange={handleChange}
+            title="Solo se adminten 15 caractres"
+          />
+        <img
+            src={keyVisible ? icono_ocultar : icono_ver}
+            alt="Mostrar/Ocultar"
+            onClick={toggleVisibility}
+            className="ver"
+          />
+
+</div>
+
           {errors.password && (
             <span className="errorMessage">{errors.password}</span>
           )}
@@ -185,6 +194,7 @@ const Registrarse = ({ setView }) => {
             id="confirmPassword"
             name="confirmPassword"
             value={userData.confirmPassword}
+            maxLength={15}
             onChange={handleChange}
           />
           {errors.confirmPassword && (
