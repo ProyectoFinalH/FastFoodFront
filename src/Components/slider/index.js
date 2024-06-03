@@ -1,2 +1,3 @@
-export {default} from './slider'
+export { default } from "./slider";
 
+aaaaaaaaaa;
