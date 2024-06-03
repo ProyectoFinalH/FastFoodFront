@@ -1,23 +1,25 @@
-.cardResContainer img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+.cardResContainer img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
-.cardResContainer {
-  color: black;
-  background: rgba(233, 233, 233, 0.8);
-  text-align: left;
-  width: 500px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-}
-.cardResContainer p {
-  color: gray;
+.cardResContainer{
+    color: black;
+    background: rgba(233, 233, 233, 0.8);
+    text-align: left;
+    width: 500px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    }
+
+.cardResContainer p{
+    color: gray;
 }
 
-.cardValoration {
-  display: flex;
-  justify-content: right;
-  margin: 15px;
-  margin-top: -50px;
+.cardValoration{
+    display: flex;
+    justify-content:right;
+    margin: 15px;
+    margin-top: -50px;
+
 }

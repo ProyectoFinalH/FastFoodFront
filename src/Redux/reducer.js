@@ -1,20 +1,21 @@
-// import {
-//   REGISTERUSER,
-//   REGISTERBUSINESS,
-//   RECOVERYKEY,
-//   USERLOGIN,
-//   USERLOGINGOOGLE,
-//   // // GET_RESTAURANT,
-//   // GET_MENUS,
-//   // GET_MENUITEMS,
-//   // // GET_CATEGORIES,
-//   // GET_MENUITEMS_BYNAME,
-// } from "./action-types";
+import {
+  REGISTERUSER,
+  REGISTERBUSINESS,
+  RECOVERYKEY,
+  USERLOGIN,
+  USERLOGINGOOGLE, 
+  GET_MENUS,
+  GET_MENUITEMS,
+  GET_MENUITEMS_BYNAME
+
+} from "../Redux/action-types";
 // export const GET_RESTAURANT = "GET_RESTAURANT"
-export const GET_MENUS = "GET_MENUS";
-export const GET_MENUITEMS = "GET_MENUITEMS";
+// export const GET_MENUS ="GET_MENUS"
+// export const GET_MENUITEMS ="GET_MENUITEMS"
 // export const GET_CATEGORIES ="GET_CATEGORIES"
-export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME";
+// export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME"
+
+
 const initialState = {
   USER: null,
   RegisterUserData: null,
@@ -29,102 +30,59 @@ const reducer = (state = initialState, { type, payload }) => {
   // console.log("entro al reducer la informacion" + payload);
 
   switch (type) {
-    // case REGISTERUSER:
-    //   //alert("Entro al register user paiload "+  JSON.stringify(payload))
-    //   return {
-    //     ...state,
-    //     RegisterUserData: payload,
-    //   };
-    // case REGISTERBUSINESS:
-    //   return {
-    //     ...state,
-    //     RegisterBusiness: payload,
-    //   };
-    // case RECOVERYKEY:
-    //   return {
-    //     ...state,
-    //     Registrado: payload,
-    //   };
-    // case USERLOGIN:
-    //   alert("entro al reducer " + payload);
-    //   return {
-    //     ...state,
-    //     USER: payload,
-    //   };
-    // case USERLOGINGOOGLE:
-    //   return {
-    //     ...state,
-    //     USER: payload,
-    //   };
-    case GET_MENUS:
-      return {
-        ...state,
-        allMenus: payload,
-      };
-    case GET_MENUITEMS:
-      return {
-        ...state,
-        allMenuItems: payload,
-      };
-    // case GET_CATEGORIES:
-    //   return {
-    //     ...state,
-    //     allCountries: action.payload,
-    //   };
+    case REGISTERUSER:
 
-    case GET_MENUITEMS_BYNAME:
       return {
         ...state,
-        allMenuItems: payload,
+        RegisterUserData: payload,
+      };
+    case REGISTERBUSINESS:
+      return {
+        ...state,
+        RegisterBusiness: payload,
+      };
+    case RECOVERYKEY:
+      return {
+        ...state,
+        Registrado: payload,
+      };
+    case USERLOGIN:
+      alert("entro al reducer " + payload);
+      return {
+        ...state,
+        USER: payload,
+      };
+    case USERLOGINGOOGLE:
+      return {
+        ...state,
+        USER: payload,
+      };
+      case GET_MENUS:
+        return {
+          ...state,
+          allMenus: payload,
+        };
+      case GET_MENUITEMS:
+        return {
+          ...state,
+          allMenuItems: payload,
+        };
+      // case GET_CATEGORIES:
+      //   return {
+      //     ...state,
+      //     allCountries: action.payload,
+      //   };
+  
+      case GET_MENUITEMS_BYNAME:
+      return {
+        ...state,
+        allMenuItems: payload
       };
     default:
       return { ...state };
   }
 };
 /*  case TEMPERAMENTO:
-=======
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, HAMBURGUER } from "./action-types"
-
-const initialState = {
-    USER: null,
-    RegisterUserData:null,
-    RegisterBusiness:null,
-    FilterHamburguer: null
-}
-
-const reducer = (state= initialState, {type, payload})=>{
-   // console.log("entro al reducer la informacion" + payload);
-   
-    switch( type ){
-        case REGISTERUSER:
-            //alert("Entro al register user paiload "+  JSON.stringify(payload))
-            return{
-                ...state, RegisterUserData:payload
-            }
-        case REGISTERBUSINESS:
-            return{
-                ...state, RegisterBusiness:payload
-            }
-         case RECOVERYKEY:
-             return{
-                    ...state, Registrado:payload
-             } 
-        case USERLOGIN:
-            alert("entro al reducer " + payload)
-             return{
-                    ...state, USER:payload
-             } 
-        case USERLOGINGOOGLE:
-             return{
-                    ...state, USER:payload
-             }  
-             
-            default:
-                return {...state}
-        }
-    }
-      /*  case TEMPERAMENTO:
->>>>>>> dev
             return {
                 ...state, temperamento:payload
             }
