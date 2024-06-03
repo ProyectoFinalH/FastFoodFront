@@ -1,26 +1,34 @@
-.bodyIngreso {
+.login-admin-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-admin-bodyIngreso {
   width: 350px;
-  height: 97%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.ver {
+
+.login-admin-ver {
   cursor: pointer;
 }
-.imageningreso {
+
+.login-admin-imageningreso {
   width: 250px;
 }
 
-.contenedoringreso {
+.login-admin-contenedoringreso {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.Grupoinput {
+.login-admin-Grupoinput {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +40,7 @@
   width: 350px;
 }
 
-.Grupoinput input {
+.login-admin-Grupoinput input {
   height: 100%;
   border: none;
   outline: none;
@@ -41,13 +49,13 @@
   font-size: 16px;
 }
 
-.Grupoinput img {
+.login-admin-Grupoinput img {
   width: 20px;
   height: 20px;
   margin: 5px;
 }
 
-.centrarlogogoogle {
+.login-admin-centrarlogogoogle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,11 +68,11 @@
   cursor: pointer;
 }
 
-.centrarlogogoogle img {
+.login-admin-centrarlogogoogle img {
   width: 25px;
 }
 
-.olvidastekey {
+.login-admin-olvidastekey {
   position: relative;
   cursor: pointer;
   display: block;
@@ -74,7 +82,7 @@
   font-weight: bolder;
 }
 
-.olvidastekey::before {
+.login-admin-olvidastekey::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -87,11 +95,11 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.olvidastekey:hover::before {
+.login-admin-olvidastekey:hover::before {
   transform: scaleX(1);
 }
 
-.Registrate {
+.login-admin-Registrate {
   position: relative;
   display: block;
   padding: 2px;
@@ -100,7 +108,7 @@
   font-weight: bolder;
 }
 
-.Registrate::before {
+.login-admin-Registrate::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -113,28 +121,29 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.Registrate:hover {
+.login-admin-Registrate:hover {
   cursor: pointer;
 }
-.Registrate {
+
+.login-admin-Registrate {
   margin-top: 5px;
 }
 
-.Registrate:hover::before {
+.login-admin-Registrate:hover::before {
   transform: scaleX(1);
 }
 
-.error-message {
+.login-admin-error-message {
   font-size: 12px;
   color: red;
   margin-top: 5px;
 }
 
-.Grupoinput {
+.login-admin-Grupoinput {
   position: relative;
 }
 
-.ov-btn-grow-box {
+.login-admin-ov-btn-grow-box {
   margin-top: 20px;
   height: 20px;
   background: linear-gradient(283deg, #ff2426, #ff9259);
@@ -149,11 +158,13 @@
   display: inline-block;
   font-weight: bolder;
 }
-.ov-btn-grow-box:hover {
+
+.login-admin-ov-btn-grow-box:hover {
   color: #fff;
   cursor: pointer;
 }
-.ov-btn-grow-box::after {
+
+.login-admin-ov-btn-grow-box::after {
   content: "";
   background: #29d884;
   position: absolute;
@@ -167,12 +178,13 @@
   transform: scale(0, 0);
   transition: all 0.3s ease;
 }
-.ov-btn-grow-box:hover::after {
+
+.login-admin-ov-btn-grow-box:hover::after {
   transition: all 0.3s ease-out;
   transform: scale(1, 1);
 }
 
-.espacioError {
+.login-admin-espacioError {
   color: red;
   font-size: 0.8em;
   margin-top: 0.2em;
