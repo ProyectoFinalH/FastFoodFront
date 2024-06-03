@@ -4,8 +4,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-   /* Opcional: Para eliminar cualquier scroll si es necesario */
-  background-color: rgb(247, 250, 249); /* Aplicar fondo al body */
+  background-color: rgb(247, 250, 249); 
 }
 
 .App {

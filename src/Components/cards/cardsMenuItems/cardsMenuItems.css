@@ -1,9 +1,8 @@
-.cardsContainer{
-    display: flex;
-    justify-content: center;
+.cardsContainer {
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 1%;
   margin-bottom: 5%;
   margin-left: 10%;
-
 }

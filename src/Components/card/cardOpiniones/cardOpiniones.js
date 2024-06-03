@@ -1,19 +1,18 @@
-import imgOpiniones from "../../../images/imageOpiniones.jpg"
-import "./cardOpiniones.css"
-
+import imgOpiniones from "../../../images/imageOpiniones.jpg";
+import "./cardOpiniones.css";
 
 function CardOpiniones() {
   return (
     <div className="cardPagosContainer">
-    <div>
-      <img src={imgOpiniones} alt="a1"/>
+      <div>
+        <img src={imgOpiniones} alt="a1" />
       </div>
       <div className="textContainer">
-      <h2>Opiniones</h2>
-      <p>Contanos como fue tu experiencia</p>
+        <h2>Opiniones</h2>
+        <p>Contanos como fue tu experiencia</p>
       </div>
-  </div>
-  )
+    </div>
+  );
 }
 
-export default CardOpiniones
+export default CardOpiniones;

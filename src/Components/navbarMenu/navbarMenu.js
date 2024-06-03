@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import "./navbarMenu.css";
+
 import lupa from "../../images/lupas.png"
 import { useSelector } from "react-redux";
+
 
 function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
   const [isOpen1, setIsOpen1] = useState(true);
@@ -35,16 +37,21 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
       <form onChange={handleChange}>
         <div className="searchContainer">
           <input placeholder="Buscar producto..." type="search" />
-          <button type="submit" onClick={handleSubmit}><img src={lupa} alt="a1"/></button>
+          <button type="submit" onClick={handleSubmit}>
+            <img src={lupa} alt="a1" />
+          </button>
         </div>
       </form>
       <div className="navbarMenuSelect">
         <div onClick={Options1}>
           <span>Ordenar por: ⮟</span>
+
           {isOpen1 && (            
               <ul>
               <li onClick={(e) => handleLiClick(e, "menorPrecio")}>Menor precio</li>
               <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>Mayor precio</li>
+
+
             </ul>
             
           )}
@@ -53,10 +60,10 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
           <span>Rango de precio ⮟</span>
           {isOpen3 && (
             <ul>
-              <li  onClick={handleLiClick}>$</li>
-              <li  onClick={handleLiClick}>$$ </li>
-              <li  onClick={handleLiClick}>$$$ </li>
-              <li  onClick={handleLiClick}>$$$$ </li>
+              <li onClick={handleLiClick}>$</li>
+              <li onClick={handleLiClick}>$$ </li>
+              <li onClick={handleLiClick}>$$$ </li>
+              <li onClick={handleLiClick}>$$$$ </li>
             </ul>
           )}
         </div>
@@ -64,10 +71,10 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort }) {
           <span>Categorías ⮟</span>
           {isOpen2 && (
             <ul>
-              <li  onClick={handleLiClick}>Carne</li>
-              <li  onClick={handleLiClick}>Pizza</li>
-              <li  onClick={handleLiClick}>Pollo</li>
-              <li  onClick={handleLiClick}>Vegana</li>
+              <li onClick={handleLiClick}>Carne</li>
+              <li onClick={handleLiClick}>Pizza</li>
+              <li onClick={handleLiClick}>Pollo</li>
+              <li onClick={handleLiClick}>Vegana</li>
             </ul>
           )}
         </div>
