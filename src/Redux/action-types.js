@@ -12,6 +12,7 @@ export const GET_MENUITEMS = "GET_MENUITEMS";
 export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME";
 export const SORTER_ASC = "SORTER_ASC";
 export const CREATE_MENU = "CREATE_MENU";
+export const CREATE_MENU_ITEMS = "CREATE_MENU_ITEMS"
 
 
 
