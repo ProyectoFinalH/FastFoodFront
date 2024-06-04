@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./navbarMenu.css";
 import lupa from "../../images/lupas.png";
 
-function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }) {
+function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange, clearFilter }) {
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
@@ -35,11 +35,16 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }
         <div className="searchContainer">
           <input placeholder="Buscar producto..." type="search" />
 
+        
           <button type="submit" onClick={handleSubmit}><img src={lupa} alt="a1" /></button>
 
         </div>
       </form>
+      <div>
+
+      </div>
       <div className="navbarMenuSelect">
+      <button onClick={clearFilter}>Deshacer Filtros</button>
         <div onClick={Options1}>
           <span>Ordenar por: ⮟</span>
           {isOpen1 && (
