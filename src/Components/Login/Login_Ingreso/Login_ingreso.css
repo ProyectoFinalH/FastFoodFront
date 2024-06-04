@@ -218,22 +218,15 @@
 
 
 
-
 .ov-btn-grow-box-L2 {
   margin-top: 20px;
   height: 20px;
   background-color: #e5e5e5f6;
   cursor: not-allowed;
   color: #767575;
-}
-.login-button.disabled {
-  background: linear-gradient(283deg, #000000, #080808);
-  cursor: not-allowed;
-  color: #d4d4d4;
-
   font-weight: 500;
   width: 350px;
-  
+
   border: 2px solid black;
   padding: 5px 10px;
   border-radius: 10px;
@@ -255,8 +248,6 @@
 .ov-btn-grow-box-L2::after {
   display: none;
 }
-
-
 
 
 .login-button.disabled:hover {
