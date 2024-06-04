@@ -1,4 +1,6 @@
+
 import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS } from "./action-types"
+
 import axios from 'axios'
 
 //Registramos usuario
@@ -184,7 +186,7 @@ export function getAllMenuitems() {
 export function getMenuItemsByName(name) {
   return async function (dispatch) {
     const response = await axios(
-      `http://localhost:5000/menuitems?name=${name}`
+      `http://localhost:5000/menuitems/search?name=${name}`
     );
     return dispatch({
       type: "GET_MENUITEMS_BYNAME",
@@ -200,6 +202,7 @@ export function sortedMenuItemsAsc(sortedMenuItems){
     payload: sortedMenuItems,
 })
 }
+
 
 export function CreateMenu(dataquery){
   return async (dispatch) => {
@@ -244,6 +247,7 @@ export function CreateMenuItems(dataquery){
 }
 
 // Ejemplo en una función que maneja la solicitud
+
 
 
 

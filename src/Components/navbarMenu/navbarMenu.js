@@ -5,12 +5,14 @@ import "./navbarMenu.css";
 import lupa from "../../images/lupas.png"
 
 
+
 function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }) {
+
+
 
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
-
 
   const Options1 = (sortBy) => {
     setIsOpen1(!isOpen1);
@@ -31,23 +33,27 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }
     handlePriceRange(range);
   };
 
-
   return (
     <div className="navbarMenuContainer">
       <form onChange={handleChange}>
         <div className="searchContainer">
           <input placeholder="Buscar producto..." type="search" />
-
-          <button type="submit" onClick={handleSubmit}><img src={lupa} alt="a1" /></button>
-
+          <button type="submit" onClick={handleSubmit}>
+            <img src={lupa} alt="a1" />
+          </button>
         </div>
       </form>
+      <div>
+
+      </div>
       <div className="navbarMenuSelect">
+      <button onClick={clearFilter}>Deshacer Filtros</button>
         <div onClick={Options1}>
           <span>Ordenar por: ⮟</span>
 
           {isOpen1 && (
             <ul>
+
 
               <li onClick={(e) => handleLiClick(e, "menorPrecio")}>Menor precio</li>
               <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>Mayor precio</li>
@@ -55,20 +61,22 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }
 
 
 
-            </ul>
 
+            </ul>
           )}
         </div>
         <div onClick={Options3}>
           <span>Rango de precio ⮟</span>
           {isOpen3 && (
             <ul>
-
               <li onClick={(e) => handleLiClick(e, "1-30", "1-30")}>1-30</li>
               <li onClick={(e) => handleLiClick(e, "31-60", "31-60")}>31-60</li>
-              <li onClick={(e) => handleLiClick(e, "61-100", "61-100")}>61-100</li>
-              <li onClick={(e) => handleLiClick(e, "100-1000", "100-1000")}>100-1000</li>
-
+              <li onClick={(e) => handleLiClick(e, "61-100", "61-100")}>
+                61-100
+              </li>
+              <li onClick={(e) => handleLiClick(e, "100-1000", "100-1000")}>
+                100-1000
+              </li>
             </ul>
           )}
         </div>

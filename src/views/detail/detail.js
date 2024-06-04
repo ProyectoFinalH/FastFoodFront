@@ -1,13 +1,16 @@
-import { Link, useParams } from "react-router-dom";
+import {useNavigate, useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import "./detail.css";
 import axios from "axios";
+import Navbar from "../../Components/navbar/navbar";
 
 function Detail() {
   const params = useParams();
   const [menuItem, setmenuItem] = useState({});
   const [cant, setCant] = useState(1);
+
+const navigate = useNavigate()
 
   useEffect(() => {
     axios(`http://localhost:5000/menuitems/${params?.id}`)
@@ -30,8 +33,13 @@ function Detail() {
     if (cant > 1) setCant(cant - 1);
   };
 
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+
   return (
     <div className="detailContainer">
+      <Navbar/>
       <div className="detailCardContainer">
         <div className="imageDetail">
           <img src={menuItem?.image_url} alt={menuItem.name} />
@@ -55,9 +63,7 @@ function Detail() {
           <button>Agregar al carrito</button>
         </div>
         <div className="buttonContainer">
-          <Link to={"/menu"}>
-            <button>Volver al menu</button>
-          </Link>
+            <button onClick={handleGoBack}>Volver al menu</button>
         </div>
       </div>
     </div>
