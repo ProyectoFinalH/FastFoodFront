@@ -214,41 +214,12 @@
   transform: scale(1, 1);
 }
 
-
-
-
-
-.ov-btn-grow-box-L2 {
-  margin-top: 20px;
-  height: 20px;
-  background-color: #e5e5e5f6;
+.login-button.disabled {
+  background: linear-gradient(283deg, #000000, #080808);
   cursor: not-allowed;
-  color: #767575;
+  color: #d4d4d4;
   font-weight: 500;
-  width: 350px;
-
-  border: 2px solid black;
-  padding: 5px 10px;
-  border-radius: 10px;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  display: inline-block;
-  font-weight: bolder;
-  transition: all 0.3s ease; /* Añadido para suavizar la transición */
-  font-weight: 500;
-  opacity: 0.3;
 }
-
-.ov-btn-grow-box-L2:hover {
-  color:#767575;
-  cursor: not-allowed;
-}
-
-.ov-btn-grow-box-L2::after {
-  display: none;
-}
-
 
 .login-button.disabled:hover {
   color: #ccc;
@@ -260,7 +231,6 @@
 }
 
 .error-space {
-
   color: red;
   font-size: 0.8em;
   margin-top: 0.2em;
@@ -271,9 +241,4 @@
   font-size: 16px;
   margin-top: 15px;
   font-weight: 500;
-}
-
-.errorMessage {
-  color: #dc3545;
-  font-size: 0.9em;
 }

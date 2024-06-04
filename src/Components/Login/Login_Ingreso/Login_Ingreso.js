@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Login_ingreso.css";
-import imagen from "../Login_imagenes/food_sin_fondosi.png";
+import imagen from "../Login_imagenes/logo.png";
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
@@ -16,9 +16,7 @@ const LoginIngreso = ({ setView }) => {
   const User = useSelector((state) => state.USER);
   const [keyVisible, setKeyVisible] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-
-  const [userType, setUserType] = useState(""); 
-
+  const [userType, setUserType] = useState("");
 
   const navigate = useNavigate();
 
@@ -51,145 +49,140 @@ const LoginIngreso = ({ setView }) => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      // Lógica para enviar los datos del formulario al servidor
       console.log("Datos del formulario:", formData);
       await dispatch(login_User(formData));
     }
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = () => {};
 
+  const handleInvitado = () => {
+    dispatch(login_User("invitado"));
   };
 
-  const handleInvitado = () =>{
-    dispatch(login_User('invitado'))
-  }
-
   useEffect(() => {
-
     if (User) {
-      navigate('/home');
+      navigate("/home");
     } else {
-      navigate('/');
+      navigate("/");
     }
-   
   }, [User, navigate]);
 
   useEffect(() => {
     const isValidEmailOrPhone = (value) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phoneRegex = /^\d{7,15}$/; 
+      const phoneRegex = /^\d{7,15}$/;
       return emailRegex.test(value) || phoneRegex.test(value);
     };
 
     setIsButtonEnabled(
-      isValidEmailOrPhone(formData.emailOrPhone.trim()) && 
+      isValidEmailOrPhone(formData.emailOrPhone.trim()) &&
       formData.password.trim() !== "" &&
       userType !== ""
     );
   }, [formData, userType]);
 
-
-
   const handleUserTypeChange = (event) => {
-    setUserType(event.target.value); // Actualiza el tipo de usuario seleccionado
+    setUserType(event.target.value);
   };
+
   return (
-    <div className="bodyIngreso">
-      <img src={imagen} alt="Logo Fast Food" className="imageningreso" />
-      <div className="contenedoringreso">
-      
-      <div className="raio_select">
-          <label>
+    <div className="login-container">
+      <div className="login-body">
+        <img src={imagen} alt="Logo Fast Food" className="login-image" />
+        <div className="login-content">
+          <div className="user-type-radio">
+            <label>
+              <input
+                type="radio"
+                name="userType"
+                value="user"
+                checked={userType === "user"}
+                onChange={handleUserTypeChange}
+              />{" "}
+              Usuario
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="userType"
+                value="business"
+                checked={userType === "business"}
+                onChange={handleUserTypeChange}
+              />{" "}
+              Empresa
+            </label>
+          </div>
+          <div className="input-group">
+            <img src={icono_usuario} alt="icono ingreso" />
             <input
-              type="radio"
-              name="userType"
-              value="user"
-              checked={userType === "user"}
-              onChange={handleUserTypeChange}
-            /> Usuario
-          </label>
-          <label>
+              type="text"
+              name="emailOrPhone"
+              value={formData.emailOrPhone}
+              onChange={handleChange}
+              maxLength={100}
+              placeholder="Celular/Correo"
+            />
+          </div>
+          {errors.emailOrPhone && (
+            <div className="error-space">{errors.emailOrPhone}</div>
+          )}
+          <div className="input-group">
+            <img src={icono_key} alt="icono ingreso" />
             <input
-              type="radio"
-              name="userType"
-              value="business"
-              checked={userType === "business"}
-              onChange={handleUserTypeChange}
-            /> Empresa
-          </label>
-        </div>
-        <div className="Grupoinput">
-          <img src={icono_usuario} alt="icono ingreso" />
-          <input
-            type="text"
-            name="emailOrPhone"
-            value={formData.emailOrPhone}
-            onChange={handleChange}
-            maxLength={100}
-            placeholder="Celular/Correo"
-          />
-        </div>
-        {errors.emailOrPhone && (
-          <div className="errorMessage">{errors.emailOrPhone}</div>
-        )}
-        <div className="Grupoinput">
-          <img src={icono_key} alt="icono ingreso" />
-          <input
-            type={keyVisible ? "text" : "password"}
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            maxLength={15}
-            placeholder="Contraseña"
-          />
-          <img
-            src={keyVisible ? icono_ocultar : icono_ver}
-            alt="Mostrar/Ocultar"
-            onClick={toggleVisibility}
-            className="ver"
-          />
-        </div>
-        {errors.password && (
-          <div className="errorMessage">{errors.password}</div>
-        )}
-        <div className="olvidastekey" onClick={() => setView("recuperarkey")}>
-          ¿Olvidaste tu Contraseña?
-        </div>
-        <div className="ov-btn-container">
-        <div 
-            className={isButtonEnabled
-                        ? 'ov-btn-grow-box' 
-                        : 'ov-btn-grow-box-L2'
-              
-              
-             } 
-            onClick={isButtonEnabled ? handleSubmit : null}
-            //style={{ cursor: isButtonEnabled ? 'pointer' : 'not-allowed' }}
-          >
-            Ingresar
+              type={keyVisible ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              maxLength={15}
+              placeholder="Contraseña"
+            />
+            <img
+              src={keyVisible ? icono_ocultar : icono_ver}
+              alt="Mostrar/Ocultar"
+              onClick={toggleVisibility}
+              className="password-toggle"
+            />
           </div>
-        </div>
-        <div className="Grupoingreso">
+          {errors.password && (
+            <div className="error-space">{errors.password}</div>
+          )}
           <div
-            className="centrarlogogoogle"
-            onClick={handleGoogleLogin}
-            style={{ cursor: "pointer" }}
+            className="forgot-password"
+            onClick={() => setView("recuperarkey")}
           >
-            <img src={icono_google} alt="icono ingreso" />
-            <div>Ingresar con Google</div>
+            ¿Olvidaste tu Contraseña?
           </div>
-          <div className="Registrate" onClick={() => setView("registro")}>
-            ¿No tienes una cuenta? Regístrate aquí
+          <div className="button-container">
+            <div
+              className={`login-button ${isButtonEnabled ? "" : "disabled"}`}
+              onClick={isButtonEnabled ? handleSubmit : null}
+              style={{ cursor: isButtonEnabled ? "pointer" : "not-allowed" }}
+            >
+              Ingresar
+            </div>
           </div>
-          <div
-            className="Registrate"
-            onClick={() => setView("registroEmpresa")}
-          >
-            ¿Eres una empresa? Regístrate aquí
-          </div>
-          <div className="Registrate" onClick={handleInvitado}>
-            Ingresa como Invitado
+          <div className="login-group">
+            <div
+              className="google-login"
+              onClick={handleGoogleLogin}
+              style={{ cursor: "pointer" }}
+            >
+              <img src={icono_google} alt="icono ingreso" />
+              <div>Iniciar sesión con Google</div>
+            </div>
+            <div className="register" onClick={() => setView("registro")}>
+              ¿No tienes una cuenta? Regístrate aquí
+            </div>
+            <div
+              className="register"
+              onClick={() => setView("registroEmpresa")}
+            >
+              ¿Eres una empresa? Regístrate aquí
+            </div>
+            <div className="register" onClick={handleInvitado}>
+              Ingresa como Invitado
+            </div>
           </div>
         </div>
       </div>
