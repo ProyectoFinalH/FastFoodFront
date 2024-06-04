@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login_Recuperar_key.css";
-import imagen from "../Login_imagenes/food_sin_fondosi.png";
+import imagen from "../Login_imagenes/logo.png";
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import validationRigistro from "./Validar_Login_ingreso";
 

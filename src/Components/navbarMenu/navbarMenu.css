@@ -18,7 +18,7 @@
   height: 50px;
 }
 
-.navbarMenuContainer button {
+.searchContainer button {
   position: absolute;
   top: 0;
   right: 0;
@@ -33,7 +33,7 @@
   border: 1px solid rgb(196, 196, 196);
 }
 
-.navbarMenuContainer button:hover {
+.searchContainer button:hover {
   background-color: #f4ca0e;
   border: 1px solid #c90a06;
 }
@@ -65,4 +65,22 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.navbarMenuSelect button{
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    border: none;
+    width: 100%;
+    font-size: 18px;
+    background-color: #c90a06;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid rgb(196, 196, 196);
+  }
+  
+  .navbarMenuSelect button:hover {
+    background-color: #f4ca0e;
+    border: 1px solid #c90a06;
+  
 }

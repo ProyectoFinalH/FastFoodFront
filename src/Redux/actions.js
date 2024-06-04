@@ -1,5 +1,6 @@
 
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE,LOGOUT_USER } from "./action-types"
+
 import axios from 'axios'
 
 //Registramos usuario
@@ -192,7 +193,7 @@ export function getAllMenuitems() {
 export function getMenuItemsByName(name) {
   return async function (dispatch) {
     const response = await axios(
-      `http://localhost:5000/menuitems?name=${name}`
+      `http://localhost:5000/menuitems/search?name=${name}`
     );
     return dispatch({
       type: "GET_MENUITEMS_BYNAME",
@@ -200,3 +201,17 @@ export function getMenuItemsByName(name) {
     });
   };
 }
+
+
+export function sortedMenuItemsAsc(sortedMenuItems){
+  return ({
+    type: "SORTER_ASC",
+    payload: sortedMenuItems,
+})
+}
+
+export const logoutUser = () => {
+  return {
+    type: LOGOUT_USER
+  };
+};
