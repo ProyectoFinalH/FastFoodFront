@@ -5,7 +5,6 @@ import carrito from "../../images/carrito.svg";
 import inicio from "../../images/inicio.png";
 import usuario from "../../images/usuario.png";
 import pedidos from "../../images/pedidos.png";
-// import cerrarSesion from "../../images/cerrarSesion.png";
 import "./navbar.css";
 import { useSelector } from "react-redux";
 
@@ -14,66 +13,43 @@ function Navbar() {
   const User = useSelector((state) => state.USER);
 
   return (
-    <div className="navContainer">
-      <div>
+    <div className="navbar-container">
+      <div className="left-section">
+        <div className="logo-container">
+          <img src={logo} alt="logo" className="logo" />
+          <span>FastFood</span>
+        </div>
+      </div>
+      <div className="right-section">
+        {User === "invitado" ? null : (
+          <div className="carrito-container">
+            <Link to="/carrito">
+              <img src={carrito} alt="Carrito" className="carrito-img" />
+            </Link>
+          </div>
+        )}
         <div
-          className="menu"
-          onClick={() => {
-            setMenuOpen(!menuOpen);
-          }}
+          className={`menu ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div className="menuUl">
-          <ul className={menuOpen ? "open" : ""}>
-            <li className="iconoMenu">
-              <NavLink to="/home">
-                <img className="iconoMenu" src={inicio} alt="" />
-                Inicio
-              </NavLink>
+        <div className={`menu-content ${menuOpen ? "open" : ""}`}>
+          <ul>
+            <li>
+              <NavLink to="/home">Inicio</NavLink>
             </li>
             <li>
-              <NavLink to="/account">
-                <img src={usuario} alt="" />
-                Mi cuenta
-              </NavLink>
+              <NavLink to="/account">Mi cuenta</NavLink>
             </li>
             <li>
-              <NavLink to="/order">
-                <img src={pedidos} alt="" />
-                Mi Pedido
-              </NavLink>
+              <NavLink to="/order">Mi Pedido</NavLink>
             </li>
-            {/* <li>
-            <NavLink to="/login">
-          <img src={cerrarSesion} alt="" />
-              Cerrar sesion
-              </NavLink>
-          </li> */}
           </ul>
         </div>
       </div>
-      <div className="logoContainer">
-        <img src={logo} alt="logo" className="logo" />
-      </div>
-
-      <div className="overlay" style={{ display: menuOpen ? "block" : "none" }}></div>
-      
-          {
-              User==='invitado'
-              ?null
-            :
-            <div className="carritoContainer"><Link to="/carrito">
-            <img src={carrito} alt="Carrito" className="carrito-img" />
-          </Link>
-          </div>
-
-          }
-        
-      
-
     </div>
   );
 }
