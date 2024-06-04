@@ -15,6 +15,7 @@ function Navbar() {
 
   return (
     <div className="navContainer">
+      
       <div>
         <div
           className="menu"

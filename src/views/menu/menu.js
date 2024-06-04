@@ -97,7 +97,11 @@ const handlePriceRange = (range) => {
 
 console.log("1-30",filteredMenuItems)
 
-
+if (searchString.trim() !== "") {
+  filteredMenuItems = filteredMenuItems.filter((menuItem) =>
+    menuItem.name.toLowerCase().includes(searchString.toLowerCase())
+  );
+}
 
   return (
     <div className="menuContainer">
