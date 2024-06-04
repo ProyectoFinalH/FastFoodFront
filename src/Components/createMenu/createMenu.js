@@ -53,7 +53,7 @@ const handleMenuItem = () =>{
     };
     useEffect(() => {        
       dispatch(getAllMenus());    
-  }, [dispatch]);
+  }, [dispatch, allMenuss]);
 
     const handleMenuChange = (event) => {
         setMenuName({itemMenu: event.target.value});
@@ -62,8 +62,8 @@ const handleMenuItem = () =>{
   return (
       <div className="createmenu">
         <NavBar />
-      <h1>Create Menu</h1>
       <form className="form" onSubmit={handleSubmit}>
+      <h1>Create Menu</h1>
         <label htmlFor="menuName">Nombre del menu:</label>
         <input
           type="text"
@@ -77,9 +77,9 @@ const handleMenuItem = () =>{
           {menuErrorMessage && <p className="error-message">{menuErrorMessage}</p>}
           </form>
         
-      <h1>Create Item Menu</h1>
 
         <div className="menuitemcontainer">
+      <h1>Create Item Menu</h1>
         <label htmlFor="menuItemName">Nombre del menu:</label> 
         <select
           onChange={handleMenuChange}
@@ -125,7 +125,7 @@ const handleMenuItem = () =>{
           onChange={(e) => setImageUrl(e.target.value)}
           id="imageUrl"
           />
-          <button onClick={handleMenuItem}>Create menu item</button>
+          <button onClick={handleMenuItem}>Create Item</button>
           {itemSuccessMessage && <p className="success-message">{itemSuccessMessage}</p>}
           {itemErrorMessage && <p className="error-message">{itemErrorMessage}</p>}
         </div>
