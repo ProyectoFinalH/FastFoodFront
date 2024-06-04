@@ -6,6 +6,7 @@ import {
 // import { getAllRestaurants, getAllCategories, } from "../../redux/actions"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import CardsMenuItem from "../../Components/cards/cardsMenuItems/cardsMenuItems";
 import NavbarMenu from "../../Components/navbarMenu/navbarMenu";
@@ -16,6 +17,7 @@ import Navbar from "../../Components/navbar/navbar";
 
 function Menu() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   // const allRestaurant = useSelector((state)=> state.allRestaurant)
   const allMenus = useSelector((state) => state.allMenus);
@@ -34,12 +36,14 @@ function Menu() {
     // dispatch(getAllCategories())
   }, [dispatch]);
 
+  //FILTRO POR RANGO
   const applyPriceRangeFilter = (menuItems, range) => {
     const [min, max] = range.split("-").map(Number);
     return menuItems.filter((menu) => menu.price >= min && menu.price <= max);
   };
 
   console.log("este son los menu", allMenus);
+  //HANDLERS PARA EL SEARCH
   function handleChange(e) {
     setSearchString(e.target.value);
   }
@@ -49,36 +53,37 @@ function Menu() {
     dispatch(getMenuItemsByName(searchString));
   }
 
-  // useEffect(()=>{
-  //   let filterMenuItem = allMenuitems.slice();
 
-  //   if(searchString.trim() !== ""){
-  //     filterMenuItem = filterMenuItem.filter((menuItem) => {
-  //       menuItem.name.toLowerCase().includes(searchString.toLowerCase())
-  //     })
+  // FUNCION PARA DESHACER FILTROS
+  const clearFilters = () => {
+    setSearchString("");
+    setSortBy(null);
+    setPriceRange("");
+    setSelectMenuItem(null);
+  };
 
-  //   }
-  //   setSelectMenuItem(filterMenuItem)
-  // }, [allMenuitems, searchString])
-
+  //Copia del Estado allMenuItems
+  let filteredMenuItems = [...allMenuitems]
+  // FILTRADO DE ITEMMENU EN BASE AL MENU
   const handleSelectMenu = (menuItem) => {
     setSelectMenuItem((prevId) => (prevId === menuItem ? null : menuItem));
   };
 
-  let filteredMenuItems = selectMenuItem
-    ? allMenuitems.filter((menu) => menu.menu_id === selectMenuItem)
-    : allMenuitems;
+  if (selectMenuItem) {
+    filteredMenuItems = filteredMenuItems.filter((menu) => menu.menu_id === selectMenuItem);
+  }
 
+  // ORDENAMIENTO DE ITEMSMENU
   const handleSort = (sortBy) => {
     setSortBy(sortBy);
   };
-
   if (sortBy === "menorPrecio") {
     filteredMenuItems = filteredMenuItems.sort((a, b) => a.price - b.price);
   } else if (sortBy === "mayorPrecio") {
     filteredMenuItems = filteredMenuItems.sort((a, b) => b.price - a.price);
   }
 
+  // ORDENAMIENTO DE ITEMSMENU EN BASE AL RANGO
   const handlePriceRange = (range) => {
     setPriceRange(range);
   };
@@ -89,9 +94,27 @@ function Menu() {
 
   console.log("1-30", filteredMenuItems);
 
+  //SEARCH POR NOMBRE
+  if (searchString.trim() !== "") {
+    filteredMenuItems = filteredMenuItems.filter((menuItem) =>
+      menuItem.name.toLowerCase().includes(searchString.toLowerCase())
+    );
+  }
+
+  //Boton volver Atras
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+
+  console.log("1-30", filteredMenuItems);
+
   return (
     <div className="menuContainer">
       <Navbar />
+        <div className="buttonBack">
+        <button onClick={handleGoBack}>⬅ Volver</button>
+
+        </div>
       <div className="menuSupContainer">
         <div className="cardRestContainer">
           <CardsRestaurant />
@@ -106,6 +129,7 @@ function Menu() {
           handleSubmit={handleSubmit}
           handleSort={handleSort}
           handlePriceRange={handlePriceRange}
+          clearFilter={clearFilters}
         />
         <CardsMenuItem
           AllMenuitems={filteredMenuItems}

@@ -184,7 +184,7 @@ export function getAllMenuitems() {
 export function getMenuItemsByName(name) {
   return async function (dispatch) {
     const response = await axios(
-      `http://localhost:5000/menuitems?name=${name}`
+      `http://localhost:5000/menuitems/search?name=${name}`
     );
     return dispatch({
       type: "GET_MENUITEMS_BYNAME",

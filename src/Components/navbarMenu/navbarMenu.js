@@ -8,6 +8,7 @@ function NavbarMenu({
   handleSubmit,
   handleSort,
   handlePriceRange,
+  clearFilter
 }) {
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true);
@@ -37,13 +38,16 @@ function NavbarMenu({
       <form onChange={handleChange}>
         <div className="searchContainer">
           <input placeholder="Buscar producto..." type="search" />
-
           <button type="submit" onClick={handleSubmit}>
             <img src={lupa} alt="a1" />
           </button>
         </div>
       </form>
+      <div>
+
+      </div>
       <div className="navbarMenuSelect">
+      <button onClick={clearFilter}>Deshacer Filtros</button>
         <div onClick={Options1}>
           <span>Ordenar por: ⮟</span>
           {isOpen1 && (

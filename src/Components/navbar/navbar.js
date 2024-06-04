@@ -22,6 +22,7 @@ function Navbar() {
   };
 
   return (
+
     <div className="navbar-container">
       <div className="left-section">
         <div className="logo-container">
@@ -37,7 +38,11 @@ function Navbar() {
             </Link>
           </div>
         )}
-        <div className="menu" onClick={toggleMenu}>
+        <div
+          className="menu"
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+          }}
           <span></span>
           <span></span>
           <span></span>
