@@ -1,3 +1,4 @@
+
 import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
 import axios from 'axios'
 
@@ -16,10 +17,10 @@ export const register_user = (dataquery) => {
       const endpoint = "http://localhost:5000/users/create";
 
       const response = await axios.post(endpoint, userData);
-      const { id, username, email, password, google_id, role_id } =
-        response.data;
-
-      // alert("El data es " + {id, username, email, password, google_id, role_id })
+      const { id, username, email, password, google_id, role_id } = response.data;
+  
+     //  alert("El data es " + {id, username, email, password, google_id, role_id })
+       console.log("el usuario "+ JSON.stringify( response.data))
 
       const userDatauser = {
         id,
@@ -35,7 +36,13 @@ export const register_user = (dataquery) => {
         payload: userDatauser,
       });
     } catch (error) {
-      console.log("Error al enviar la información", error.message);
+      if("Request failed with status code 400"===error.message){
+        alert("El usuario ya se encuentra registrado")
+      }else{
+        console.log("Error al enviar la información", error.message);
+      }
+      
+      
     }
   };
 };
