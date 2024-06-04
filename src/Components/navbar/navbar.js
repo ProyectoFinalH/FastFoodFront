@@ -1,35 +1,28 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import logo from "../../images/logo.png";
 import carrito from "../../images/carrito.svg";
 import closeIcon from "../../images/GgCloseR.png";
 import "./navbar.css";
-import { useSelector } from "react-redux";
+import { logoutUser } from "../../Redux/actions";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const User = useSelector((state) => state.USER);
-  const menuRef = useRef(null);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    };
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    window.location.href = "/";
+  };
 
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
     <div className="navbar-container">
-      {/* Capa de fondo que se vuelve borrosa */}
-      {menuOpen && <div className="background-layer"></div>}
-
       <div className="left-section">
         <div className="logo-container">
           <img src={logo} alt="logo" className="logo" />
@@ -44,20 +37,14 @@ function Navbar() {
             </Link>
           </div>
         )}
-        <div
-          ref={menuRef}
-          className={`menu ${menuOpen ? "open" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
+        <div className="menu" onClick={toggleMenu}>
           <span></span>
           <span></span>
           <span></span>
         </div>
         <div className={`menu-content ${menuOpen ? "open" : ""}`}>
-          <div className="menu-header">
-            <button className="close-btn" onClick={() => setMenuOpen(false)}>
-              <img src={closeIcon} alt="Close" />
-            </button>
+          <div className="close-btn-x" onClick={toggleMenu}>
+            <img src={closeIcon} alt="Close" />
           </div>
           <ul>
             <li>
@@ -69,6 +56,11 @@ function Navbar() {
             <li>
               <NavLink to="/order">Mi Pedido</NavLink>
             </li>
+            {User !== "invitado" && (
+              <li>
+                <button className="close-btn" onClick={handleLogout}>Cerrar sesión</button>
+              </li>
+            )}
           </ul>
         </div>
       </div>

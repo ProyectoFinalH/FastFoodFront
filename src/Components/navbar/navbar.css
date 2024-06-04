@@ -17,8 +17,6 @@
 .logo-container {
   display: flex;
   align-items: center;
-  position: absolute;
-  left: 20px;
 }
 
 .logo {
@@ -50,7 +48,6 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
 }
 
 .menu span {
@@ -92,13 +89,14 @@
   margin-bottom: 20px;
 }
 
-.close-btn {
+.close-btn-x {
   background: none;
   border: none;
   cursor: pointer;
+  align-self: flex-end;
 }
 
-.close-btn img {
+.close-btn-x img {
   width: 20px;
 }
 
@@ -121,4 +119,22 @@
 
 .menu-content a:hover {
   text-decoration: underline;
+}
+
+.close-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-end;
+  padding: 5px 10px;
+}
+
+.close-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.close-btn:hover img {
+  filter: brightness(0.8);
 }
