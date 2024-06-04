@@ -215,7 +215,7 @@
 }
 
 .login-button.disabled {
-  background: linear-gradient(283deg, #000000, #080808);
+  background: linear-gradient(283deg, #616161, #080808);
   cursor: not-allowed;
   color: #d4d4d4;
   font-weight: 500;
