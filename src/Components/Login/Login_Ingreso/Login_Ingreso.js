@@ -131,7 +131,7 @@ const LoginIngreso = ({ setView }) => {
           />
         </div>
         {errors.emailOrPhone && (
-          <div className="espacioError">{errors.emailOrPhone}</div>
+          <div className="errorMessage">{errors.emailOrPhone}</div>
         )}
         <div className="Grupoinput">
           <img src={icono_key} alt="icono ingreso" />
@@ -151,7 +151,7 @@ const LoginIngreso = ({ setView }) => {
           />
         </div>
         {errors.password && (
-          <div className="espacioError">{errors.password}</div>
+          <div className="errorMessage">{errors.password}</div>
         )}
         <div className="olvidastekey" onClick={() => setView("recuperarkey")}>
           ¿Olvidaste tu Contraseña?

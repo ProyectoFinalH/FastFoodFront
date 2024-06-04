@@ -272,3 +272,8 @@
   margin-top: 15px;
   font-weight: 500;
 }
+
+.errorMessage {
+  color: #dc3545;
+  font-size: 0.9em;
+}
