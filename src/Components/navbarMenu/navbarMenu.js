@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import "./navbarMenu.css";
-import lupa from "../../images/lupas.png";
 
-function NavbarMenu({
-  handleChange,
-  handleSubmit,
-  handleSort,
-  handlePriceRange,
-  clearFilter
-}) {
+import lupa from "../../images/lupas.png"
+
+
+
+function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }) {
+
+
+
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
@@ -50,14 +50,18 @@ function NavbarMenu({
       <button onClick={clearFilter}>Deshacer Filtros</button>
         <div onClick={Options1}>
           <span>Ordenar por: ⮟</span>
+
           {isOpen1 && (
             <ul>
-              <li onClick={(e) => handleLiClick(e, "menorPrecio")}>
-                Menor precio
-              </li>
-              <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>
-                Mayor precio
-              </li>
+
+
+              <li onClick={(e) => handleLiClick(e, "menorPrecio")}>Menor precio</li>
+              <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>Mayor precio</li>
+
+
+
+
+
             </ul>
           )}
         </div>
