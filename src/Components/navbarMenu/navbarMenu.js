@@ -53,6 +53,8 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }
               <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>Mayor precio</li>
 
 
+
+
             </ul>
 
           )}

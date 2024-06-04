@@ -31,6 +31,7 @@
   display: none;
   border: 1px solid rgb(211, 210, 210);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  min-height: 450px;
 }
 
 
