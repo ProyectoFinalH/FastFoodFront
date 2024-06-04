@@ -1,19 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../images/logo.png";
 import carrito from "../../images/carrito.svg";
-import inicio from "../../images/inicio.png";
-import usuario from "../../images/usuario.png";
-import pedidos from "../../images/pedidos.png";
+import closeIcon from "../../images/GgCloseR.png";
 import "./navbar.css";
 import { useSelector } from "react-redux";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const User = useSelector((state) => state.USER);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div className="navbar-container">
+      {/* Capa de fondo que se vuelve borrosa */}
+      {menuOpen && <div className="background-layer"></div>}
+
       <div className="left-section">
         <div className="logo-container">
           <img src={logo} alt="logo" className="logo" />
@@ -29,6 +45,7 @@ function Navbar() {
           </div>
         )}
         <div
+          ref={menuRef}
           className={`menu ${menuOpen ? "open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
         >
@@ -37,6 +54,11 @@ function Navbar() {
           <span></span>
         </div>
         <div className={`menu-content ${menuOpen ? "open" : ""}`}>
+          <div className="menu-header">
+            <button className="close-btn" onClick={() => setMenuOpen(false)}>
+              <img src={closeIcon} alt="Close" />
+            </button>
+          </div>
           <ul>
             <li>
               <NavLink to="/home">Inicio</NavLink>

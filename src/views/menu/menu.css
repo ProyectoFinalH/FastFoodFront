@@ -4,16 +4,22 @@
   padding: 2%;
 }
 
-.navCardContainer {
-  display: flex;
-  margin-top: 50px;
-}
 .menuSupContainer {
   display: flex;
   justify-content: flex-start;
+}
+
+.cardRestContainer {
+  margin-right: 20px;
+}
+
+.navCardContainer {
+  display: flex;
+  margin-top: 50px;
 }
 
 .cardMenusContainer {
   display: flex;
   align-items: center;
 }
+
