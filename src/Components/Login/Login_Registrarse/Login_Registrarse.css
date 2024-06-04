@@ -57,9 +57,9 @@
 
 .buttonSubmit {
   margin-top: 20px;
-  height: 30px;
+  height: 20px;
   background: linear-gradient(283deg, #ff2426, #ff9259);
-  width: 350px;
+  width: 320px;
   color: white;
   border: 2px solid black;
   padding: 5px 10px;
@@ -69,6 +69,8 @@
   overflow: hidden;
   display: inline-block;
   font-weight: bolder;
+  transition: all 0.3s ease; /* Añadido para suavizar la transición */
+  font-weight: 500;
 }
 
 .buttonSubmit:hover {
@@ -93,3 +95,43 @@
   transition: all 0.3s ease-out;
   transform: scale(1, 1);
 }
+
+
+
+
+
+.ov-btn-grow-box-RU2 {
+  
+  margin-top: 20px;
+  height: 20px;
+  background-color: #e5e5e5f6;
+  width: 320px;
+  color: #767575;
+  cursor: not-allowed;
+  border: 2px solid black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+  
+  
+  
+
+  opacity: 0.3;
+}
+
+.ov-btn-grow-box-RU2:hover {
+  color:#767575;
+  cursor: not-allowed;
+}
+
+.ov-btn-grow-box-RU2::after {
+  display: none;
+}
+
+
+
+

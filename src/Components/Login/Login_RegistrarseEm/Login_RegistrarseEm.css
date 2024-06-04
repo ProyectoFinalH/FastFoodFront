@@ -47,11 +47,11 @@
   font-size: 14px;
 }
 
-.registerButton {
+.buttonSubmit-RE1 {
   margin-top: 20px;
-  height: 30px;
+  height: 20px;
   background: linear-gradient(283deg, #ff2426, #ff9259);
-  width: 350px;
+  width: 320px;
   color: white;
   border: 2px solid black;
   padding: 5px 10px;
@@ -61,8 +61,61 @@
   overflow: hidden;
   display: inline-block;
   font-weight: bolder;
+  transition: all 0.3s ease; /* Añadido para suavizar la transición */
+  font-weight: 500;
 }
 
-.registerButton:hover {
-  background-color: #45a049;
+.buttonSubmit-RE1:hover {
+  color: #fff;
+  cursor: pointer;
 }
+.buttonSubmit-RE1::after {
+  content: "";
+  background: #29d884;
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+}
+.buttonSubmit-RE1:hover::after {
+  transition: all 0.3s ease-out;
+  transform: scale(1, 1);
+}
+
+
+
+
+
+.ov-btn-grow-box-RE2 {
+  margin-top: 20px;
+  height: 20px;
+  background-color: #e5e5e5f6;
+  width: 320px;
+  color: #767575;
+  cursor: not-allowed;
+  border: 2px solid black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+  opacity: 0.3;
+}
+
+.ov-btn-grow-box-RE2:hover {
+  color:#767575;
+  cursor: not-allowed;
+}
+
+.ov-btn-grow-box-RE2::after {
+  display: none;
+}
+

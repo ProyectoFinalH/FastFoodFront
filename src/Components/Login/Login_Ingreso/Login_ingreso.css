@@ -180,21 +180,46 @@
   transform: scale(1, 1);
 }
 
-.ov-btn-grow-box.disabled {
-  background-color: grey;
+
+
+
+
+
+
+
+
+
+.ov-btn-grow-box-L2 {
+  margin-top: 20px;
+  height: 20px;
+  background-color: #e5e5e5f6;
   cursor: not-allowed;
-  color: #ccc; /* Cambia el color del texto para mayor claridad */
+  color: #767575;
   font-weight: 500;
+  width: 350px;
+  
+  border: 2px solid black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+  transition: all 0.3s ease; /* Añadido para suavizar la transición */
+  font-weight: 500;
+  opacity: 0.3;
 }
 
-.ov-btn-grow-box.disabled:hover {
-  color: #ccc; /* Asegúrate de que el color del texto no cambie */
+.ov-btn-grow-box-L2:hover {
+  color:#767575;
   cursor: not-allowed;
 }
 
-.ov-btn-grow-box.disabled::after {
-  display: none; /* Deshabilita el efecto */
+.ov-btn-grow-box-L2::after {
+  display: none;
 }
+
 
 .espacioError {
   color: red;

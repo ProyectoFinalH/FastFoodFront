@@ -10,6 +10,7 @@ export const register_user = (dataquery) => {
         username: dataquery.username,
         email: dataquery.email,
         password: dataquery.password,
+        role_id:  dataquery.role_id
       };
       //  alert ("usuario "+userData.username)
       const endpoint = "http://localhost:5000/users/create";

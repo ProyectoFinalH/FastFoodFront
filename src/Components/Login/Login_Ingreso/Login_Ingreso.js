@@ -76,12 +76,21 @@ const LoginIngreso = ({ setView }) => {
   }, [User, navigate]);
 
   useEffect(() => {
+    const isValidEmailOrPhone = (value) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\d{7,15}$/; 
+      return emailRegex.test(value) || phoneRegex.test(value);
+    };
+
     setIsButtonEnabled(
-      formData.emailOrPhone.trim() !== "" && 
+      isValidEmailOrPhone(formData.emailOrPhone.trim()) && 
       formData.password.trim() !== "" &&
       userType !== ""
     );
   }, [formData, userType]);
+
+
+
   const handleUserTypeChange = (event) => {
     setUserType(event.target.value); // Actualiza el tipo de usuario seleccionado
   };
@@ -148,10 +157,15 @@ const LoginIngreso = ({ setView }) => {
           ¿Olvidaste tu Contraseña?
         </div>
         <div className="ov-btn-container">
-          <div 
-            className={`ov-btn-grow-box ${isButtonEnabled ? '' : 'disabled'}`} 
+        <div 
+            className={isButtonEnabled
+                        ? 'ov-btn-grow-box' 
+                        : 'ov-btn-grow-box-L2'
+              
+              
+             } 
             onClick={isButtonEnabled ? handleSubmit : null}
-            style={{ cursor: isButtonEnabled ? 'pointer' : 'not-allowed' }}
+            //style={{ cursor: isButtonEnabled ? 'pointer' : 'not-allowed' }}
           >
             Ingresar
           </div>

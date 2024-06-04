@@ -10,12 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 const Registrarse = ({ setView }) => {
   const dispatch = useDispatch();
   const Register = useSelector((state) => state.RegisterUserData);
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [keyVisible, setKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    role_id:"1"
   });
   const [errors, setErrors] = useState({});
   const toggleVisibility = () => {
@@ -129,6 +131,30 @@ const Registrarse = ({ setView }) => {
     }
   }, [Register, setView]);
 
+
+
+
+  useEffect(() => {
+    const isValidEmail = (value) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(value);
+    };
+
+    setIsButtonEnabled(
+      userData.username.trim() !== "" &&
+      isValidEmail(userData.email.trim()) &&
+      userData.password.trim() !== "" &&
+      userData.password === userData.confirmPassword 
+    );
+  }, [userData]);
+
+
+
+
+
+
+
+
   return (
     <div className="bodyregister">
       <form className="formRegister" onSubmit={handleSubmit}>
@@ -201,9 +227,28 @@ const Registrarse = ({ setView }) => {
             <span className="errorMessage">{errors.confirmPassword}</span>
           )}
         </div>
-        <button type="submit" className="buttonSubmit">
+        <div className="ov-btn-container">
+        <div /*type="submit" className="buttonSubmit"*/
+        className={isButtonEnabled
+          ? 'buttonSubmit' 
+          : 'ov-btn-grow-box-RU2'
+          
+          
+        } 
+        onClick={isButtonEnabled ? handleSubmit : null}
+        
+        
+        >
           Registrarse
-        </button>
+        </div>
+
+
+          </div>
+          
+
+
+
+
         <div className="loginLink" onClick={handleLoginLinkClick}>
           ¿Ya tienes una cuenta? Inicia sesión aquí
         </div>

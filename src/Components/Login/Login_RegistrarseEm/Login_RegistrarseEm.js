@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login_RegistrarseEm.css";
 
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
+import { register_user } from "../../../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+
 const RegistrarseEmpresa = ({ setView }) => {
+  const dispatch = useDispatch();
   const [keyVisible, setKeyVisible] = useState(false);
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const Register = useSelector((state) => state.RegisterUserData);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    role_id:"2"
   });
   const [errors, setErrors] = useState({});
 
@@ -35,6 +42,7 @@ const RegistrarseEmpresa = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
       // lógica para enviar los datos del formulario al servidor
+      dispatch(register_user(userData));
     }
   };
 
@@ -114,6 +122,31 @@ const RegistrarseEmpresa = ({ setView }) => {
     return fieldErrors;
   };
 
+
+
+
+
+  useEffect(() => {
+    const isValidEmail = (value) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(value);
+    };
+
+    setIsButtonEnabled(
+      userData.username.trim() !== "" &&
+      isValidEmail(userData.email.trim()) &&
+      userData.password.trim() !== "" &&
+      userData.password === userData.confirmPassword 
+    );
+  }, [userData]);
+
+  useEffect(() => {
+    if (Register) {
+      alert("Le damos la Bienvenida a la empresa" + Register.username + " ahroa inicia sesion");
+      setView("login");
+    }
+  }, [Register, setView]);
+
   return (
     <div className="bodyregister">
       <form className="formRegister" onSubmit={handleSubmit}>
@@ -179,9 +212,31 @@ const RegistrarseEmpresa = ({ setView }) => {
             <span className="errorMessage">{errors.confirmPassword}</span>
           )}
         </div>
-        <button type="submit" className="buttonSubmit">
+
+
+
+
+
+        <div className="ov-btn-container">
+        <div /*type="submit" className="buttonSubmit"*/
+        className={isButtonEnabled
+          ? 'buttonSubmit-RE1' 
+          : 'ov-btn-grow-box-RE2'
+          
+          
+        } 
+        onClick={isButtonEnabled ? handleSubmit : null}
+        
+        
+        >
           Registrar Empresa
-        </button>
+        </div>
+
+
+          </div>
+
+
+
         <div
           className="loginLink"
           onClick={() => {
