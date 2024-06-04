@@ -8,6 +8,7 @@ import {
   GET_MENUITEMS,
   GET_MENUITEMS_BYNAME,
   SORTER_ASC,
+  CREATE_MENU,
 
 } from "../Redux/action-types";
 // export const GET_RESTAURANT = "GET_RESTAURANT"
@@ -25,6 +26,7 @@ const initialState = {
   allMenuItems: [],
   allMenus: [],
   allCategories: [],
+  createMenu: null,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -84,6 +86,11 @@ const reducer = (state = initialState, { type, payload }) => {
           ...state,
           allMenuItems: payload
         };
+        case CREATE_MENU:
+          return {
+            ...state,
+            createMenu: payload
+          };
     default:
       return { ...state };
   }

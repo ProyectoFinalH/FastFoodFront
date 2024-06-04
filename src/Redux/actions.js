@@ -1,4 +1,4 @@
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU } from "./action-types"
 import axios from 'axios'
 
 //Registramos usuario
@@ -201,4 +201,48 @@ export function sortedMenuItemsAsc(sortedMenuItems){
 })
 }
 
+export function CreateMenu(dataquery){
+  return async (dispatch) => {
+    try {
+      const endpoint = "http://localhost:5000/menus/create";
+      const response = await axios.post(endpoint, dataquery);
+      const menuData = response.data;
 
+      console.log("Datos encontrados", JSON.stringify(menuData));
+      
+        dispatch({
+          type: CREATE_MENU,
+          payload: menuData,
+        });
+      
+    } catch (error) {
+      alert("Error al enviar la información", error.message);
+      console.log("Error al enviar la información", error.message);
+    }
+  };
+}
+
+// Ejemplo en una función que maneja la solicitud
+
+const handleCreateMenu = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/menus/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: "name" }), // Asegúrate de enviar el campo correcto
+    });
+
+    if (response.ok) {
+      
+      const data = await response.json(); // Convierte la respuesta en un objeto JavaScript
+      console.log("Menú creado correctamente");
+      // Aquí puedes acceder a las propiedades específicas de "data"
+    } else {
+      console.error("Error en la respuesta del servidor:", response.status);
+    }
+  } catch (error) {
+    console.error("Error al enviar la solicitud:", error.message);
+  }
+};
