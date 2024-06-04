@@ -22,7 +22,6 @@ function Navbar() {
   };
 
   return (
-
     <div className="navbar-container">
       <div className="left-section">
         <div className="logo-container">
@@ -31,7 +30,7 @@ function Navbar() {
         </div>
       </div>
       <div className="right-section">
-        {User === "invitado" ? null : (
+        {User !== "invitado" && (
           <div className="carrito-container">
             <Link to="/carrito">
               <img src={carrito} alt="Carrito" className="carrito-img" />
@@ -40,9 +39,10 @@ function Navbar() {
         )}
         <div
           className="menu"
-          onClick={() => {
-            setMenuOpen(!menuOpen);
-          }}
+          onClick={toggleMenu}
+          role="button"
+          aria-label="Toggle menu"
+        >
           <span></span>
           <span></span>
           <span></span>
@@ -53,13 +53,13 @@ function Navbar() {
           </div>
           <ul>
             <li>
-              <NavLink to="/home">Inicio</NavLink>
+              <NavLink to="/home" onClick={toggleMenu}>Inicio</NavLink>
             </li>
             <li>
-              <NavLink to="/account">Mi cuenta</NavLink>
+              <NavLink to="/account" onClick={toggleMenu}>Mi cuenta</NavLink>
             </li>
             <li>
-              <NavLink to="/order">Mi Pedido</NavLink>
+              <NavLink to="/order" onClick={toggleMenu}>Mi Pedido</NavLink>
             </li>
             {User !== "invitado" && (
               <li>
