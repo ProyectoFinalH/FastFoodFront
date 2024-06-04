@@ -43,7 +43,6 @@ function Menu() {
   };
 
   console.log("este son los menu", allMenus);
-
   //HANDLERS PARA EL SEARCH
   function handleChange(e) {
     setSearchString(e.target.value);
@@ -53,6 +52,7 @@ function Menu() {
     e.preventDefault();
     dispatch(getMenuItemsByName(searchString));
   }
+
 
   // FUNCION PARA DESHACER FILTROS
   const clearFilters = () => {
@@ -106,6 +106,7 @@ function Menu() {
     navigate(-1)
   }
 
+  console.log("1-30", filteredMenuItems);
 
   return (
     <div className="menuContainer">

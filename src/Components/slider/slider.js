@@ -1,40 +1,42 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./slider.css";
 
 function Slider({ images }) {
   const [imageActual, setImageActual] = useState(0);
 
-  const imagesCant = images?.length;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setImageActual((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
 
-  //verificar si viene una imagen y evitar errores
-  if (!Array.isArray(images) || imagesCant === 0) {
-    return null;
-  }
+    return () => clearInterval(interval);
+  }, [images.length]);
 
-  const nextImage = () =>
-    setImageActual(imageActual === imagesCant - 1 ? 0 : imageActual + 1);
-
-  const prevImage = () =>
-    setImageActual(imageActual === 0 ? imagesCant - 1 : imageActual - 1);
+  const changeImage = (index) => {
+    setImageActual(index);
+  };
 
   return (
     <div className="ContainerSlider">
-      <button className="prevButton" onClick={prevImage}>
-        ◄
-      </button>
       {images.map((image, index) => (
         <img
           key={index}
           src={image}
-          alt="a1"
-          className={imageActual === index ? "slide active" : "slide"}
+          alt={`Slide ${index}`}
+          className={index === imageActual ? "slide active" : "slide"}
         />
       ))}
-      <button className="nextButton" onClick={nextImage}>
-        ►
-      </button>
+      <div className="dotContainer">
+        {images.map((_, index) => (
+          <span
+            key={index}
+            className={index === imageActual ? "dot active" : "dot"}
+            onClick={() => changeImage(index)}
+          ></span>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,11 @@
-.bodyIngreso {
+.login-container {
+  background-color: white;
+  padding: 45px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-body {
   width: 350px;
   height: 97%;
   display: flex;
@@ -7,22 +14,22 @@
   justify-content: center;
 }
 
-.ver {
+.password-toggle {
   cursor: pointer;
 }
 
-.imageningreso {
+.login-image {
   width: 250px;
 }
 
-.contenedoringreso {
+.login-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.Grupoinput {
+.input-group {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +41,7 @@
   width: 350px;
 }
 
-.Grupoinput input {
+.input-group input {
   height: 100%;
   border: none;
   outline: none;
@@ -43,40 +50,64 @@
   font-size: 16px;
 }
 
-.Grupoinput img {
-  width: 20px;
-  height: 20px;
+.input-group img {
+  max-width: 20px;
+  height: auto;
   margin: 5px;
 }
 
-.centrarlogogoogle {
+.google-login {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
   width: 350px;
-  height: 35px;
+  height: 25px;
   margin-top: 20px;
-  padding: 4px;
   border: 2px gainsboro groove;
   cursor: pointer;
+  margin-top: 20px;
+  padding: 5px 10px;
+  z-index: 1;
+  font-weight: bolder;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
-.centrarlogogoogle img {
-  width: 25px;
+.google-login img {
+  margin: 5px;
+  width: 15px;
 }
 
-.olvidastekey {
+.google-login::after {
+  content: "";
+  background: #29d884;
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+
+}
+.forgot-password {
   position: relative;
-  cursor: pointer;
   display: block;
   padding: 2px;
   margin-top: 10px;
-  color: rgb(78, 78, 78);
-  font-weight: bolder;
+  color: rgb(107, 114, 128);
+  font-weight: bold;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.olvidastekey::before {
+.forgot-password::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -89,20 +120,24 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.olvidastekey:hover::before {
+.forgot-password:hover::before {
   transform: scaleX(1);
 }
 
-.Registrate {
+.register {
   position: relative;
   display: block;
   padding: 2px;
   margin-top: 10px;
-  color: rgb(78, 78, 78);
-  font-weight: bolder;
+  color: rgb(107, 114, 128);
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.Registrate::before {
+.register::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -115,15 +150,15 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.Registrate:hover {
+.register:hover {
   cursor: pointer;
 }
 
-.Registrate {
+.register {
   margin-top: 5px;
 }
 
-.Registrate:hover::before {
+.register:hover::before {
   transform: scaleX(1);
 }
 
@@ -133,17 +168,16 @@
   margin-top: 5px;
 }
 
-.Grupoinput {
+.input-group {
   position: relative;
 }
 
-.ov-btn-grow-box {
+.login-button {
   margin-top: 20px;
-  height: 20px;
+  height: 25px;
   background: linear-gradient(283deg, #ff2426, #ff9259);
   width: 350px;
   color: white;
-  border: 2px solid black;
   padding: 5px 10px;
   border-radius: 10px;
   position: relative;
@@ -151,16 +185,16 @@
   overflow: hidden;
   display: inline-block;
   font-weight: bolder;
-  transition: all 0.3s ease; /* Añadido para suavizar la transición */
+  transition: all 0.3s ease;
   font-weight: 500;
 }
 
-.ov-btn-grow-box:hover {
+.login-button:hover {
   color: #fff;
   cursor: pointer;
 }
 
-.ov-btn-grow-box::after {
+.login-button::after {
   content: "";
   background: #29d884;
   position: absolute;
@@ -175,37 +209,36 @@
   transition: all 0.3s ease;
 }
 
-.ov-btn-grow-box:hover::after {
+.login-button:hover::after {
   transition: all 0.3s ease-out;
   transform: scale(1, 1);
 }
 
-.ov-btn-grow-box.disabled {
-  background-color: grey;
+.login-button.disabled {
+  background: linear-gradient(283deg, #000000, #080808);
   cursor: not-allowed;
-  color: #ccc; /* Cambia el color del texto para mayor claridad */
+  color: #d4d4d4;
   font-weight: 500;
 }
 
-.ov-btn-grow-box.disabled:hover {
-  color: #ccc; /* Asegúrate de que el color del texto no cambie */
+.login-button.disabled:hover {
+  color: #ccc;
   cursor: not-allowed;
 }
 
-.ov-btn-grow-box.disabled::after {
-  display: none; /* Deshabilita el efecto */
+.login-button.disabled::after {
+  display: none;
 }
 
-.espacioError {
+.error-space {
   color: red;
   font-size: 0.8em;
   margin-top: 0.2em;
 }
 
-.raio_select{
+.user-type-radio {
   display: flex;
   font-size: 16px;
   margin-top: 15px;
   font-weight: 500;
-  /*display: none;*/
 }

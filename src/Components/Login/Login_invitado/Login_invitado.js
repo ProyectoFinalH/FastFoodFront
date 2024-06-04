@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Login_invitado.css";
 import imagen from "../Login_imagenes/food_sin_fondosi.png";
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_home from "../Login_imagenes/iconos/entrega-a-domicilio.png";

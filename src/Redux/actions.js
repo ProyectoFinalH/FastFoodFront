@@ -1,4 +1,4 @@
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE } from "./action-types"
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE,LOGOUT_USER } from "./action-types"
 import axios from 'axios'
 
 //Registramos usuario
@@ -201,7 +201,8 @@ export function sortedMenuItemsAsc(sortedMenuItems){
 })
 }
 
-
-
-
-
+export const logoutUser = () => {
+  return {
+    type: LOGOUT_USER
+  };
+};

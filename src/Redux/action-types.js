@@ -10,6 +10,6 @@ export const GET_MENUITEMS = "GET_MENUITEMS";
 
 export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME"
 export const SORTER_ASC = "SORTER_ASC"
-
+export const LOGOUT_USER = "LOGOUT_USER";
 
 //export const HAMBURGUER = 'HAMBURGUER'

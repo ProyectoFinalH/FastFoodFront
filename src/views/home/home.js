@@ -14,18 +14,16 @@ import { useEffect } from "react";
 
 import Navbar from "../../Components/navbar/navbar";
 
-
 const mockImges = [Image1, Image2, Image3];
-
 
 function Home() {
   const User = useSelector((state) => state.USER);
   const navigate = useNavigate();
-  useEffect(()=>{
-            if(!User){
-              navigate('/')
-            }
-    },[User, navigate]);
+  useEffect(() => {
+    if (!User) {
+      navigate("/");
+    }
+  }, [User, navigate]);
   return (
     <div className="homeContainer">
       <Navbar />
