@@ -61,13 +61,13 @@ function Navbar() {
             <li>
 
               <NavLink to="/order">
-                <img src={pedidos} alt="" />
+                {/* <img src={pedidos} alt="" /> */}
                 Mi Pedido
               </NavLink>
             </li>            
             <li>
               <NavLink to="/menu/create">
-                <img src={pedidos} alt="" />
+                {/* <img src={pedidos} alt="" /> */}
                 Crear Menu
               </NavLink>
 

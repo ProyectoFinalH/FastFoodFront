@@ -1,8 +1,13 @@
 
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS } from "./action-types"
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER } from "./action-types"
 
 import axios from 'axios'
 
+export const logoutUser = () => {
+  return {
+    type: LOGOUT_USER
+  };
+};
 //Registramos usuario
 export const register_user = (dataquery) => {
   return async (dispatch) => {

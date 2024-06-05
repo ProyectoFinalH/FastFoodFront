@@ -126,7 +126,7 @@ function Menu() {
       <div className="navCardContainer">
 
 
-      <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} handleSort={handleSort} handlePriceRange={handlePriceRange}/>
+      <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} handleSort={handleSort} handlePriceRange={handlePriceRange} clearFilter={clearFilters}/>
 
       <CardsMenuItem AllMenuitems = {filteredMenuItems} selectMenuItem={selectMenuItem}/>
       
