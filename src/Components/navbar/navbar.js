@@ -59,7 +59,18 @@ function Navbar() {
               <NavLink to="/account" onClick={toggleMenu}>Mi cuenta</NavLink>
             </li>
             <li>
-              <NavLink to="/order" onClick={toggleMenu}>Mi Pedido</NavLink>
+
+              <NavLink to="/order">
+                {/* <img src={pedidos} alt="" /> */}
+                Mi Pedido
+              </NavLink>
+            </li>            
+            <li>
+              <NavLink to="/menu/create">
+                {/* <img src={pedidos} alt="" /> */}
+                Crear Menu
+              </NavLink>
+
             </li>
             {User !== "invitado" && (
               <li>

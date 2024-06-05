@@ -124,17 +124,14 @@ function Menu() {
         </div>
       </div>
       <div className="navCardContainer">
-        <NavbarMenu
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          handleSort={handleSort}
-          handlePriceRange={handlePriceRange}
-          clearFilter={clearFilters}
-        />
-        <CardsMenuItem
-          AllMenuitems={filteredMenuItems}
-          selectMenuItem={selectMenuItem}
-        />
+
+
+      <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} handleSort={handleSort} handlePriceRange={handlePriceRange} clearFilter={clearFilters}/>
+
+      <CardsMenuItem AllMenuitems = {filteredMenuItems} selectMenuItem={selectMenuItem}/>
+      
+
+
       </div>
     </div>
   );
