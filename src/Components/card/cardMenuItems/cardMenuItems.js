@@ -10,7 +10,22 @@ function CardMenuItems({ id, name, description, price, image }) {
         <div className="cardContent">
           <h2 className="cardTitle">{name}</h2>
           <p className="cardDescription">{description}</p>
-          <h2 className="cardPrice">${price}</h2>
+          <div  className="OrdenarCompra" >
+            <h2 className="cardPrice">${price}</h2>
+            <div className="botonesCarrito">
+            <label className="aumentardisminuir">-</label>
+            <input  className="inputcard"
+            type="text"
+            value={0}
+            disabled
+            />
+            <label className="aumentardisminuir">+</label>
+            </div>
+            
+          </div>
+          
+        
+          
         </div>
       </Link>
     </div>

@@ -6,3 +6,35 @@
   margin-bottom: 5%;
   margin-left: 10%;
 }
+
+.OrdenarCompra {
+  display: flex;
+  width: 100%; /* Ajustar al 100% del contenedor padre */
+  height: 30px;
+  align-items: center;
+}
+
+.botonesCarrito {
+  display: flex;
+  justify-content: flex-end; /* Alinea el contenido a la derecha */
+  flex-shrink: 0; /* Evita que el contenedor se reduzca */
+  flex-grow: 1; /* Permite que el contenedor crezca si es necesario */
+  margin-right: 0px;
+}
+
+.aumentardisminuir {
+  width: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+}
+
+.aumentardisminuir:hover {
+  background-color: red;
+}
+
+.inputcard {
+  width: 30px;
+  text-align: center;
+}

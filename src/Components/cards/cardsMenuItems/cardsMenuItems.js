@@ -18,6 +18,7 @@ function CardsMenuItems({ AllMenuitems }) {
             image={menu?.image_url}
           />
         ))}
+      
     </div>
   );
 }
