@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import logo from "../../images/logo.png";
 import carrito from "../../images/carrito.svg";
 import closeIcon from "../../images/GgCloseR.png";
 import "./navbar.css";
 import { logoutUser } from "../../Redux/actions";
+import Carrito from "../Carrito/Carrito";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menucarrito, setMenucarrito] =useState(false)
   const User = useSelector((state) => state.USER);
   const dispatch = useDispatch();
 
@@ -19,10 +21,14 @@ function Navbar() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  }
+  
+  const handleMenuCarrito = () => {
+    setMenucarrito(!menucarrito);
   };
-
   return (
     <div className="navbar-container">
+           {menucarrito && <Carrito onClose={handleMenuCarrito} />}
       <div className="left-section">
         <div className="logo-container">
           <img src={logo} alt="logo" className="logo" />
@@ -31,10 +37,10 @@ function Navbar() {
       </div>
       <div className="right-section">
         {User !== "invitado" && (
-          <div className="carrito-container">
-            <Link to="/carrito">
+          <div className="carrito-container" onClick={handleMenuCarrito}>
+            
               <img src={carrito} alt="Carrito" className="carrito-img" />
-            </Link>
+            
           </div>
         )}
         <div

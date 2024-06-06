@@ -1,0 +1,124 @@
+.CarritoBody {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Alinea los elementos en el centro */
+  height: 100vh;
+  width: 100%; /* Asegúrate de que ocupe todo el ancho disponible */
+  background-color: rgba(19, 0, 0, 0.205); /* Fondo semi-transparente */
+  position: fixed; /* Para asegurar que está siempre en la pantalla */
+  bottom: 0; /* Alinea el elemento en la parte inferior */
+  left: 0;
+  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+.carCarrito {
+  background-color: white; /* Cambié a blanco para contraste, ajusta según necesites */
+  padding: 10px 20px;
+  box-shadow: 4px 2px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 800px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1001; /* Un índice z más alto para asegurarse de que esté por encima de .CarritoBody */
+  position: relative; /* Para que el contenido sea relativo a esta tarjeta */
+  border-radius: 5px;
+}
+
+.carCarritoHeader {
+  background-color: rgb(224, 200, 200);
+  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+  top: 0;
+  z-index: 1002; /* Asegúrate de que esté por encima del contenido desplazable */
+  width: 95%; /* Ajusta según el tamaño máximo deseado */
+  height: 80px;
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribuye el espacio entre el título y el botón de cerrar */
+  padding: 0 20px; /* Añade un poco de padding para espaciar el contenido */
+}
+
+.closeButton {
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.carCarritoContent {
+  overflow-y: auto;
+  flex: 1;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 100px; /* Para dejar espacio para el botón "Pagar" */
+}
+
+.cardProducto {
+  background-color: white;
+  padding: 10px 20px;
+  box-shadow: 4px 2px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  height: 100px;
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: flex-start; /* Alinea a la izquierda */
+  margin: 5px;
+}
+
+.cardProducto img {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px; /* Añadí un margen a la derecha para separar la imagen del texto */
+}
+
+.cardProducto div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea a la izquierda */
+  justify-content: center; /* Centra verticalmente */
+}
+
+.cardProducto label {
+  width: 200px;
+  margin: 5px;
+}
+
+.cardProducto div input {
+  width: 20px;
+  margin: 2px;
+  border: 2px gray groove;
+  padding: 2px;
+  text-align: center;
+}
+
+.signos {
+  font-size: 24px;
+  font-weight: 600;
+  color: gray;
+  width: 20px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.signos img {
+  width: 20px;
+  height: auto;
+}
+
+.Pagarproductos {
+  background-color: white;
+  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1002; /* Asegúrate de que esté por encima del contenido desplazable */
+  width: 95%; /* Ajusta según el tamaño máximo deseado */
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.pagolabel {
+  width: auto;
+  margin-left: 2px;
+  padding: 0;
+}
