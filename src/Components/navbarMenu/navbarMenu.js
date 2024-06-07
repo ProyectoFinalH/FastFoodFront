@@ -6,12 +6,12 @@ import lupa from "../../images/lupas.png"
 
 
 
-function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }) {
+function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange,clearFilter }) {
 
 
 
   const [isOpen1, setIsOpen1] = useState(true);
-  const [isOpen2, setIsOpen2] = useState(true);
+  // const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
 
   const Options1 = (sortBy) => {
@@ -19,9 +19,9 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }
     handleSort(sortBy);
   };
 
-  const Options2 = () => {
-    setIsOpen2(!isOpen2);
-  };
+  // const Options2 = () => {
+  //   setIsOpen2(!isOpen2);
+  // };
 
   const Options3 = () => {
     setIsOpen3(!isOpen3);
@@ -43,9 +43,6 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }
           </button>
         </div>
       </form>
-      <div>
-
-      </div>
       <div className="navbarMenuSelect">
       <button onClick={clearFilter}>Deshacer Filtros</button>
         <div onClick={Options1}>
@@ -80,7 +77,7 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }
             </ul>
           )}
         </div>
-        <div onClick={Options2}>
+        {/* <div onClick={Options2}>
           <span>Categorías ⮟</span>
           {isOpen2 && (
             <ul>
@@ -90,7 +87,7 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange }
               <li onClick={handleLiClick}>Vegana</li>
             </ul>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

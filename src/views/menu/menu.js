@@ -11,13 +11,14 @@ import { useNavigate } from "react-router-dom";
 import CardsMenuItem from "../../Components/cards/cardsMenuItems/cardsMenuItems";
 import NavbarMenu from "../../Components/navbarMenu/navbarMenu";
 import "./menu.css";
-import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
+// import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
 import CardsMenus from "../../Components/cards/cardsMenus/cardsMenus";
 import Navbar from "../../Components/navbar/navbar";
+import Detail from "../detail/detail";
 
 function Menu() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // const allRestaurant = useSelector((state)=> state.allRestaurant)
   const allMenus = useSelector((state) => state.allMenus);
@@ -28,6 +29,9 @@ function Menu() {
   const [searchString, setSearchString] = useState("");
   const [sortBy, setSortBy] = useState(null);
   const [priceRange, setPriceRange] = useState("");
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
 
   useEffect(() => {
     // dispatch(getAllRestaurants())
@@ -43,6 +47,7 @@ function Menu() {
   };
 
   console.log("este son los menu", allMenus);
+
   //HANDLERS PARA EL SEARCH
   function handleChange(e) {
     setSearchString(e.target.value);
@@ -53,7 +58,6 @@ function Menu() {
     dispatch(getMenuItemsByName(searchString));
   }
 
-
   // FUNCION PARA DESHACER FILTROS
   const clearFilters = () => {
     setSearchString("");
@@ -63,14 +67,16 @@ function Menu() {
   };
 
   //Copia del Estado allMenuItems
-  let filteredMenuItems = [...allMenuitems]
+  let filteredMenuItems = [...allMenuitems];
   // FILTRADO DE ITEMMENU EN BASE AL MENU
   const handleSelectMenu = (menuItem) => {
     setSelectMenuItem((prevId) => (prevId === menuItem ? null : menuItem));
   };
 
   if (selectMenuItem) {
-    filteredMenuItems = filteredMenuItems.filter((menu) => menu.menu_id === selectMenuItem);
+    filteredMenuItems = filteredMenuItems.filter(
+      (menu) => menu.menu_id === selectMenuItem
+    );
   }
 
   // ORDENAMIENTO DE ITEMSMENU
@@ -103,36 +109,53 @@ function Menu() {
 
   //Boton volver Atras
   const handleGoBack = () => {
-    navigate(-1)
-  }
-
-  console.log("1-30", filteredMenuItems);
+    navigate(-1);
+  };
 
   return (
     <div className="menuContainer">
       <Navbar />
-        <div className="buttonBack">
+      <div className="buttonBack">
         <button onClick={handleGoBack}>⬅ Volver</button>
-
-        </div>
-      <div className="menuSupContainer">
-        <div className="cardRestContainer">
-          <CardsRestaurant />
-        </div>
-        <div className="cardMenusContainer">
-          <CardsMenus AllMenus={allMenus} handleSelectMenu={handleSelectMenu} />
-        </div>
       </div>
+      <h2>Nombre del Restaurant</h2>
+   
       <div className="navCardContainer">
-
-
-      <NavbarMenu handleChange={handleChange} handleSubmit={handleSubmit} handleSort={handleSort} handlePriceRange={handlePriceRange}/>
-
-      <CardsMenuItem AllMenuitems = {filteredMenuItems} selectMenuItem={selectMenuItem}/>
-      
-
-
+        <div className="navBarContainer">
+          <NavbarMenu
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleSort={handleSort}
+            handlePriceRange={handlePriceRange}
+            clearFilter={clearFilters}
+          />
+        </div>
+        <div className="cardsMenusContainer">
+        <div className="cardsViewMenusSelectContainer" >
+        <CardsMenus AllMenus={allMenus} handleSelectMenu={handleSelectMenu} />
       </div>
+        <div className="CardViewMenuContainer">
+          {allMenus.map((menu) => (
+            <div key={menu.id} className="CardsListMenuContainer">
+              <h2>{menu.name}</h2>
+              <CardsMenuItem
+                AllMenuitems={filteredMenuItems.filter(
+                  (menuItem) => menuItem.menu_id === menu.id
+                )}
+                handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
+              />
+            </div>
+          ))}
+        </div>
+        </div>
+      </div>
+      {selectedMenuItemId && (
+        <Detail
+          isOpen
+          handleCloseModal={() => setSelectedMenuItemId(null)}
+          menuItemId={selectedMenuItemId}
+        />
+      )}
     </div>
   );
 }

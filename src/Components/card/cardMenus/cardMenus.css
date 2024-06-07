@@ -1,16 +1,23 @@
+.cardMenusContainer{
+  display: flex;
+  margin-right: 50px;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
 .buttonMenus {
-  font-size: 25px;
-  margin-left: 150px;
-  margin-top: 1%;
-  width: 170px;
-  height: 100px;
+  margin-left: 100px;
+  padding:15px;
   border: none;
-  border-radius: 10px;
-  background-color: #f3f4f4;
+  width: 100%;
+  font-size: 18px;
+  background-color: #c90a06;
+  color: #fff;
   cursor: pointer;
-  margin-top: 30px;
-  border: 1px solid rgb(0, 0, 0, 0.2);
+  border: 1px solid rgb(196, 196, 196);
 }
 .buttonMenus:hover {
-  background-color: #c90a06;
+  background-color: #f4ca0e;
+  border: 1px solid #c90a06;
+
 }

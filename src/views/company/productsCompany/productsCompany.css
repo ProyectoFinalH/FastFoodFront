@@ -1,0 +1,9 @@
+.mainContainer{
+    display: grid;
+
+}
+
+.cardMenusContainer2{
+ overflow-y: auto;
+ height: 500px;
+}

@@ -3,7 +3,7 @@
 import CardMenuItems from "../../card/cardMenuItems/cardMenuItems";
 import "./cardsMenuItems.css";
 
-function CardsMenuItems({ AllMenuitems }) {
+function CardsMenuItems({ AllMenuitems, handleSelectMenuItem }) {
   return (
     <div className="cardsContainer">
       {AllMenuitems &&
@@ -16,6 +16,7 @@ function CardsMenuItems({ AllMenuitems }) {
             description={menu?.description}
             price={menu?.price}
             image={menu?.image_url}
+            handleSelectMenuItem={handleSelectMenuItem}
           />
         ))}
     </div>
