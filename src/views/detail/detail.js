@@ -1,29 +1,31 @@
-import {useNavigate, useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import "./detail.css";
 import axios from "axios";
-import Navbar from "../../Components/navbar/navbar";
 
-function Detail() {
-  const params = useParams();
+
+function Detail({ isOpen, handleCloseModal, menuItemId }) {
+  
+  
+
   const [menuItem, setmenuItem] = useState({});
   const [cant, setCant] = useState(1);
-
-const navigate = useNavigate()
+  
+  
 
   useEffect(() => {
-    axios(`http://localhost:5000/menuitems/${params?.id}`)
-      .then(({ data }) => {
-        if (data?.id) {
-          setmenuItem(data);
-        }
-      })
-      .catch(() => {
-        console.log("Error al ingresar al menuItem ");
-      });
-    return () => setmenuItem({});
-  }, [params?.id]);
+    if (menuItemId) {
+      axios(`http://localhost:5000/menuitems/${menuItemId}`)
+        .then(({ data }) => {
+          if (data?.id) {
+            setmenuItem(data);
+          }
+        })
+        .catch(() => {
+          console.log("Error al ingresar al menuItem");
+        });
+    }
+  }, [menuItemId]);
 
   const incrementCant = () => {
     setCant(cant + 1);
@@ -33,14 +35,16 @@ const navigate = useNavigate()
     if (cant > 1) setCant(cant - 1);
   };
 
-  const handleGoBack = () => {
-    navigate(-1)
-  }
 
+  if (!isOpen || !menuItem) return null;
   return (
+    
     <div className="detailContainer">
-      <Navbar/>
       <div className="detailCardContainer">
+        <div className="buttonClose">
+
+      <button onClick={handleCloseModal}>X</button>
+        </div>
         <div className="imageDetail">
           <img src={menuItem?.image_url} alt={menuItem.name} />
         </div>
@@ -63,7 +67,7 @@ const navigate = useNavigate()
           <button>Agregar al carrito</button>
         </div>
         <div className="buttonContainer">
-            <button onClick={handleGoBack}>Volver al menu</button>
+            <button onClick={handleCloseModal}>Volver al menu</button>
         </div>
       </div>
     </div>

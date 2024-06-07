@@ -1,12 +1,10 @@
 .menuContainer {
-  display: flex;
-  flex-direction: column;
-  padding: 2%;
+  display: grid;
+  
 }
 
 .menuSupContainer {
   display: flex;
-  justify-content: flex-start;
 }
 
 .cardRestContainer {
@@ -18,9 +16,22 @@
   margin-top: 50px;
 }
 
-.cardMenusContainer {
+.cardsViewMenusSelectContainer {
   display: flex;
-  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cardsMenusSelectContainer{
+  display: flex;
+}
+
+.CardViewMenuContainer{
+  display: grid;
+  justify-items: flex-start;
+  width: 100%;
+  margin-left: 100px;
 }
 
 .buttonBack{
@@ -44,4 +55,9 @@
   .buttonBack button:hover {
     background-color: #f4ca0e;
     border: 1px solid #c90a06;
+  }
+
+  .CardsListMenuContainer{
+    display: grid;
+    justify-items: flex-start;
   }

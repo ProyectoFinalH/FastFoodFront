@@ -119,7 +119,7 @@ const handleMenuItem = () =>{
           />
         <label htmlFor="imageUrl">Image URL:</label>
         <input
-          type="url"
+          type="file"
           name="image_url"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
