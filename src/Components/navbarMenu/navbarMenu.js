@@ -43,9 +43,6 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange,c
           </button>
         </div>
       </form>
-      <div>
-
-      </div>
       <div className="navbarMenuSelect">
       <button onClick={clearFilter}>Deshacer Filtros</button>
         <div onClick={Options1}>

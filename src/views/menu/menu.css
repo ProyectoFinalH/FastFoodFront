@@ -61,3 +61,7 @@
     display: grid;
     justify-items: flex-start;
   }
+
+  .navBarContainer{
+    width: 30%;
+  }

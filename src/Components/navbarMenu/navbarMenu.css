@@ -1,7 +1,7 @@
 .navbarMenuContainer {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 100%;
   margin-left: 20px;
 }
 
@@ -14,9 +14,10 @@
 }
 
 .navbarMenuContainer input {
+  font-size: 100%;
   padding: 8px 10px;
   border: 1px solid #ccc;
-  width: 400px;
+  width: 100%;
   height: 50px;
 }
 

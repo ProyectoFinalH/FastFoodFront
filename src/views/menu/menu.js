@@ -121,7 +121,7 @@ function Menu() {
       <h2>Nombre del Restaurant</h2>
    
       <div className="navCardContainer">
-        <div>
+        <div className="navBarContainer">
           <NavbarMenu
             handleChange={handleChange}
             handleSubmit={handleSubmit}
