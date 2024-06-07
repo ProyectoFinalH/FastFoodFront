@@ -1,3 +1,4 @@
+
 import "./infoCompany.css";
 
 function InfoCompany() {

@@ -17,6 +17,7 @@ import Navbar from "../../Components/navbar/navbar";
 import Detail from "../detail/detail";
 import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
 
+
 function Menu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,6 +31,9 @@ function Menu() {
   const [searchString, setSearchString] = useLocalStorage("searchString","");
   const [sortBy, setSortBy] = useLocalStorage("sortBy",null);
   const [priceRange, setPriceRange] = useLocalStorage("priceRange","");
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
@@ -48,8 +52,6 @@ function Menu() {
     const [min, max] = range.split("-").map(Number);
     return menuItems.filter((menu) => menu.price >= min && menu.price <= max);
   };
-
-  
 
   //HANDLERS PARA EL SEARCH
   // function handleChange(e) {
@@ -135,6 +137,7 @@ function Menu() {
       <div className="navCardContainer">
         <div className="navBarContainer">
           <NavbarMenu
+
           searchString={searchString}
           setSearchString={setSearchString}
             // handleChange={handleChange}
