@@ -9,20 +9,20 @@ function CardMenuItems({ id, name, description, price, image }) {
   const [viewCard, setViewCard] = useState(false);
   const [id_Card, setId_Card] = useState(() => {
     const storedData = localStorage.getItem(`card-${id}`);
-    return storedData ? JSON.parse(storedData) : { id, name, description, price, image, cont: 0 };
+    return storedData ? JSON.parse(storedData) : { id, name, description, price, image, cont: 0  };
   });
 
   const handleSumar = () => {
     setId_Card((prevState) => ({
       ...prevState,
-      cont: prevState.cont <= 0 ? 1 : prevState.cont + 1,
+      cont: prevState.cont <= 0 || NaN ? 1 : prevState.cont + 1,
     }));
   };
 
   const handleRestar = () => {
     setId_Card((prevState) => ({
       ...prevState,
-      cont: prevState.cont <= 0 ? 0 : prevState.cont - 1,
+      cont: prevState.cont <= 0 || NaN  ? 0 : prevState.cont - 1,
     }));
   };
 
@@ -34,8 +34,15 @@ function CardMenuItems({ id, name, description, price, image }) {
 
   useEffect(() => {
     localStorage.setItem(`card-${id}`, JSON.stringify(id_Card));
-  }, [id_Card, id]);
+    alert(id_Card.cont)
+  }, [id_Card, id, id_Card.cont]);
 
+
+
+
+
+ 
+ 
   return (
     <div className="cardMenuContainer">
       {
@@ -52,6 +59,7 @@ function CardMenuItems({ id, name, description, price, image }) {
           <h2 className="cardPrice">${price}</h2>
           <div className="botonesCarrito">
             <div className="botones-flex">
+            <div className="buttonDecInc-Menu">
               <label className="aumentardisminuir" onClick={handleRestar}>
                 -
               </label>
@@ -64,6 +72,7 @@ function CardMenuItems({ id, name, description, price, image }) {
               <label className="aumentardisminuir" onClick={handleSumar}>
                 +
               </label>
+              </div>
               <img
                 src={carrito}
                 title="Ve Al Carrito"

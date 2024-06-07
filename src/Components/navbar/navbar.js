@@ -31,7 +31,7 @@ function Navbar() {
   };
   return (
     <div className="navbar-container">
-           {menucarrito && <Carrito onClose={handleMenuCarrito} />}
+          
       <div className="left-section">
         <div className="logo-container">
           <img src={logo} alt="logo" className="logo" />
@@ -89,6 +89,7 @@ function Navbar() {
           </ul>
         </div>
       </div>
+      {menucarrito && <Carrito onClose={handleMenuCarrito} />}
     </div>
   );
 }
