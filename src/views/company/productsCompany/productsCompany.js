@@ -13,7 +13,7 @@ function ProductsCompany() {
   const dispatch = useDispatch();
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
-  const [selectMenuItem, setSelectMenuItem] = useState(null);
+  const [selectMenuItem] = useState(null);
 
   useEffect(() => {
     dispatch(getAllMenus());
@@ -31,7 +31,7 @@ function ProductsCompany() {
   }
 
   return (
-    <div className="mainContainer">ProductsCompany
+    <div className="mainContainer">
       <Link to="/menu/create">
       <button>Crear Menu</button>
       </Link>
