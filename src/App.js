@@ -8,6 +8,7 @@ import Menu from "./views/menu/menu";
 import CreateMenuForm from "./Components/createMenu/createMenu";
 
 import { Routes, Route } from "react-router-dom";
+import Company from "./views/company/company";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/menu/:id" element={<Detail />} />
         <Route path="/account" element={<Account />} />
         <Route path="/menu/create" element={<CreateMenuForm />} />
+        <Route path="/company" element={<Company/>}/>
       </Routes>
     </div>
   );
