@@ -4,6 +4,10 @@ import CardMenuItems from "../../card/cardMenuItems/cardMenuItems";
 import "./cardsMenuItems.css";
 
 function CardsMenuItems({ AllMenuitems }) {
+
+
+
+  
   return (
     <div className="cardsContainer">
       {AllMenuitems &&

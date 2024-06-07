@@ -1,26 +1,27 @@
 .CarritoBody {
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Alinea los elementos en el centro */
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-  width: 100%; /* Asegúrate de que ocupe todo el ancho disponible */
-  background-color: rgba(19, 0, 0, 0.205); /* Fondo semi-transparente */
-  position: fixed; /* Para asegurar que está siempre en la pantalla */
-  bottom: 0; /* Alinea el elemento en la parte inferior */
+  width: 100%;
+  background-color: rgba(19, 0, 0, 0.205);
+  position: fixed;
+  bottom: 0;
   left: 0;
-  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+  z-index: 1000;
+  margin-bottom: 0;
 }
 
 .carCarrito {
-  background-color: white; /* Cambié a blanco para contraste, ajusta según necesites */
+  background-color: white;
   padding: 10px 20px;
   box-shadow: 4px 2px 2px 4px rgba(0, 0, 0, 0.1);
   width: 800px;
   height: 600px;
   display: flex;
   flex-direction: column;
-  z-index: 1001; /* Un índice z más alto para asegurarse de que esté por encima de .CarritoBody */
-  position: relative; /* Para que el contenido sea relativo a esta tarjeta */
+  z-index: 1001;
+  position: relative;
   border-radius: 5px;
 }
 
@@ -28,20 +29,42 @@
   background-color: rgb(224, 200, 200);
   box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
   top: 0;
-  z-index: 1002; /* Asegúrate de que esté por encima del contenido desplazable */
-  width: 95%; /* Ajusta según el tamaño máximo deseado */
+  z-index: 1002;
+  width: 95%;
   height: 80px;
   position: sticky;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Distribuye el espacio entre el título y el botón de cerrar */
-  padding: 0 20px; /* Añade un poco de padding para espaciar el contenido */
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
 .closeButton {
   cursor: pointer;
   font-size: 24px;
   font-weight: bold;
+  color: black;
+}
+.closeButton:hover {
+ 
+  color: red;
+}
+.card-nombre-costo{
+  background-color: rgba(110, 17, 17, 0.199);
+  height: 100px;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  margin-left: -10px;
+}
+
+.CarritoBotones{
+  background-color: rgba(110, 17, 17, 0.199);
+  height: 100px;
+  width: 300px; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .carCarritoContent {
@@ -49,8 +72,13 @@
   flex: 1;
   width: 100%;
   padding-top: 20px;
-  padding-bottom: 100px; /* Para dejar espacio para el botón "Pagar" */
+  padding-bottom: 100px;
 }
+
+
+
+
+
 
 .cardProducto {
   background-color: white;
@@ -59,22 +87,22 @@
   width: 90%;
   height: 100px;
   display: flex;
-  align-items: center; /* Centra verticalmente */
-  justify-content: flex-start; /* Alinea a la izquierda */
+  align-items: center;
+  /*justify-content: space-between;*/
   margin: 5px;
 }
 
 .cardProducto img {
   width: 100px;
   height: 100px;
-  margin-right: 10px; /* Añadí un margen a la derecha para separar la imagen del texto */
+  margin-right: 10px;
 }
 
-.cardProducto div {
+.cardProducto > div {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Alinea a la izquierda */
-  justify-content: center; /* Centra verticalmente */
+ 
+  align-items: center;
+  justify-content: center;
 }
 
 .cardProducto label {
@@ -85,30 +113,43 @@
 .cardProducto div input {
   width: 20px;
   margin: 2px;
-  border: 2px gray groove;
+  border: 2px rgb(43, 17, 17) groove;
   padding: 2px;
   text-align: center;
 }
 
+
+
 .signos {
   font-size: 24px;
   font-weight: 600;
-  color: gray;
+  color: black;
   width: 20px;
   height: 30px;
   cursor: pointer;
+ 
 }
 
 .signos img {
   width: 20px;
   height: auto;
+ 
+}
+
+.costoTotal {
+  margin-left: 30px;
+
+}
+
+.costoTotal .labelTotal {
+  margin-right: 5px;
 }
 
 .Pagarproductos {
   background-color: white;
   box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1002; /* Asegúrate de que esté por encima del contenido desplazable */
-  width: 95%; /* Ajusta según el tamaño máximo deseado */
+  z-index: 1002;
+  width: 95%;
   height: 80px;
   position: absolute;
   bottom: 0;

@@ -14,6 +14,8 @@ function Navbar() {
   const User = useSelector((state) => state.USER);
   const dispatch = useDispatch();
 
+ 
+
   const handleLogout = () => {
     dispatch(logoutUser());
     window.location.href = "/";
@@ -25,6 +27,7 @@ function Navbar() {
   
   const handleMenuCarrito = () => {
     setMenucarrito(!menucarrito);
+
   };
   return (
     <div className="navbar-container">
