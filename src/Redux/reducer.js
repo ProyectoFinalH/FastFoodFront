@@ -10,7 +10,8 @@ import {
   SORTER_ASC,
   CREATE_MENU,
   CREATE_MENU_ITEMS,
-
+  UPDATE_USER,
+  LOGOUT_USER,
 } from "../Redux/action-types";
 // import {
 //   GET_RESTAURANTS
@@ -97,11 +98,23 @@ const reducer = (state = initialState, { type, payload }) => {
             ...state,
             createMenuItems: payload
           };
+
           // case GET_RESTAURANTS:
           //   return{
           //     ...state,
           //     allRestaurants: payload
           //   };
+
+          case UPDATE_USER:
+            return {
+              ...state,
+              USER: payload,
+            };
+          case LOGOUT_USER:
+            return {
+              ...state,
+              USER: null,
+            };
     default:
       return { ...state };
   }

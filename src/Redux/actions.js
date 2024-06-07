@@ -1,6 +1,7 @@
 
 import {REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER } from "./action-types"
 // import {GET_RESTAURANTS} from "./action-types"
+
 import axios from 'axios'
 
 export const logoutUser = () => {
@@ -260,8 +261,9 @@ export function CreateMenuItems(dataquery){
   };
 }
 
-// Ejemplo en una función que maneja la solicitud
-
-
-
-
+export const updateUser = (userData) => {
+  return {
+    type: UPDATE_USER,
+    payload: userData,
+  };
+};
