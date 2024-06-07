@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import "./account.css";
 import { updateUser } from "../../Redux/actions";
-import axios from 'axios';
 
 function Account() {
   const user = useSelector((state) => state.USER);
@@ -27,19 +26,7 @@ function Account() {
     }
   };
 
-  const sendEmailNotification = async () => {
-    try {
-      await axios.post("http://localhost:5000/notify-email", {
-        email: user.email,
-        subject: "Actualización de datos",
-        message: "Tus datos han sido actualizados correctamente."
-      });
-    } catch (error) {
-      console.error("Error al enviar el correo electrónico", error.message);
-    }
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const updatedUser = {
       ...user,
       firstName,
@@ -49,8 +36,31 @@ function Account() {
       profileImage,
     };
     dispatch(updateUser(updatedUser));
-    sendEmailNotification();
-    alert("Datos actualizados correctamente");
+
+    try {
+      const response = await fetch("/notify-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: user.email }),
+      });
+
+      if (response.ok) {
+        alert(
+          "Datos actualizados correctamente. Se ha enviado un correo electrónico de notificación."
+        );
+      } else {
+        throw new Error(
+          "Error al enviar el correo electrónico de notificación"
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert(
+        "Datos actualizados correctamente, pero hubo un error al enviar el correo electrónico de notificación."
+      );
+    }
   };
 
   return (
@@ -67,7 +77,11 @@ function Account() {
             )}
             <label className="profile-image-label">
               Cambiar foto
-              <input type="file" accept="image/*" onChange={handleImageChange} />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
             </label>
           </div>
           <div className="input-group">
