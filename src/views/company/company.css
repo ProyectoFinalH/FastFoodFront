@@ -1,0 +1,16 @@
+.companyContainer{
+display: grid;
+height: 100vh;
+}
+
+.navbarCompany{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    
+}
+.navbarCompany img {
+width: 100px;
+height: 100px;
+}

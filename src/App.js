@@ -6,6 +6,7 @@ import Account from "./views/account/account";
 import Home from "./views/home/home";
 import Menu from "./views/menu/menu";
 import CreateMenuForm from "./Components/createMenu/createMenu";
+import Company from "./views/company/company";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/menu/:id" element={<Detail />} />
         <Route path="/account" element={<Account />} />
         <Route path="/menu/create" element={<CreateMenuForm />} />
+        <Route path="/company" element={<Company/>}/>
       </Routes>
     </div>
   );

@@ -1,0 +1,45 @@
+.mainContainer{
+    display: grid;
+
+}
+
+.mainContainer button{
+    padding: 5px 0px;
+    border: none;
+    width: 200px;
+    font-size: 20px;
+    z-index: 5;
+    background-color: #c90a06;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid rgb(196, 196, 196);
+  }
+  
+  .mainContainer button:hover {
+    background-color: #f4ca0e;
+    border: 1px solid #c90a06;
+  }
+.cardMenusContainer2{
+ overflow-y: auto;
+ height: 500px;
+ width: 80%;
+ margin-left: 10%;
+ margin-top: 20px;
+ border-bottom: solid 1px rgb(168, 168, 168);
+ border-top: solid 1px rgb(128, 127, 127);
+ box-shadow: 0px 0px 15px black;
+ border-radius: 10px;
+}
+
+.cardMenusContainer2::-webkit-scrollbar{
+    width: 10px;
+}
+
+.cardMenusContainer2::-webkit-scrollbar-thumb{
+    background-color: #c90000;
+   border-radius: 5px;
+}
+
+.cardMenusContainer2::-webkit-scrollbar-thumb:hover{
+    background-color: #dbba00;
+}

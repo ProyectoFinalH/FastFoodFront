@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {CreateMenu, CreateMenuItems, getAllMenus} from "../../Redux/actions"
 import NavBar from "../navbar/navbar"
+import { Link } from 'react-router-dom';
 
 function CreateMenuForm() {
     const dispatch = useDispatch();
@@ -34,8 +35,8 @@ const handleMenuItem = () =>{
   if (
     menuItemName.trim() === "" ||
     description.trim() === "" ||
-    price.trim() === "" ||
-    imageUrl.trim() === ""
+    price.trim() === "" 
+    // imageUrl.trim() === ""
   ) {
     setItemErrorMessage("Todos los campos deben ser llenados");
   } else {
@@ -53,7 +54,7 @@ const handleMenuItem = () =>{
     };
     useEffect(() => {        
       dispatch(getAllMenus());    
-  }, [dispatch, allMenuss]);
+  }, [dispatch]);
 
     const handleMenuChange = (event) => {
         setMenuName({itemMenu: event.target.value});
@@ -62,6 +63,11 @@ const handleMenuItem = () =>{
   return (
       <div className="createmenu">
         <NavBar />
+        <div className="buttonBack">
+          <Link to="/company">
+        <button>⬅ Volver</button>
+          </Link>
+      </div>
       <form className="form" onSubmit={handleSubmit}>
       <h1>Create Menu</h1>
         <label htmlFor="menuName">Nombre del menu:</label>
@@ -118,13 +124,15 @@ const handleMenuItem = () =>{
           onChange={(e) => setPrice(e.target.value)}
           />
         <label htmlFor="imageUrl">Image URL:</label>
+
         <input
-          type="url"
+          type="file"
           name="image_url"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           id="imageUrl"
           />
+
           <button onClick={handleMenuItem}>Create Item</button>
           {itemSuccessMessage && <p className="success-message">{itemSuccessMessage}</p>}
           {itemErrorMessage && <p className="error-message">{itemErrorMessage}</p>}

@@ -1,6 +1,7 @@
 
 import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, UPDATE_USER } from "./action-types"
 
+
 import axios from 'axios'
 
 export const logoutUser = () => {
@@ -230,11 +231,19 @@ export function CreateMenu(dataquery){
   };
 }
 
-export function CreateMenuItems(dataquery){
+export function CreateMenuItems(dataquery, image_url){
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
-      const response = await axios.post(endpoint, dataquery);
+      let formData = new FormData();
+      formData.append('image', image_url);
+
+      const response = await axios.post(endpoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: dataquery,
+      });
       const menuItemData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuItemData));
