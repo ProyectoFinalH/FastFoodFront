@@ -12,18 +12,17 @@ import {
   CREATE_MENU_ITEMS,
 
 } from "../Redux/action-types";
-// export const GET_RESTAURANT = "GET_RESTAURANT"
-// export const GET_MENUS ="GET_MENUS"
-// export const GET_MENUITEMS ="GET_MENUITEMS"
-// export const GET_CATEGORIES ="GET_CATEGORIES"
-// export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME"
+// import {
+//   GET_RESTAURANTS
+
+// } from "../Redux/action-types";
 
 
 const initialState = {
   USER: null,
   RegisterUserData: null,
   RegisterBusiness: null,
-  allRestaurante: [],
+  allRestaurants: [],
   allMenuItems: [],
   allMenus: [],
   allCategories: [],
@@ -98,6 +97,11 @@ const reducer = (state = initialState, { type, payload }) => {
             ...state,
             createMenuItems: payload
           };
+          // case GET_RESTAURANTS:
+          //   return{
+          //     ...state,
+          //     allRestaurants: payload
+          //   };
     default:
       return { ...state };
   }

@@ -6,6 +6,7 @@
     width: 25%;
     height: 100rem;
     background-color: brown;
+    min-width: 200px;
 
 }
 .OptionContainer ul{
