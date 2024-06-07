@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import "./account.css";
 import { updateUser } from "../../Redux/actions";
+import axios from 'axios';
 
 function Account() {
   const user = useSelector((state) => state.USER);
@@ -26,6 +27,18 @@ function Account() {
     }
   };
 
+  const sendEmailNotification = async () => {
+    try {
+      await axios.post("http://localhost:5000/notify-email", {
+        email: user.email,
+        subject: "Actualización de datos",
+        message: "Tus datos han sido actualizados correctamente."
+      });
+    } catch (error) {
+      console.error("Error al enviar el correo electrónico", error.message);
+    }
+  };
+
   const handleSubmit = () => {
     const updatedUser = {
       ...user,
@@ -36,6 +49,7 @@ function Account() {
       profileImage,
     };
     dispatch(updateUser(updatedUser));
+    sendEmailNotification();
     alert("Datos actualizados correctamente");
   };
 
@@ -51,7 +65,10 @@ function Account() {
             ) : (
               <div className="profile-placeholder">Imagen de perfil</div>
             )}
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <label className="profile-image-label">
+              Cambiar foto
+              <input type="file" accept="image/*" onChange={handleImageChange} />
+            </label>
           </div>
           <div className="input-group">
             <label>Correo:</label>
