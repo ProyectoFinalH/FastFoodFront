@@ -10,13 +10,9 @@ import {
   SORTER_ASC,
   CREATE_MENU,
   CREATE_MENU_ITEMS,
+  GET_RESTAURANTS
 
 } from "../Redux/action-types";
-// import {
-//   GET_RESTAURANTS
-
-// } from "../Redux/action-types";
-
 
 const initialState = {
   USER: null,
@@ -97,11 +93,11 @@ const reducer = (state = initialState, { type, payload }) => {
             ...state,
             createMenuItems: payload
           };
-          // case GET_RESTAURANTS:
-          //   return{
-          //     ...state,
-          //     allRestaurants: payload
-          //   };
+          case GET_RESTAURANTS:
+            return{
+              ...state,
+              allRestaurants: payload
+            };
     default:
       return { ...state };
   }

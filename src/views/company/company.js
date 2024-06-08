@@ -9,7 +9,6 @@ function Company() {
     <div className="companyContainer">
 <div className="navbarCompany">
   <img src={logo} alt="logo"/>
-  <h2>Nombre de la empresa</h2>
 </div>
 <div>
   <Sidebar/>

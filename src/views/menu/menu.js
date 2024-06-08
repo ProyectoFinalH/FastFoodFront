@@ -137,7 +137,6 @@ function Menu() {
           <NavbarMenu
           searchString={searchString}
           setSearchString={setSearchString}
-            // handleChange={handleChange}
             handleSubmit={handleSubmit}
             handleSort={setSortBy}
             handlePriceRange={setPriceRange}
@@ -150,11 +149,11 @@ function Menu() {
       </div>
         <div className="CardViewMenuContainer">
           {allMenus.map((menu) => (
-            <div key={menu.id} className="CardsListMenuContainer">
-              <h2>{menu.name}</h2>
+            <div key={menu?.id} className="CardsListMenuContainer">
+              <h2>{menu?.name}</h2>
               <CardsMenuItem
-                AllMenuitems={filteredMenuItems.filter(
-                  (menuItem) => menuItem.menu_id === menu.id
+                AllMenuitems={filteredMenuItems?.filter(
+                  (menuItem) => menuItem?.menu_id === menu?.id
                 )}
                 handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
               />

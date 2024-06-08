@@ -1,8 +1,9 @@
 .navbarMenuContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+ 
   margin-left: 20px;
+  min-width: 250px
 }
 
 .navbarMenuContainer form {
