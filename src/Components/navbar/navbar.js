@@ -24,10 +24,14 @@ function Navbar() {
   return (
     <div className="navbar-container">
       <div className="left-section">
+        <Link to="/home">
+          <div className="logo-container">
+            <img src={logo} alt="logo" className="logo" />           
+          </div>
+        </Link>
         <div className="logo-container">
-          <img src={logo} alt="logo" className="logo" />
-          <span>FastFood</span>
-        </div>
+        <span>FastFood</span>  
+        </div>       
       </div>
       <div className="right-section">
         {User !== "invitado" && (
@@ -53,28 +57,26 @@ function Navbar() {
           </div>
           <ul>
             <li>
-              <NavLink to="/home" onClick={toggleMenu}>Inicio</NavLink>
+              <NavLink to="/home" onClick={toggleMenu}>
+                Inicio
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/account" onClick={toggleMenu}>Mi cuenta</NavLink>
+              <NavLink to="/account" onClick={toggleMenu}>
+                Mi cuenta
+              </NavLink>
             </li>
             <li>
-
-              <NavLink to="/order">
-
-                Mi Pedido
-              </NavLink>
-            </li>            
+              <NavLink to="/order">Mi Pedido</NavLink>
+            </li>
             <li>
-              <NavLink to="/menu/create">
-
-                Crear Menu
-              </NavLink>
-
+              <NavLink to="/menu/create">Crear Menu</NavLink>
             </li>
             {User !== "invitado" && (
               <li>
-                <button className="close-btn" onClick={handleLogout}>Cerrar sesión</button>
+                <button className="close-btn" onClick={handleLogout}>
+                  Cerrar sesión
+                </button>
               </li>
             )}
           </ul>
