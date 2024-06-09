@@ -1,8 +1,11 @@
 .navbarMenuContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+
+ 
   margin-left: 20px;
+  min-width: 250px
+
 }
 
 .navbarMenuContainer form {
@@ -34,30 +37,37 @@
   color: #fff;
   cursor: pointer;
   border: 1px solid rgb(196, 196, 196);
+  transition: background-color 0.3s ease;
 }
 
 .searchContainer button:hover {
-  background-color: #f4ca0e;
-  border: 1px solid #c90a06;
+  background-color: rgb(255, 255, 255);
+  color: #c90a06;
 }
 .navbarMenuSelect {
+  color: #ccc;
   cursor: pointer;
   margin-top: 40px;
   padding: 25px;
   font-size: 18px;
   display: grid;
-  background-color: #f5f5f5;
+  background-color: #c90a06;
   border: 1px solid rgb(211, 210, 210);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  
+  
 }
 
 .navbarMenuContainer ul li {
   list-style: none;
   padding: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .navbarMenuContainer li:hover {
-  background-color: #c90a06;
+  background-color: rgb(255, 255, 255);
+  color: #c90a06;
 }
 
 .searchContainer img {
@@ -80,11 +90,12 @@
     color: #fff;
     cursor: pointer;
     border: 1px solid rgb(196, 196, 196);
+    transition: background-color 0.3s ease;
   }
   
   .navbarMenuSelect button:hover {
-    background-color: #f4ca0e;
-    border: 1px solid #c90a06;
+    background-color: rgb(255, 255, 255);
+    color: #c90a06;
   
 }
 

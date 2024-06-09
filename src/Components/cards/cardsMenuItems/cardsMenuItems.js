@@ -3,7 +3,12 @@
 import CardMenuItems from "../../card/cardMenuItems/cardMenuItems";
 import "./cardsMenuItems.css";
 
+
+
+  
+
 function CardsMenuItems({ AllMenuitems, handleSelectMenuItem }) {
+
   return (
     <div className="cardsContainer">
       {AllMenuitems &&
@@ -19,6 +24,7 @@ function CardsMenuItems({ AllMenuitems, handleSelectMenuItem }) {
             handleSelectMenuItem={handleSelectMenuItem}
           />
         ))}
+      
     </div>
   );
 }

@@ -1,6 +1,7 @@
 
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, UPDATE_USER, CREATE_CATEGORIES } from "./action-types"
 
+import {UPDATE_USER, REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME, CREATE_CATEGORIES } from "./action-types"
+// import {GET_RESTAURANTS} from "./action-types"
 
 import axios from 'axios'
 
@@ -121,22 +122,24 @@ export const login_User = (dataquery) => {
         //const response = await axios.get(`${endpoint}?${params}`);
   
         const response = await axios.post(endpoint, userData);
-        const userDatauser = response.data;
+        const auser= response.data;
+        //const auser = 'yes';
         
-        // console.log("lo que tengo de retorno "+ userDatauser[0])
-        console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
+        // console.log("lo que tengo de retorno "+ user)
+        //console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
         //const userDatauser= {id, username, email, password, google_id, role_id }
-        
+       //  localStorage.setItem('token', token);
+        // console.log(token)
           dispatch({
             type: USERLOGIN,
-            payload: userDatauser,
+            payload: auser,
           });
       }
       
    
      
     } catch (error) {
-      alert("Usuario no encontrado")
+     // alert("Usuario no encontrado")
       console.log("Error al enviar mensaje", error.message);
     }
   };
@@ -164,7 +167,7 @@ export function getAllMenus() {
   return async function (dispatch) {
     const response = await axios("http://localhost:5000/menus");
     return dispatch({
-      type: "GET_MENUS",
+      type: GET_MENUS,
       payload: response.data,
     });
   };
@@ -174,7 +177,7 @@ export function getAllMenuitems() {
   return async function (dispatch) {
     const response = await axios("http://localhost:5000/menuitems");
     return dispatch({
-      type: "GET_MENUITEMS",
+      type: GET_MENUITEMS,
       payload: response.data,
     });
   };
@@ -195,12 +198,21 @@ export function getMenuItemsByName(name) {
       `http://localhost:5000/menuitems/search?name=${name}`
     );
     return dispatch({
-      type: "GET_MENUITEMS_BYNAME",
+      type: GET_MENUITEMS_BYNAME,
       payload: response.data,
     });
   };
 }
 
+export function getAllRestaurants() {
+  return async function (dispatch) {
+    const response = await axios("http://localhost:5000/restaurants");
+    return dispatch({
+      type: GET_RESTAURANTS,
+      payload: response.data,
+    });
+  };
+}
 
 export function sortedMenuItemsAsc(sortedMenuItems){
   return ({

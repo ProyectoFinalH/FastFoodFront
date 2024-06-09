@@ -6,7 +6,9 @@ import lupa from "../../images/lupas.png"
 
 
 
-function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange, clearFilter, handleCategoryFilter, allCategories }) {
+
+function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, handlePriceRange,clearFilter }) {
+
 
 
 
@@ -36,11 +38,16 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange, 
     handleCategoryFilter(category);
   };
 
+  const handleChange = (e) => {
+    setSearchString(e.target.value);
+  };
+
   return (
     <div className="navbarMenuContainer">
       <form onChange={handleChange}>
         <div className="searchContainer">
-          <input placeholder="Buscar producto..." type="search" />
+          <input placeholder="Buscar producto..." type="search" value={searchString}
+            onChange={handleChange}/>
           <button type="submit" onClick={handleSubmit}>
             <img src={lupa} alt="a1" />
           </button>

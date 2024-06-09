@@ -1,0 +1,243 @@
+.CarritoBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(19, 0, 0, 0.205);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    margin-bottom: 0;
+  }
+  
+  .carCarrito {
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 4px 2px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1001;
+    position: relative;
+    border-radius: 5px;
+  }
+  
+  .carCarritoHeader {
+    background-color: rgb(224, 200, 200);
+    box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+    top: 0;
+    z-index: 1002;
+    width: 800px;
+    height: 80px;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-radius: 10px 0px 30px 0;
+  }
+  
+  .closeButton {
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+  }
+  .closeButton:hover {
+   
+    color: red;
+  }
+  .card-nombre-costo{
+    background-color: rgba(110, 17, 17, 0.199);
+    height: 100px;
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    margin-left: -10px;
+  }
+  
+  .CarritoBotones{
+    background-color: rgba(110, 17, 17, 0.199);
+    height: 100px;
+    width: 300px; 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .carCarritoContent {
+    overflow-y: auto;
+    flex: 1;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 100px;
+  }
+  
+  
+  
+  
+  
+  
+  .cardProducto {
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 4px 2px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    /*justify-content: space-between;*/
+    margin: 5px;
+  }
+  
+  .cardProducto img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+  }
+  
+  .cardProducto > div {
+    display: flex;
+   
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cardProducto label {
+    width: 200px;
+    margin: 5px;
+  }
+  
+  .cardProducto div input {
+    width: 20px;
+    margin: 2px;
+    border: 2px rgb(43, 17, 17) groove;
+    padding: 2px;
+    text-align: center;
+  }
+  
+  
+  
+  .signos {
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+    width: 20px;
+    height: 30px;
+    cursor: pointer;
+   
+  }
+  
+  .signos img {
+    width: 20px;
+    height: auto;
+   
+  }
+  
+  .costoTotal {
+    margin-left: 30px;
+    width: 200px;
+    border: 2px groove green;
+    border-bottom: groove green;
+    box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+  
+  }
+  
+  .costoTotal .labelTotal {
+    margin-right: 5px;
+  }
+  
+  .Pagarproductos {
+    background-color: white;
+    box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1002;
+    width: 95%;
+    height: 80px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .pagolabel {
+    width: auto;
+    margin-left: 2px;
+    padding: 0;
+  }
+  
+  .emptyCarrito{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:700px;
+    height: 300px;
+    background-attachment: fixed;
+  
+  }
+  .emptyCarrito img {
+  
+   width: 60px;
+   align-items: center;
+  }
+  
+  .emptyCarrito p {
+   
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+  
+   }
+  
+  
+  
+  
+   /* boton del regresar*/
+   
+  .login-button-regresar {
+    margin-top: 20px;
+    height: 25px;
+    background: linear-gradient(283deg, #ff2426, #ff9259);
+    width: 350px;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    display: inline-block;
+    font-weight: bolder;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    text-align: center;
+  }
+  
+  .login-button-regresar:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .login-button-regresar::after {
+    content: "";
+    background: #29d884;
+    position: absolute;
+    z-index: -1;
+    padding: 5px 10px;
+    display: block;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: scale(0, 0);
+    transition: all 0.3s ease;
+  }
+  
+  .login-button-regresar:hover::after {
+    transition: all 0.3s ease-out;
+    transform: scale(1, 1);
+  }
+  
