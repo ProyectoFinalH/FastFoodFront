@@ -1,122 +1,74 @@
-
-import { /*useNavigate,*/ useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./detail.css";
 import axios from "axios";
-import Navbar from "../../Components/navbar/navbar";
 import carrito from '../../images/carrito.png'
 import Carrito from "../../Components/Carrito/Carrito";
+import { obtenerContCarrito, handleSumar, handleDisminuir } from '../../Components/localStorage-car/LocalStorageCar'
 
-function Detail({isOpen, handleCloseModal}) {
+function Detail({ isOpen, handleCloseModal, menuItemId }) {
   const [viewCard, setViewCard] = useState(false);
-  const params = useParams();
   const [menuItem, setMenuItem] = useState({});
-  const [cant, setCant] = useState(1);
- // const navigate = useNavigate();
+  const [cant, setCant] = useState(0); // Inicializa la cantidad en 0
 
   useEffect(() => {
     // Fetch menu item details
-    axios(`http://localhost:5000/menuitems/${params?.id}`)
+    axios(`http://localhost:5000/menuitems/${menuItemId}`)
       .then(({ data }) => {
         if (data?.id) {
           setMenuItem(data);
-          // Initialize cant from localStorage
-          const storedData = localStorage.getItem(`card-${data.id}`);
-          const parsedData = storedData ? JSON.parse(storedData) : null;
-          if (parsedData) {
-            setCant(parsedData.cont);
-          }
+          // Obtener la cantidad del localStorage
+          const storedCant = obtenerContCarrito(data.id);
+          setCant(storedCant);
         }
       })
       .catch(() => {
-        console.log("Error al ingresar al menuItem ");
+        console.log("Error al ingresar al menuItem");
       });
-    return () => setMenuItem({});
-  }, [params?.id]);
-
-/*
-import { useEffect, useState } from "react";
-import "./detail.css";
-import axios from "axios";
-
-
-function Detail({ isOpen, handleCloseModal, menuItemId }) {
-  
-  
-
-  const [menuItem, setmenuItem] = useState({});
-  const [cant, setCant] = useState(1);
-  
-  
+  }, [menuItemId]);
 
   useEffect(() => {
-    if (menuItemId) {
-      axios(`http://localhost:5000/menuitems/${menuItemId}`)
-        .then(({ data }) => {
-          if (data?.id) {
-            setmenuItem(data);
-          }
-        })
-        .catch(() => {
-          console.log("Error al ingresar al menuItem");
-        });
-    }
-  }, [menuItemId]);*/
-
-
-
-
-  useEffect(() => {
-    // Update localStorage whenever cant changes
+    // Actualiza la cantidad del localStorage en el estado cuando menuItem cambia
     if (menuItem.id) {
-      const storedData = localStorage.getItem(`card-${menuItem.id}`);
-      const parsedData = storedData ? JSON.parse(storedData) : { ...menuItem, cont: cant };
-      parsedData.cont = cant;
-      localStorage.setItem(`card-${menuItem.id}`, JSON.stringify(parsedData));
+      const storedCant = obtenerContCarrito(menuItem.id);
+      setCant(storedCant);
     }
-  }, [cant, menuItem]);
+  }, [menuItem]);
 
 
 
-
-  
-  const incrementCant = () => {
-    setCant(cant + 1);
-  };
-
-  const decrementCant = () => {
-    if (cant > 1) setCant(cant - 1);
-  };
-
-/* Luis_Carrito_de_Compras
-  const handleGoBack = () => {
-    navigate(-1);
-  };*/
-
-  const handleMenuCarrito =()=>{
-    setViewCard(!viewCard)
-    //navigate('/menu')
+  useEffect(() => {
+    // Actualiza la cantidad del localStorage en el estado cuando menuItem cambia
     
-  }
+   
+      setCant(obtenerContCarrito(menuItem.id));
+    }, [menuItem.id]);
 
 
 
+  const handleSumarItem = (id) => {
+    handleSumar(id);
+    setCant(obtenerContCarrito(id)); // Actualiza el estado
+  };
+
+  const handleDisminuirItem = (id) => {
+    handleDisminuir(id);
+    setCant(obtenerContCarrito(id)); // Actualiza el estado
+  };
+
+  const handleMenuCarrito = () => {
+    setViewCard(!viewCard);
+    setCant(obtenerContCarrito(menuItemId)); 
+
+  };
 
   if (!isOpen || !menuItem) return null;
 
   return (
-    
     <div className="detailContainer">
-
-      <Navbar />
-      {
-        viewCard && <Carrito onClose={handleMenuCarrito} />
-      }
-
+      {viewCard && <Carrito onClose={handleMenuCarrito} />}
       <div className="detailCardContainer">
         <div className="buttonClose">
-
-      <button onClick={handleCloseModal}>X</button>
+          <button onClick={handleCloseModal}>X</button>
         </div>
         <div className="imageDetail">
           <img src={menuItem?.image_url} alt={menuItem.name} />
@@ -130,50 +82,37 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
         </div>
         <div className="cantContainer">
           <h2>Unidades</h2>
-
-
-
-
-
-
-
-
           <div className="botones-flex">
             <div className="buttonDecInc-Menu">
-              <label className="aumentardisminuir" onClick={decrementCant}>
+              <label className="aumentardisminuir" onClick={() => handleDisminuirItem(menuItem.id)}>
                 -
               </label>
               <input
                 className="inputcard"
                 type="text"
-                value={cant}
+                value={
+
+                  cant
+                  
+                } // Usa el estado para mostrar la cantidad
                 disabled
               />
-              <label className="aumentardisminuir" onClick={incrementCant/*handleSumar*/}>
+              <label className="aumentardisminuir" onClick={() => handleSumarItem(menuItem.id)}>
                 +
               </label>
-              </div>
-              <img
-                src={carrito}
-                title="Ve Al Carrito"
-                alt="Carrito"
-                className="aumentardisminuir"
-                onClick={handleMenuCarrito/*handleMenuCarrito*/}
-              />
             </div>
-         {/* <div className="buttonDecInc">
-            <button onClick={decrementCant}>-</button>
-            <span> {cant} </span>
-            <button onClick={incrementCant}>+</button>
-          </div>*/}
+            <img
+              src={carrito}
+              title="Ve Al Carrito"
+              alt="Carrito"
+              className="aumentardisminuir"
+              onClick={handleMenuCarrito}
+            />
+          </div>
         </div>
-     
         <div className="buttonContainer">
-            <button onClick={handleCloseModal}>Volver al menu</button>
-
+          <button onClick={handleCloseModal}>Volver al menu</button>
         </div>
-
-        
       </div>
     </div>
   );

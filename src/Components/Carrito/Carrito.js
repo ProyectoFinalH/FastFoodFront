@@ -2,20 +2,24 @@ import React, { useState, useEffect } from "react";
 import "./Carrito.css";
 import Eliminarproducto from "../../images/eliminar.png";
 import sindatos from '../../images/pizzeria-SINDATOS.png';
-
+import { Desarrollode_Compra } from '../../Redux/actions';
 import {
   obtenerContCarrito,
   obtenerItemsCarrito,
   eliminarItemCarrito,
-  limpiarCarrito,
+  resetearCarrito,
   actualizarItemCarrito, // Agrega la función actualizarItemCarrito
 } from "../localStorage-car/LocalStorageCar";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function Carrito({ onClose }) {
+  const User = useSelector((state) => state.USER);
   const [selectedCards, setSelectedCards] = useState([]);
- 
+  const [mensaje, setMensaje] = useState("¡Comienza tu carrito con tus comidas favoritas!")
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const id_restaurante = 1
 
   useEffect(() => {
     const cards = obtenerItemsCarrito();
@@ -36,14 +40,11 @@ function Carrito({ onClose }) {
       return updatedCards.filter((card) => card.cont > 0); // Filtrar los elementos con cont > 0
     });
   };
-  
-
-
 
   const handleSumar = (id) => {
     setSelectedCards((prevCards) => {
       const updatedCards = prevCards.map((card) => {
-        if (card.id === id && card.cont > 0) {
+        if (card.id === id) {
           const newCount = card.cont + 1;
           const updatedCard = { ...card, cont: newCount };
           actualizarItemCarrito(updatedCard); // Actualizar el contador en localStorage
@@ -56,10 +57,22 @@ function Carrito({ onClose }) {
   };
 
   const handlePagar = () => {
-    alert("Hola mundo Se esta consignarndo ");
-    limpiarCarrito();
-    onClose();
-    alert("Pago desarrollado con exito ");
+    if (!User || !User.state) {
+      alert("Debes registrarte para poder hacer tu pedido");
+    } else {
+      const cards = obtenerItemsCarrito();
+      dispatch(Desarrollode_Compra(cards, User.register, id_restaurante))
+        .then(() => {
+          // Resetea las cantidades del carrito a 0 después de la compra
+          resetearCarrito();
+          setSelectedCards([]);
+          setMensaje("Gracias por tu compra");
+          alert("Pago desarrollado con éxito");
+        })
+        .catch((error) => {
+          alert("Error al procesar el pago", error.message);
+        });
+    }
   };
 
   const handleDeleteItem = (id) => {
@@ -83,7 +96,7 @@ function Carrito({ onClose }) {
           {selectedCards.length === 0 ? (
             <div className="emptyCarrito">
               <img src={sindatos} alt="Eliminar producto" />
-              <p>¡Comienza tu carrito con tus comidas favoritas!</p>
+              <p>{mensaje}</p>
               <label>Agrega productos y disfruta del delicioso sabor.</label>
               <div className="login-button-regresar" onClick={handleSalirCarrito}>Regresar al Menú</div>
             </div>

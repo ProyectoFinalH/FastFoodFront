@@ -20,6 +20,7 @@ export const UPDATE_USER = "UPDATE_USER";
 export const CREATE_CATEGORIES = "CREATE_CATEGORIES";
 
 
-
+//Carrito
+export const CREATECOMPRA = "CREATECOMPRA";
 
 //export const HAMBURGUER = 'HAMBURGUER'
