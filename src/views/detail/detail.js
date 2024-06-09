@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 // import { /*useNavigate,*/ useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./detail.css";
 import axios from "axios";
 // import Navbar from "../../Components/navbar/navbar";
@@ -13,6 +14,7 @@ function Detail({isOpen, handleCloseModal, menuItemId}) {
   const [menuItem, setMenuItem] = useState({});
   const [cant, setCant] = useState(1);
  // const navigate = useNavigate();
+ const detailRef = useRef(null);
 
   useEffect(() => {
     // Fetch menu item details
@@ -99,6 +101,18 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
     
   }
 
+  const handleClickOutside = (event) => {
+    if (detailRef.current && !detailRef.current.contains(event.target)) {
+      handleCloseModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
 
 
