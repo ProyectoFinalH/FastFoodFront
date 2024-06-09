@@ -1,5 +1,5 @@
 
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, UPDATE_USER } from "./action-types"
+import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, UPDATE_USER, CREATE_CATEGORIES } from "./action-types"
 
 
 import axios from 'axios'
@@ -231,12 +231,14 @@ export function CreateMenu(dataquery){
   };
 }
 
-export function CreateMenuItems(dataquery, image_url){
+export function CreateMenuItems(dataquery, image_url, menu_id, category_id,  name,  description,  price){
+  console.log(dataquery)
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
       let formData = new FormData();
       formData.append('image', image_url);
+      console.log(formData)
 
       const response = await axios.post(endpoint, formData, {
         headers: {
@@ -255,8 +257,37 @@ export function CreateMenuItems(dataquery, image_url){
       
     } catch (error) {
       alert("Error al enviar la información", error.message);
+      console.log(error);
+    }
+  };
+}
+
+export function CreateCategory(dataquery){
+  return async (dispatch) => {
+    try {
+      const endpoint = "http://localhost:5000/categories/create";
+      const response = await axios.post(endpoint, dataquery);
+      const categoriesData = response.data;
+      console.log("Datos encontrados", JSON.stringify(categoriesData));      
+        dispatch({
+          type: CREATE_CATEGORIES,
+          payload: categoriesData,
+        });
+      
+    } catch (error) {
+      alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
     }
+  };
+}
+
+export function getAllCategories() {
+  return async function (dispatch) {
+    const response = await axios("http://localhost:5000/categories");
+    return dispatch({
+      type: "GET_CATEGORIES",
+      payload: response.data,
+    });
   };
 }
 
