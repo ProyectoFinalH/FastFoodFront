@@ -87,3 +87,23 @@
     border: 1px solid #c90a06;
   
 }
+
+.navbarMenuSelect select{
+  padding: 10px;
+  font-size: 1.1rem;
+  border-radius: 15px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.navbarMenuSelect select:hover{
+  background-color: #c90a06;
+  color: #f4ca0e;
+}
+
+.navbarMenuSelect option{
+  background-color: #ccc;
+  color: black;
+}

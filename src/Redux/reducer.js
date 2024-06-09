@@ -12,6 +12,8 @@ import {
   CREATE_MENU_ITEMS,
   UPDATE_USER,
   LOGOUT_USER,
+  CREATE_CATEGORIES,
+  GET_CATEGORIES,
 } from "../Redux/action-types";
 // export const GET_RESTAURANT = "GET_RESTAURANT"
 // export const GET_MENUS ="GET_MENUS"
@@ -30,6 +32,7 @@ const initialState = {
   allCategories: [],
   createMenu: null,
   createMenuItems: null,
+  createCategories: null,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -109,6 +112,16 @@ const reducer = (state = initialState, { type, payload }) => {
               ...state,
               USER: null,
             };
+            case CREATE_CATEGORIES:
+              return {
+                ...state,
+                createCategories: payload,
+              }
+            case GET_CATEGORIES:
+              return {
+                ...state,
+                allCategories: payload,
+              }
     default:
       return { ...state };
   }

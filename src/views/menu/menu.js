@@ -2,6 +2,7 @@ import {
   getAllMenuitems,
   getAllMenus,
   getMenuItemsByName,
+  getAllCategories,
 } from "../../Redux/actions";
 // import { getAllRestaurants, getAllCategories, } from "../../redux/actions"
 import { useEffect, useState } from "react";
@@ -23,6 +24,7 @@ function Menu() {
   // const allRestaurant = useSelector((state)=> state.allRestaurant)
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
+  const allCategories = useSelector((state) => state.allCategories);
   const [selectMenuItem, setSelectMenuItem] = useState(null);
   // const allCategories = useSelector((state)=> state.allCategories)
 
@@ -32,12 +34,17 @@ function Menu() {
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('');
+ 
+  const handleCategoryFilter = (category) => {
+    setSelectedCategory(Number(category));
+  };
 
   useEffect(() => {
     // dispatch(getAllRestaurants())
     dispatch(getAllMenus());
     dispatch(getAllMenuitems());
-    // dispatch(getAllCategories())
+    dispatch(getAllCategories())
   }, [dispatch]);
 
   //FILTRO POR RANGO
@@ -45,8 +52,6 @@ function Menu() {
     const [min, max] = range.split("-").map(Number);
     return menuItems.filter((menu) => menu.price >= min && menu.price <= max);
   };
-
-  console.log("este son los menu", allMenus);
 
   //HANDLERS PARA EL SEARCH
   function handleChange(e) {
@@ -64,6 +69,7 @@ function Menu() {
     setSortBy(null);
     setPriceRange("");
     setSelectMenuItem(null);
+    setSelectedCategory("");
   };
 
   //Copia del Estado allMenuItems
@@ -78,6 +84,13 @@ function Menu() {
       (menu) => menu.menu_id === selectMenuItem
     );
   }
+
+  if (selectedCategory) {
+    filteredMenuItems = filteredMenuItems.filter(
+      (menuItem) => menuItem.category_id === selectedCategory
+    );
+  }
+  console.log(selectedCategory)
 
   // ORDENAMIENTO DE ITEMSMENU
   const handleSort = (sortBy) => {
@@ -98,7 +111,6 @@ function Menu() {
     filteredMenuItems = applyPriceRangeFilter(filteredMenuItems, priceRange);
   }
 
-  console.log("1-30", filteredMenuItems);
 
   //SEARCH POR NOMBRE
   if (searchString.trim() !== "") {
@@ -111,7 +123,6 @@ function Menu() {
   const handleGoBack = () => {
     navigate(-1);
   };
-
   return (
     <div className="menuContainer">
       <Navbar />
@@ -128,6 +139,8 @@ function Menu() {
             handleSort={handleSort}
             handlePriceRange={handlePriceRange}
             clearFilter={clearFilters}
+            handleCategoryFilter={handleCategoryFilter}
+            allCategories={allCategories}
           />
         </div>
         <div className="cardsMenusContainer">
@@ -137,7 +150,7 @@ function Menu() {
         <div className="CardViewMenuContainer">
           {allMenus.map((menu) => (
             <div key={menu.id} className="CardsListMenuContainer">
-              <h2>{menu.name}</h2>
+              {/* <h2>{menu.name}</h2> */}
               <CardsMenuItem
                 AllMenuitems={filteredMenuItems.filter(
                   (menuItem) => menuItem.menu_id === menu.id
