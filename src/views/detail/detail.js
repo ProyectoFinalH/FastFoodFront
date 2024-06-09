@@ -167,11 +167,11 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
             <button onClick={incrementCant}>+</button>
           </div>*/}
         </div>
-     
-        <div className="buttonContainer">
+      <div className="buttonContainerBack">
             <button onClick={handleCloseModal}>Volver al menu</button>
 
         </div>
+     
 
         
       </div>

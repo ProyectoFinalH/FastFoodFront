@@ -1,6 +1,8 @@
 .cardMenusContainer{
+  max-width: 20%;
+  min-width: 30%;
   display: flex;
-  margin-right: 50px;
+  margin-right: 10px;
   flex-direction: column;
   margin-bottom: 30px;
 }
