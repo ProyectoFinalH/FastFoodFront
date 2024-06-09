@@ -7,6 +7,11 @@
 padding: 10px;
 margin: 30px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  
+}
+
+.cardMenuContainer:hover {
+  border: solid 1px #c90a06;
 }
 
 .cardLink {
@@ -35,4 +40,30 @@ margin: 30px;
 
 .cardPrice {
   margin-bottom: 0;
+}
+
+
+
+.buttonDecInc-Menu {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 20px;
+  width: 70px;
+  height: 30px;
+  align-items: center;
+  margin-right: 10px;
+  background-color: rgb(104, 16, 16);
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+.buttonDecInc-Menu label {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+
+.buttonDecInc-Menu:hover {
+  background-color: #c90a06;
 }

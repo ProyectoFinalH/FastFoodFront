@@ -10,26 +10,25 @@ import {
   SORTER_ASC,
   CREATE_MENU,
   CREATE_MENU_ITEMS,
+  GET_RESTAURANTS,
   UPDATE_USER,
   LOGOUT_USER,
-} from "../Redux/action-types";
-// export const GET_RESTAURANT = "GET_RESTAURANT"
-// export const GET_MENUS ="GET_MENUS"
-// export const GET_MENUITEMS ="GET_MENUITEMS"
-// export const GET_CATEGORIES ="GET_CATEGORIES"
-// export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME"
 
+  CREATE_CATEGORIES,
+  GET_CATEGORIES,
+} from "../Redux/action-types";
 
 const initialState = {
   USER: null,
   RegisterUserData: null,
   RegisterBusiness: null,
-  allRestaurante: [],
+  allRestaurants: [],
   allMenuItems: [],
   allMenus: [],
   allCategories: [],
   createMenu: null,
   createMenuItems: null,
+  createCategories: null,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -99,6 +98,13 @@ const reducer = (state = initialState, { type, payload }) => {
             ...state,
             createMenuItems: payload
           };
+
+          case GET_RESTAURANTS:
+            return{
+              ...state,
+              allRestaurants: payload,
+            };
+
           case UPDATE_USER:
             return {
               ...state,
@@ -109,6 +115,16 @@ const reducer = (state = initialState, { type, payload }) => {
               ...state,
               USER: null,
             };
+            case CREATE_CATEGORIES:
+              return {
+                ...state,
+                createCategories: payload,
+              }
+            case GET_CATEGORIES:
+              return {
+                ...state,
+                allCategories: payload,
+              }
     default:
       return { ...state };
   }

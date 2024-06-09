@@ -9,6 +9,7 @@ import Loading from "../../loading/Loading";
 import LoginInvitado from "../Login_invitado/Login_invitado";
 import RegistrarseEmpresa from "../Login_RegistrarseEm/Login_RegistrarseEm";
 
+
 const LoginPrincipal = () => {
   const [logueo, setLogueo] = useState("login");
   const [loading, setLoading] = useState(true);
@@ -24,6 +25,7 @@ const LoginPrincipal = () => {
   return (
     <div>
       {loading && <Loading />}
+   
       <div className="BodyLogin">
         <div className="izquierdaGeneral">
         {

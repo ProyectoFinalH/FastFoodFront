@@ -4,7 +4,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  background-color: #f4f3f3;
+  /* background-color: rgb(243 244 246 / var(--tw-bg-opacity)); */
 }
 
 .App-logo {

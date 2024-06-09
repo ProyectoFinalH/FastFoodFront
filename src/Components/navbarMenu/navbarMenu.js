@@ -6,38 +6,48 @@ import lupa from "../../images/lupas.png"
 
 
 
-function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange,clearFilter }) {
+
+function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, handlePriceRange,clearFilter }) {
+
 
 
 
   const [isOpen1, setIsOpen1] = useState(true);
-  // const [isOpen2, setIsOpen2] = useState(true);
+  const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
-
+  const handleCategoryClick = (category) => {
+    handleCategoryFilter(category);
+  };
   const Options1 = (sortBy) => {
     setIsOpen1(!isOpen1);
     handleSort(sortBy);
   };
 
-  // const Options2 = () => {
-  //   setIsOpen2(!isOpen2);
-  // };
+  const Options2 = () => {
+    setIsOpen2(!isOpen2);
+  };
 
   const Options3 = () => {
     setIsOpen3(!isOpen3);
   };
 
-  const handleLiClick = (e, sortBy, range) => {
+  const handleLiClick = (e, sortBy, range, category) => {
     e.stopPropagation();
     handleSort(sortBy);
     handlePriceRange(range);
+    handleCategoryFilter(category);
+  };
+
+  const handleChange = (e) => {
+    setSearchString(e.target.value);
   };
 
   return (
     <div className="navbarMenuContainer">
       <form onChange={handleChange}>
         <div className="searchContainer">
-          <input placeholder="Buscar producto..." type="search" />
+          <input placeholder="Buscar producto..." type="search" value={searchString}
+            onChange={handleChange}/>
           <button type="submit" onClick={handleSubmit}>
             <img src={lupa} alt="a1" />
           </button>
@@ -77,17 +87,21 @@ function NavbarMenu({ handleChange, handleSubmit, handleSort, handlePriceRange,c
             </ul>
           )}
         </div>
-        {/* <div onClick={Options2}>
+        <div onClick={Options2}>
           <span>Categorías ⮟</span>
           {isOpen2 && (
             <ul>
-              <li onClick={handleLiClick}>Carne</li>
-              <li onClick={handleLiClick}>Pizza</li>
-              <li onClick={handleLiClick}>Pollo</li>
-              <li onClick={handleLiClick}>Vegana</li>
-            </ul>
+              </ul>
           )}
-        </div> */}
+        </div>
+        <select id="category-select" onChange={(e) => handleCategoryClick(e.target.value)}>
+          <option value="">Todas</option>
+          {allCategories?.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
