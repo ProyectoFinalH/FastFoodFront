@@ -38,11 +38,11 @@ function Navbar() {
     <div className="navbar-container">
           
       <div className="left-section">
-        <Link to="/home">
+     
           <div className="logo-container">
             <img src={logo} alt="logo" className="logo" />           
           </div>
-        </Link>
+    
         <div className="logo-container">
         <span>FastFood</span>  
         </div>       
