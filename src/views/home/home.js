@@ -24,10 +24,10 @@ function Home() {
       navigate("/");
     }
   }, [User, navigate]);
+
   return (
     <div className="homeContainer">
       <Navbar />
-
       <Slider images={mockImges} />
       <div className="cardContainer">
         <div className="cardRestContainer">
