@@ -7,7 +7,7 @@ import lupa from "../../images/lupas.png"
 
 
 
-function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, handlePriceRange,clearFilter }) {
+function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, handlePriceRange, clearFilter, handleCategoryFilter, allCategories }) {
 
 
 
