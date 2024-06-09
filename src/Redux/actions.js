@@ -137,7 +137,7 @@ export const login_User = (dataquery) => {
    
      
     } catch (error) {
-      alert("Usuario no encontrado")
+     // alert("Usuario no encontrado")
       console.log("Error al enviar mensaje", error.message);
     }
   };

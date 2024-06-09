@@ -13,6 +13,7 @@ function Navbar() {
   const [menucarrito, setMenucarrito] =useState(false)
   const User = useSelector((state) => state.USER);
   const dispatch = useDispatch();
+  
 
  
 
@@ -25,10 +26,14 @@ function Navbar() {
     setMenuOpen(!menuOpen);
   }
   
-  const handleMenuCarrito = () => {
-    setMenucarrito(!menucarrito);
 
-  };
+
+  const handleMenuCarrito =()=>{
+    
+    setMenucarrito(!menucarrito);
+   
+    
+  }
   return (
     <div className="navbar-container">
           

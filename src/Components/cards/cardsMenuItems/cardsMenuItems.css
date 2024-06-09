@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 1%;
+  margin-top: 0px;
   margin-bottom: 5%;
   margin-left: 10%;
 }
@@ -39,7 +39,9 @@
 .buttonContainer {
   display: flex;
   align-items: center;
-  background-color: #333;
+  
+  height: 50px;
+  
 
 }
 

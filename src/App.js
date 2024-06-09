@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import LoginAdmin from "./Components/Login/Login_Admin/Login_Admin";
 import LoginPrincipal from "./Components/Login/Login_Principal/Login_Principal";
@@ -6,22 +7,42 @@ import Account from "./views/account/account";
 import Home from "./views/home/home";
 import Menu from "./views/menu/menu";
 import CreateMenuForm from "./Components/createMenu/createMenu";
-import Carrito from "./Components/Carrito/Carrito"
-import { Routes, Route } from "react-router-dom";
+import Carrito from "./Components/Carrito/Carrito";
+import MisCompras from "./Components/MisCompras/MisCompras";
+
+
+
+
+
+
+import { AuthProvider } from './AuthContext/AuthContext';
+import ProtectedRoute from './AuthContext/ProtectedRoute';
+import {  Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from './Dashboard/Dashboard'; // Verifica que esta ruta sea correcta
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<LoginPrincipal />} />
-        <Route path="/LoginAdmin" element={<LoginAdmin />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/menu/:id" element={<Detail />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/menu/create" element={<CreateMenuForm />} />
-        <Route path="/carrito" element={<Carrito />} />
-      </Routes>
+    <div className="App">  
+      <AuthProvider>
+       
+          <Routes>
+            <Route path="/" element={<LoginPrincipal />} />
+            <Route path="/LoginAdmin" element={<LoginAdmin />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/menu/:id" element={<Detail />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/menu/create" element={<CreateMenuForm />} />
+            <Route path="/carrito" element={<Carrito />} />
+            <Route path="/miscompras" element={<MisCompras />} />
+            <Route 
+                   path="/dashboard" element={ <ProtectedRoute component={Dashboard} />
+             
+            } />
+            <Route path="*" element={<Navigate to="/home" />} />
+          </Routes>
+       
+      </AuthProvider>
     </div>
   );
 }

@@ -1,53 +1,53 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./cardMenuItems.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import carrito from '../../../images/carrito.png';
+
+// Importa las funciones necesarias de localstorage-card
+import { obtenerContCarrito,guardarItemCarrito } from '../../localStorage-car/LocalStorageCar';
 
 import Carrito from '../../Carrito/Carrito'
 
 function CardMenuItems({ id, name, description, price, image }) {
   const [viewCard, setViewCard] = useState(false);
-  const [id_Card, setId_Card] = useState(() => {
-    const storedData = localStorage.getItem(`card-${id}`);
-    return storedData ? JSON.parse(storedData) : { id, name, description, price, image, cont: 0  };
-  });
+  const navigator = useNavigate();
+  const [id_Card, setId_Card] = useState({ id, name, description, price, image, cont: 0 }); // Inicializa cont en 0
+
+  useEffect(() => {
+    // Obtener el contador del localStorage al montar el component
+    const cont = obtenerContCarrito(id);
+    if(id_Card.cont !==cont){
+
+      setId_Card((prevState) => ({ ...prevState, cont }));
+    }
+    
+    
+  }, [id,id_Card.cont]);
 
   const handleSumar = () => {
-    setId_Card((prevState) => ({
-      ...prevState,
-      cont: prevState.cont <= 0 || NaN ? 1 : prevState.cont + 1,
-    }));
+    setId_Card((prevState) => {
+      const newCont = prevState.cont + 1;
+      guardarItemCarrito({ ...prevState, cont: newCont });
+      return { ...prevState, cont: newCont };
+    });
   };
 
   const handleRestar = () => {
-    setId_Card((prevState) => ({
-      ...prevState,
-      cont: prevState.cont <= 0 || NaN  ? 0 : prevState.cont - 1,
-    }));
+    setId_Card((prevState) => {
+      const newCont = Math.max(0, prevState.cont - 1);
+      guardarItemCarrito({ ...prevState, cont: newCont });
+      return { ...prevState, cont: newCont };
+    });
   };
 
   const handleMenuCarrito = () => {
     setViewCard(!viewCard);
+    navigator('/menu');
   };
 
-
-
-  useEffect(() => {
-    localStorage.setItem(`card-${id}`, JSON.stringify(id_Card));
-    alert(id_Card.cont)
-  }, [id_Card, id, id_Card.cont]);
-
-
-
-
-
- 
- 
   return (
     <div className="cardMenuContainer">
-      {
-        viewCard && <Carrito onClose={handleMenuCarrito} />
-      }
+      {viewCard && <Carrito onClose={handleMenuCarrito} />}
 
       <Link to={`${id}`} className="cardLink">
         <img alt="imagemenuitems" src={image} className="cardImage" />
@@ -59,32 +59,16 @@ function CardMenuItems({ id, name, description, price, image }) {
           <h2 className="cardPrice">${price}</h2>
           <div className="botonesCarrito">
             <div className="botones-flex">
-            <div className="buttonDecInc-Menu">
-              <label className="aumentardisminuir" onClick={handleRestar}>
-                -
-              </label>
-              <input
-                className="inputcard"
-                type="text"
-                value={id_Card.cont}
-                disabled
-              />
-              <label className="aumentardisminuir" onClick={handleSumar}>
-                +
-              </label>
+              <div className="buttonDecInc-Menu">
+                <label className="aumentardisminuir" onClick={handleRestar}>-</label>
+                <input className="inputcard" type="text" value={obtenerContCarrito(id_Card.id)} disabled />
+                <label className="aumentardisminuir" onClick={handleSumar}>+</label>
               </div>
-              <img
-                src={carrito}
-                title="Ve Al Carrito"
-                alt="Carrito"
-                className="aumentardisminuir"
-                onClick={handleMenuCarrito}
-              />
+              <img src={carrito} title="Ve Al Carrito" alt="Carrito" className="aumentardisminuir" onClick={handleMenuCarrito} />
             </div>
             <p className="agregarCarritoTitulo"></p>
           </div>
         </div>
-       
       </div>
     </div>
   );

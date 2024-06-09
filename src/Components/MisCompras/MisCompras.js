@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Carrito.css";
+import "./MisCompras.css";
 import Eliminarproducto from "../../images/eliminar.png";
 import sindatos from '../../images/pizzeria-SINDATOS.png';
 
@@ -12,7 +12,7 @@ import {
 } from "../localStorage-car/LocalStorageCar";
 import { useNavigate } from "react-router-dom";
 
-function Carrito({ onClose }) {
+const  MisCompras = ({ onClose }) => {
   const [selectedCards, setSelectedCards] = useState([]);
  
   const navigate = useNavigate();
@@ -56,10 +56,8 @@ function Carrito({ onClose }) {
   };
 
   const handlePagar = () => {
-    alert("Hola mundo Se esta consignarndo ");
     limpiarCarrito();
     onClose();
-    alert("Pago desarrollado con exito ");
   };
 
   const handleDeleteItem = (id) => {
@@ -127,4 +125,4 @@ function Carrito({ onClose }) {
   );
 }
 
-export default Carrito;
+export default MisCompras;
