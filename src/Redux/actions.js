@@ -122,22 +122,24 @@ export const login_User = (dataquery) => {
         //const response = await axios.get(`${endpoint}?${params}`);
   
         const response = await axios.post(endpoint, userData);
-        const userDatauser = response.data;
+        const auser= response.data;
+        //const auser = 'yes';
         
-        // console.log("lo que tengo de retorno "+ userDatauser[0])
-        console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
+        // console.log("lo que tengo de retorno "+ user)
+        //console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
         //const userDatauser= {id, username, email, password, google_id, role_id }
-        
+       //  localStorage.setItem('token', token);
+        // console.log(token)
           dispatch({
             type: USERLOGIN,
-            payload: userDatauser,
+            payload: auser,
           });
       }
       
    
      
     } catch (error) {
-      alert("Usuario no encontrado")
+     // alert("Usuario no encontrado")
       console.log("Error al enviar mensaje", error.message);
     }
   };
