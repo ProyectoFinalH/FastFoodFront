@@ -1,22 +1,22 @@
 
-import { /*useNavigate,*/ useParams } from "react-router-dom";
+// import { /*useNavigate,*/ useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./detail.css";
 import axios from "axios";
-import Navbar from "../../Components/navbar/navbar";
+// import Navbar from "../../Components/navbar/navbar";
 import carrito from '../../images/carrito.png'
 import Carrito from "../../Components/Carrito/Carrito";
 
-function Detail({isOpen, handleCloseModal}) {
+function Detail({isOpen, handleCloseModal, menuItemId}) {
   const [viewCard, setViewCard] = useState(false);
-  const params = useParams();
+  // const params = useParams();
   const [menuItem, setMenuItem] = useState({});
   const [cant, setCant] = useState(1);
  // const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch menu item details
-    axios(`http://localhost:5000/menuitems/${params?.id}`)
+    axios(`http://localhost:5000/menuitems/${menuItemId}`)
       .then(({ data }) => {
         if (data?.id) {
           setMenuItem(data);
@@ -32,7 +32,7 @@ function Detail({isOpen, handleCloseModal}) {
         console.log("Error al ingresar al menuItem ");
       });
     return () => setMenuItem({});
-  }, [params?.id]);
+  }, [menuItemId]);
 
 /*
 import { useEffect, useState } from "react";
@@ -108,7 +108,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
     
     <div className="detailContainer">
 
-      <Navbar />
+      
       {
         viewCard && <Carrito onClose={handleMenuCarrito} />
       }
