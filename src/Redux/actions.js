@@ -1,6 +1,8 @@
 
+
 import {REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME } from "./action-types"
 // import {GET_RESTAURANTS} from "./action-types"
+
 import axios from 'axios'
 
 export const logoutUser = () => {
@@ -239,11 +241,19 @@ export function CreateMenu(dataquery){
   };
 }
 
-export function CreateMenuItems(dataquery){
+export function CreateMenuItems(dataquery, image_url){
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
-      const response = await axios.post(endpoint, dataquery);
+      let formData = new FormData();
+      formData.append('image', image_url);
+
+      const response = await axios.post(endpoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: dataquery,
+      });
       const menuItemData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuItemData));
@@ -260,8 +270,9 @@ export function CreateMenuItems(dataquery){
   };
 }
 
-// Ejemplo en una función que maneja la solicitud
-
-
-
-
+export const updateUser = (userData) => {
+  return {
+    type: UPDATE_USER,
+    payload: userData,
+  };
+};

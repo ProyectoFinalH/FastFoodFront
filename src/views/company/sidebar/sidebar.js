@@ -6,11 +6,13 @@ import "./sidebar.css"
 import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Principal';
 
 function Sidebar({restaurant}) {
+
   const [selectedOption, setSelectedOption] = useState(1);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
+
 
 
 
@@ -30,6 +32,7 @@ function Sidebar({restaurant}) {
       </div>
         <li onClick={() => handleOptionClick(1)}>Menues</li>
         <li onClick={() => handleOptionClick(2)}>Editar Perfil</li>
+
         <li onClick={() => handleOptionClick(3)}>Ordenes Realizadas</li>
         <li onClick={() => handleOptionClick(4)}>Caificaciones</li>
         <li onClick={() => handleOptionClick(5)}>Cerrar Sesion</li>
@@ -37,6 +40,7 @@ function Sidebar({restaurant}) {
 
       </div>
       <div className="content">
+
         {selectedOption === 2 && <InfoCompany restaurant={restaurant}/>}
         {selectedOption === 1 && <ProductsCompany />}
         {selectedOption === 3 && <OrderCompany />}

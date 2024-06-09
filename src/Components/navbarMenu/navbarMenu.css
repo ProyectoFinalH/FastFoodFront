@@ -1,10 +1,11 @@
 .navbarMenuContainer {
   display: flex;
   flex-direction: column;
+
  
   margin-left: 20px;
   min-width: 250px
-}
+
 
 .navbarMenuContainer form {
   position: relative;

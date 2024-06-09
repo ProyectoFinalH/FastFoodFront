@@ -16,7 +16,6 @@ const LoginIngreso = ({ setView }) => {
   const User = useSelector((state) => state.USER);
   const [keyVisible, setKeyVisible] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-
   const [userType, setUserType] = useState("");
 
   const navigate = useNavigate();
@@ -70,12 +69,19 @@ const LoginIngreso = ({ setView }) => {
   }, [User, navigate]);
 
   useEffect(() => {
+    const isValidEmailOrPhone = (value) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\d{7,15}$/;
+      return emailRegex.test(value) || phoneRegex.test(value);
+    };
+
     setIsButtonEnabled(
-      formData.emailOrPhone.trim() !== "" &&
-        formData.password.trim() !== "" &&
-        userType !== ""
+      isValidEmailOrPhone(formData.emailOrPhone.trim()) &&
+      formData.password.trim() !== "" &&
+      userType !== ""
     );
   }, [formData, userType]);
+
   const handleUserTypeChange = (event) => {
     setUserType(event.target.value);
   };

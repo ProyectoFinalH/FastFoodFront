@@ -15,7 +15,9 @@ import "./menu.css";
 import CardsMenus from "../../Components/cards/cardsMenus/cardsMenus";
 import Navbar from "../../Components/navbar/navbar";
 import Detail from "../detail/detail";
+
 import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
+
 
 function Menu() {
   const dispatch = useDispatch();
@@ -30,6 +32,9 @@ function Menu() {
   const [searchString, setSearchString] = useLocalStorage("searchString","");
   const [sortBy, setSortBy] = useLocalStorage("sortBy",null);
   const [priceRange, setPriceRange] = useLocalStorage("priceRange","");
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
@@ -49,7 +54,9 @@ function Menu() {
     return menuItems.filter((menu) => menu.price >= min && menu.price <= max);
   };
 
-  
+
+  console.log("este son los menu", allMenus);
+
 
   //HANDLERS PARA EL SEARCH
   // function handleChange(e) {
@@ -140,6 +147,7 @@ function Menu() {
             handleSubmit={handleSubmit}
             handleSort={setSortBy}
             handlePriceRange={setPriceRange}
+
             clearFilter={clearFilters}
           />
         </div>
@@ -149,11 +157,14 @@ function Menu() {
       </div>
         <div className="CardViewMenuContainer">
           {allMenus.map((menu) => (
+
             <div key={menu?.id} className="CardsListMenuContainer">
               <h2>{menu?.name}</h2>
               <CardsMenuItem
                 AllMenuitems={filteredMenuItems?.filter(
                   (menuItem) => menuItem?.menu_id === menu?.id
+
+
                 )}
                 handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
               />

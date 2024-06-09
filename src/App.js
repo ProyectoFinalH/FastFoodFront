@@ -6,6 +6,7 @@ import Account from "./views/account/account";
 import Home from "./views/home/home";
 import Menu from "./views/menu/menu";
 import CreateMenuForm from "./Components/createMenu/createMenu";
+import Company from "./views/company/company";
 
 import { Routes, Route } from "react-router-dom";
 import Company from "./views/company/company";
@@ -26,6 +27,7 @@ function App() {
         <Route path="/company" element={<Company/>}/>
         <Route path="/restaurants/:id" element={<DetailCompany />} />
         <Route path="/admin" element={<Admin/>}/>
+
       </Routes>
     </div>
   );

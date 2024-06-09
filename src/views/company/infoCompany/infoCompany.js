@@ -1,3 +1,4 @@
+
 import "./infoCompany.css";
 
 import DetailCompany from "../detailCompany/detailCompany";
@@ -18,3 +19,4 @@ function InfoCompany({restaurant}) {
 }
 
 export default InfoCompany;
+

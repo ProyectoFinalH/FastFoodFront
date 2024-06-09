@@ -2,6 +2,7 @@ import Sidebar from "./sidebar/sidebar"
 import logo from "../../images/logo.png"
 import "./company.css"
 
+
 import { getAllRestaurants } from "../../Redux/actions"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -29,6 +30,7 @@ useEffect(()=>{
     
   console.log ("este es el res company",restaurant)
 
+
   return (
     <div className="companyContainer">
 <div className="navbarCompany">
@@ -36,6 +38,7 @@ useEffect(()=>{
 </div>
 <div>
   <Sidebar restaurant={restaurant}/>
+
 </div>
     </div>
   )
