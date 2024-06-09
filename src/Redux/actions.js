@@ -1,6 +1,6 @@
 
 
-import {UPDATE_USER, REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME, CREATE_CATEGORIES } from "./action-types"
+import {CREATECOMPRA, UPDATE_USER, REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME, CREATE_CATEGORIES } from "./action-types"
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from 'axios'
@@ -309,3 +309,66 @@ export const updateUser = (userData) => {
     payload: userData,
   };
 };
+
+
+
+
+
+
+
+
+
+
+
+export const Desarrollode_Compra = (cards, id, res_id) => {
+  return async function (dispatch) {
+   
+
+    try {
+
+
+ // Calcular el costo total de todos los productos
+ const totalCost = cards.reduce((acc, item) => {
+  return acc + (parseFloat(item.price) * item.cont);
+}, 0);
+
+// Log para verificación
+cards.forEach(item => {
+  console.log(`ID: ${item.id}`);
+  console.log(`Name: ${item.name}`);
+  console.log(`Description: ${item.description}`);
+  console.log(`Price: ${item.price}`);
+  console.log(`Image: ${item.image}`);
+  console.log(`Cont: ${item.cont}`);
+  console.log('---------------------------');
+});
+
+console.log(`Total Cost: ${totalCost}`);
+
+
+     const  dataquery = {
+  
+      user_id:id,
+      restaurant_id:res_id,
+      total_price: totalCost
+      }
+      const endpoint = "http://localhost:5000/orders/create";
+      const response = await axios.post(endpoint, dataquery);
+      const compra = response.data;
+
+
+      console.log('esta es la compra' + JSON.stringify(compra));
+
+
+      dispatch({
+        type: CREATECOMPRA,
+        payload: compra
+      });
+      
+    } catch (error) {
+      alert("Error al enviar la información", error.message);
+      console.log("Error al enviar la información", error.message);
+    }
+    
+  }
+}

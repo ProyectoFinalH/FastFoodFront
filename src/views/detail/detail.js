@@ -34,6 +34,17 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
     }
   }, [menuItem]);
 
+
+
+  useEffect(() => {
+    // Actualiza la cantidad del localStorage en el estado cuando menuItem cambia
+    
+   
+      setCant(obtenerContCarrito(menuItem.id));
+    }, [menuItem.id]);
+
+
+
   const handleSumarItem = (id) => {
     handleSumar(id);
     setCant(obtenerContCarrito(id)); // Actualiza el estado
@@ -79,7 +90,11 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
               <input
                 className="inputcard"
                 type="text"
-                value={cant} // Usa el estado para mostrar la cantidad
+                value={
+
+                  cant
+                  
+                } // Usa el estado para mostrar la cantidad
                 disabled
               />
               <label className="aumentardisminuir" onClick={() => handleSumarItem(menuItem.id)}>
