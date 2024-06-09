@@ -17,13 +17,14 @@
   background-color: white;
   display: grid;
   justify-content: center;
+ justify-items: center;
 
   /*width: 100%;
   height: auto;
   min-height: 600px;*/
 
   width: 600px;
-  height: 90%;
+  height: 96%;
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
@@ -61,6 +62,7 @@
   justify-content: space-between;
   border: 1px solid rgba(0, 0, 0, 0.1);
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .cantContainer h2 {

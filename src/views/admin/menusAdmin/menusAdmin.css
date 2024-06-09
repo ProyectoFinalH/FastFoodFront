@@ -1,0 +1,96 @@
+.MenusAdminContainer {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.MenuCardAdminContainer{
+    display: flex;
+    justify-content: space-around;
+}
+.MenuList{
+    margin-top: 50px;
+    border-radius: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+
+}
+
+
+.MenuList ul{
+    list-style-type: none;
+    padding: 0;
+}
+.MenuList h2{
+    margin-left: 20px;
+}
+
+
+
+.MenuList ul li{
+    display: grid;
+    height: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.MenuList ul li:hover{
+    background-color: #c90a06;
+    color: #ffffff;
+}
+
+.MenuItemsContainer{
+    width: 100%;
+    height: 500px;
+    margin-top: 50px;
+    border-radius: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin-left: 50px;
+}
+
+.imageItem{
+    width: 70px;
+    height: 50px;
+    overflow: hidden;
+}
+
+.imageItem img {
+    border-radius: 10px 0px 0px 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+.MenuItemmenu{
+    
+    display: flex;
+    margin: 40px 20px;
+    border-radius: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.MenuItemmenu:hover{
+    border: solid 1px #c90a06;
+}
+c90a06
+.priceItem {
+    margin-right: 10px;
+}
+
+.ButtonEnDis{
+    border-radius: 5px;
+   
+margin-right: 10px;
+border: none;
+}
+
+.ButtonEnDis:hover{
+    background-color: #c90a06;
+    color: #ffffff;
+    border: none;
+}

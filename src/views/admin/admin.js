@@ -23,7 +23,7 @@ function Admin() {
   return (
     <div className="companyContainer">
       <div>
-        <Sidebar allRestaurants={allRestaurants} allMenuItems={allMenuItems} allMenus={allMenus} />
+        <Sidebar allRestaurants={allRestaurants} allMenuItems={allMenuItems} allMenus={allMenus}/>
       </div>
     </div>
   );

@@ -41,7 +41,7 @@ function Sidebar({allRestaurants, allMenuItems, allMenus}) {
       </div>
        <div className="content">
         {selectedOption === 1 && <RestaurantsAdmin allRestaurants={allRestaurants}/>}
-        {selectedOption === 2 && <MenusAdmin allMenus={allMenus} />}
+        {selectedOption === 2 && <MenusAdmin allMenus={allMenus} allMenuItems={allMenuItems}/>}
         {selectedOption === 3 && <MenuItemsAdmin allMenuItems={allMenuItems} />}
         {selectedOption === 4 && <UsersAdmin />}
         {selectedOption === 6 && <LoginPrincipal />}

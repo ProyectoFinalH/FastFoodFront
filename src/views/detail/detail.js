@@ -102,6 +102,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   }
 
   const handleClickOutside = (event) => {
+    console.log("Clicked outside");
     if (detailRef.current && !detailRef.current.contains(event.target)) {
       handleCloseModal();
     }
@@ -112,7 +113,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
 
 
@@ -127,8 +128,8 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
         viewCard && <Carrito onClose={handleMenuCarrito} />
       }
 
-      <div className="detailCardContainer">
-        <div className="buttonClose">
+      <div  ref={detailRef} className="detailCardContainer">
+        <div  className="buttonClose">
 
       <button onClick={handleCloseModal}>X</button>
         </div>
@@ -138,9 +139,9 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
         <div className="cardDetail">
           <div className="titleDetail">
             <h2>{menuItem?.name}</h2>
-            <h2>${menuItem?.price}</h2>
           </div>
           <p>{menuItem?.description}</p>
+            <h2>${menuItem?.price}</h2>
         </div>
         <div className="cantContainer">
           <h2>Unidades</h2>
@@ -180,10 +181,6 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
             <span> {cant} </span>
             <button onClick={incrementCant}>+</button>
           </div>*/}
-        </div>
-      <div className="buttonContainerBack">
-            <button onClick={handleCloseModal}>Volver al menu</button>
-
         </div>
      
 
