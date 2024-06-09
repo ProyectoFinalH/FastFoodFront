@@ -1,5 +1,6 @@
 .sidebarContainer{
     display: flex;
+
     
 }
 .OptionContainer{
@@ -33,6 +34,7 @@
     background-color: rgb(255, 255, 255);
     color: #c90a06;
 }
+
 .content {
     width: 100%;
     

@@ -1,3 +1,4 @@
+
 import "./infoCompany.css";
 
 import DetailCompany from "../detailCompany/detailCompany";
