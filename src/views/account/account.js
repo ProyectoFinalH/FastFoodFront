@@ -14,6 +14,8 @@ function Account() {
   const [gender, setGender] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -22,6 +24,7 @@ function Account() {
       setGender(user.gender || "");
       setBirthDate(user.birthDate || "");
       setProfileImage(user.profileImage || "");
+      setUsername(user.username || "");
     }
   }, [user]);
 
@@ -49,6 +52,7 @@ function Account() {
       gender,
       birthDate,
       profileImage,
+      username,
     };
 
     dispatch(updateUser(updatedUser));
@@ -159,6 +163,24 @@ function Account() {
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="input-group-container">
+            <div className="input-group1">
+              <label>Nombre de usuario</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="input-group1">
+              <label>Contraseña</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
