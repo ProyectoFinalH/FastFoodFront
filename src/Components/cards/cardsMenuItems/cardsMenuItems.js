@@ -4,12 +4,9 @@ import CardMenuItems from "../../card/cardMenuItems/cardMenuItems";
 import "./cardsMenuItems.css";
 
 
-function CardsMenuItems({ AllMenuitems }) {
-
-
 
   
-=======
+
 function CardsMenuItems({ AllMenuitems, handleSelectMenuItem }) {
 
   return (

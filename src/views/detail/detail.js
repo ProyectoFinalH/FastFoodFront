@@ -7,7 +7,7 @@ import Navbar from "../../Components/navbar/navbar";
 import carrito from '../../images/carrito.png'
 import Carrito from "../../Components/Carrito/Carrito";
 
-function Detail() {
+function Detail({isOpen, handleCloseModal}) {
   const [viewCard, setViewCard] = useState(false);
   const params = useParams();
   const [menuItem, setMenuItem] = useState({});
@@ -95,7 +95,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
 
   const handleMenuCarrito =()=>{
     setViewCard(!viewCard)
-    navigate('/menu')
+    //navigate('/menu')
     
   }
 
@@ -167,13 +167,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
             <button onClick={incrementCant}>+</button>
           </div>*/}
         </div>
-        
-       /* <div className="buttonContainer">
-
-          <button onClick={handleGoBack}>Volver al menú</button>
-
-          <button>Agregar al carrito</button>
-        </div>*/
+     
         <div className="buttonContainer">
             <button onClick={handleCloseModal}>Volver al menu</button>
 
