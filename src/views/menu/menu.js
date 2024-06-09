@@ -37,7 +37,7 @@ function Menu() {
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
+
 
   useEffect(() => {
     // dispatch(getAllRestaurants())
@@ -159,7 +159,7 @@ function Menu() {
           {allMenus.map((menu) => (
 
             <div key={menu?.id} className="CardsListMenuContainer">
-              <h2>{menu?.name}</h2>
+            {/*  <h2>{menu?.name}</h2>*/}
               <CardsMenuItem
                 AllMenuitems={filteredMenuItems?.filter(
                   (menuItem) => menuItem?.menu_id === menu?.id

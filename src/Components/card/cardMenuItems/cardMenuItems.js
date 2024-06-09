@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./cardMenuItems.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import carrito from '../../../images/carrito.png';
 
 // Importa las funciones necesarias de localstorage-card
