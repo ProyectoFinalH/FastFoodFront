@@ -16,6 +16,9 @@ import CardsMenus from "../../Components/cards/cardsMenus/cardsMenus";
 import Navbar from "../../Components/navbar/navbar";
 import Detail from "../detail/detail";
 
+import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
+
+
 function Menu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,12 +26,15 @@ function Menu() {
   // const allRestaurant = useSelector((state)=> state.allRestaurant)
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
-  const [selectMenuItem, setSelectMenuItem] = useState(null);
+  const [selectMenuItem, setSelectMenuItem] = useLocalStorage("selectMenuItem", null);
   // const allCategories = useSelector((state)=> state.allCategories)
 
-  const [searchString, setSearchString] = useState("");
-  const [sortBy, setSortBy] = useState(null);
-  const [priceRange, setPriceRange] = useState("");
+  const [searchString, setSearchString] = useLocalStorage("searchString","");
+  const [sortBy, setSortBy] = useLocalStorage("sortBy",null);
+  const [priceRange, setPriceRange] = useLocalStorage("priceRange","");
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
@@ -40,18 +46,22 @@ function Menu() {
     // dispatch(getAllCategories())
   }, [dispatch]);
 
+
+
   //FILTRO POR RANGO
   const applyPriceRangeFilter = (menuItems, range) => {
     const [min, max] = range.split("-").map(Number);
     return menuItems.filter((menu) => menu.price >= min && menu.price <= max);
   };
 
+
   console.log("este son los menu", allMenus);
 
+
   //HANDLERS PARA EL SEARCH
-  function handleChange(e) {
-    setSearchString(e.target.value);
-  }
+  // function handleChange(e) {
+  //   setSearchString(e.target.value);
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -70,7 +80,21 @@ function Menu() {
   let filteredMenuItems = [...allMenuitems];
   // FILTRADO DE ITEMMENU EN BASE AL MENU
   const handleSelectMenu = (menuItem) => {
-    setSelectMenuItem((prevId) => (prevId === menuItem ? null : menuItem));
+
+    console.log("menuItem", menuItem)
+    try {
+    setSelectMenuItem((prevId) => {
+
+      console.log( "prevId", prevId);
+      const newId = prevId === menuItem ? null : menuItem;
+      window.localStorage.setItem("selectMenuItem", JSON.stringify(newId)); 
+      console.log("newId", newId);
+      console.log("selectMenuItem", newId);
+      return newId;
+    });
+  }catch(error){
+    console.error(error)
+  }
   };
 
   if (selectMenuItem) {
@@ -80,25 +104,20 @@ function Menu() {
   }
 
   // ORDENAMIENTO DE ITEMSMENU
-  const handleSort = (sortBy) => {
-    setSortBy(sortBy);
-  };
+
   if (sortBy === "menorPrecio") {
     filteredMenuItems = filteredMenuItems.sort((a, b) => a.price - b.price);
   } else if (sortBy === "mayorPrecio") {
     filteredMenuItems = filteredMenuItems.sort((a, b) => b.price - a.price);
   }
 
-  // ORDENAMIENTO DE ITEMSMENU EN BASE AL RANGO
-  const handlePriceRange = (range) => {
-    setPriceRange(range);
-  };
 
-  if (priceRange) {
+
+  if (priceRange && filteredMenuItems.length > 0) {
     filteredMenuItems = applyPriceRangeFilter(filteredMenuItems, priceRange);
   }
 
-  console.log("1-30", filteredMenuItems);
+ 
 
   //SEARCH POR NOMBRE
   if (searchString.trim() !== "") {
@@ -123,10 +142,12 @@ function Menu() {
       <div className="navCardContainer">
         <div className="navBarContainer">
           <NavbarMenu
-            handleChange={handleChange}
+          searchString={searchString}
+          setSearchString={setSearchString}
             handleSubmit={handleSubmit}
-            handleSort={handleSort}
-            handlePriceRange={handlePriceRange}
+            handleSort={setSortBy}
+            handlePriceRange={setPriceRange}
+
             clearFilter={clearFilters}
           />
         </div>
@@ -136,11 +157,14 @@ function Menu() {
       </div>
         <div className="CardViewMenuContainer">
           {allMenus.map((menu) => (
-            <div key={menu.id} className="CardsListMenuContainer">
-              <h2>{menu.name}</h2>
+
+            <div key={menu?.id} className="CardsListMenuContainer">
+              <h2>{menu?.name}</h2>
               <CardsMenuItem
-                AllMenuitems={filteredMenuItems.filter(
-                  (menuItem) => menuItem.menu_id === menu.id
+                AllMenuitems={filteredMenuItems?.filter(
+                  (menuItem) => menuItem?.menu_id === menu?.id
+
+
                 )}
                 handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
               />
@@ -156,7 +180,6 @@ function Menu() {
           menuItemId={selectedMenuItemId}
         />
       )}
-
     </div>
   );
 }

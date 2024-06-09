@@ -1,9 +1,22 @@
-import React from 'react'
 
-function InfoCompany() {
+import "./infoCompany.css";
+
+import DetailCompany from "../detailCompany/detailCompany";
+
+
+function InfoCompany({restaurant}) {
+
+  console.log ("este es el res info comp",restaurant)
+
   return (
-    <div>InfoCompany</div>
-  )
+    <div>
+      <h2>Informacion de tu empresa</h2>
+      <div className="infoCompanyContainer">
+          <DetailCompany key={restaurant?.id} restaurant={restaurant} />
+      </div>
+    </div>
+  );
 }
 
-export default InfoCompany
+export default InfoCompany;
+

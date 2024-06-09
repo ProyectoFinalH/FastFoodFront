@@ -61,7 +61,6 @@ function Navbar() {
             <li>
 
               <NavLink to="/order">
-
                 Mi Pedido
               </NavLink>
             </li>            
