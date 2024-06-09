@@ -10,6 +10,7 @@ import CreateMenuForm from "./Components/createMenu/createMenu";
 import { Routes, Route } from "react-router-dom";
 import Company from "./views/company/company";
 import DetailCompany from "./views/company/detailCompany/detailCompany";
+import Admin from "./views/admin/admin";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/menu/create" element={<CreateMenuForm />} />
         <Route path="/company" element={<Company/>}/>
         <Route path="/restaurants/:id" element={<DetailCompany />} />
+        <Route path="/admin" element={<Admin/>}/>
       </Routes>
     </div>
   );

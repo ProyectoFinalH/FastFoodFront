@@ -9,7 +9,7 @@
 .labelContainer {
     display: flex;
     padding: 10px;
-    width: 500px;
+    width: 550px;
     height: 50px;
     margin-bottom: 30px;
     align-items: center;
@@ -18,17 +18,7 @@
     
 }
 
-.labelContainer label {
-    display: flex;
-    
-    padding: 10px;
-    margin-left: 10px;
-    
 
-}
-.labelContainer button{
-    margin-left: 10px;
-}
 .labelContainerimg {
     display: flex;
     flex-direction: column;
@@ -44,3 +34,53 @@
 .labelContainerimg img {
 width: 150px;
 }
+
+
+.labelContainer input {
+   
+    padding: 4px;
+    border: 2px solid #ccc;
+    border-radius: 1px;
+    box-sizing: border-box;
+    margin-left: 5px;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Estilo cuando el input está enfocado */
+  .labelContainer input:focus {
+    outline: none;
+    border-color: #c90a06; /* Cambia el color del borde cuando el input está enfocado */
+  }
+  .labelContainer button {
+    padding: 10px 20px;
+    background-color: #c90a06; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .labelContainer button:hover {
+    background-color: #f3f3f3;
+    color: #c90a06;
+    border: solid 1px #c90a06 ;
+  }
+  .labelContainerimg button {
+    
+    padding: 10px 20px;
+    background-color: #c90a06; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .labelContainerimg button:hover {
+    background-color: #f3f3f3;
+    color: #c90a06;
+    border: solid 1px #c90a06 ;
+  }

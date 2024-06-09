@@ -17,7 +17,7 @@
   border: 1px solid rgb(196, 196, 196);
 }
 .buttonMenus:hover {
-  background-color: #f4ca0e;
-  border: 1px solid #c90a06;
+  background-color: rgb(255, 255, 255);
+  color: #c90a06;
 
 }

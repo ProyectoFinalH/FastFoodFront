@@ -3,16 +3,15 @@ import "./infoCompany.css";
 import DetailCompany from "../detailCompany/detailCompany";
 
 
-function InfoCompany({allRestaurants}) {
+function InfoCompany({restaurant}) {
 
+  console.log ("este es el res info comp",restaurant)
 
   return (
     <div>
       <h2>Informacion de tu empresa</h2>
       <div className="infoCompanyContainer">
-      {allRestaurants.map((restaurant) => (
-          <DetailCompany key={restaurant.id} restaurant={restaurant} />
-        ))}
+          <DetailCompany key={restaurant?.id} restaurant={restaurant} />
       </div>
     </div>
   );
