@@ -6,31 +6,36 @@ import lupa from "../../images/lupas.png"
 
 
 
-function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, handlePriceRange,clearFilter }) {
+
+function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, handlePriceRange, clearFilter, handleCategoryFilter, allCategories }) {
+
 
 
 
   const [isOpen1, setIsOpen1] = useState(true);
-  // const [isOpen2, setIsOpen2] = useState(true);
+  const [isOpen2, setIsOpen2] = useState(true);
   const [isOpen3, setIsOpen3] = useState(true);
-
+  const handleCategoryClick = (category) => {
+    handleCategoryFilter(category);
+  };
   const Options1 = (sortBy) => {
     setIsOpen1(!isOpen1);
     handleSort(sortBy);
   };
 
-  // const Options2 = () => {
-  //   setIsOpen2(!isOpen2);
-  // };
+  const Options2 = () => {
+    setIsOpen2(!isOpen2);
+  };
 
   const Options3 = () => {
     setIsOpen3(!isOpen3);
   };
 
-  const handleLiClick = (e, sortBy, range) => {
+  const handleLiClick = (e, sortBy, range, category) => {
     e.stopPropagation();
     handleSort(sortBy);
     handlePriceRange(range);
+    handleCategoryFilter(category);
   };
 
   const handleChange = (e) => {
@@ -82,17 +87,21 @@ function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, h
             </ul>
           )}
         </div>
-        {/* <div onClick={Options2}>
+        <div onClick={Options2}>
           <span>Categorías ⮟</span>
           {isOpen2 && (
             <ul>
-              <li onClick={handleLiClick}>Carne</li>
-              <li onClick={handleLiClick}>Pizza</li>
-              <li onClick={handleLiClick}>Pollo</li>
-              <li onClick={handleLiClick}>Vegana</li>
-            </ul>
+              </ul>
           )}
-        </div> */}
+        </div>
+        <select id="category-select" onChange={(e) => handleCategoryClick(e.target.value)}>
+          <option value="">Todas</option>
+          {allCategories?.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );

@@ -173,6 +173,7 @@
 }
 
 .login-button {
+  text-align: center;
   margin-top: 20px;
   height: 25px;
   background: linear-gradient(283deg, #ff2426, #ff9259);
@@ -241,4 +242,8 @@
   font-size: 16px;
   margin-top: 15px;
   font-weight: 500;
+}
+
+.login-group{
+  text-align: center;
 }

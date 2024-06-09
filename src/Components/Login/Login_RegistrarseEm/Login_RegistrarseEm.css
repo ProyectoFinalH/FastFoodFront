@@ -32,7 +32,11 @@
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px groove gainsboro;
+  border-radius: 10px;
 }
 .pass_display_flex {
   display: flex;
