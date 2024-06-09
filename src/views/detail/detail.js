@@ -1,4 +1,5 @@
-import { useNavigate, useParams } from "react-router-dom";
+
+import { /*useNavigate,*/ useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./detail.css";
 import axios from "axios";
@@ -11,7 +12,7 @@ function Detail() {
   const params = useParams();
   const [menuItem, setMenuItem] = useState({});
   const [cant, setCant] = useState(1);
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch menu item details
@@ -32,6 +33,36 @@ function Detail() {
       });
     return () => setMenuItem({});
   }, [params?.id]);
+
+/*
+import { useEffect, useState } from "react";
+import "./detail.css";
+import axios from "axios";
+
+
+function Detail({ isOpen, handleCloseModal, menuItemId }) {
+  
+  
+
+  const [menuItem, setmenuItem] = useState({});
+  const [cant, setCant] = useState(1);
+  
+  
+
+  useEffect(() => {
+    if (menuItemId) {
+      axios(`http://localhost:5000/menuitems/${menuItemId}`)
+        .then(({ data }) => {
+          if (data?.id) {
+            setmenuItem(data);
+          }
+        })
+        .catch(() => {
+          console.log("Error al ingresar al menuItem");
+        });
+    }
+  }, [menuItemId]);*/
+
 
 
 
@@ -57,9 +88,10 @@ function Detail() {
     if (cant > 1) setCant(cant - 1);
   };
 
+/* Luis_Carrito_de_Compras
   const handleGoBack = () => {
     navigate(-1);
-  };
+  };*/
 
   const handleMenuCarrito =()=>{
     setViewCard(!viewCard)
@@ -68,13 +100,24 @@ function Detail() {
   }
 
 
+
+
+  if (!isOpen || !menuItem) return null;
+
   return (
+    
     <div className="detailContainer">
+
       <Navbar />
       {
         viewCard && <Carrito onClose={handleMenuCarrito} />
       }
+
       <div className="detailCardContainer">
+        <div className="buttonClose">
+
+      <button onClick={handleCloseModal}>X</button>
+        </div>
         <div className="imageDetail">
           <img src={menuItem?.image_url} alt={menuItem.name} />
         </div>
@@ -125,8 +168,15 @@ function Detail() {
           </div>*/}
         </div>
         
-        <div className="buttonContainer">
+       /* <div className="buttonContainer">
+
           <button onClick={handleGoBack}>Volver al menú</button>
+
+          <button>Agregar al carrito</button>
+        </div>*/
+        <div className="buttonContainer">
+            <button onClick={handleCloseModal}>Volver al menu</button>
+
         </div>
 
         

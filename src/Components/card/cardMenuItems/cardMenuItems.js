@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import "./cardMenuItems.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,7 +9,7 @@ import { obtenerContCarrito,guardarItemCarrito } from '../../localStorage-car/Lo
 
 import Carrito from '../../Carrito/Carrito'
 
-function CardMenuItems({ id, name, description, price, image }) {
+function CardMenuItems({ id, name, description, price, image, handleSelectMenuItem }) {
   const [viewCard, setViewCard] = useState(false);
   const navigator = useNavigate();
   const [id_Card, setId_Card] = useState({ id, name, description, price, image, cont: 0 }); // Inicializa cont en 0
@@ -44,14 +45,22 @@ function CardMenuItems({ id, name, description, price, image }) {
     setViewCard(!viewCard);
     navigator('/menu');
   };
+  
+  
+  const handleClick = () => {
+  handleSelectMenuItem(id);
+};
+  
+  
+  
 
   return (
     <div className="cardMenuContainer">
       {viewCard && <Carrito onClose={handleMenuCarrito} />}
 
-      <Link to={`${id}`} className="cardLink">
-        <img alt="imagemenuitems" src={image} className="cardImage" />
-      </Link>
+      
+        <img alt="imagemenuitems" src={image} className="cardImage" onClick={handleClick}/>
+     
       <div className="cardContent">
         <h2 className="cardTitle">{name}</h2>
         <p className="cardDescription">{description}</p>
@@ -69,9 +78,11 @@ function CardMenuItems({ id, name, description, price, image }) {
             <p className="agregarCarritoTitulo"></p>
           </div>
         </div>
+
       </div>
     </div>
   );
 }
+
 
 export default CardMenuItems;

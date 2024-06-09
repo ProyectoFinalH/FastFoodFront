@@ -3,7 +3,7 @@ export const REGISTERBUSINESS = "REGISTERBUSINESS";
 export const RECOVERYKEY = "RECOVERYKEY";
 export const USERLOGIN = "USERLOGIN";
 export const USERLOGINGOOGLE = "USERLOGINGOOGLE";
-// export const GET_RESTAURANT = "GET_RESTAURANT"
+export const GET_RESTAURANTS = "GET_RESTAURANTS"
 export const GET_MENUS = "GET_MENUS";
 export const GET_MENUITEMS = "GET_MENUITEMS";
 // export const GET_CATEGORIES ="GET_CATEGORIES"
@@ -16,6 +16,7 @@ export const CREATE_MENU = "CREATE_MENU";
 export const CREATE_MENU_ITEMS = "CREATE_MENU_ITEMS"
 export const LOGOUT_USER = "LOGOUT_USER";
 export const UPDATE_USER = "UPDATE_USER";
+
 
 
 

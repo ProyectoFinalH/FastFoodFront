@@ -1,5 +1,7 @@
 
-import { REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, UPDATE_USER } from "./action-types"
+
+import {REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME } from "./action-types"
+// import {GET_RESTAURANTS} from "./action-types"
 
 import axios from 'axios'
 
@@ -165,7 +167,7 @@ export function getAllMenus() {
   return async function (dispatch) {
     const response = await axios("http://localhost:5000/menus");
     return dispatch({
-      type: "GET_MENUS",
+      type: GET_MENUS,
       payload: response.data,
     });
   };
@@ -175,7 +177,7 @@ export function getAllMenuitems() {
   return async function (dispatch) {
     const response = await axios("http://localhost:5000/menuitems");
     return dispatch({
-      type: "GET_MENUITEMS",
+      type: GET_MENUITEMS,
       payload: response.data,
     });
   };
@@ -196,12 +198,21 @@ export function getMenuItemsByName(name) {
       `http://localhost:5000/menuitems/search?name=${name}`
     );
     return dispatch({
-      type: "GET_MENUITEMS_BYNAME",
+      type: GET_MENUITEMS_BYNAME,
       payload: response.data,
     });
   };
 }
 
+export function getAllRestaurants() {
+  return async function (dispatch) {
+    const response = await axios("http://localhost:5000/restaurants");
+    return dispatch({
+      type: GET_RESTAURANTS,
+      payload: response.data,
+    });
+  };
+}
 
 export function sortedMenuItemsAsc(sortedMenuItems){
   return ({
@@ -232,11 +243,19 @@ export function CreateMenu(dataquery){
   };
 }
 
-export function CreateMenuItems(dataquery){
+export function CreateMenuItems(dataquery, image_url){
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
-      const response = await axios.post(endpoint, dataquery);
+      let formData = new FormData();
+      formData.append('image', image_url);
+
+      const response = await axios.post(endpoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: dataquery,
+      });
       const menuItemData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuItemData));

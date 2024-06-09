@@ -1,10 +1,11 @@
 .cardsContainer {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+
   margin-top: 0px;
   margin-bottom: 5%;
   margin-left: 10%;
+
 }
 
 .OrdenarCompra {
