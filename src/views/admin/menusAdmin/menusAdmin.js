@@ -1,6 +1,6 @@
 import React from 'react'
 
-function MenusAdmin({allMenuItems,allMenus}) {
+function MenusAdmin({allMenus}) {
   return (
     <div>MenusAdmin</div>
   )

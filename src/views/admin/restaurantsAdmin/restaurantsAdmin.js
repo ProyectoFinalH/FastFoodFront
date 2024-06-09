@@ -1,10 +1,5 @@
 
-
-
-
-
-
-function RestaurantsAdmin() {
+function RestaurantsAdmin({allRestaurants}) {
   return (
     <div>
 

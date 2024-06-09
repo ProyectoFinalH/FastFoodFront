@@ -5,7 +5,7 @@ import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Prin
 import RestaurantsAdmin from '../restaurantsAdmin/restaurantsAdmin';
 import MenusAdmin from '../menusAdmin/menusAdmin';
 import UsersAdmin from '../usersAdmin/usersAdmin';
-import MenuItemsAdmin from "../menuItemAdmin/menuItemAdmin"
+import MenuItemsAdmin from '../menuItemsAdmin/menuItemsAdmin';
 
 function Sidebar({allRestaurants, allMenuItems, allMenus}) {
   const [selectedOption, setSelectedOption] = useState(1);
@@ -32,10 +32,10 @@ function Sidebar({allRestaurants, allMenuItems, allMenus}) {
       </div>
         <li onClick={() => handleOptionClick(1)}>Restaurantes</li>
         <li onClick={() => handleOptionClick(2)}>Menues</li>
-        <li onClick={() => handleOptionClick(2)}>Poductos</li>
-        <li onClick={() => handleOptionClick(3)}>Usuarios</li>
-        <li onClick={() => handleOptionClick(4)}>Caificaciones</li>
-        <li onClick={() => handleOptionClick(5)}>Cerrar Sesion</li>
+        <li onClick={() => handleOptionClick(3)}>Poductos</li>
+        <li onClick={() => handleOptionClick(4)}>Usuarios</li>
+        <li onClick={() => handleOptionClick(5)}>Caificaciones</li>
+        <li onClick={() => handleOptionClick(6)}>Cerrar Sesion</li>
       </ul>
 
       </div>
@@ -43,8 +43,8 @@ function Sidebar({allRestaurants, allMenuItems, allMenus}) {
         {selectedOption === 1 && <RestaurantsAdmin allRestaurants={allRestaurants}/>}
         {selectedOption === 2 && <MenusAdmin allMenus={allMenus} />}
         {selectedOption === 3 && <MenuItemsAdmin allMenuItems={allMenuItems} />}
-        {selectedOption === 3 && <UsersAdmin />}
-        {selectedOption === 5 && <LoginPrincipal />}
+        {selectedOption === 4 && <UsersAdmin />}
+        {selectedOption === 6 && <LoginPrincipal />}
       </div> 
     </div>
   );
