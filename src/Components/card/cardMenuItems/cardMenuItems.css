@@ -36,6 +36,8 @@ margin: 30px;
 
 .cardDescription {
   color: gray;
+  height: 20px;
+  word-break: break-word;
 }
 
 .cardPrice {

@@ -242,30 +242,28 @@ export function CreateMenu(dataquery){
     }
   };
 }
-
-export function CreateMenuItems(dataquery, image_url, menu_id, category_id,  name,  description,  price){
-  console.log(dataquery)
+export function CreateMenuItems(formData) {
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
-      let formData = new FormData();
-      formData.append('image', image_url);
-      console.log(formData)
+
+      // Verifica el contenido de FormData antes de enviarlo
+      console.log("FormData contenido:", Array.from(formData.entries()));
 
       const response = await axios.post(endpoint, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        data: dataquery,
       });
+
       const menuItemData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuItemData));
       
-        dispatch({
-          type: CREATE_MENU_ITEMS,
-          payload: menuItemData,
-        });
+      dispatch({
+        type: CREATE_MENU_ITEMS,
+        payload: menuItemData,
+      });
       
     } catch (error) {
       alert("Error al enviar la información", error.message);
@@ -321,7 +319,7 @@ export const updateUser = (userData) => {
 
 
 export const Desarrollode_Compra = (cards, id, res_id) => {
-  return async function (dispatch) {
+  return async (dispatch) => {
    
 
     try {
@@ -345,13 +343,12 @@ cards.forEach(item => {
 
 console.log(`Total Cost: ${totalCost}`);
 
-
+    
      const  dataquery = {
-  
-      user_id:id,
-      restaurant_id:res_id,
-      total_price: totalCost
-      }
+                          user_id:id,
+                          restaurant_id:res_id,
+                          total_price: parseFloat(totalCost)
+                              }
       const endpoint = "http://localhost:5000/orders/create";
       const response = await axios.post(endpoint, dataquery);
       const compra = response.data;
