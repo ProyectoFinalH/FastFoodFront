@@ -1,6 +1,8 @@
 
 
+
 import {GET_CATEGORIES, UPDATE_USER, REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME, CREATE_CATEGORIES } from "./action-types"
+
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from 'axios'
@@ -242,30 +244,28 @@ export function CreateMenu(dataquery){
     }
   };
 }
-
-export function CreateMenuItems(dataquery, image_url, menu_id, category_id,  name,  description,  price){
-  console.log(dataquery)
+export function CreateMenuItems(formData) {
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
-      let formData = new FormData();
-      formData.append('image', image_url);
-      console.log(formData)
+
+      // Verifica el contenido de FormData antes de enviarlo
+      console.log("FormData contenido:", Array.from(formData.entries()));
 
       const response = await axios.post(endpoint, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        data: dataquery,
       });
+
       const menuItemData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuItemData));
       
-        dispatch({
-          type: CREATE_MENU_ITEMS,
-          payload: menuItemData,
-        });
+      dispatch({
+        type: CREATE_MENU_ITEMS,
+        payload: menuItemData,
+      });
       
     } catch (error) {
       alert("Error al enviar la información", error.message);
@@ -309,3 +309,65 @@ export const updateUser = (userData) => {
     payload: userData,
   };
 };
+
+
+
+
+
+
+
+
+
+
+
+export const Desarrollode_Compra = (cards, id, res_id) => {
+  return async (dispatch) => {
+   
+
+    try {
+
+
+ // Calcular el costo total de todos los productos
+ const totalCost = cards.reduce((acc, item) => {
+  return acc + (parseFloat(item.price) * item.cont);
+}, 0);
+
+// Log para verificación
+cards.forEach(item => {
+  console.log(`ID: ${item.id}`);
+  console.log(`Name: ${item.name}`);
+  console.log(`Description: ${item.description}`);
+  console.log(`Price: ${item.price}`);
+  console.log(`Image: ${item.image}`);
+  console.log(`Cont: ${item.cont}`);
+  console.log('---------------------------');
+});
+
+console.log(`Total Cost: ${totalCost}`);
+
+    
+     const  dataquery = {
+                          user_id:id,
+                          restaurant_id:res_id,
+                          total_price: parseFloat(totalCost)
+                              }
+      const endpoint = "http://localhost:5000/orders/create";
+      const response = await axios.post(endpoint, dataquery);
+      const compra = response.data;
+
+
+      console.log('esta es la compra' + JSON.stringify(compra));
+
+
+      dispatch({
+        type: CREATECOMPRA,
+        payload: compra
+      });
+      
+    } catch (error) {
+      alert("Error al enviar la información", error.message);
+      console.log("Error al enviar la información", error.message);
+    }
+    
+  }
+}

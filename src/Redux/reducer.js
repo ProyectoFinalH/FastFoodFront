@@ -16,10 +16,12 @@ import {
 
   CREATE_CATEGORIES,
   GET_CATEGORIES,
+  CREATECOMPRA,
 } from "../Redux/action-types";
 
 const initialState = {
   USER: null,
+  Carrito:null,
   RegisterUserData: null,
   RegisterBusiness: null,
   allRestaurants: [],
@@ -29,6 +31,7 @@ const initialState = {
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
+  
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -124,6 +127,11 @@ const reducer = (state = initialState, { type, payload }) => {
               return {
                 ...state,
                 allCategories: payload,
+              }
+            case CREATECOMPRA:
+              return{
+                ...state,
+                Carrito: payload,
               }
     default:
       return { ...state };
