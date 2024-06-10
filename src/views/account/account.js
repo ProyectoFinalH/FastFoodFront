@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import "./account.css";
-import { updateUser } from "../../Redux/actions";
 import Notification from "../../Components/Notification/Notification";
+import axios from 'axios';
 
 function Account() {
-  const user = useSelector((state) => state.USER);
-  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -17,7 +16,8 @@ function Account() {
   const [profileImage, setProfileImage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showSuccessNotification, setShowSuccessNotification] = useState(false); // Estado para controlar la visualización de la notificación
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const userDataFromLocalStorage = localStorage.getItem("userData");
@@ -30,6 +30,7 @@ function Account() {
       setProfileImage(parsedUserData.profileImage || "");
       setUsername(parsedUserData.username || "");
       setPassword(parsedUserData.password || "");
+      setEmail(parsedUserData.email || ""); 
     }
   }, []);
 
@@ -44,30 +45,26 @@ function Account() {
     }
   };
 
-  const handleSubmit = () => {
-    if (!firstName || !lastName || !gender || !birthDate) {
-      alert("Por favor, completa todos los campos.");
+  const handleSubmit = async () => {
+    if (!user || !user.id || !username || !email || !password) {
+      alert("Por favor, completa todos los campos y asegúrate de que estás logueado correctamente.");
       return;
     }
-
+    
     const updatedUserData = {
-      firstName,
-      lastName,
-      gender,
-      birthDate,
-      profileImage,
       username,
+      email,
       password,
     };
-
-    dispatch(updateUser(updatedUserData));
-    localStorage.setItem("userData", JSON.stringify(updatedUserData));
-
-    setShowSuccessNotification(true);
-
-    setTimeout(() => {
-      setShowSuccessNotification(false);
-    }, 2000);
+    
+    try {
+      const response = await axios.put(`http://localhost:5000/users/${user.id}`, updatedUserData);
+      console.log(response.data);
+      setShowSuccessNotification(true);
+    } catch (error) {
+      console.error("Error al actualizar datos:", error);
+      alert("Error al actualizar datos: " + error.response.data.error);
+    }
   };
 
   const getShortenedName = (name, maxLength) => {
@@ -147,7 +144,11 @@ function Account() {
           <div className="input-group-container">
             <div className="input-group1">
               <label>Correo Electrónico</label>
-              <input type="email" value={user?.email} disabled />
+              <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             </div>
             <div className="input-group1">
               <label>Fecha de nacimiento</label>
