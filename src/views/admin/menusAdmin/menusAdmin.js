@@ -83,7 +83,7 @@ function MenusAdmin({ allMenus, allMenuItems, allRestaurants }) {
                           <h2>{menuItem?.name}</h2>
                         </div>
                         <div>
-                          <p>{menuItem?.description}</p>
+                          <p title={menuItem?.description}>{menuItem?.description.substring(0, 25)}...</p>
                         </div>
                       </div>
                       <div className="priceItem">${menuItem?.price}</div>
