@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import "./account.css";
 import { updateUser } from "../../Redux/actions";
+import Notification from "../../Components/Notification/Notification";
 
 function Account() {
   const user = useSelector((state) => state.USER);
@@ -12,6 +13,7 @@ function Account() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -34,6 +36,11 @@ function Account() {
     };
 
     dispatch(updateUser(userData));
+    setShowSuccessNotification(true);
+
+    setTimeout(() => {
+      setShowSuccessNotification(false);
+    }, 2000);
   };
 
   return (
@@ -96,6 +103,9 @@ function Account() {
             <button onClick={handleSubmit} className="update-button">
               Actualizar datos
             </button>
+            {showSuccessNotification && (
+              <Notification message="Datos actualizados correctamente" />
+            )}
             <Link to="/" className="home-button">
               Volver al inicio
             </Link>
