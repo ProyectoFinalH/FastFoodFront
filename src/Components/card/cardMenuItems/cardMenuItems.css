@@ -40,6 +40,8 @@
 
 .cardDescription {
   color: gray;
+  height: 20px;
+  word-break: break-word;
 }
 
 .cardPrice {
