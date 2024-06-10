@@ -97,8 +97,8 @@ function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, h
         <select id="category-select" onChange={(e) => handleCategoryClick(e.target.value)}>
           <option value="">Todas</option>
           {allCategories?.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
+            <option key={category?.id} value={category?.id}>
+              {category?.name}
             </option>
           ))}
         </select>

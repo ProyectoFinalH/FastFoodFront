@@ -1,12 +1,15 @@
 .cardMenuContainer {
-  cursor: pointer;
-  background: rgba(233, 233, 233, 0.8);
-  text-align: left;
-  width: 300px;
-  height: 350px;
-padding: 10px;
-margin: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  display: grid;
+    cursor: pointer;
+    background: rgba(233, 233, 233, 0.8);
+    text-align: left;
+    width: 300px;
+    height: 400px;
+    padding: 10px;
+    margin: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  
+    align-content: stretch;
   
 }
 
@@ -27,6 +30,7 @@ margin: 30px;
 }
 
 .cardContent {
+  word-break: break-word;
   padding: 10px;
 }
 
