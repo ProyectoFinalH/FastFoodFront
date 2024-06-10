@@ -18,15 +18,18 @@ function Account() {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName || "");
-      setLastName(user.lastName || "");
-      setGender(user.gender || "");
-      setBirthDate(user.birthDate || "");
-      setProfileImage(user.profileImage || "");
-      setUsername(user.username || "");
+    const userDataFromLocalStorage = localStorage.getItem("userData");
+    if (userDataFromLocalStorage) {
+      const parsedUserData = JSON.parse(userDataFromLocalStorage);
+      setFirstName(parsedUserData.firstName || "");
+      setLastName(parsedUserData.lastName || "");
+      setGender(parsedUserData.gender || "");
+      setBirthDate(parsedUserData.birthDate || "");
+      setProfileImage(parsedUserData.profileImage || "");
+      setUsername(parsedUserData.username || "");
+      setPassword(parsedUserData.password || "");
     }
-  }, [user]);
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -45,17 +48,19 @@ function Account() {
       return;
     }
 
-    const updatedUser = {
-      ...user,
+    const updatedUserData = {
       firstName,
       lastName,
       gender,
       birthDate,
       profileImage,
       username,
+      password,
     };
 
-    dispatch(updateUser(updatedUser));
+    dispatch(updateUser(updatedUserData));
+
+    localStorage.setItem("userData", JSON.stringify(updatedUserData));
 
     try {
       const response = await fetch("/notify-email", {
