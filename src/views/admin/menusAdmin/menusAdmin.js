@@ -5,6 +5,8 @@ function MenusAdmin({ allMenus, allMenuItems, allRestaurants }) {
   const [selectedMenuId, setSelectedMenuId] = useState({});
   const [menuItemsState, setMenuItemsState] = useState({});
 
+  const restaurant1 = allRestaurants.find(restaurant => restaurant.id === 2);
+
   useEffect(() => {
     // Inicializar el estado de los elementos como activados al principio
     const initialState = {};
@@ -32,17 +34,17 @@ function MenusAdmin({ allMenus, allMenuItems, allRestaurants }) {
 
   return (
     <div className="menusAdminContainerPrincipal">
-      {allRestaurants?.map((restaurant) => (
-        <div key={restaurant?.id} className="menusAdminContainerSegundo">
+      {/* {allRestaurants?.map((restaurant) => ( */}
+        <div key={restaurant1?.id} className="menusAdminContainerSegundo">
           <div className="resName">
             <h3>Nombre: </h3>
-            <p>{restaurant?.name}</p>
+            <p>{restaurant1?.name}</p>
           </div>
           <div className="MenusAdminContainer">
             <div className="MenuList">
               <h2>Menu</h2>
               {allMenus
-                .filter((menu) => menu?.restaurant_id === restaurant?.id)
+                .filter((menu) => menu?.restaurant_id === restaurant1?.id)
                 .map((menu) => (
                    <div
                   key={menu.id}
@@ -54,7 +56,7 @@ function MenusAdmin({ allMenus, allMenuItems, allRestaurants }) {
         
                     }`}
             
-                    onClick={() => handleMenuClick(restaurant?.id, menu?.id)}
+                    onClick={() => handleMenuClick(restaurant1?.id, menu?.id)}
       
                   >
                     <ul>
@@ -64,11 +66,11 @@ function MenusAdmin({ allMenus, allMenuItems, allRestaurants }) {
                 ))}
             </div>
             <div className="MenuItemsContainer">
-              {selectedMenuId[restaurant?.id] &&
+              {selectedMenuId[restaurant1?.id] &&
                 allMenuItems
                   .filter(
                     (menuItem) =>
-                      menuItem?.menu_id === selectedMenuId[restaurant?.id]
+                      menuItem?.menu_id === selectedMenuId[restaurant1?.id]
                   )
                   .map((menuItem) => (
                     <div key={menuItem?.id} className="MenuItemmenu">
@@ -99,7 +101,7 @@ function MenusAdmin({ allMenus, allMenuItems, allRestaurants }) {
             </div>
           </div>
         </div>
-      ))}
+      
     </div>
   );
 }
