@@ -303,16 +303,31 @@ export function getAllCategories() {
   };
 }
 
+export const updateUser = (userId, userData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/users/${userId}`, userData);
+      
+      dispatch(updateUserSuccess(response.data));
+    } catch (error) {
+      dispatch(updateUserFailure(error.response.data.error));
+    }
+  };
+};
 
+export const updateUserSuccess = (userData) => {
+  return {
+    type: 'UPDATE_USER_SUCCESS',
+    payload: userData,
+  };
+};
 
-
-
-
-
-
-
-
-
+export const updateUserFailure = (error) => {
+  return {
+    type: 'UPDATE_USER_FAILURE',
+    payload: error,
+  };
+};
 
 export const Desarrollode_Compra = (cards, id, res_id) => {
   return async (dispatch) => {

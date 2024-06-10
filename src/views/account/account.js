@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import "./account.css";
 import Notification from "../../Components/Notification/Notification";
+import { updateUser } from "../../Redux/actions";
 import axios from 'axios';
 
 function Account() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   const [firstName, setFirstName] = useState("");
@@ -61,6 +63,7 @@ function Account() {
       const response = await axios.put(`http://localhost:5000/users/${user.id}`, updatedUserData);
       console.log(response.data);
       setShowSuccessNotification(true);
+      await dispatch(updateUser(user.id, updatedUserData));
     } catch (error) {
       console.error("Error al actualizar datos:", error);
       alert("Error al actualizar datos: " + error.response.data.error);
