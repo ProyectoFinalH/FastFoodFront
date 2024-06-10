@@ -70,6 +70,10 @@ function Account() {
     }, 2000);
   };
 
+  const getShortenedName = (name, maxLength) => {
+    return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
+  };
+  
   return (
     <div>
       <Navbar />
@@ -99,7 +103,8 @@ function Account() {
                 style={{ display: "none" }}
               />
             </div>
-            <h2>{user?.firstName}</h2>
+            <h2>{user?.firstName && getShortenedName(user.firstName, 15)}</h2>
+            
             <p>Mi perfil</p>
           </div>
           <nav className="menu">

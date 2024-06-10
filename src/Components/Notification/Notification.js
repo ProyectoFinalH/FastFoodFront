@@ -15,6 +15,10 @@ function Notification({ message }) {
   return (
     <div className={`notification ${showNotification ? "show" : ""}`}>
       <div className="notification-content">
+        <div className="fastfood-logo">
+          <span className="fast">Fast</span>
+          <span className="food">Food</span>
+        </div>
         <div className="loading-spinner"></div>
         <p>{message}</p>
       </div>
