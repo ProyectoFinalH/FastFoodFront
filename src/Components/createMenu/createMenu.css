@@ -2,7 +2,7 @@
 .menuitemcontainer {
   border: solid 1px #b3b3b3;
   width: 60%;
-  margin: 20px auto 100px auto;
+  margin: 20px auto;
   padding: 20px;
   box-shadow: 0px 0px 5px #aaaaaa;
   border-radius: 10px;
@@ -10,18 +10,14 @@
 
 .form label,
 .menuitemcontainer label {
-  margin-top: 10px;
+  margin-bottom: 5px;
   display: block;
 }
 
-.menuitemcontainer select {
-  margin-top: 10px;
-}
-
+.menuitemcontainer select,
 .form input,
-.menuitemcontainer input,
-.menuitemcontainer select {
-  width: 100%;
+.menuitemcontainer input {
+  width: calc(100% - 20px);
   margin-bottom: 10px;
   padding: 8px;
   border: 1px solid #ccc;
@@ -57,13 +53,15 @@
   font-weight: bold;
   margin-top: 10px;
 }
+
 .buttonBack {
   margin-top: 20px;
+  text-align: center;
 }
 
 .buttonBack button {
   background-color: #ff4646;
-  color: #333;
+  color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -73,5 +71,19 @@
 }
 
 .buttonBack button:hover {
-  background-color: #ccc;
+  background-color: #cc0000;
+}
+
+.file-input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.file-input-wrapper > input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
