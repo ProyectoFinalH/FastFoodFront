@@ -145,3 +145,11 @@
 .home-button:hover {
   background-color: #e04a00;
 }
+
+.profile-header img {
+  width: 80px; 
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}

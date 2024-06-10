@@ -13,6 +13,7 @@ function Account() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
 
   useEffect(() => {
@@ -33,6 +34,7 @@ function Account() {
       email,
       username,
       password,
+      avatar: avatar ? URL.createObjectURL(avatar) : null,
     };
 
     dispatch(updateUser(userData));
@@ -43,13 +45,31 @@ function Account() {
     }, 2000);
   };
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    setAvatar(file);
+  };
+
   return (
     <div>
       <Navbar />
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <h2>{user?.firstName}</h2>
+            <label htmlFor="avatarInput">
+              {avatar ? (
+                <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+              ) : (
+                <img src={user.avatar} alt="Avatar" />
+              )}
+            </label>
+            <input
+              type="file"
+              id="avatarInput"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleAvatarChange}
+            />
             <p>Mi perfil</p>
           </div>
           <nav className="menu">
