@@ -5,6 +5,7 @@ import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Prin
 import RestaurantsAdmin from '../restaurantsAdmin/restaurantsAdmin';
 import MenusAdmin from '../menusAdmin/menusAdmin';
 import UsersAdmin from '../usersAdmin/usersAdmin';
+import OrdenesAdmin from '../ordenesAdmin/ordenesAdmin';
 
 
 function Sidebar({allRestaurants, allMenuItems, allMenus}) {
@@ -33,6 +34,7 @@ function Sidebar({allRestaurants, allMenuItems, allMenus}) {
         <li  onClick={() => handleOptionClick(1)}>Restaurantes</li>
         <li  onClick={() => handleOptionClick(2)}>Menues</li>
         <li  onClick={() => handleOptionClick(4)}>Usuarios</li>
+        <li  onClick={() => handleOptionClick(7)}>Ordenes</li>
         <li  onClick={() => handleOptionClick(5)}>Caificaciones</li>
         <li  onClick={() => handleOptionClick(6)}>Cerrar Sesion</li>
       </ul>
@@ -42,6 +44,7 @@ function Sidebar({allRestaurants, allMenuItems, allMenus}) {
         {selectedOption === 1 && <RestaurantsAdmin allRestaurants={allRestaurants}/>}
         {selectedOption === 2 && <MenusAdmin allMenus={allMenus} allMenuItems={allMenuItems} allRestaurants={allRestaurants}/> }
         {selectedOption === 4 && <UsersAdmin />}
+        {selectedOption === 7 && <OrdenesAdmin/>}
         {selectedOption === 6 && <LoginPrincipal />}
       </div> 
     </div>
