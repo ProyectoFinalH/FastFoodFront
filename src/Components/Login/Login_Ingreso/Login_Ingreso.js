@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login_ingreso.css";
 import imagen from "../Login_imagenes/logo.png";
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-import icono_google from "../Login_imagenes/iconos/icons8-google-48.png";
-import { login_User } from "../../../Redux/actions";
+import { login_User, login_User_Google } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "react-google-login";
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
@@ -17,7 +17,6 @@ const LoginIngreso = ({ setView }) => {
   const [keyVisible, setKeyVisible] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [userType, setUserType] = useState("");
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -49,12 +48,22 @@ const LoginIngreso = ({ setView }) => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Datos del formulario:", formData);
       await dispatch(login_User(formData));
     }
   };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLoginSuccess = async (response) => {
+    try {
+      const token = response.tokenId;
+      await dispatch(login_User_Google(token));
+    } catch (error) {
+      console.log("Error al iniciar sesión con Google:", error.message);
+    }
+  };
+
+  const handleGoogleLoginFailure = (error) => {
+    console.log("Error al iniciar sesión con Google:", error);
+  };
 
   const handleInvitado = () => {
     dispatch(login_User("invitado"));
@@ -77,8 +86,8 @@ const LoginIngreso = ({ setView }) => {
 
     setIsButtonEnabled(
       isValidEmailOrPhone(formData.emailOrPhone.trim()) &&
-      formData.password.trim() !== "" &&
-      userType !== ""
+        formData.password.trim() !== "" &&
+        userType !== ""
     );
   }, [formData, userType]);
 
@@ -163,14 +172,13 @@ const LoginIngreso = ({ setView }) => {
             </div>
           </div>
           <div className="login-group">
-            <div
-              className="google-login"
-              onClick={handleGoogleLogin}
-              style={{ cursor: "pointer" }}
-            >
-              <img src={icono_google} alt="icono ingreso" />
-              <div>Iniciar sesión con Google</div>
-            </div>
+            <GoogleLogin
+              clientId="1050390661266-jaek9qjccdjs6q7m0kg7652j69pqpp84.apps.googleusercontent.com"
+              buttonText="Iniciar sesión con Google"
+              onSuccess={handleGoogleLoginSuccess}
+              onFailure={handleGoogleLoginFailure}
+              cookiePolicy={"single_host_origin"}
+            />
             <div className="register" onClick={() => setView("registro")}>
               ¿No tienes una cuenta? Regístrate aquí
             </div>
