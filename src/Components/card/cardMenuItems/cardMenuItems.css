@@ -30,6 +30,7 @@
 }
 
 .cardContent {
+  word-break: break-word;
   padding: 10px;
 }
 

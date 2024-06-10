@@ -35,6 +35,7 @@
 
 .cardDetail p {
   margin-top: -10px;
+  word-break: break-word;
 }
 .titleDetail {
   display: flex;
