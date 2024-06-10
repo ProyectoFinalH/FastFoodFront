@@ -243,29 +243,28 @@ export function CreateMenu(dataquery){
   };
 }
 
-export function CreateMenuItems(dataquery, image_url, menu_id, category_id,  name,  description,  price){
-  console.log(dataquery)
+export function CreateMenuItems(formData) {
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
-      let formData = new FormData();
-      formData.append('image', image_url);
-      console.log(formData)
+
+      // Verifica el contenido de FormData antes de enviarlo
+      console.log("FormData contenido:", Array.from(formData.entries()));
 
       const response = await axios.post(endpoint, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        data: dataquery,
       });
+
       const menuItemData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuItemData));
       
-        dispatch({
-          type: CREATE_MENU_ITEMS,
-          payload: menuItemData,
-        });
+      dispatch({
+        type: CREATE_MENU_ITEMS,
+        payload: menuItemData,
+      });
       
     } catch (error) {
       alert("Error al enviar la información", error.message);
