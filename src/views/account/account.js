@@ -12,7 +12,6 @@ function Account() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [profileImage, setProfileImage] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -20,17 +19,6 @@ function Account() {
       setUsername(user.username || "");
     }
   }, [user]);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProfileImage(reader.result);
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleSubmit = async () => {
     if (!email || !username || !password) {
@@ -43,7 +31,6 @@ function Account() {
       email,
       username,
       password,
-      profileImage,
     };
 
     dispatch(updateUser(updatedUser));
@@ -55,29 +42,6 @@ function Account() {
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <div
-              className="profile-image-container"
-              onClick={() =>
-                document.getElementById("profileImageInput").click()
-              }
-            >
-              {profileImage ? (
-                <img
-                  src={profileImage}
-                  alt="Profile"
-                  className="profile-image"
-                />
-              ) : (
-                <div className="profile-placeholder">Imagen de perfil</div>
-              )}
-              <input
-                type="file"
-                id="profileImageInput"
-                accept="image/*"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-              />
-            </div>
             <h2>{user?.firstName}</h2>
             <p>Mi perfil</p>
           </div>
