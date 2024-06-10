@@ -1,15 +1,17 @@
-// import { useState } from 'react';
-// import InfoCompany from '../infoCompany/infoCompany';
-// import ProductsCompany from '../productsCompany/productsCompany';
-// import OrderCompany from '../orderCompany/orderCompany';
-import "./sidebar.css"
-// import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Principal';
+import { useState } from 'react';
+import logo from '../../../images/logo.png'
 
-function Sidebar({restaurant}) {
-  // const [selectedOption, setSelectedOption] = useState(1);
+import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Principal';
+import RestaurantsAdmin from '../restaurantsAdmin/restaurantsAdmin';
+import MenusAdmin from '../menusAdmin/menusAdmin';
+import UsersAdmin from '../usersAdmin/usersAdmin';
+
+
+function Sidebar({allRestaurants, allMenuItems, allMenus}) {
+  const [selectedOption, setSelectedOption] = useState(1);
 
   const handleOptionClick = (option) => {
-    // setSelectedOption(option);
+    setSelectedOption(option);
   };
 
 
@@ -22,26 +24,26 @@ function Sidebar({restaurant}) {
       <ul>
       <div className="cardRestConainerSidebar">
         
-        <img src={restaurant?.image_url} alt="imglogRes"/>
+        <img src={logo} alt="imglogRes"/>
         
         <div className="cardRestConainerSidebarh2">
-        <h2>{restaurant?.name}</h2>
+        <h2>ADMIN</h2>
           </div>  
       </div>
-        <li onClick={() => handleOptionClick(1)}>Editar Perfil</li>
-        <li onClick={() => handleOptionClick(2)}>Menues</li>
-        <li onClick={() => handleOptionClick(3)}>Ordenes Realizadas</li>
-        <li onClick={() => handleOptionClick(4)}>Caificaciones</li>
-        <li onClick={() => handleOptionClick(5)}>Cerrar Sesion</li>
+        <li  onClick={() => handleOptionClick(1)}>Restaurantes</li>
+        <li  onClick={() => handleOptionClick(2)}>Menues</li>
+        <li  onClick={() => handleOptionClick(4)}>Usuarios</li>
+        <li  onClick={() => handleOptionClick(5)}>Caificaciones</li>
+        <li  onClick={() => handleOptionClick(6)}>Cerrar Sesion</li>
       </ul>
 
       </div>
-      {/* <div className="content">
-        {selectedOption === 1 && <InfoCompany restaurant={restaurant}/>}
-        {selectedOption === 2 && <ProductsCompany />}
-        {selectedOption === 3 && <OrderCompany />}
-        {selectedOption === 5 && <LoginPrincipal />}
-      </div> */}
+       <div className="content">
+        {selectedOption === 1 && <RestaurantsAdmin allRestaurants={allRestaurants}/>}
+        {selectedOption === 2 && <MenusAdmin allMenus={allMenus} allMenuItems={allMenuItems} allRestaurants={allRestaurants}/> }
+        {selectedOption === 4 && <UsersAdmin />}
+        {selectedOption === 6 && <LoginPrincipal />}
+      </div> 
     </div>
   );
 }

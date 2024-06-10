@@ -48,15 +48,15 @@ width: 150px;
     transition: border-color 0.3s ease;
   }
   
-  /* Estilo cuando el input está enfocado */
+ 
   .labelContainer input:focus {
     outline: none;
-    border-color: #c90a06; /* Cambia el color del borde cuando el input está enfocado */
+    border-color: #c90a06;
   }
   .labelContainer button {
     padding: 10px 20px;
-    background-color: #c90a06; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
+    background-color: #c90a06; 
+    color: white; 
     border: none;
     border-radius: 2px;
     cursor: pointer;
@@ -71,8 +71,8 @@ width: 150px;
   .labelContainerimg button {
     
     padding: 10px 20px;
-    background-color: #c90a06; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
+    background-color: #c90a06;
+    color: white;
     border: none;
     border-radius: 2px;
     cursor: pointer;

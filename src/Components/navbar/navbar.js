@@ -30,6 +30,12 @@ function Navbar() {
   return (
     <div className="navbar-container">
       <div className="left-section">
+
+        
+          <div className="logo-container">
+            <img src={logo} alt="logo" className="logo" />           
+          </div>
+      
         <div className="logo-container">
           <img src={logo} alt="logo" className="logo" />
         </div>
