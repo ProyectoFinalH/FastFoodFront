@@ -110,7 +110,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
 
 
 
-  };
+
 
   if (!isOpen || !menuItem) return null;
 
@@ -143,7 +143,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
           <h2>Unidades</h2>
           <div className="botones-flex">
             <div className="buttonDecInc-Menu">
-              <label className="aumentardisminuir" onClick={() => handleDisminuirItem(menuItem.id)}>
+              <label className="aumentardisminuir" onClick={() => handleDisminuir(menuItem.id)}>
                 -
               </label>
               <input
@@ -156,7 +156,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
                 } // Usa el estado para mostrar la cantidad
                 disabled
               />
-              <label className="aumentardisminuir" onClick={() => handleSumarItem(menuItem.id)}>
+              <label className="aumentardisminuir" onClick={() => handleSumar(menuItem.id)}>
                 +
               </label>
             </div>
