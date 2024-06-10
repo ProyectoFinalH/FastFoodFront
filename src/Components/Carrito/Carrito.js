@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Carrito({ onClose }) {
   const User = useSelector((state) => state.USER);
+  const Car = useSelector((state)=> state.Carrito);
   const [selectedCards, setSelectedCards] = useState([]);
   const [mensaje, setMensaje] = useState("¡Comienza tu carrito con tus comidas favoritas!")
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function Carrito({ onClose }) {
           setSelectedCards([]);
           setMensaje("Gracias por tu compra");
           alert("Pago desarrollado con éxito");
+          console.log(JSON.stringify(Car))
         })
         .catch((error) => {
           alert("Error al procesar el pago", error.message);

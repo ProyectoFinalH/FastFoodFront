@@ -63,7 +63,7 @@ function CardMenuItems({ id, name, description, price, image, handleSelectMenuIt
      
       <div className="cardContent">
         <h2 className="cardTitle">{name}</h2>
-        <p className="cardDescription">{description}</p>
+        <p className="cardDescription">{ description.substring(0, 30)}...</p>
         <div className="OrdenarCompra">
           <h2 className="cardPrice">${price}</h2>
           <div className="botonesCarrito">

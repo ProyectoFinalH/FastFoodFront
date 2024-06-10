@@ -21,6 +21,7 @@ import {
 
 const initialState = {
   USER: null,
+  Carrito:null,
   RegisterUserData: null,
   RegisterBusiness: null,
   allRestaurants: [],
@@ -30,7 +31,7 @@ const initialState = {
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
-  Carrito:null,
+  
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -130,7 +131,7 @@ const reducer = (state = initialState, { type, payload }) => {
             case CREATECOMPRA:
               return{
                 ...state,
-                Carrito:payload,
+                Carrito: payload,
               }
     default:
       return { ...state };
