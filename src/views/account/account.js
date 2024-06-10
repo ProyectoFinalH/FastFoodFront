@@ -3,59 +3,50 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import "./account.css";
-import Notification from "../../Components/Notification/Notification";
 import { updateUser } from "../../Redux/actions";
 
 function Account() {
+  const user = useSelector((state) => state.USER);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
 
-  const [userData, setUserData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   useEffect(() => {
     if (user) {
-      setUserData({
-        username: user.username || "",
-        email: user.email || "",
-        password: "",
-      });
+      setEmail(user.email || "");
+      setUsername(user.username || "");
     }
   }, [user]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfileImage(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async () => {
-    const { username, email, password } = userData;
-    if (!user || !user.id || !username || !email || !password) {
-      alert(
-        "Por favor, completa todos los campos y asegúrate de que estás logueado correctamente."
-      );
+    if (!email || !username || !password) {
+      alert("Por favor, completa todos los campos.");
       return;
     }
 
-    try {
-      dispatch(updateUser(user.id, userData));
-      setShowSuccessNotification(true);
-      setTimeout(() => setShowSuccessNotification(false), 3000);
-    } catch (error) {
-      console.error("Error al actualizar datos:", error);
-      alert(
-        "Error al actualizar datos: " +
-          (error.response?.data?.error || error.message)
-      );
-    }
+    const updatedUser = {
+      ...user,
+      email,
+      username,
+      password,
+      profileImage,
+    };
+
+    dispatch(updateUser(updatedUser));
   };
 
   return (
@@ -64,11 +55,30 @@ function Account() {
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <h2>
-              {user?.firstName && user.firstName.length > 15
-                ? user.firstName.substring(0, 15) + "..."
-                : user?.firstName}
-            </h2>
+            <div
+              className="profile-image-container"
+              onClick={() =>
+                document.getElementById("profileImageInput").click()
+              }
+            >
+              {profileImage ? (
+                <img
+                  src={profileImage}
+                  alt="Profile"
+                  className="profile-image"
+                />
+              ) : (
+                <div className="profile-placeholder">Imagen de perfil</div>
+              )}
+              <input
+                type="file"
+                id="profileImageInput"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+              />
+            </div>
+            <h2>{user?.firstName}</h2>
             <p>Mi perfil</p>
           </div>
           <nav className="menu">
@@ -95,9 +105,8 @@ function Account() {
               <label>Correo Electrónico</label>
               <input
                 type="email"
-                name="email"
-                value={userData.email}
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -106,20 +115,16 @@ function Account() {
               <label>Nombre de usuario</label>
               <input
                 type="text"
-                name="username"
-                value={userData.username}
-                onChange={handleChange}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-          </div>
-          <div className="input-group-container">
             <div className="input-group1">
               <label>Contraseña</label>
               <input
                 type="password"
-                name="password"
-                value={userData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
@@ -127,9 +132,6 @@ function Account() {
             <button onClick={handleSubmit} className="update-button">
               Actualizar datos
             </button>
-            {showSuccessNotification && (
-              <Notification message="Datos actualizados correctamente" />
-            )}
             <Link to="/" className="home-button">
               Volver al inicio
             </Link>
