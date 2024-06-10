@@ -26,14 +26,14 @@ function Account() {
       return;
     }
 
-    const updatedUser = {
-      ...user,
+    const userData = {
+      id: user.id,
       email,
       username,
       password,
     };
 
-    dispatch(updateUser(updatedUser));
+    dispatch(updateUser(userData));
   };
 
   return (

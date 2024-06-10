@@ -309,10 +309,10 @@ export function getAllCategories() {
   };
 }
 
-export const updateUser = (id, userData) => {
+export const updateUser = (userData) => {
   return async (dispatch) => {
     try {
-      const endpoint = `http://localhost:5000/users/${id}`;
+      const endpoint = `http://localhost:5000/users/1`;
       const respuesta = await axios.put(endpoint, userData);
 
       return dispatch({
