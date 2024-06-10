@@ -1,15 +1,29 @@
-
-
-
-import {CREATECOMPRA, GET_CATEGORIES, REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME, CREATE_CATEGORIES } from "./action-types"
+import {
+  CREATECOMPRA,
+  UPDATE_USER,
+  GET_CATEGORIES,
+  REGISTERUSER,
+  REGISTERBUSINESS,
+  RECOVERYKEY,
+  USERLOGIN,
+  USERLOGINGOOGLE,
+  CREATE_MENU,
+  CREATE_MENU_ITEMS,
+  LOGOUT_USER,
+  GET_MENUITEMS,
+  GET_RESTAURANTS,
+  GET_MENUS,
+  GET_MENUITEMS_BYNAME,
+  CREATE_CATEGORIES,
+} from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
 
-import axios from 'axios'
+import axios from "axios";
 
 export const logoutUser = () => {
   return {
-    type: LOGOUT_USER
+    type: LOGOUT_USER,
   };
 };
 //Registramos usuario
@@ -103,45 +117,41 @@ export const recovery_key_user = (dataquery) => {
 export const login_User = (dataquery) => {
   return async (dispatch) => {
     try {
-      if(dataquery === "invitado"){
+      if (dataquery === "invitado") {
         dispatch({
           type: USERLOGIN,
           payload: dataquery,
         });
-      }else{
-
+      } else {
         const userData = {
           email: dataquery.emailOrPhone,
           password: dataquery.password,
         };
-  
+
         // const params = new URLSearchParams(userData).toString();
-  
+
         // alert ("Lo que tienen el username en el anme es "+ userData.username )
-  
+
         const endpoint = "http://localhost:5000/users/login";
-  
+
         //const response = await axios.get(`${endpoint}?${params}`);
-  
+
         const response = await axios.post(endpoint, userData);
-        const auser= response.data;
+        const auser = response.data;
         //const auser = 'yes';
-        
+
         // console.log("lo que tengo de retorno "+ user)
         //console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
         //const userDatauser= {id, username, email, password, google_id, role_id }
-       //  localStorage.setItem('token', token);
+        //  localStorage.setItem('token', token);
         // console.log(token)
-          dispatch({
-            type: USERLOGIN,
-            payload: auser,
-          });
+        dispatch({
+          type: USERLOGIN,
+          payload: auser,
+        });
       }
-      
-   
-     
     } catch (error) {
-     // alert("Usuario no encontrado")
+      // alert("Usuario no encontrado")
       console.log("Error al enviar mensaje", error.message);
     }
   };
@@ -216,15 +226,14 @@ export function getAllRestaurants() {
   };
 }
 
-export function sortedMenuItemsAsc(sortedMenuItems){
-  return ({
+export function sortedMenuItemsAsc(sortedMenuItems) {
+  return {
     type: "SORTER_ASC",
     payload: sortedMenuItems,
-})
+  };
 }
 
-
-export function CreateMenu(dataquery){
+export function CreateMenu(dataquery) {
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menus/create";
@@ -232,12 +241,11 @@ export function CreateMenu(dataquery){
       const menuData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuData));
-      
-        dispatch({
-          type: CREATE_MENU,
-          payload: menuData,
-        });
-      
+
+      dispatch({
+        type: CREATE_MENU,
+        payload: menuData,
+      });
     } catch (error) {
       alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
@@ -254,19 +262,18 @@ export function CreateMenuItems(formData) {
 
       const response = await axios.post(endpoint, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
 
       const menuItemData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuItemData));
-      
+
       dispatch({
         type: CREATE_MENU_ITEMS,
         payload: menuItemData,
       });
-      
     } catch (error) {
       alert("Error al enviar la información", error.message);
       console.log(error);
@@ -274,18 +281,17 @@ export function CreateMenuItems(formData) {
   };
 }
 
-export function CreateCategory(dataquery){
+export function CreateCategory(dataquery) {
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/categories/create";
       const response = await axios.post(endpoint, dataquery);
       const categoriesData = response.data;
-      console.log("Datos encontrados", JSON.stringify(categoriesData));      
-        dispatch({
-          type: CREATE_CATEGORIES,
-          payload: categoriesData,
-        });
-      
+      console.log("Datos encontrados", JSON.stringify(categoriesData));
+      dispatch({
+        type: CREATE_CATEGORIES,
+        payload: categoriesData,
+      });
     } catch (error) {
       alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
@@ -303,80 +309,62 @@ export function getAllCategories() {
   };
 }
 
-export const updateUser = (userId, userData) => {
+export const updateUser = (id, userData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`http://localhost:5000/users/${userId}`, userData);
-      
-      dispatch(updateUserSuccess(response.data));
+      const endpoint = `http://localhost:5000/users/${id}`;
+      const respuesta = await axios.put(endpoint, userData);
+
+      return dispatch({
+        type: UPDATE_USER,
+        payload: respuesta,
+      });
     } catch (error) {
-      dispatch(updateUserFailure(error.response.data.error));
+      alert("Este es el error " + error.message);
+      console.log("Este es el error " + error.message);
     }
-  };
-};
-
-export const updateUserSuccess = (userData) => {
-  return {
-    type: 'UPDATE_USER_SUCCESS',
-    payload: userData,
-  };
-};
-
-export const updateUserFailure = (error) => {
-  return {
-    type: 'UPDATE_USER_FAILURE',
-    payload: error,
   };
 };
 
 export const Desarrollode_Compra = (cards, id, res_id) => {
   return async (dispatch) => {
-   
-
     try {
+      // Calcular el costo total de todos los productos
+      const totalCost = cards.reduce((acc, item) => {
+        return acc + parseFloat(item.price) * item.cont;
+      }, 0);
 
+      // Log para verificación
+      cards.forEach((item) => {
+        console.log(`ID: ${item.id}`);
+        console.log(`Name: ${item.name}`);
+        console.log(`Description: ${item.description}`);
+        console.log(`Price: ${item.price}`);
+        console.log(`Image: ${item.image}`);
+        console.log(`Cont: ${item.cont}`);
+        console.log("---------------------------");
+      });
 
- // Calcular el costo total de todos los productos
- const totalCost = cards.reduce((acc, item) => {
-  return acc + (parseFloat(item.price) * item.cont);
-}, 0);
+      console.log(`Total Cost: ${totalCost}`);
 
-// Log para verificación
-cards.forEach(item => {
-  console.log(`ID: ${item.id}`);
-  console.log(`Name: ${item.name}`);
-  console.log(`Description: ${item.description}`);
-  console.log(`Price: ${item.price}`);
-  console.log(`Image: ${item.image}`);
-  console.log(`Cont: ${item.cont}`);
-  console.log('---------------------------');
-});
-
-console.log(`Total Cost: ${totalCost}`);
-
-    
-     const  dataquery = {
-                          user_id:id,
-                          restaurant_id:res_id,
-                          total_price: parseFloat(totalCost)
-                              }
+      const dataquery = {
+        user_id: id,
+        restaurant_id: res_id,
+        total_price: parseFloat(totalCost),
+      };
       const endpoint = "http://localhost:5000/orders/create";
       const response = await axios.post(endpoint, dataquery);
       const compra = response.data;
 
-
-      console.log('esta es la compra' + JSON.stringify(compra));
-
+      console.log("esta es la compra" + JSON.stringify(compra));
 
       dispatch({
         type: CREATECOMPRA,
-        payload: compra
+        payload: compra,
       });
-      
     } catch (error) {
       alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
     }
-    
-  }
-}
+  };
+};
