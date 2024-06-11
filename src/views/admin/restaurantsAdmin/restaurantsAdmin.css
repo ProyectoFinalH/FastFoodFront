@@ -48,3 +48,11 @@ overflow: hidden;
 .resName p {
  margin-left: 20px;
 }
+
+.cardRest.inactive {
+    background-color: #a8a8a8; /* Cambia el color de fondo a gris */
+  }
+
+  .cardRest.inactive img {
+    filter: grayscale(100%); /* Aplica el filtro de escala de grises al 100% */
+  }

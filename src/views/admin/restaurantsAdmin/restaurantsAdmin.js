@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import "./restaurantsAdmin.css";
+// import axios from "axios";
 
 function RestaurantsAdmin({ allRestaurants }) {
   const [restaurants, setRestaurants] = useState([]);
@@ -9,31 +9,27 @@ function RestaurantsAdmin({ allRestaurants }) {
     setRestaurants(allRestaurants);
   }, [allRestaurants]);
 
-  const handleToggleActive = async (restaurantId) => {
-    try {
-      const updatedRestaurants = restaurants.map((restaurant) => {
-        if (restaurant.id === restaurantId) {
-          return { ...restaurant, active: !restaurant.active };
-        }
-        return restaurant;
-      });
+  // const toggleActivation = async (restaurantId, active) => {
+  //   try {
+  //     // Realizar la solicitud axios para cambiar el estado de activación en el backend
+  //     if (active) {
+  //       await axios.put(`http://localhost:5000/restaurants/restore/${restaurantId}`);
+  //     } else {
+  //       await axios.put(`http://localhost:5000/restaurants/delete/${restaurantId}`);
+  //     }
+      
+  //     // Actualizar el estado local para reflejar el cambio en la activación del restaurante
+  //     setRestaurants()
 
-      // Realizar la solicitud PUT con Axios para actualizar el estado
-      await axios.put(`http://localhost:5000/restaurants/${restaurantId}`, {
-        active: !restaurants.find(r => r.id === restaurantId).active,
-      });
-
-      setRestaurants(updatedRestaurants);
-    } catch (error) {
-      console.error("Error:", error);
-      // Manejar el error de manera apropiada, por ejemplo, mostrando un mensaje al usuario
-    }
-  };
+  //   } catch (error) {
+  //     console.error("Error al cambiar el estado del restaurante:", error);
+  //   }
+  // };
 
   return (
     <div className="restaurantAdminContainer">
       {restaurants.map((restaurant) => (
-        <div key={restaurant.id} className="cardRest">
+        <div key={restaurant.id} className={`cardRest ${restaurant.active ? '' : 'inactive'}`}>
           <div className="resImage">
             <img src={restaurant.image_url} alt="imgRes" />
           </div>
@@ -43,14 +39,12 @@ function RestaurantsAdmin({ allRestaurants }) {
             <div className="resName"><h3>Direccion: </h3><p>{restaurant.address}</p></div>
             <div className="resName"><h3>Telefono: </h3><p>{restaurant.phone}</p></div>
             <div className="resName"><h3>Descripcion: </h3><p>{restaurant.description}</p></div>
+            <div>
+              <button /*onClick={() => toggleActivation(restaurant.id, !restaurant.active) }*/>
+                {restaurant.active ? "Desactivar" : "Activar"}
+              </button>
+            </div>
           </div>
-          <button
-            className='ButtonEnDis'
-            onClick={() => handleToggleActive(restaurant.id)}
-            disabled={!restaurant.active}
-          >
-            {restaurant.active ? '✖︎' : '✔︎'}
-          </button>
         </div>
       ))}
     </div>

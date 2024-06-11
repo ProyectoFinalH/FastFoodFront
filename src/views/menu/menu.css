@@ -88,3 +88,9 @@ left: 2%;
     object-fit: contain;
     
   }
+
+.infoRestimgName{
+  display: grid;
+    justify-items: center;
+}
+  
