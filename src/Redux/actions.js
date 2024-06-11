@@ -1,6 +1,8 @@
 
 
+
 import {CANCELARCOMPRAUSER, CREATELISTAORDERSCOMPANY, CREATECOMPRA, UPDATE_USER, REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME, CREATE_CATEGORIES } from "./action-types"
+
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from 'axios'
@@ -296,7 +298,7 @@ export function getAllCategories() {
   return async function (dispatch) {
     const response = await axios("http://localhost:5000/categories");
     return dispatch({
-      type: "GET_CATEGORIES",
+      type: GET_CATEGORIES,
       payload: response.data,
     });
   };

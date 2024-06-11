@@ -33,6 +33,11 @@
     background-color: rgb(255, 255, 255);
     color: #c90a06;
 }
+
+.OptionContainer ul li:focus{
+    background-color: rgb(255, 255, 255);
+    color: #c90a06;
+}
 .content {
     width: 100%;
     
@@ -53,9 +58,9 @@ border-radius: 30px;
 
 }
 
-.cardRestConainerSidebarh2{
+.cardRestConainerSidebar h2{
     color: black;
-    width: 100%; /* Ajusta el ancho del h2 al 100% del contenedor */
+    width: 100%;
     word-break: break-word;
 }
 .cardRestConainerSidebar img {

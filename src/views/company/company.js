@@ -27,7 +27,7 @@ useEffect(()=>{
   
 
 
-  const restaurant = allRestaurants && allRestaurants.length > 0 ? allRestaurants[0] : null;
+  const restaurant = allRestaurants && allRestaurants?.length > 0 ? allRestaurants[0] : null;
     
   console.log ("este es el res company",restaurant)
 

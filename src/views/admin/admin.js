@@ -1,45 +1,32 @@
-// import Sidebar from "./sidebar/sidebar"
+import Sidebar from "./sidebar/sidebar";
 // import logo from "../../images/logo.png"
-import "./admin.css"
+import "./admin.css";
 
-// import { getAllRestaurants } from "../../Redux/actions"
-// import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
-
+import { getAllMenuitems, getAllMenus, getAllRestaurants } from "../../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function Admin() {
+  const allRestaurants = useSelector((state) => state.allRestaurants);
+  const allMenuItems = useSelector((state)=> state.allMenuItems)
+  const allMenus = useSelector((state)=> state.allMenus)
+  // const allUsers = useSelector((state) => state.allRestaurants);
 
+  const dispatch = useDispatch();
 
-// const allRestaurants = useSelector((state)=> state.allRestaurants)
-
-// console.log("Datos de todos los restaurantes:", allRestaurants);
-
-//   const dispatch = useDispatch();
-
-
-
-// useEffect(()=>{
-//   dispatch(getAllRestaurants())
-// },[dispatch])
-
-  
-
-
-//   const restaurant = allRestaurants && allRestaurants.length > 0 ? allRestaurants[0] : null;
-    
-//   console.log ("este es el res company",restaurant)
+  useEffect(() => {
+    dispatch(getAllRestaurants());
+    dispatch(getAllMenuitems());
+    dispatch(getAllMenus());
+  }, [dispatch]);
 
   return (
     <div className="companyContainer">
-      ADMINISTRADOR
-{/* <div className="navbarCompany">
-  <img src={logo} alt="logo"/>
-</div> */}
-<div>
-  {/* <Sidebar restaurant={restaurant}/> */}
-</div>
+      <div>
+        <Sidebar allRestaurants={allRestaurants} allMenuItems={allMenuItems} allMenus={allMenus}/>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Admin
+export default Admin;

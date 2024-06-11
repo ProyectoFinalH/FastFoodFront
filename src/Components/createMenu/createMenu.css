@@ -38,7 +38,7 @@
 
 .form button:hover,
 .menuitemcontainer button:hover {
-  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  background: #29d884;
 }
 
 .success-message {

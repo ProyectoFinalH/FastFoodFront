@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import "./account.css";
 import { updateUser } from "../../Redux/actions";
+import Notification from "../../Components/Notification/Notification";
 
 function Account() {
   const user = useSelector((state) => state.USER);
@@ -16,17 +17,21 @@ function Account() {
   const [profileImage, setProfileImage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false); // Estado para controlar la visualización de la notificación
 
   useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName || "");
-      setLastName(user.lastName || "");
-      setGender(user.gender || "");
-      setBirthDate(user.birthDate || "");
-      setProfileImage(user.profileImage || "");
-      setUsername(user.username || "");
+    const userDataFromLocalStorage = localStorage.getItem("userData");
+    if (userDataFromLocalStorage) {
+      const parsedUserData = JSON.parse(userDataFromLocalStorage);
+      setFirstName(parsedUserData.firstName || "");
+      setLastName(parsedUserData.lastName || "");
+      setGender(parsedUserData.gender || "");
+      setBirthDate(parsedUserData.birthDate || "");
+      setProfileImage(parsedUserData.profileImage || "");
+      setUsername(parsedUserData.username || "");
+      setPassword(parsedUserData.password || "");
     }
-  }, [user]);
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -39,50 +44,36 @@ function Account() {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!firstName || !lastName || !gender || !birthDate) {
       alert("Por favor, completa todos los campos.");
       return;
     }
 
-    const updatedUser = {
-      ...user,
+    const updatedUserData = {
       firstName,
       lastName,
       gender,
       birthDate,
       profileImage,
       username,
+      password,
     };
 
-    dispatch(updateUser(updatedUser));
+    dispatch(updateUser(updatedUserData));
+    localStorage.setItem("userData", JSON.stringify(updatedUserData));
 
-    try {
-      const response = await fetch("/notify-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: user.email }),
-      });
+    setShowSuccessNotification(true);
 
-      if (response.ok) {
-        alert(
-          "Datos actualizados correctamente. Se ha enviado un correo electrónico de notificación."
-        );
-      } else {
-        throw new Error(
-          "Error al enviar el correo electrónico de notificación"
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert(
-        "Datos actualizados correctamente, pero hubo un error al enviar el correo electrónico de notificación."
-      );
-    }
+    setTimeout(() => {
+      setShowSuccessNotification(false);
+    }, 2000);
   };
 
+  const getShortenedName = (name, maxLength) => {
+    return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
+  };
+  
   return (
     <div>
       <Navbar />
@@ -112,7 +103,8 @@ function Account() {
                 style={{ display: "none" }}
               />
             </div>
-            <h2>{user?.firstName}</h2>
+            <h2>{user?.firstName && getShortenedName(user.firstName, 15)}</h2>
+            
             <p>Mi perfil</p>
           </div>
           <nav className="menu">
@@ -211,6 +203,7 @@ function Account() {
             <button onClick={handleSubmit} className="update-button">
               Actualizar datos
             </button>
+            {showSuccessNotification && <Notification message="Datos actualizados correctamente" />}
             <Link to="/" className="home-button">
               Volver al inicio
             </Link>

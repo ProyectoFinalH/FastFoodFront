@@ -1,0 +1,55 @@
+.notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 9999;
+    display: none;
+    width: 300px;
+    height: 200px;
+  }
+  
+  .notification.show {
+    display: block;
+  }
+  
+  .notification-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .fastfood-logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 6px solid  #29d884;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+  }
+  .fast {
+    color: rgb(250, 29, 29);
+  }
+  
+  .food {
+    color: rgb(240, 211, 47);
+  }
+  
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
