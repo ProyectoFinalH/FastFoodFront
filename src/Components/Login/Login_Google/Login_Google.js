@@ -1,13 +1,14 @@
 import React from "react";
 import { auth, googleProvider } from "../../../firebase";
-import "./Login_Google.css"; 
+import "./Login_Google.css";
 
 const Login = () => {
   const handleLogin = async () => {
     try {
       const result = await auth.signInWithPopup(googleProvider);
       const token = await result.user.getIdToken();
-      // Envía el token al backend
+      console.log("Token:", token);
+
       const response = await fetch(
         "http://localhost:5000/api/users/auth/google",
         {
@@ -18,12 +19,20 @@ const Login = () => {
           body: JSON.stringify({ token }),
         }
       );
+
       const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Error data:", data);
+        throw new Error("Failed to authenticate user");
+      }
+
       console.log(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
     }
   };
+
   return (
     <button className="google-login-button" onClick={handleLogin}>
       <img
@@ -35,4 +44,5 @@ const Login = () => {
     </button>
   );
 };
+
 export default Login;
