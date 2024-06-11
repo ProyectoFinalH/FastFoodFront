@@ -33,12 +33,13 @@
   margin-left: 100px;
 }
 
-.buttonBack{
-  display: flex;
-  padding-bottom: 30px;
+.buttonBackMenu{
+position: absolute;
+left: 2%;
+
 
 }
-.buttonBack button{
+.buttonBackMenu button{
     padding: 10px 20px;
 
     border: none;
@@ -51,7 +52,7 @@
     border: 1px solid rgb(196, 196, 196);
   }
   
-  .buttonBack button:hover {
+  .buttonBackMenu button:hover {
     background-color: rgb(255, 255, 255);
     color: #c90a06;
   }
@@ -64,3 +65,32 @@
   .navBarContainer{
     width: 30%;
   }
+  .infoRest{
+    background-color: #c90a06;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .infoRestImg{
+    
+    background-color: #fff;
+    border: solid 1px rgb(0, 0, 0, 0.2);
+    margin: 10px
+  }
+
+  .infoRestImg img{
+    
+    height: 100px;
+    width: 100%;
+    object-fit: contain;
+    
+  }
+
+.infoRestimgName{
+  display: grid;
+    justify-items: center;
+}
+  

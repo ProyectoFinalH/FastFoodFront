@@ -2,7 +2,6 @@
 import { useState } from "react";
 import "./navbarMenu.css";
 
-import lupa from "../../images/lupas.png"
 
 
 
@@ -48,8 +47,8 @@ function NavbarMenu({ searchString, setSearchString, handleSubmit, handleSort, h
         <div className="searchContainer">
           <input placeholder="Buscar producto..." type="search" value={searchString}
             onChange={handleChange}/>
-          <button type="submit" onClick={handleSubmit}>
-            <img src={lupa} alt="a1" />
+          <button type="submit" onClick={handleSubmit}  className="searchButton">
+          <p>🔍︎</p>
           </button>
         </div>
       </form>
