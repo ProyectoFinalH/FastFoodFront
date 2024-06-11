@@ -9,7 +9,7 @@ import { obtenerContCarrito,guardarItemCarrito } from '../../localStorage-car/Lo
 
 import Carrito from '../../Carrito/Carrito'
 
-function CardMenuItems({ id, name, description, price, image, handleSelectMenuItem, hideCartButtons}) {
+function CardMenuItems({ id, name, description, price, image, handleSelectMenuItem, hideCartButtons, showEyeIcon}) {
   const [viewCard, setViewCard] = useState(false);
   const navigator = useNavigate();
   const [id_Card, setId_Card] = useState({ id, name, description, price, image, cont: 0 }); // Inicializa cont en 0
@@ -80,6 +80,7 @@ function CardMenuItems({ id, name, description, price, image, handleSelectMenuIt
           </div>
           )}
         </div>
+        {showEyeIcon && <span role="img" aria-label="view" className="iconoOjo">👁</span>}  
 
       </div>
     </div>

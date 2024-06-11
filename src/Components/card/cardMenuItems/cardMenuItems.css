@@ -73,3 +73,16 @@
 .buttonDecInc-Menu:hover {
   background-color: #c90a06;
 }
+
+.iconoOjo{
+  width: 22px;
+  height: 30px;
+  font-size: 1.4rem;
+  float: right;
+  margin: 0% 50% 0% 0%;
+  border-radius: 25px;
+
+}
+.iconoOjo:hover{
+  background-color: rgb(168, 168, 168);
+}
