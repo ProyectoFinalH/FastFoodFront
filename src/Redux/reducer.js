@@ -40,6 +40,7 @@ const initialState = {
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
+  User_Actualizado: null,
   
 };
 
@@ -120,7 +121,7 @@ const reducer = (state = initialState, { type, payload }) => {
           case UPDATE_USER:
             return {
               ...state,
-              USER: payload,
+              User_Actualizado: payload,
             };
           case LOGOUT_USER:
             return {

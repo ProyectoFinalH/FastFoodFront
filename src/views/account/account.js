@@ -10,58 +10,79 @@ function Account() {
   const user = useSelector((state) => state.USER);
   const dispatch = useDispatch();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showSuccessNotification, setShowSuccessNotification] = useState(false); // Estado para controlar la visualización de la notificación
+  const [avatar, setAvatar] = useState(null);
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
 
   useEffect(() => {
-    const userDataFromLocalStorage = localStorage.getItem("userData");
-    if (userDataFromLocalStorage) {
-      const parsedUserData = JSON.parse(userDataFromLocalStorage);
-      setFirstName(parsedUserData.firstName || "");
-      setLastName(parsedUserData.lastName || "");
-      setGender(parsedUserData.gender || "");
-      setBirthDate(parsedUserData.birthDate || "");
-      setProfileImage(parsedUserData.profileImage || "");
-      setUsername(parsedUserData.username || "");
-      setPassword(parsedUserData.password || "");
-    }
-  }, []);
+    if (user) {
+      setEmail(user.email || "");
+      setUsername(user.username || "");
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProfileImage(reader.result);
-    };
-    if (file) {
-      reader.readAsDataURL(file);
+      const storedAvatarURL = localStorage.getItem("avatarURL");
+      if (storedAvatarURL) {
+        setAvatar(storedAvatarURL);
+      }
     }
+  }, [user]);
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    const imageURL = URL.createObjectURL(file);
+
+    localStorage.setItem("avatarURL", imageURL);
+
+    setAvatar(imageURL);
   };
 
-  const handleSubmit = () => {
-    if (!firstName || !lastName || !gender || !birthDate) {
+  const handleSubmit = async () => {
+    if (!email || !username || !password) {
       alert("Por favor, completa todos los campos.");
       return;
     }
 
-    const updatedUserData = {
-      firstName,
-      lastName,
-      gender,
-      birthDate,
-      profileImage,
-      username,
-      password,
-    };
+    if (avatar) {
+      const formData = new FormData();
+      formData.append("file", avatar);
+      formData.append("upload_preset", "tu_upload_preset_aqui");
 
-    dispatch(updateUser(updatedUserData));
-    localStorage.setItem("userData", JSON.stringify(updatedUserData));
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dfhkqwfio/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+
+        const imageUrl = data.secure_url;
+
+        const userData = {
+          id: user.id,
+          email,
+          username,
+          password,
+          avatar: imageUrl,
+        };
+
+        dispatch(updateUser(userData));
+      } catch (error) {
+       // console.error("Error al cargar la imagen:", error);
+       // alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+      }
+    } else {
+      const userData = {
+        id: user.id,
+        email,
+        username,
+        password,
+      };
+
+      dispatch(updateUser(userData));
+    }
 
     setShowSuccessNotification(true);
 
@@ -70,41 +91,26 @@ function Account() {
     }, 2000);
   };
 
-  const getShortenedName = (name, maxLength) => {
-    return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
-  };
-  
   return (
     <div>
       <Navbar />
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <div
-              className="profile-image-container"
-              onClick={() =>
-                document.getElementById("profileImageInput").click()
-              }
-            >
-              {profileImage ? (
-                <img
-                  src={profileImage}
-                  alt="Profile"
-                  className="profile-image"
-                />
+            <label htmlFor="avatarInput">
+              {avatar ? (
+                <img src={avatar} alt="Avatar" />
               ) : (
-                <div className="profile-placeholder">Imagen de perfil</div>
+                <img src={user.avatar} alt="Avatar" />
               )}
-              <input
-                type="file"
-                id="profileImageInput"
-                accept="image/*"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-              />
-            </div>
-            <h2>{user?.firstName && getShortenedName(user.firstName, 15)}</h2>
-            
+            </label>
+            <input
+              type="file"
+              id="avatarInput"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleAvatarChange}
+            />
             <p>Mi perfil</p>
           </div>
           <nav className="menu">
@@ -128,33 +134,11 @@ function Account() {
           <h2>Información de tu cuenta</h2>
           <div className="input-group-container">
             <div className="input-group1">
-              <label>Nombre(s)</label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </div>
-            <div className="input-group1">
-              <label>Apellido(s)</label>
-              <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="input-group-container">
-            <div className="input-group1">
               <label>Correo Electrónico</label>
-              <input type="email" value={user?.email} disabled />
-            </div>
-            <div className="input-group1">
-              <label>Fecha de nacimiento</label>
               <input
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -176,34 +160,13 @@ function Account() {
               />
             </div>
           </div>
-          <div className="input-group-gender">
-            <label>Género</label>
-            <div className="gender-options">
-              <label>
-                <input
-                  type="radio"
-                  value="Hombre"
-                  checked={gender === "Hombre"}
-                  onChange={(e) => setGender(e.target.value)}
-                />
-                Hombre
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="Mujer"
-                  checked={gender === "Mujer"}
-                  onChange={(e) => setGender(e.target.value)}
-                />
-                Mujer
-              </label>
-            </div>
-          </div>
           <div className="button-group">
             <button onClick={handleSubmit} className="update-button">
               Actualizar datos
             </button>
-            {showSuccessNotification && <Notification message="Datos actualizados correctamente" />}
+            {showSuccessNotification && (
+              <Notification message="Datos actualizados correctamente" />
+            )}
             <Link to="/" className="home-button">
               Volver al inicio
             </Link>

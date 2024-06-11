@@ -5,11 +5,11 @@ import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-import { login_User, login_User_Google } from "../../../Redux/actions";
+import { login_User } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
+import Login from "../Login_Google/Login_Google";
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
@@ -50,19 +50,6 @@ const LoginIngreso = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       await dispatch(login_User(formData));
     }
-  };
-
-  const handleGoogleLoginSuccess = async (response) => {
-    try {
-      const token = response.tokenId;
-      await dispatch(login_User_Google(token));
-    } catch (error) {
-      console.log("Error al iniciar sesión con Google:", error.message);
-    }
-  };
-
-  const handleGoogleLoginFailure = (error) => {
-    console.log("Error al iniciar sesión con Google:", error);
   };
 
   const handleInvitado = () => {
@@ -172,13 +159,7 @@ const LoginIngreso = ({ setView }) => {
             </div>
           </div>
           <div className="login-group">
-            <GoogleLogin
-              clientId="1050390661266-jaek9qjccdjs6q7m0kg7652j69pqpp84.apps.googleusercontent.com"
-              buttonText="Iniciar sesión con Google"
-              onSuccess={handleGoogleLoginSuccess}
-              onFailure={handleGoogleLoginFailure}
-              cookiePolicy={"single_host_origin"}
-            />
+            <Login />
             <div className="register" onClick={() => setView("registro")}>
               ¿No tienes una cuenta? Regístrate aquí
             </div>

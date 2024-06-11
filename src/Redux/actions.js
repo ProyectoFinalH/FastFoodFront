@@ -1,15 +1,30 @@
-
-
-
-import {CANCELARCOMPRAUSER, CREATELISTAORDERSCOMPANY, CREATECOMPRA, UPDATE_USER, REGISTERUSER, REGISTERBUSINESS, RECOVERYKEY, USERLOGIN, USERLOGINGOOGLE, CREATE_MENU, CREATE_MENU_ITEMS,LOGOUT_USER, GET_MENUITEMS, GET_RESTAURANTS, GET_MENUS, GET_MENUITEMS_BYNAME, CREATE_CATEGORIES } from "./action-types"
+import {
+  CANCELARCOMPRAUSER,
+  CREATELISTAORDERSCOMPANY,
+  CREATECOMPRA,
+  UPDATE_USER,
+  REGISTERUSER,
+  REGISTERBUSINESS,
+  RECOVERYKEY,
+  USERLOGIN,
+  USERLOGINGOOGLE,
+  CREATE_MENU,
+  CREATE_MENU_ITEMS,
+  LOGOUT_USER,
+  GET_MENUITEMS,
+  GET_RESTAURANTS,
+  GET_MENUS,
+  GET_MENUITEMS_BYNAME,
+  CREATE_CATEGORIES,
+} from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
 
-import axios from 'axios'
+import axios from "axios";
 
 export const logoutUser = () => {
   return {
-    type: LOGOUT_USER
+    type: LOGOUT_USER,
   };
 };
 //Registramos usuario
@@ -21,7 +36,7 @@ export const register_user = (dataquery) => {
         username: dataquery.username,
         email: dataquery.email,
         password: dataquery.password,
-        role_id:1
+        role_id: 1,
       };
       // alert ("usuario "+userData.username)
       const endpoint = "http://localhost:5000/users/create";
@@ -30,7 +45,7 @@ export const register_user = (dataquery) => {
       const { id, username, email, password, google_id, role_id } =
         response.data;
 
-     // alert("El data es " + id + username + email + password + google_id + role_id )
+      // alert("El data es " + id + username + email + password + google_id + role_id )
 
       const userDatauser = {
         id,
@@ -40,7 +55,7 @@ export const register_user = (dataquery) => {
         google_id,
         role_id,
       };
-       console.log("Datos encontrados", JSON.stringify(userDatauser));
+      console.log("Datos encontrados", JSON.stringify(userDatauser));
       dispatch({
         type: REGISTERUSER,
         payload: userDatauser,
@@ -104,45 +119,41 @@ export const recovery_key_user = (dataquery) => {
 export const login_User = (dataquery) => {
   return async (dispatch) => {
     try {
-      if(dataquery === "invitado"){
+      if (dataquery === "invitado") {
         dispatch({
           type: USERLOGIN,
           payload: dataquery,
         });
-      }else{
-
+      } else {
         const userData = {
           email: dataquery.emailOrPhone,
           password: dataquery.password,
         };
-  
+
         // const params = new URLSearchParams(userData).toString();
-  
+
         // alert ("Lo que tienen el username en el anme es "+ userData.username )
-  
+
         const endpoint = "http://localhost:5000/users/login";
-  
+
         //const response = await axios.get(`${endpoint}?${params}`);
-  
+
         const response = await axios.post(endpoint, userData);
-        const auser= response.data;
+        const auser = response.data;
         //const auser = 'yes';
-        
+
         // console.log("lo que tengo de retorno "+ user)
         //console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
         //const userDatauser= {id, username, email, password, google_id, role_id }
-       //  localStorage.setItem('token', token);
+        //  localStorage.setItem('token', token);
         // console.log(token)
-          dispatch({
-            type: USERLOGIN,
-            payload: auser,
-          });
+        dispatch({
+          type: USERLOGIN,
+          payload: auser,
+        });
       }
-      
-   
-     
     } catch (error) {
-     // alert("Usuario no encontrado")
+      // alert("Usuario no encontrado")
       console.log("Error al enviar mensaje", error.message);
     }
   };
@@ -217,15 +228,14 @@ export function getAllRestaurants() {
   };
 }
 
-export function sortedMenuItemsAsc(sortedMenuItems){
-  return ({
+export function sortedMenuItemsAsc(sortedMenuItems) {
+  return {
     type: "SORTER_ASC",
     payload: sortedMenuItems,
-})
+  };
 }
 
-
-export function CreateMenu(dataquery){
+export function CreateMenu(dataquery) {
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/menus/create";
@@ -233,12 +243,11 @@ export function CreateMenu(dataquery){
       const menuData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuData));
-      
-        dispatch({
-          type: CREATE_MENU,
-          payload: menuData,
-        });
-      
+
+      dispatch({
+        type: CREATE_MENU,
+        payload: menuData,
+      });
     } catch (error) {
       alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
@@ -255,19 +264,18 @@ export function CreateMenuItems(formData) {
 
       const response = await axios.post(endpoint, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
 
       const menuItemData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuItemData));
-      
+
       dispatch({
         type: CREATE_MENU_ITEMS,
         payload: menuItemData,
       });
-      
     } catch (error) {
       alert("Error al enviar la información", error.message);
       console.log(error);
@@ -275,18 +283,17 @@ export function CreateMenuItems(formData) {
   };
 }
 
-export function CreateCategory(dataquery){
+export function CreateCategory(dataquery) {
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/categories/create";
       const response = await axios.post(endpoint, dataquery);
       const categoriesData = response.data;
-      console.log("Datos encontrados", JSON.stringify(categoriesData));      
-        dispatch({
-          type: CREATE_CATEGORIES,
-          payload: categoriesData,
-        });
-      
+      console.log("Datos encontrados", JSON.stringify(categoriesData));
+      dispatch({
+        type: CREATE_CATEGORIES,
+        payload: categoriesData,
+      });
     } catch (error) {
       alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
@@ -305,54 +312,61 @@ export function getAllCategories() {
 }
 
 export const updateUser = (userData) => {
-  return {
-    type: UPDATE_USER,
-    payload: userData,
+  return async (dispatch) => {
+    try {
+      const endpoint = `http://localhost:5000/users/${userData}`;
+      const respuesta = await axios.put(endpoint, userData);
+
+      return dispatch({
+        type: UPDATE_USER,
+        payload: respuesta,
+      });
+    } catch (error) {
+      alert("Este es el error " + error.message);
+      console.log("Este es el error " + error.message);
+    }
   };
 };
-
-
 
 export const Desarrollode_Compra = (cards, id, res_id) => {
   return async (dispatch) => {
     try {
       // Calcular el costo total de todos los productos
       const totalCost = cards.reduce((acc, item) => {
-        return acc + (parseFloat(item.price) * item.cont);
+        return acc + parseFloat(item.price) * item.cont;
       }, 0);
 
       // Crear los items sin las propiedades innecesarias
       const items = cards.map(({ name, price, cont }) => ({
         name,
         price,
-        cont
+        cont,
       }));
-      
+
       console.log("Items array:", items); // Verificar el formato de items
       const itemsJSON = JSON.stringify(items);
-      
+
       // Crear el objeto dataquery con las propiedades en el orden especificado
       const dataquery = {
         user_id: id,
         restaurant_id: res_id,
         total_price: totalCost,
-        items:itemsJSON
+        items: itemsJSON,
       };
-      
+
       console.log("Dataquery:", dataquery); // Verificar el formato de dataquery
-     
+
       console.log("Datos enviados: " + JSON.stringify(dataquery));
       const endpoint = "http://localhost:5000/orders/create";
       const response = await axios.post(endpoint, dataquery);
       const compra = response.data;
 
-      console.log('Esta es la compra: ' + JSON.stringify(compra));
+      console.log("Esta es la compra: " + JSON.stringify(compra));
 
       dispatch({
         type: CREATECOMPRA,
-        payload: compra
+        payload: compra,
       });
-
     } catch (error) {
       alert("Error al enviar la información: " + error.message);
       console.log("Error al enviar la información: " + error.message);
@@ -362,60 +376,41 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
 
 //crear la lista de ordenes comapny
 
-
-
 export const Create_Lista_Order_Company = () => {
   return async (dispatch) => {
-   
-
     try {
-
-    
-  
       const endpoint = "http://localhost:5000/menuitems";
       const response = await axios.get(endpoint);
       const compra = response.data;
-//alert("Esta es la lista de compras "+compra)
-console.log("Esta es la lista de compras "+compra)
-      
-
+      //alert("Esta es la lista de compras "+compra)
+      console.log("Esta es la lista de compras " + compra);
 
       dispatch({
         type: CREATELISTAORDERSCOMPANY,
-        payload: compra
+        payload: compra,
       });
-
-
-      
     } catch (error) {
       alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
     }
-    
-  }
-}
-
-
+  };
+};
 
 //deshabilito la compra en el carrito con el user
 export const Deshabilito_Compra_User = (id) => {
   return async (dispatch) => {
     try {
-
-      const  endpoint = `http://localhost:5000/orders/delete/${id}`
+      const endpoint = `http://localhost:5000/orders/delete/${id}`;
       const response = await axios.put(endpoint);
       const compra = response.data;
 
       dispatch({
         type: CANCELARCOMPRAUSER,
-        payload: compra
+        payload: compra,
       });
-
-
     } catch (error) {
       alert("Error al enviar la del deshacer carrito", error.message);
       console.log("Error al enviar la información", error.message);
     }
-        
-  }
-}
+  };
+};
