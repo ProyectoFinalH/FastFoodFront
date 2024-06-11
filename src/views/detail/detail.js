@@ -136,8 +136,9 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
           <div className="titleDetail">
             <h2>{menuItem?.name}</h2>
           </div>
-          <p>{menuItem?.description}</p>
-            <h2>${menuItem?.price}</h2>
+
+          <p className="description-detal">{menuItem?.description}</p>
+
         </div>
         <div className="cantContainer">
           <h2>Unidades</h2>

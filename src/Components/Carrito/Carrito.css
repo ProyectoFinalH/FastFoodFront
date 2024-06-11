@@ -56,6 +56,7 @@
   overflow-y: auto;
   flex: 1;
   width: 100%;
+  
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -133,7 +134,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 300px;
+  height: 700px;
 }
 
 .emptyCarrito img {
@@ -183,4 +184,41 @@
 .login-button-regresar:hover::after {
   transition: all 0.3s ease-out;
   transform: scale(1, 1);
+}
+
+.ticketCompra {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 60px;
+  background-color: #f9f9f9;
+  max-height: 600px; /* Altura máxima para activar la barra de desplazamiento */
+  overflow-y: auto; 
+
+}
+
+.ticketCompra h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.ticketCompra h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ticketCompra p {
+  margin-bottom: px;
+}
+
+.ticketCompra ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.ticketCompra li {
+  margin-bottom: 5px;
 }
