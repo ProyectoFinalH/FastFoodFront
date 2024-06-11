@@ -23,6 +23,11 @@ function Account() {
     }
   }, [user]);
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    setAvatar(file);
+  };
+
   const handleSubmit = async () => {
     if (!email || !username || !password) {
       alert("Por favor, completa todos los campos.");
@@ -43,11 +48,6 @@ function Account() {
     setTimeout(() => {
       setShowSuccessNotification(false);
     }, 2000);
-  };
-
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    setAvatar(file);
   };
 
   return (
