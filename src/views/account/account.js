@@ -20,12 +20,21 @@ function Account() {
     if (user) {
       setEmail(user.email || "");
       setUsername(user.username || "");
+
+      const storedAvatarURL = localStorage.getItem("avatarURL");
+      if (storedAvatarURL) {
+        setAvatar(storedAvatarURL);
+      }
     }
   }, [user]);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
-    setAvatar(file);
+    const imageURL = URL.createObjectURL(file);
+
+    localStorage.setItem("avatarURL", imageURL);
+
+    setAvatar(imageURL);
   };
 
   const handleSubmit = async () => {
@@ -34,15 +43,47 @@ function Account() {
       return;
     }
 
-    const userData = {
-      id: user.id,
-      email,
-      username,
-      password,
-      avatar: avatar ? URL.createObjectURL(avatar) : null,
-    };
+    if (avatar) {
+      const formData = new FormData();
+      formData.append("file", avatar);
+      formData.append("upload_preset", "tu_upload_preset_aqui");
 
-    dispatch(updateUser(userData));
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dfhkqwfio/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+
+        const imageUrl = data.secure_url;
+
+        const userData = {
+          id: user.id,
+          email,
+          username,
+          password,
+          avatar: imageUrl,
+        };
+
+        dispatch(updateUser(userData));
+      } catch (error) {
+        console.error("Error al cargar la imagen:", error);
+        alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+      }
+    } else {
+      const userData = {
+        id: user.id,
+        email,
+        username,
+        password,
+      };
+
+      dispatch(updateUser(userData));
+    }
+
     setShowSuccessNotification(true);
 
     setTimeout(() => {
@@ -58,7 +99,7 @@ function Account() {
           <div className="profile-header">
             <label htmlFor="avatarInput">
               {avatar ? (
-                <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+                <img src={avatar} alt="Avatar" />
               ) : (
                 <img src={user.avatar} alt="Avatar" />
               )}

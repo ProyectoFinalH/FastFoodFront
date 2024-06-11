@@ -312,7 +312,7 @@ export function getAllCategories() {
 export const updateUser = (userData) => {
   return async (dispatch) => {
     try {
-      const endpoint = `http://localhost:5000/users/${userData.id}`;
+      const endpoint = `http://localhost:5000/users/${userData}`;
       const respuesta = await axios.put(endpoint, userData);
 
       return dispatch({
