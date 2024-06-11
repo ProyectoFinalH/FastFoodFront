@@ -70,8 +70,8 @@ function Account() {
 
         dispatch(updateUser(userData));
       } catch (error) {
-        console.error("Error al cargar la imagen:", error);
-        alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+       // console.error("Error al cargar la imagen:", error);
+       // alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
       }
     } else {
       const userData = {
