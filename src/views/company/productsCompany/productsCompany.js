@@ -37,7 +37,7 @@ function ProductsCompany() {
       <button>Crear Menu</button>
       </Link>
       <div className="cardMenusContainer2">
-      <CardsMenuItems AllMenuitems={filteredMenuItems} selectMenuItem={selectMenuItem} hideCartButtons={true}/>
+      <CardsMenuItems AllMenuitems={filteredMenuItems} selectMenuItem={selectMenuItem} hideCartButtons={true} showEyeIcon={true} />
         </div>
 
 
