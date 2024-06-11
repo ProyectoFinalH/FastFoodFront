@@ -1,14 +1,18 @@
 .cardResContainer img{
-    height: 100%;
+    margin: 5px;
+    object-fit: contain;
     width: 100%;
-    object-fit: cover;
+    height: 160px;
 }
 
 .cardResContainer{
+    
+    margin:10px;
     color: black;
     background: rgba(233, 233, 233, 0.8);
     text-align: left;
-    width: 500px;
+    width: 300px;
+    height: 350px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     }
 
@@ -22,4 +26,7 @@
     margin: 15px;
     margin-top: -50px;
 
+}
+.cardResContainer:hover{
+ border: solid 1px red;
 }

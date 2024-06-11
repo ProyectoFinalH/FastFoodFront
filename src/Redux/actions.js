@@ -1,7 +1,8 @@
 import {
+  CANCELARCOMPRAUSER,
+  CREATELISTAORDERSCOMPANY,
   CREATECOMPRA,
   UPDATE_USER,
-  GET_CATEGORIES,
   REGISTERUSER,
   REGISTERBUSINESS,
   RECOVERYKEY,
@@ -35,15 +36,16 @@ export const register_user = (dataquery) => {
         username: dataquery.username,
         email: dataquery.email,
         password: dataquery.password,
+        role_id: 1,
       };
-      //  alert ("usuario "+userData.username)
+      // alert ("usuario "+userData.username)
       const endpoint = "http://localhost:5000/users/create";
 
       const response = await axios.post(endpoint, userData);
       const { id, username, email, password, google_id, role_id } =
         response.data;
 
-      // alert("El data es " + {id, username, email, password, google_id, role_id })
+      // alert("El data es " + id + username + email + password + google_id + role_id )
 
       const userDatauser = {
         id,
@@ -53,7 +55,7 @@ export const register_user = (dataquery) => {
         google_id,
         role_id,
       };
-      // console.log("Datos encontrados", JSON.stringify(userDatauser));
+      console.log("Datos encontrados", JSON.stringify(userDatauser));
       dispatch({
         type: REGISTERUSER,
         payload: userDatauser,
@@ -334,36 +336,80 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
         return acc + parseFloat(item.price) * item.cont;
       }, 0);
 
-      // Log para verificación
-      cards.forEach((item) => {
-        console.log(`ID: ${item.id}`);
-        console.log(`Name: ${item.name}`);
-        console.log(`Description: ${item.description}`);
-        console.log(`Price: ${item.price}`);
-        console.log(`Image: ${item.image}`);
-        console.log(`Cont: ${item.cont}`);
-        console.log("---------------------------");
-      });
+      // Crear los items sin las propiedades innecesarias
+      const items = cards.map(({ name, price, cont }) => ({
+        name,
+        price,
+        cont,
+      }));
 
-      console.log(`Total Cost: ${totalCost}`);
+      console.log("Items array:", items); // Verificar el formato de items
+      const itemsJSON = JSON.stringify(items);
 
+      // Crear el objeto dataquery con las propiedades en el orden especificado
       const dataquery = {
         user_id: id,
         restaurant_id: res_id,
-        total_price: parseFloat(totalCost),
+        total_price: totalCost,
+        items: itemsJSON,
       };
+
+      console.log("Dataquery:", dataquery); // Verificar el formato de dataquery
+
+      console.log("Datos enviados: " + JSON.stringify(dataquery));
       const endpoint = "http://localhost:5000/orders/create";
       const response = await axios.post(endpoint, dataquery);
       const compra = response.data;
 
-      console.log("esta es la compra" + JSON.stringify(compra));
+      console.log("Esta es la compra: " + JSON.stringify(compra));
 
       dispatch({
         type: CREATECOMPRA,
         payload: compra,
       });
     } catch (error) {
+      alert("Error al enviar la información: " + error.message);
+      console.log("Error al enviar la información: " + error.message);
+    }
+  };
+};
+
+//crear la lista de ordenes comapny
+
+export const Create_Lista_Order_Company = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = "http://localhost:5000/menuitems";
+      const response = await axios.get(endpoint);
+      const compra = response.data;
+      //alert("Esta es la lista de compras "+compra)
+      console.log("Esta es la lista de compras " + compra);
+
+      dispatch({
+        type: CREATELISTAORDERSCOMPANY,
+        payload: compra,
+      });
+    } catch (error) {
       alert("Error al enviar la información", error.message);
+      console.log("Error al enviar la información", error.message);
+    }
+  };
+};
+
+//deshabilito la compra en el carrito con el user
+export const Deshabilito_Compra_User = (id) => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `http://localhost:5000/orders/delete/${id}`;
+      const response = await axios.put(endpoint);
+      const compra = response.data;
+
+      dispatch({
+        type: CANCELARCOMPRAUSER,
+        payload: compra,
+      });
+    } catch (error) {
+      alert("Error al enviar la del deshacer carrito", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };

@@ -7,7 +7,7 @@ import "./cardsMenuItems.css";
 
   
 
-function CardsMenuItems({ AllMenuitems, handleSelectMenuItem }) {
+function CardsMenuItems({ AllMenuitems, handleSelectMenuItem, hideCartButtons, showEyeIcon }) {
 
   return (
     <div className="cardsContainer">
@@ -22,6 +22,8 @@ function CardsMenuItems({ AllMenuitems, handleSelectMenuItem }) {
             price={menu?.price}
             image={menu?.image_url}
             handleSelectMenuItem={handleSelectMenuItem}
+            hideCartButtons={hideCartButtons}
+            showEyeIcon={showEyeIcon}
           />
         ))}
       

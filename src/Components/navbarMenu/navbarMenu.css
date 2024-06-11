@@ -70,15 +70,8 @@
   color: #c90a06;
 }
 
-.searchContainer img {
-  height: 70%;
 
-  object-fit: contain;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
 
 .navbarMenuSelect button{
     padding: 10px 20px;
@@ -96,6 +89,7 @@
   .navbarMenuSelect button:hover {
     background-color: rgb(255, 255, 255);
     color: #c90a06;
+    filter: sepia(100%) hue-rotate(5deg);
   
 }
 
@@ -117,4 +111,12 @@
 .navbarMenuSelect option{
   background-color: #ccc;
   color: black;
+}
+
+.searchButton{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+  
 }

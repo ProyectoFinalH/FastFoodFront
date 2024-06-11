@@ -17,11 +17,20 @@ import {
   CREATE_CATEGORIES,
   GET_CATEGORIES,
   CREATECOMPRA,
+
+
+
+  CREATELISTAORDERSCOMPANY,
+  CANCELARCOMPRAUSER // CArrito deshabilitar datos 
 } from "../Redux/action-types";
 
 const initialState = {
   USER: null,
   Carrito:null,
+  ListaOrderCompany:null, //create lista order company
+  Compra_Inabilitada:null,
+
+
   RegisterUserData: null,
   RegisterBusiness: null,
   allRestaurants: [],
@@ -134,67 +143,21 @@ const reducer = (state = initialState, { type, payload }) => {
                 ...state,
                 Carrito: payload,
               }
+              case CREATELISTAORDERSCOMPANY:
+                return{
+                  ...state,
+                ListaOrderCompany: payload,
+                }
+          case CANCELARCOMPRAUSER:
+            return{
+              ...state,
+              Compra_Inabilitada: payload,
+            }
+
     default:
       return { ...state };
   }
 };
-/*  case TEMPERAMENTO:
-            return {
-                ...state, temperamento:payload
-            }
-        case FILTROINPUT:
-            const copiedAllDogs = state.copydogs.slice(); // Copia el estado
-            const busquedaporname = copiedAllDogs.filter(element => element.name.toLowerCase().includes(payload?.toLowerCase()))
-            return {
-                ...state,
-                allDogs:busquedaporname
-            }
-        case ORDERAZ:
-            let orderedDogs = state.copydogs.slice();
-            if (payload === 'A') {
-                orderedDogs.sort((a, b) => a.name.localeCompare(b.name));
-            } else if (payload === 'B') {
-                orderedDogs.sort((a, b) => b.name.localeCompare(a.name));
-            }
-            console.log('esto manda el reduces ' + JSON.stringify(orderedDogs))
-            return {
-                ...state,
-                allDogs:orderedDogs
-            }
-        case FILTROTEMPERAMENTO:
-            let copy = state.copydogs.slice();
-            const busquedaportemperamento = copy.filter(element => {
-                const temperament = element.temperament;
-                if (temperament) {
-                    return temperament.toLowerCase().includes(payload?.toLowerCase());
-                }
-                return false;
-            });
-            console.log("Esta es la busqueda " + busquedaportemperamento);
-            return {
-                ...state,
-                allDogs:busquedaportemperamento
-            }
-        case COPYDOG:
-            return{
-                ...state,
-                allDogs: state.copydogs
-            } 
-        case IDBD: 
-        let bd = state.copydogs.slice();
-            const busquedatpBD = bd.filter(element => {
-                const tipoBD = element.bd;
-                if (tipoBD) {
-                    return tipoBD.toLowerCase().includes(payload?.toLowerCase());
-                }
-                return false;
-            });
-            console.log("Esta es la busqueda " + busquedatpBD);
-            return {
-                ...state,
-                allDogs:busquedatpBD
-            }
-      
-}*/
+
 
 export default reducer;
