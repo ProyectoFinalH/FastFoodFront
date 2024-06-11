@@ -1,4 +1,4 @@
-import React from "react";
+
 import Slider from "../../Components/slider";
 import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
 import Image1 from "../../images/Image1.jpg";
@@ -21,7 +21,7 @@ function Home() {
 
 
 
-
+  
   const allRestaurants = useSelector((state) => state.allRestaurants)
   const User = useSelector((state) => state.USER);
   const navigate = useNavigate();
@@ -37,6 +37,8 @@ function Home() {
     }
   }, [User, navigate, dispatch]);
 
+
+
   return (
     <div className="homeContainer">
       <Navbar />
@@ -47,7 +49,8 @@ function Home() {
         <h2>Restaurantes</h2>
         </div>
         <Link to="/menu">
-          <CardsRestaurant allRestaurants={allRestaurants}/>
+          <CardsRestaurant allRestaurants={allRestaurants}
+        />
           </Link>
         </div>
       <div>
@@ -69,6 +72,7 @@ function Home() {
         </div>
       </div>
       </div>
+     
     </div>
   );
 }

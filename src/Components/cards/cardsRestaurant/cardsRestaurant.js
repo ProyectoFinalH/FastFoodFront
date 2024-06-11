@@ -8,9 +8,8 @@ function CardsRestaurant({allRestaurants}) {
 
       {allRestaurants &&
         allRestaurants.map((restaurant) => (
-          <div>
+          <div key={restaurant?.id}>
           <CardRestaurant 
-          key={restaurant?.id}
           id={restaurant?.id}
           name={restaurant?.name}
           description={restaurant?.description}

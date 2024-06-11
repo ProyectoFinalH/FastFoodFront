@@ -3,6 +3,7 @@ import {
   getAllMenus,
   getMenuItemsByName,
   getAllCategories,
+  getAllRestaurants,
 } from "../../Redux/actions";
 // import { getAllRestaurants, getAllCategories, } from "../../redux/actions"
 import { useEffect, useState } from "react";
@@ -24,7 +25,7 @@ function Menu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const allRestaurant = useSelector((state)=> state.allRestaurant)
+  const allRestaurants = useSelector((state)=> state.allRestaurants)
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
 
@@ -52,9 +53,14 @@ function Menu() {
     // dispatch(getAllRestaurants())
     dispatch(getAllMenus());
     dispatch(getAllMenuitems());
-    dispatch(getAllCategories())
+    dispatch(getAllCategories());
+    dispatch(getAllRestaurants())
   }, [dispatch]);
 
+
+
+
+  const restaurant1 = allRestaurants.find(restaurant => restaurant.id === 2);
 
 
   //FILTRO POR RANGO
@@ -147,10 +153,21 @@ function Menu() {
   return (
     <div className="menuContainer">
       <Navbar />
-      <div className="buttonBack">
+      <div className="infoRest">
+      <div className="buttonBackMenu">
         <button onClick={handleGoBack}>⬅ Volver</button>
       </div>
-      <h2>Nombre del Restaurant</h2>
+      <div infoRestimgName>
+
+      <div className="infoRestImg">
+        <img src={restaurant1?.image_url} alt="logoRest" />
+      </div>
+      <div className="infoRestName">
+
+      <h2>{restaurant1?.name}</h2>
+      </div>
+      </div>
+      </div>
    
       <div className="navCardContainer">
         <div className="navBarContainer">

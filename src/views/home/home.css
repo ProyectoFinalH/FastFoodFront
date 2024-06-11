@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   padding: 2%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .cardContainer a {
@@ -14,9 +14,7 @@
   flex-wrap: wrap;
 }
 
-.cardOtherItem {
-  margin-right: 20px;
-}
+
 
 
 @media (max-width:800px ) {

@@ -74,9 +74,7 @@ function Navbar() {
             <li>
               <NavLink to="/order">Mi Pedido</NavLink>
             </li>
-            <li>
-              <NavLink to="/menu/create">Crear Menu</NavLink>
-            </li>
+           
             {!User || User !== "invitado" ? (
               <li>
                 <button className="close-btn" onClick={handleLogout}>
