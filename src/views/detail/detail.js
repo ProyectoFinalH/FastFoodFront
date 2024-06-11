@@ -78,7 +78,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
             <h2>{menuItem?.name}</h2>
             <h2>${menuItem?.price}</h2>
           </div>
-          <p>{menuItem?.description}</p>
+          <p className="description-detal">{menuItem?.description}</p>
         </div>
         <div className="cantContainer">
           <h2>Unidades</h2>

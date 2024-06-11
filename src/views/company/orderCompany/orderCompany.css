@@ -1,0 +1,107 @@
+/* orederCompay.css */
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: 'Arial', sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+  
+  .styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+  }
+  
+  .text-edit-order {
+    width: 90%;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+  }
+  
+  .checkbox-edit-order {
+    transform: scale(1.2);
+  }
+  
+  .btn {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .btn-delete img {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .btn-edit, .btn-modify {
+    display: inline-block;
+    margin: 0 5px;
+  }
+  
+  .btn-Guardar img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .btn-cancelar img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .img_List_Order {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .img_Cancelar-Order {
+    width: 20px;
+    height: 20px;
+  }
+  
