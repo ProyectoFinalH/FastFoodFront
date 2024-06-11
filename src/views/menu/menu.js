@@ -142,7 +142,7 @@ function Menu() {
 
   //Boton volver Atras
   const handleGoBack = () => {
-    navigate(-1);
+    navigate("/home");
   };
   return (
     <div className="menuContainer">

@@ -1,7 +1,8 @@
 .cardContainer {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   padding: 2%;
+  justify-content: space-around;
 }
 
 .cardContainer a {
@@ -10,9 +11,22 @@
 
 .cardOtherContainer {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .cardOtherItem {
   margin-right: 20px;
 }
+
+
+@media (max-width:800px ) {
+    .cardContainer{
+      flex-direction: column;
+    
+    }
+    .cardRestContainer{
+      width: 100%;
+    }
+}
+
+

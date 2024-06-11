@@ -32,6 +32,8 @@ function DetailCompany({ restaurant }) {
         ...restaurant,
         [field]: value,
       };
+
+
       const response = await axios.put(`http://localhost:5000/restaurants/${restaurant.id}`, updatedRestaurant);
       if (response.status === 200) {
         console.log("Actualización exitosa");
@@ -59,6 +61,17 @@ function DetailCompany({ restaurant }) {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    setName(restaurant?.name || "");
+    setDescription(restaurant?.description || "");
+    setEmail(restaurant?.email || "");
+    setPhone(restaurant?.phone || "");
+    setAddress(restaurant?.address || "");
+    setImage(restaurant?.image_url || "");
+    setPassword("");
+    setShowPassword(false);
+  }, [restaurant]);
 
   return (
     <div>

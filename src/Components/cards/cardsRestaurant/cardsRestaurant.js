@@ -1,9 +1,22 @@
 import CardRestaurant from "../../card/cardRestaurant/cardRestaurant";
+import "./cardsRestaurant.css"
 
-function CardsRestaurant() {
+
+function CardsRestaurant({allRestaurants}) {
   return (
-    <div>
-      <CardRestaurant />
+    <div className="CardsRestContainer">
+
+      {allRestaurants &&
+        allRestaurants.map((restaurant) => (
+          <div>
+          <CardRestaurant 
+          key={restaurant?.id}
+          id={restaurant?.id}
+          name={restaurant?.name}
+          description={restaurant?.description}
+          image_url={restaurant?.image_url}/>
+      </div>
+        ))}
     </div>
   );
 }
