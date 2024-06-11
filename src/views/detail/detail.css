@@ -138,3 +138,7 @@
 .buttonClose button:hover {
   background-color: #c90a06;
 }
+
+.description-detal{
+  width: 405px;
+}

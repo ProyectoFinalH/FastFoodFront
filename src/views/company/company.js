@@ -3,7 +3,7 @@ import logo from "../../images/logo.png"
 import "./company.css"
 
 
-import { getAllRestaurants } from "../../Redux/actions"
+import { getAllRestaurants, Create_Lista_Order_Company} from "../../Redux/actions"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
@@ -21,6 +21,7 @@ console.log("Datos de todos los restaurantes:", allRestaurants);
 
 useEffect(()=>{
   dispatch(getAllRestaurants())
+  dispatch(Create_Lista_Order_Company())
 },[dispatch])
 
   
