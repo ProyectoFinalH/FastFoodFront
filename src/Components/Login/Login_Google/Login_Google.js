@@ -7,7 +7,6 @@ const Login = () => {
     try {
       const result = await auth.signInWithPopup(googleProvider);
       const token = await result.user.getIdToken();
-      console.log("Token:", token);
 
       const response = await fetch(
         "http://localhost:5000/api/users/auth/google",
