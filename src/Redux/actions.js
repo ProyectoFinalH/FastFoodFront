@@ -17,7 +17,6 @@ import {
   GET_MENUS,
   GET_MENUITEMS_BYNAME,
   CREATE_CATEGORIES,
-  GET_CATEGORIES,
 } from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
