@@ -7,104 +7,67 @@ import { updateUser } from "../../Redux/actions";
 import Notification from "../../Components/Notification/Notification";
 
 function Account() {
-  const user = useSelector((state) => state.USER);
+  const user = useSelector((state) => state.USER.user); // Assuming your user state is structured this way
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
 
   useEffect(() => {
     if (user) {
       setEmail(user.email || "");
       setUsername(user.username || "");
-
-      const storedAvatarURL = localStorage.getItem("avatarURL");
-      if (storedAvatarURL) {
-        setAvatar(storedAvatarURL);
-      } else {
-        setAvatar(user.avatar);
-      }
     }
   }, [user]);
 
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    const imageURL = URL.createObjectURL(file);
-
-    localStorage.setItem("avatarURL", imageURL);
-
-    setAvatar(imageURL);
-  };
-
   const handleSubmit = async () => {
-    if (!email || !username || !password) {
-      alert("Por favor, completa todos los campos.");
+    if (!email || !username || !password || !user) {
+      alert(
+        "Por favor, completa todos los campos y asegúrate de estar logueado."
+      );
       return;
     }
 
-    let userData = {
+    const userData = {
+      id: user.id,
       email,
       username,
       password,
     };
 
-    if (avatar) {
-      const formData = new FormData();
-      formData.append("file", avatar);
-      formData.append("upload_preset", "tu_upload_preset_aqui");
-
-      try {
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dfhkqwfio/image/upload",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const data = await response.json();
-
-        const imageUrl = data.secure_url;
-        userData = { ...userData, avatar: imageUrl };
-      } catch (error) {
-        console.error("Error al cargar la imagen:", error);
-        alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
-        return;
-      }
+    try {
+      await dispatch(updateUser(user.id, userData));
+      setShowSuccessNotification(true);
+      setTimeout(() => {
+        setShowSuccessNotification(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
     }
-
-    console.log("User Data before dispatch:", userData);
-
-    dispatch(updateUser(user.id, userData));
-
-    setShowSuccessNotification(true);
-    setTimeout(() => {
-      setShowSuccessNotification(false);
-    }, 2000);
   };
 
   return (
     <div>
       <Navbar />
       <div className="account-container">
+        <div>
+          {user ? (
+            <p>
+              Bienvenido, {user.username} ({user.email})
+            </p>
+          ) : (
+            <p>
+              No has iniciado sesión. Por favor, inicia sesión para acceder a
+              esta página.
+            </p>
+          )}
+        </div>
         <div className="account-sidebar">
           <div className="profile-header">
-            <label htmlFor="avatarInput">
-              {avatar ? (
-                <img src={avatar} alt="Avatar" />
-              ) : (
-                <img src={user.avatar} alt="Avatar" />
-              )}
-            </label>
-            <input
-              type="file"
-              id="avatarInput"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleAvatarChange}
-            />
+            <img src={user ? user.avatar : ""} alt="Avatar" />
             <p>Mi perfil</p>
           </div>
           <nav className="menu">

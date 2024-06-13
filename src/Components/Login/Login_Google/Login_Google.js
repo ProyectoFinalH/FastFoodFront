@@ -42,7 +42,7 @@ const Login = () => {
         src="https://www.pngall.com/wp-content/uploads/5/Google-G-Logo-PNG-Image.png"
         alt="Google Icon"
       />
-      iniciar sesión con google
+      Registrarse e iniciar sesión con google
     </button>
   );
 };
