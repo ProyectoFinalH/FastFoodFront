@@ -75,14 +75,25 @@
 }
 
 .iconoOjo{
-  width: 22px;
+  width: 150px;
   height: 30px;
   font-size: 1.4rem;
   float: right;
-  margin: 0% 50% 0% 0%;
+  margin: 5% 20% 0% 0%;
   border-radius: 25px;
-
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 .iconoOjo:hover{
   background-color: rgb(168, 168, 168);
+}
+.iconoOjoOcultar {
+  background-color: rgb(173, 0, 0);
+  color: #ffffff;
+}
+
+.iconoOjoMostrar {
+  background-color: rgb(131, 131, 131);
+  color: #cecece;
 }

@@ -17,6 +17,8 @@ import {
   GET_MENUS,
   GET_MENUITEMS_BYNAME,
   CREATE_CATEGORIES,
+  GET_MENUITEMS_ADMIN,
+  GET_MENUS_ADMIN,
 } from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
@@ -188,6 +190,25 @@ export function getAllMenus() {
   };
 }
 
+export function getAllMenusAdmin() {
+  return async function (dispatch) {
+    const response = await axios("http://localhost:5000/menus/all");
+    return dispatch({
+      type: GET_MENUS_ADMIN,
+      payload: response.data,
+    });
+  };
+}
+
+export function getAllMenuitemsAdmin() {
+  return async function (dispatch) {
+    const response = await axios("http://localhost:5000/menuitems/all");
+    return dispatch({
+      type: GET_MENUITEMS_ADMIN,
+      payload: response.data,
+    });
+  };
+}
 export function getAllMenuitems() {
   return async function (dispatch) {
     const response = await axios("http://localhost:5000/menuitems");

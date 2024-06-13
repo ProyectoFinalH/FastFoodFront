@@ -4,12 +4,12 @@
 }
 .OptionContainer{
     width: 25%;
-    height: 100rem;
+    height: 80vh;
     background-color: #c90a06;
     min-width: 200px;
     color: white;
-    
-
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 .OptionContainer ul{
     list-style-type: none;

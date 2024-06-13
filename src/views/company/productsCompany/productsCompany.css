@@ -13,6 +13,7 @@
     color: #fff;
     cursor: pointer;
     border: 1px solid rgb(196, 196, 196);
+    margin-left: 15px;
   }
   
   .mainContainer button:hover {
@@ -21,7 +22,7 @@
   }
 .cardMenusContainer2{
  overflow-y: auto;
- height: 500px;
+ height: 60vh;
  width: 80%;
  margin-left: 10%;
  margin-top: 20px;

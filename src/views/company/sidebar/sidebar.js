@@ -30,7 +30,7 @@ function Sidebar({restaurant}) {
         <h2>{restaurant?.name}</h2>
           </div>  
       </div>
-        <li tabindex="0" onClick={() => handleOptionClick(1)}>Menues</li>
+        <li tabindex="0" onClick={() => handleOptionClick(1)}>Menu Items</li>
         <li tabindex="0" onClick={() => handleOptionClick(2)}>Editar Perfil</li>
 
         <li tabindex="0" onClick={() => handleOptionClick(3)}>Ordenes Realizadas</li>
