@@ -312,19 +312,22 @@ export function getAllCategories() {
   };
 }
 
-export const updateUser = (userData) => {
+export const updateUser = (id, userData) => {
   return async (dispatch) => {
     try {
-      const endpoint = `http://localhost:5000/users/${userData}`;
-      const respuesta = await axios.put(endpoint, userData);
+      const endpoint = `http://localhost:5000/api/users/${id}`;
+      console.log("Endpoint:", endpoint);
+      console.log("User Data:", userData);
+
+      const response = await axios.put(endpoint, userData);
 
       return dispatch({
         type: UPDATE_USER,
-        payload: respuesta,
+        payload: response.data,
       });
     } catch (error) {
-      alert("Este es el error " + error.message);
-      console.log("Este es el error " + error.message);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+      console.log("Error al actualizar usuario:", error.message);
     }
   };
 };

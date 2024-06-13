@@ -24,6 +24,8 @@ function Account() {
       const storedAvatarURL = localStorage.getItem("avatarURL");
       if (storedAvatarURL) {
         setAvatar(storedAvatarURL);
+      } else {
+        setAvatar(user.avatar);
       }
     }
   }, [user]);
@@ -43,6 +45,12 @@ function Account() {
       return;
     }
 
+    let userData = {
+      email,
+      username,
+      password,
+    };
+
     if (avatar) {
       const formData = new FormData();
       formData.append("file", avatar);
@@ -59,33 +67,19 @@ function Account() {
         const data = await response.json();
 
         const imageUrl = data.secure_url;
-
-        const userData = {
-          id: user.id,
-          email,
-          username,
-          password,
-          avatar: imageUrl,
-        };
-
-        dispatch(updateUser(userData));
+        userData = { ...userData, avatar: imageUrl };
       } catch (error) {
-       // console.error("Error al cargar la imagen:", error);
-       // alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+        console.error("Error al cargar la imagen:", error);
+        alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+        return;
       }
-    } else {
-      const userData = {
-        id: user.id,
-        email,
-        username,
-        password,
-      };
-
-      dispatch(updateUser(userData));
     }
 
-    setShowSuccessNotification(true);
+    console.log("User Data before dispatch:", userData);
 
+    dispatch(updateUser(user.id, userData));
+
+    setShowSuccessNotification(true);
     setTimeout(() => {
       setShowSuccessNotification(false);
     }, 2000);

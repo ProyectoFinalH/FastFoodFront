@@ -1,8 +1,11 @@
 import React from "react";
 import { auth, googleProvider } from "../../../firebase";
+import { useNavigate } from "react-router-dom";
 import "./Login_Google.css";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
     try {
       const result = await auth.signInWithPopup(googleProvider);
@@ -26,7 +29,7 @@ const Login = () => {
         throw new Error("Failed to authenticate user");
       }
 
-      console.log(data);
+      navigate("/home");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -39,7 +42,7 @@ const Login = () => {
         src="https://www.pngall.com/wp-content/uploads/5/Google-G-Logo-PNG-Image.png"
         alt="Google Icon"
       />
-      Registrarse con Google
+      iniciar sesión con google
     </button>
   );
 };
