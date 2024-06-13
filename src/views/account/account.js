@@ -7,7 +7,7 @@ import { updateUser } from "../../Redux/actions";
 import Notification from "../../Components/Notification/Notification";
 
 function Account() {
-  const user = useSelector((state) => state.USER.user); // Assuming your user state is structured this way
+  const user = useSelector((state) => state.USER.user);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
