@@ -3,7 +3,7 @@ import { auth, googleProvider } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
 import "./Login_Google.css";
 
-const Login = () => {
+const LoginGoogle = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -42,9 +42,9 @@ const Login = () => {
         src="https://www.pngall.com/wp-content/uploads/5/Google-G-Logo-PNG-Image.png"
         alt="Google Icon"
       />
-      Registrarse e iniciar sesión con google
+      Registrarse e iniciar sesión con Google
     </button>
   );
 };
 
-export default Login;
+export default LoginGoogle;
