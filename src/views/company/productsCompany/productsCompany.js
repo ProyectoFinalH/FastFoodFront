@@ -1,7 +1,7 @@
 
 import {
-  getAllMenuitems,
-  getAllMenus,
+  getAllMenuitemsAdmin,
+  getAllMenusAdmin,
 } from "../../../Redux/actions";
 import "./productsCompany.css"
 import React from 'react'
@@ -12,13 +12,13 @@ import { Link } from 'react-router-dom';
 
 function ProductsCompany() {
   const dispatch = useDispatch();
-  const allMenus = useSelector((state) => state.allMenus);
-  const allMenuitems = useSelector((state) => state.allMenuItems);
+  const allMenus = useSelector((state) => state.allMenusAdmin);
+  const allMenuitems = useSelector((state) => state.getAllMenuitemsAdmin);
   const [selectMenuItem] = useState(null);
 
   useEffect(() => {
-    dispatch(getAllMenus());
-    dispatch(getAllMenuitems());
+    dispatch(getAllMenusAdmin());
+    dispatch(getAllMenuitemsAdmin());
   }, [dispatch]);
   
   let filteredMenuItems = [...allMenuitems];
