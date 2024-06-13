@@ -160,16 +160,21 @@ export const login_User = (dataquery) => {
 export const login_User_Google = (dataquery) => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:3001/atleticos/recuperarkey";
+      const endpoint = "http://localhost:5000/users/auth/google";
+      const response = await axios.post(endpoint, { token: dataquery.token });
 
-      const response = await axios.post(endpoint, dataquery);
+      const userData = response.data;
+
+      localStorage.setItem("token", userData.token);
 
       dispatch({
         type: USERLOGINGOOGLE,
-        payload: response,
+        payload: userData,
       });
+
     } catch (error) {
-      console.log("Error al enviar mensaje", error.message);
+      console.error("Error al iniciar sesión con Google:", error.message);
+
     }
   };
 };
