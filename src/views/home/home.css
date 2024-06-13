@@ -1,8 +1,9 @@
 .cardContainer {
   display: flex;
   flex-wrap: wrap;
-  padding: 2%;
   justify-content: space-between;
+  margin-left: 6%;
+  margin-right: 5%;
 }
 
 .cardContainer a {
@@ -14,8 +15,19 @@
   flex-wrap: wrap;
 }
 
+.Restaurantes {
+  margin: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  background-color: #f0f0f0;
+}
 
-
+.Restaurantes h2 {
+  font-size: 44px;
+  color: #333; 
+}
 
 @media (max-width:800px ) {
     .cardContainer{
@@ -26,5 +38,3 @@
       width: 100%;
     }
 }
-
-

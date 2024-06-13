@@ -1,8 +1,6 @@
-
 import "./cardRestaurant.css";
 
-function CardRestaurant({id, name, description, image_url}) {
-
+function CardRestaurant({ id, name, description, image_url }) {
   // const restaurant1 = allRestaurants.find(restaurant => restaurant?.id === 2);
 
   return (
