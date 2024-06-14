@@ -33,7 +33,6 @@ function Account() {
     const imageURL = URL.createObjectURL(file);
 
     localStorage.setItem("avatarURL", imageURL);
-
     setAvatar(imageURL);
   };
 
@@ -42,13 +41,13 @@ function Account() {
       alert("Por favor, completa todos los campos.");
       return;
     }
-
-    if (avatar) {
-      const formData = new FormData();
-      formData.append("file", avatar);
-      formData.append("upload_preset", "tu_upload_preset_aqui");
-
-      try {
+  
+    try {
+      if (avatar) {
+        const formData = new FormData();
+        formData.append("file", avatar);
+        formData.append("upload_preset", "tu_upload_preset_aqui");
+  
         const response = await fetch(
           "https://api.cloudinary.com/v1_1/dfhkqwfio/image/upload",
           {
@@ -57,9 +56,9 @@ function Account() {
           }
         );
         const data = await response.json();
-
+        
         const imageUrl = data.secure_url;
-
+        
         const userData = {
           id: user.id,
           email,
@@ -67,28 +66,26 @@ function Account() {
           password,
           avatar: imageUrl,
         };
-
-        dispatch(updateUser(userData));
-      } catch (error) {
-       // console.error("Error al cargar la imagen:", error);
-       // alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+        
+        dispatch(updateUser(user.id, userData));
+        
+      } else {
+        const userData = {
+          id: user.id,
+          email,
+          username,
+          password,
+        };
+  
+        dispatch(updateUser(user.id, userData));
       }
-    } else {
-      const userData = {
-        id: user.id,
-        email,
-        username,
-        password,
-      };
-
-      dispatch(updateUser(userData));
-    }
-
-    setShowSuccessNotification(true);
-
-    setTimeout(() => {
+  
+      setShowSuccessNotification(true);
+    } catch (error) {
+      console.error("Error al cargar la imagen:", error);
+      alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
       setShowSuccessNotification(false);
-    }, 2000);
+    }
   };
 
   return (

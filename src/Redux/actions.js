@@ -123,41 +123,35 @@ export const login_User = (dataquery) => {
   return async (dispatch) => {
     try {
       if (dataquery === "invitado") {
+        // For guest user scenario
         dispatch({
           type: USERLOGIN,
           payload: dataquery,
         });
       } else {
+        // For regular user login
         const userData = {
           email: dataquery.emailOrPhone,
           password: dataquery.password,
         };
 
-        // const params = new URLSearchParams(userData).toString();
-
-        // alert ("Lo que tienen el username en el anme es "+ userData.username )
-
         const endpoint = "http://localhost:5000/users/login";
-
-        //const response = await axios.get(`${endpoint}?${params}`);
-
         const response = await axios.post(endpoint, userData);
-        const auser = response.data;
-        //const auser = 'yes';
+        const user = response.data;
 
-        // console.log("lo que tengo de retorno "+ user)
-        //console.log("lo que tengo de retorno " + JSON.stringify(userDatauser));
-        //const userDatauser= {id, username, email, password, google_id, role_id }
-        //  localStorage.setItem('token', token);
-        // console.log(token)
+        // Assuming the backend returns a JWT token upon successful login,
+        // store the token in localStorage for persistent session management
+        localStorage.setItem("token", user.token);
+
+        // Update Redux state with the authenticated user data
         dispatch({
           type: USERLOGIN,
-          payload: auser,
+          payload: user,
         });
       }
     } catch (error) {
-      // alert("Usuario no encontrado")
-      console.log("Error al enviar mensaje", error.message);
+      console.error("Error al iniciar sesión:", error.message);
+      // Handle error (e.g., show error message to user)
     }
   };
 };
@@ -166,16 +160,21 @@ export const login_User = (dataquery) => {
 export const login_User_Google = (dataquery) => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:3001/atleticos/recuperarkey";
+      const endpoint = "http://localhost:5000/users/auth/google";
+      const response = await axios.post(endpoint, { token: dataquery.token });
 
-      const response = await axios.post(endpoint, dataquery);
+      const userData = response.data;
+
+      localStorage.setItem("token", userData.token);
 
       dispatch({
         type: USERLOGINGOOGLE,
-        payload: response,
+        payload: userData,
       });
+
     } catch (error) {
-      console.log("Error al enviar mensaje", error.message);
+      console.error("Error al iniciar sesión con Google:", error.message);
+
     }
   };
 };
@@ -333,19 +332,20 @@ export function getAllCategories() {
   };
 }
 
-export const updateUser = (userData) => {
+export const updateUser = (id, userData) => {
   return async (dispatch) => {
     try {
-      const endpoint = `http://localhost:5000/users/${userData}`;
-      const respuesta = await axios.put(endpoint, userData);
+      const endpoint = `http://localhost:5000/api/users/${id}`;
+      const response = await axios.put(endpoint, userData);
 
       return dispatch({
         type: UPDATE_USER,
-        payload: respuesta,
+        payload: response.data,
       });
     } catch (error) {
-      alert("Este es el error " + error.message);
-      console.log("Este es el error " + error.message);
+      console.error("Error al actualizar usuario:", error.message);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+      throw error;
     }
   };
 };

@@ -9,7 +9,7 @@ import { login_User } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Login from "../Login_Google/Login_Google";
+import LoginGoogle from "../Login_Google/Login_Google";
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
@@ -159,7 +159,7 @@ const LoginIngreso = ({ setView }) => {
             </div>
           </div>
           <div className="login-group">
-            <Login />
+            <LoginGoogle />
             <div className="register" onClick={() => setView("registro")}>
               ¿No tienes una cuenta? Regístrate aquí
             </div>
