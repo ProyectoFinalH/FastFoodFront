@@ -22,7 +22,6 @@
   
   .google-login-button::after {
     content: "";
-    background: #29d884;
     position: absolute;
     z-index: -1;
     padding: 5px 10px;

@@ -1,122 +1,81 @@
 .navbarMenuContainer {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.searchContainer input[type="search"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.searchButton {
+  background-color: #ff5a5f;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.searchButton p {
+  margin: 0;
+}
+
+.navbarMenuSelect {
   display: flex;
   flex-direction: column;
-
- 
-  margin-left: 20px;
-  min-width: 250px
-
+  gap: 10px;
 }
 
-.navbarMenuContainer form {
-  position: relative;
-  height: 5%;
-}
-.navbarMenuContainer .searchContainer {
-  position: relative;
-}
-
-.navbarMenuContainer input {
-  font-size: 100%;
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  width: 100%;
-  height: 50px;
-}
-
-.searchContainer button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  padding: 10px 20px;
+.navbarMenuSelect button,
+.navbarMenuSelect select {
+  background-color: #ff5a5f;
+  color: white;
   border: none;
-  width: 100px;
-  z-index: 5;
-  background-color: #c90a06;
-  color: #fff;
-  cursor: pointer;
-  border: 1px solid rgb(196, 196, 196);
-  transition: background-color 0.3s ease;
-}
-
-.searchContainer button:hover {
-  background-color: rgb(255, 255, 255);
-  color: #c90a06;
-}
-.navbarMenuSelect {
-  color: #ccc;
-  cursor: pointer;
-  margin-top: 40px;
-  padding: 25px;
-  font-size: 18px;
-  display: grid;
-  background-color: #c90a06;
-  border: 1px solid rgb(211, 210, 210);
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-  
-  
-}
-
-.navbarMenuContainer ul li {
-  list-style: none;
   padding: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.navbarMenuContainer li:hover {
-  background-color: rgb(255, 255, 255);
-  color: #c90a06;
-}
-
-
-
-
-.navbarMenuSelect button{
-    padding: 10px 20px;
-    margin-bottom: 30px;
-    border: none;
-    width: 100%;
-    font-size: 18px;
-    background-color: #c90a06;
-    color: #fff;
-    cursor: pointer;
-    border: 1px solid rgb(196, 196, 196);
-    transition: background-color 0.3s ease;
-  }
-  
-  .navbarMenuSelect button:hover {
-    background-color: rgb(255, 255, 255);
-    color: #c90a06;
-    filter: sepia(100%) hue-rotate(5deg);
-  
-}
-
-.navbarMenuSelect select{
-  padding: 10px;
-  font-size: 1.1rem;
-  border-radius: 15px;
-  width: 200px;
-  margin-left: auto;
-  margin-right: auto;
+  border-radius: 5px;
   cursor: pointer;
+  width: 100%;
+  text-align: left;
 }
 
-.navbarMenuSelect select:hover{
-  background-color: #c90a06;
-  color: #f4ca0e;
-}
-
-.navbarMenuSelect option{
-  background-color: #ccc;
-  color: black;
-}
-
-.searchButton{
+.navbarMenuSelect button span,
+.navbarMenuSelect select {
   display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-  
+  justify-content: space-between;
+  align-items: center;
 }
+
+.navbarMenuSelect ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.navbarMenuSelect ul li {
+  padding: 8px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbarMenuSelect ul li:hover {
+  background-color: #f0f0f0;
+}
+
+select:focus,
+button:focus {
+  outline: none;
+}
+

@@ -20,11 +20,9 @@ import {
   GET_CATEGORIES,
   CREATECOMPRA,
   GET_USERS_ALL,
-
-
-
   CREATELISTAORDERSCOMPANY,
-  CANCELARCOMPRAUSER // CArrito deshabilitar datos 
+  CANCELARCOMPRAUSER, // CArrito deshabilitar datos
+  IDCARRITOMERCADOPAGO, //hacer la verificaicon de compra
 } from "../Redux/action-types";
 
 const initialState = {
@@ -32,8 +30,9 @@ const initialState = {
   Carrito: null,
   ListaOrderCompany: null, //create lista order company
   Compra_Inabilitada: null,
-  allUsersAdmin:[],
+  allUsersAdmin: [],
   allRestaurantsAdmin: [],
+  Venta: null,
   RegisterUserData: null,
   RegisterBusiness: null,
   allRestaurants: [],
@@ -46,7 +45,6 @@ const initialState = {
   createMenuItems: null,
   createCategories: null,
   User_Actualizado: null,
-
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -54,7 +52,6 @@ const reducer = (state = initialState, { type, payload }) => {
 
   switch (type) {
     case REGISTERUSER:
-
       return {
         ...state,
         RegisterUserData: payload,
@@ -70,7 +67,6 @@ const reducer = (state = initialState, { type, payload }) => {
         Registrado: payload,
       };
     case USERLOGIN:
-
       return {
         ...state,
         USER: payload,
@@ -99,22 +95,23 @@ const reducer = (state = initialState, { type, payload }) => {
     case GET_MENUITEMS_BYNAME:
       return {
         ...state,
-        allMenuItems: payload
+        allMenuItems: payload,
       };
     case SORTER_ASC:
       return {
         ...state,
-        allMenuItems: payload
+        allMenuItems: payload,
       };
+
     case CREATE_MENU:
       return {
         ...state,
-        createMenu: payload
+        createMenu: payload,
       };
     case CREATE_MENU_ITEMS:
       return {
         ...state,
-        createMenuItems: payload
+        createMenuItems: payload,
       };
 
     case GET_RESTAURANTS:
@@ -137,51 +134,56 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         createCategories: payload,
-      }
+      };
     case GET_CATEGORIES:
       return {
         ...state,
         allCategories: payload,
-      }
+      };
     case CREATECOMPRA:
       return {
         ...state,
         Carrito: payload,
-      }
+      };
     case CREATELISTAORDERSCOMPANY:
       return {
         ...state,
         ListaOrderCompany: payload,
-      }
+      };
     case CANCELARCOMPRAUSER:
       return {
         ...state,
         Compra_Inabilitada: payload,
-      }
+      };
+    case IDCARRITOMERCADOPAGO:
+      return {
+        ...state,
+        Venta: payload,
+      };
+
     case GET_MENUITEMS_ADMIN:
       return {
         ...state,
         getAllMenuitemsAdmin: payload,
-      }
+      };
     case GET_MENUS_ADMIN:
       return {
         ...state,
         allMenusAdmin: payload,
-      }
+      };
     case GET_RESTAURANTS_ALL:
-      return{
+      return {
         ...state,
-        allRestaurantsAdmin: payload
-      }
-      case  GET_USERS_ALL:
-        return{
-          ...state,
-          allUsersAdmin: payload
-        }
+        allRestaurantsAdmin: payload,
+      };
+    case GET_USERS_ALL:
+      return {
+        ...state,
+        allUsersAdmin: payload,
+      };
     default:
       return { ...state };
   }
 };
-
 
 export default reducer;
