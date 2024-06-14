@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./MisCompras.css";
+import "./MisCompras.css"; // Importar el archivo de estilos CSS
 import Eliminarproducto from "../../images/eliminar.png";
 import sindatos from '../../images/pizzeria-SINDATOS.png';
 
@@ -8,11 +8,11 @@ import {
   obtenerItemsCarrito,
   eliminarItemCarrito,
   limpiarCarrito,
-  actualizarItemCarrito, // Agrega la función actualizarItemCarrito
+  actualizarItemCarrito,
 } from "../localStorage-car/LocalStorageCar";
 import { useNavigate } from "react-router-dom";
 
-const  MisCompras = ({ onClose }) => {
+const MisCompras = ({ onClose }) => {
   const [selectedCards, setSelectedCards] = useState([]);
  
   const navigate = useNavigate();
@@ -26,19 +26,16 @@ const  MisCompras = ({ onClose }) => {
     setSelectedCards((prevCards) => {
       const updatedCards = prevCards.map((card) => {
         if (card.id === id && card.cont > 0) {
-          const newCount = card.cont - 1; // Disminuir la cantidad en 1
+          const newCount = card.cont - 1;
           const updatedCard = { ...card, cont: newCount };
-          actualizarItemCarrito(updatedCard); // Actualizar el contador en localStorage
+          actualizarItemCarrito(updatedCard);
           return updatedCard;
         }
         return card;
       });
-      return updatedCards.filter((card) => card.cont > 0); // Filtrar los elementos con cont > 0
+      return updatedCards.filter((card) => card.cont > 0);
     });
   };
-  
-
-
 
   const handleSumar = (id) => {
     setSelectedCards((prevCards) => {
@@ -46,7 +43,7 @@ const  MisCompras = ({ onClose }) => {
         if (card.id === id && card.cont > 0) {
           const newCount = card.cont + 1;
           const updatedCard = { ...card, cont: newCount };
-          actualizarItemCarrito(updatedCard); // Actualizar el contador en localStorage
+          actualizarItemCarrito(updatedCard);
           return updatedCard;
         }
         return card;
@@ -67,7 +64,7 @@ const  MisCompras = ({ onClose }) => {
 
   const handleSalirCarrito = () => {
     onClose();
-    navigate('/menu'); // Navegar a la ruta '/menu'
+    navigate('/menu');
   };
 
   return (
@@ -117,7 +114,7 @@ const  MisCompras = ({ onClose }) => {
             <label className="pagolabel">
               ${selectedCards.reduce((acc, card) => acc + card.price * card.cont, 0)}
             </label>
-            <button onClick={handlePagar}>Pagar</button>
+            <buttonpagarButton  onClick={handlePagar}>Pagar</buttonpagarButton>
           </div>
         )}
       </div>
