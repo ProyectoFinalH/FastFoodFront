@@ -174,50 +174,52 @@ useEffect(() => {
   const handleGoBack = () => {
     navigate("/home");
   };
+  
   return (
-    <div className="menuContainer">
+    <div className="menu-container">
       <Navbar />
-      <div className="infoRest">
-        <div className="buttonBackMenu">
-          <button onClick={handleGoBack}>⬅ Volver</button>
-        </div>
-        <div className="infoRestimgName">
-          <div className="infoRestImg">
-            <img src={restaurant1?.image_url} alt="logoRest" />
+      <div className="content">
+        <div className="sidebar">
+          <button className="button-back" onClick={handleGoBack}>
+            Volver
+          </button>
+          <div className="info-rest">
+            <div className="info-rest-img-name">
+              <img
+                src={restaurant1?.image_url}
+                alt="logoRest"
+                className="restaurant-img"
+              />
+              <h2 className="restaurant-name">{restaurant1?.name}</h2>
+            </div>
           </div>
-          <div className="infoRestName">
-            <h2>{restaurant1?.name}</h2>
-          </div>
-        </div>
-      </div>
-
-      <div className="navCardContainer">
-        <div className="navBarContainer">
-          <NavbarMenu
-            searchString={searchString}
-            setSearchString={setSearchString}
-            handleSubmit={handleSubmit}
-            handleSort={setSortBy}
-            handlePriceRange={setPriceRange}
-            clearFilter={clearFilters}
-            handleCategoryFilter={handleCategoryFilter}
-            allCategories={allCategories}
-          />
-        </div>
-        <div className="cardsMenusContainer">
-          <div className="cardsViewMenusSelectContainer">
+          <div className="cards-menus-container">
             <CardsMenus
               AllMenus={allMenus}
               handleSelectMenu={handleSelectMenu}
             />
           </div>
-          <div className="CardViewMenuContainer">
+          <div className="search-container">
+            <NavbarMenu
+              searchString={searchString}
+              setSearchString={setSearchString}
+              handleSubmit={handleSubmit}
+              handleSort={setSortBy}
+              handlePriceRange={setPriceRange}
+              clearFilter={clearFilters}
+              handleCategoryFilter={handleCategoryFilter}
+              allCategories={allCategories}
+            />
+          </div>
+        </div>
+        <div className="cards-menus">
+          <div className="cards-menu-items">
             {allMenus.map((menu) => (
-              <div key={menu?.id} className="CardsListMenuContainer">
-                <h2>{menu?.name}</h2>
+              <div key={menu.id} className="menu-item-container">
+                <h2>{menu.name}</h2>
                 <CardsMenuItem
-                  AllMenuitems={filteredMenuItems?.filter(
-                    (menuItem) => menuItem?.menu_id === menu?.id
+                  AllMenuitems={filteredMenuItems.filter(
+                    (menuItem) => menuItem.menu_id === menu.id
                   )}
                   handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
                 />

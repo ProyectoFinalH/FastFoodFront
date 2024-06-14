@@ -11,7 +11,7 @@ function InfoCompany({restaurant}) {
   return (
     <div>
       <h2>Informacion de tu empresa</h2>
-      <div className="infoCompanyContainer">
+      <div className="infoCompanyContainerMain">
           <DetailCompany key={restaurant?.id} restaurant={restaurant} />
       </div>
     </div>

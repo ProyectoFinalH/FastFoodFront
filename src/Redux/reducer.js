@@ -3,9 +3,11 @@ import {
   REGISTERBUSINESS,
   RECOVERYKEY,
   USERLOGIN,
-  USERLOGINGOOGLE, 
+  USERLOGINGOOGLE,
   GET_MENUS,
+  GET_MENUS_ADMIN,
   GET_MENUITEMS,
+  GET_MENUITEMS_ADMIN,
   GET_MENUITEMS_BYNAME,
   SORTER_ASC,
   CREATE_MENU,
@@ -27,22 +29,26 @@ import {
 
 const initialState = {
   USER: null,
+
   Carrito:null,
   ListaOrderCompany:null, //create lista order company
   Compra_Inabilitada:null,
   Venta: null,
 
+
   RegisterUserData: null,
   RegisterBusiness: null,
   allRestaurants: [],
   allMenuItems: [],
+  getAllMenuitemsAdmin: [],
   allMenus: [],
+  allMenusAdmin: [],
   allCategories: [],
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
   User_Actualizado: null,
-  
+
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -66,7 +72,7 @@ const reducer = (state = initialState, { type, payload }) => {
         Registrado: payload,
       };
     case USERLOGIN:
-     
+
       return {
         ...state,
         USER: payload,
@@ -76,32 +82,34 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         USER: payload,
       };
-      case GET_MENUS:
-        return {
-          ...state,
-          allMenus: payload,
-        };
-      case GET_MENUITEMS:
-        return {
-          ...state,
-          allMenuItems: payload,
-        };
-      // case GET_CATEGORIES:
-      //   return {
-      //     ...state,
-      //     allCountries: action.payload,
-      //   };
-  
-      case GET_MENUITEMS_BYNAME:
+    case GET_MENUS:
+      return {
+        ...state,
+        allMenus: payload,
+      };
+    case GET_MENUITEMS:
+      return {
+        ...state,
+        allMenuItems: payload,
+      };
+    // case GET_CATEGORIES:
+    //   return {
+    //     ...state,
+    //     allCountries: action.payload,
+    //   };
+
+    case GET_MENUITEMS_BYNAME:
       return {
         ...state,
         allMenuItems: payload
       };
-      case SORTER_ASC:
-        return {
-          ...state,
-          allMenuItems: payload
-        };
+    case SORTER_ASC:
+      return {
+        ...state,
+        allMenuItems: payload
+      };
+
+   
         case CREATE_MENU:
           return {
             ...state,
@@ -159,6 +167,69 @@ const reducer = (state = initialState, { type, payload }) => {
               ...state,
               Venta: payload
             }
+
+    case CREATE_MENU:
+      return {
+        ...state,
+        createMenu: payload
+      };
+    case CREATE_MENU_ITEMS:
+      return {
+        ...state,
+        createMenuItems: payload
+      };
+
+    case GET_RESTAURANTS:
+      return {
+        ...state,
+        allRestaurants: payload,
+      };
+
+    case UPDATE_USER:
+      return {
+        ...state,
+        User_Actualizado: payload,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        USER: null,
+      };
+    case CREATE_CATEGORIES:
+      return {
+        ...state,
+        createCategories: payload,
+      }
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        allCategories: payload,
+      }
+    case CREATECOMPRA:
+      return {
+        ...state,
+        Carrito: payload,
+      }
+    case CREATELISTAORDERSCOMPANY:
+      return {
+        ...state,
+        ListaOrderCompany: payload,
+      }
+    case CANCELARCOMPRAUSER:
+      return {
+        ...state,
+        Compra_Inabilitada: payload,
+      }
+    case GET_MENUITEMS_ADMIN:
+      return {
+        ...state,
+        getAllMenuitemsAdmin: payload,
+      }
+    case GET_MENUS_ADMIN:
+      return {
+        ...state,
+        allMenusAdmin: payload,
+      }
 
     default:
       return { ...state };

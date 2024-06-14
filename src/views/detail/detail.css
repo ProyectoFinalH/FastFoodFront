@@ -1,144 +1,114 @@
 .detailContainer {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100%;
-  z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
-
 
 .detailCardContainer {
-  overflow: hidden;
-  background-color: white;
-  display: grid;
-  justify-content: center;
- justify-items: center;
-
-  /*width: 100%;
-  height: auto;
-  min-height: 600px;*/
-
-  width: 600px;
-  height: 96%;
-
-
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
 }
-
-.cardDetail {
-  text-align: left;
-}
-
-.cardDetail p {
-  margin-top: -10px;
-  word-break: break-word;
-}
-.titleDetail {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 400px;
-}
-
-
-
 
 .imageDetail {
-  width: 400px;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 }
 
 .imageDetail img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
 
-  margin-top: 10px;
+.cardDetail {
+  padding: 10px 0;
+}
 
-  width: 100%;
-  object-fit: cover;
+.titleDetail {
+  text-align: center;
+  margin-bottom: 10px;
+}
 
-  
-  
+.description-detail {
+  text-align: justify;
+  margin-bottom: 10px;
 }
 
 .cantContainer {
+  margin-top: 20px;
+}
+
+.botones-flex {
   display: flex;
-  width: 100%;
-  height: 50px;
+  align-items: center;
   justify-content: space-between;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  align-items: center;
-  margin-bottom: 20px;
 }
 
-.cantContainer h2 {
-  margin-left: 10px;
-}
-
-.buttonDecInc {
-  padding: 10px;
+.buttonDecInc-Menu {
   display: flex;
-  justify-content: space-evenly;
-  font-size: 20px;
-  width: 70px;
-  height: 30px;
   align-items: center;
-  margin-right: 10px;
-  background-color: rgb(184, 183, 183);
+}
+
+.buttonDecInc-Menu label {
+  background-color: #ff5a5f;
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 12px;
   border-radius: 5px;
-}
-.buttonDecInc button {
-  border: none;
-  background: none;
-  padding: 0;
-}
-
-.buttonContainerBack{
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.buttonContainerBack button {
-  font-size: 20px;
-  width: 100%;
-  height: 50px;
-  border: none;
-  border-radius: 10px;
-  background-color: #f3f4f4;
   cursor: pointer;
-  margin-top: 30px;
-  border: 1px solid rgb(0, 0, 0, 0.2);
+  margin: 0 5px;
 }
 
-.buttonContainerBack button:hover {
-  background-color: #c90a06;
+.buttonDecInc-Menu label:hover {
+  background-color: #d94c51;
 }
-.buttonClose{
-  display: flex;
-  justify-content: center;
+
+.inputcard {
+  width: 40px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  margin: 0 5px;
 }
+
+.buttonClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
 .buttonClose button {
-  float: right;
-  align-items: center;
-  font-size: 20px;
-  width: 50px;
-  height: 50px;
+  background-color: #ff5a5f;
+  color: white;
   border: none;
-  border-radius: 10px;
-  background-color: #f3f4f4;
+  padding: 8px 12px;
+  border-radius: 50%;
   cursor: pointer;
-  margin-top: 30px;
-  border: 1px solid rgb(0, 0, 0, 0.2);
+  font-size: 1rem;
 }
 
 .buttonClose button:hover {
-  background-color: #c90a06;
+  background-color: #d94c51;
 }
 
-.description-detal{
-  width: 405px;
+@media (max-width: 768px) {
+  .detailCardContainer {
+    width: 90%;
+    max-width: 400px;
+  }
 }

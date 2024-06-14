@@ -1,16 +1,15 @@
 .cardMenuContainer {
   display: grid;
-    cursor: pointer;
-    background: rgba(233, 233, 233, 0.8);
-    text-align: left;
-    width: 300px;
-    height: 400px;
-    padding: 10px;
-    margin: 30px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-  
-    align-content: stretch;
-  
+  cursor: pointer;
+  background: rgba(233, 233, 233, 0.8);
+  text-align: left;
+  width: 300px;
+  height: 400px;
+  padding: 10px;
+  margin: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  align-content: stretch;
 }
 
 .cardMenuContainer:hover {
@@ -48,8 +47,6 @@
   margin-bottom: 0;
 }
 
-
-
 .buttonDecInc-Menu {
   display: flex;
   justify-content: space-evenly;
@@ -69,20 +66,30 @@
   padding: 0;
 }
 
-
 .buttonDecInc-Menu:hover {
   background-color: #c90a06;
 }
 
-.iconoOjo{
-  width: 22px;
+.iconoOjo {
+  width: 150px;
   height: 30px;
   font-size: 1.4rem;
   float: right;
-  margin: 0% 50% 0% 0%;
+  margin: 5% 20% 0% 0%;
   border-radius: 25px;
-
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
-.iconoOjo:hover{
+.iconoOjo:hover {
   background-color: rgb(168, 168, 168);
+}
+.iconoOjoOcultar {
+  background-color: rgb(173, 0, 0);
+  color: #ffffff;
+}
+
+.iconoOjoMostrar {
+  background-color: rgb(131, 131, 131);
+  color: #cecece;
 }

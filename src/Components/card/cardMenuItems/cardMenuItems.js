@@ -3,16 +3,18 @@ import React, { useState, useEffect } from "react";
 import "./cardMenuItems.css";
 import { useNavigate } from "react-router-dom";
 import carrito from '../../../images/carrito.png';
+import axios from 'axios';
 
 // Importa las funciones necesarias de localstorage-card
 import { obtenerContCarrito,guardarItemCarrito } from '../../localStorage-car/LocalStorageCar';
 
 import Carrito from '../../Carrito/Carrito'
 
-function CardMenuItems({ id, name, description, price, image, handleSelectMenuItem, hideCartButtons, showEyeIcon}) {
+function CardMenuItems({ id, name, description, price, image, handleSelectMenuItem, hideCartButtons, showEyeIcon, active}) {
   const [viewCard, setViewCard] = useState(false);
   const navigator = useNavigate();
   const [id_Card, setId_Card] = useState({ id, name, description, price, image, cont: 0 }); // Inicializa cont en 0
+  const [isRestored, setIsRestored] = useState(false);
 
   useEffect(() => {
     // Obtener el contador del localStorage al montar el component
@@ -20,10 +22,22 @@ function CardMenuItems({ id, name, description, price, image, handleSelectMenuIt
     if(id_Card.cont !==cont){
 
       setId_Card((prevState) => ({ ...prevState, cont }));
-    }
-    
-    
+    }    
   }, [id,id_Card.cont]);
+
+  useEffect(() => {
+    // Función para cargar el estado actual del menú desde la API
+    const fetchMenuState = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/menuitems/${id}`);
+        setIsRestored(response.data.active);
+      } catch (error) {
+        console.error('Error al cargar el estado del menú', error);
+      }
+    };
+
+    fetchMenuState(); // Llamar a la función al montar el componente
+  }, [id]);
 
   const handleSumar = () => {
     setId_Card((prevState) => {
@@ -49,6 +63,21 @@ function CardMenuItems({ id, name, description, price, image, handleSelectMenuIt
   
   const handleClick = () => {
   handleSelectMenuItem(id);
+};
+
+
+const toggleItemState = async () => {
+  try {
+    const url = isRestored
+    ? `http://localhost:5000/menuitems/delete/${id}`
+    : `http://localhost:5000/menuitems/restore/${id}`;
+    
+    const response = await axios.put(url); // Usamos POST pero asegúrate de que coincide con el método esperado en tu backend
+    setIsRestored(!isRestored); // Cambiamos el estado después de la solicitud
+    console.log(response.data); // Manejo opcional de la respuesta
+  } catch (error) {
+    console.error('Hubo un error al realizar la solicitud', error);
+  }
 };
   
   
@@ -80,7 +109,8 @@ function CardMenuItems({ id, name, description, price, image, handleSelectMenuIt
           </div>
           )}
         </div>
-        {showEyeIcon && <span role="img" aria-label="view" className="iconoOjo">👁</span>}  
+        {showEyeIcon && <div onClick={toggleItemState} className={`iconoOjo ${isRestored ? 'iconoOjoOcultar' : 'iconoOjoMostrar'}`}>
+        {isRestored ? '👁 Ocultar' : '👁 Mostrar'}</div>}  
 
       </div>
     </div>
