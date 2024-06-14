@@ -25,8 +25,9 @@ const LoginIngreso = ({ setView }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    emailOrPhone: "labc.1021@gmail.com",
-    password: "geminis",
+    emailOrPhone: "",
+    password: "",
+    
   });
   const [errors, setErrors] = useState({});
 
@@ -84,7 +85,7 @@ if(obtenerCorreoUsuario()){
     name:obtenerNombreUsuario(), 
   }
   dispatch(login_user_localstorag(tem_Users))
-  navigate('/menu')
+  navigate('/home')
 }
   
 
