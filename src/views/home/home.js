@@ -13,7 +13,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import Navbar from "../../Components/navbar/navbar";
-import { getAllRestaurants } from "../../Redux/actions";
+import { getAllRestaurants, login_user_localstorag} from "../../Redux/actions";
+
+//import localUser from '../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user'
+
+import {
+  obtenerEstatusUsuario,
+  obtenerCorreoUsuario,
+  obtenerNombreUsuario,
+  obtenerIdUsuario,
+} from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
 const mockImges = [Image1, Image2, Image3];
 
@@ -27,8 +36,11 @@ function Home() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
-
+  /*localUser.guardarNombreUsuario(User.name)
+  localUser.guardarCorreoUsuario(User.mail)
+  localUser.guardarEstatusUsuario(User.state)
+  localUser.guardarIdUsuario(User.id)
+*/
   useEffect(() => {
     dispatch(getAllRestaurants());
 
@@ -36,6 +48,25 @@ function Home() {
       navigate("/");
     }
   }, [User, navigate, dispatch]);
+
+  useEffect(() => {
+    const email = obtenerCorreoUsuario();
+   
+    if (email) {
+      const tem_Users = {
+        state: obtenerEstatusUsuario(),
+        id: obtenerIdUsuario(),
+        email: email,
+        name: obtenerNombreUsuario(),
+      };
+      dispatch(login_user_localstorag(tem_Users));
+      navigate('/menu');
+    }else{
+      navigate('/')
+    }
+  }, [dispatch, navigate]);
+
+
 
 
 

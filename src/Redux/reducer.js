@@ -21,7 +21,8 @@ import {
 
 
   CREATELISTAORDERSCOMPANY,
-  CANCELARCOMPRAUSER // CArrito deshabilitar datos 
+  CANCELARCOMPRAUSER, // CArrito deshabilitar datos 
+  IDCARRITOMERCADOPAGO //hacer la verificaicon de compra
 } from "../Redux/action-types";
 
 const initialState = {
@@ -29,7 +30,7 @@ const initialState = {
   Carrito:null,
   ListaOrderCompany:null, //create lista order company
   Compra_Inabilitada:null,
-
+  Venta: null,
 
   RegisterUserData: null,
   RegisterBusiness: null,
@@ -152,6 +153,11 @@ const reducer = (state = initialState, { type, payload }) => {
             return{
               ...state,
               Compra_Inabilitada: payload,
+            }
+            case IDCARRITOMERCADOPAGO:
+            return{
+              ...state,
+              Venta: payload
             }
 
     default:

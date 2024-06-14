@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Carrito.css";
 import Eliminarproducto from "../../images/eliminar.png";
 import sindatos from '../../images/pizzeria-SINDATOS.png';
-import { Desarrollode_Compra } from '../../Redux/actions';
+import { Desarrollode_Compra, ID_Registro_Mercado_Pago } from '../../Redux/actions';
 import {
   obtenerContCarrito,
   obtenerItemsCarrito,
@@ -12,27 +12,113 @@ import {
 } from "../localStorage-car/LocalStorageCar";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Wallet, initMercadoPago } from '@mercadopago/sdk-react';
+
+
+
+
 
 function Carrito({ onClose }) {
+  //const dispach = useDispatch()
   const User = useSelector((state) => state.USER);
+
   const Carrito = useSelector((state) => state.Carrito);
   const [selectedCards, setSelectedCards] = useState([]);
   const [mensaje] = useState("¡Comienza tu carrito con tus comidas favoritas!");
   const [compraRealizada, setCompraRealizada] = useState(false);
   const [ordenCompra, setOrdenCompra] = useState(null);
+  const [preferenceId, setPreferenceId] = useState(null);
+  
+  const [mensajePago] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id_restaurante = 1;
 
+  // Inicializar Mercado Pago
+  initMercadoPago('APP_USR-21e77af0-08a4-4fb5-b959-a1adef0a6ec1', 
+    {
+      locale:"es-CO"
+    }
+  );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Función para crear la preferencia de pago
+  const createPreference = async () => {
+    try {
+      const cards = obtenerItemsCarrito();
+      const total_price = cards.reduce((acc, card) => acc + card.price * card.cont, 0).toFixed(2);
+      const compramercadopago = {
+        descriptions: "App Fast Food",
+        price: total_price, // Total de la compra
+        quantity: "1"
+      }
+      
+      const datos = await dispatch(ID_Registro_Mercado_Pago(compramercadopago));
+      const { id } = datos; // Ajusta esto según la estructura de `venta
+      
+      
+      alert(id)
+      
+      
+      return id;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // Función para manejar la compra a través de Mercado Pago
+  const handleBuy = async () => {
+    handlePagar()
+     const id = await createPreference();
+
+   //  alert(id)
+          if (id) {
+     
+        setPreferenceId(id);
+     
+      }
+    
+   
+  }
+
+
+
   useEffect(() => {
     const cards = obtenerItemsCarrito() || [];
-    console.log("Datos cargados desde localStorage:", cards);
     setSelectedCards(cards);
+
   }, []);
 
   useEffect(() => {
     if (compraRealizada && ordenCompra) {
       console.log("Compra realizada. Mostrando tiquete de compra:", ordenCompra);
+     
     }
   }, [compraRealizada, ordenCompra]);
 
@@ -47,7 +133,6 @@ function Carrito({ onClose }) {
         }
         return card;
       });
-      console.log("Datos después de disminuir:", updatedCards);
       return updatedCards.filter((card) => card.cont > 0);
     });
   };
@@ -63,7 +148,6 @@ function Carrito({ onClose }) {
         }
         return card;
       });
-      console.log("Datos después de sumar:", updatedCards);
       return updatedCards;
     });
   };
@@ -77,13 +161,15 @@ function Carrito({ onClose }) {
       const order_date = new Date().toISOString();
       const compraData = {
         Carrito: {
-          id: Math.floor(Math.random() * 1000),  // Generamos un ID aleatorio para la orden
+          id: Math.floor(Math.random() * 1000),
           user_id: User.register,
           restaurant_id: id_restaurante,
           items: cards,
           total_price,
           order_date,
           active: true,
+          statusorder_id:1
+
         }
       };
 
@@ -92,9 +178,8 @@ function Carrito({ onClose }) {
           resetearCarrito();
           setSelectedCards([]);
           setCompraRealizada(true);
-          setOrdenCompra(compraData); // Aquí guardamos la orden de compra
-          console.log("Compra realizada con éxito:", compraData);
-          alert("Pago desarrollado con éxito");
+          setOrdenCompra(compraData);
+
         })
         .catch((error) => {
           console.error("Error al procesar el pago", error.message);
@@ -107,7 +192,6 @@ function Carrito({ onClose }) {
     eliminarItemCarrito(id);
     setSelectedCards((prevCards) => {
       const updatedCards = prevCards.filter((card) => card.id !== id);
-      console.log("Datos después de eliminar:", updatedCards);
       return updatedCards;
     });
   };
@@ -116,7 +200,6 @@ function Carrito({ onClose }) {
     onClose();
     navigate('/menu');
   };
-
 
   const renderTiqueteCompra = () => {
     if (!ordenCompra) return null;
@@ -128,17 +211,32 @@ function Carrito({ onClose }) {
         <p>Fecha: {ordenCompra.Carrito.order_date}</p>
         <p>Usuario: {ordenCompra.Carrito.user_id}</p>
         <p>Restaurante: {ordenCompra.Carrito.restaurant_id}</p>
-
         <h3>Productos:</h3>
         <ul>
           {ordenCompra.Carrito.items.map((item, index) => (
             <li key={index}>- {item.name} x {item.cont} = ${(item.price * item.cont).toFixed(2)}</li>
           ))}
         </ul>
-        
         <p>Total: ${ordenCompra.Carrito.total_price}</p>
         <h2>********************************************</h2>
-        <div className="login-button-regresar" onClick={handleSalirCarrito}>Salir</div> 
+        <div className="boton_flex">
+        <div className="login-button-regresar" onClick={handleSalirCarrito}>Salir</div>
+        {preferenceId 
+        && (   
+          
+
+        
+<Wallet initialization={{ preferenceId, redirectMode: 'blank' }} target="_blank" customization={{ texts:{ valueProp: 'smart_option'}, visual: {
+        buttonBackground: 'black', // Cambia este valor al color que desees
+        borderRadius: '6px',
+      },}} />
+
+      
+
+          )}
+              </div>
+
+        
       </div>
     );
   };
@@ -152,7 +250,10 @@ function Carrito({ onClose }) {
         </div>
         <div className="carCarritoContent">
           {compraRealizada ? (
-            renderTiqueteCompra()
+            <>
+              <div>{mensajePago}</div>
+              {renderTiqueteCompra()}
+            </>
           ) : (
             <>
               {selectedCards.length === 0 ? (
@@ -195,7 +296,11 @@ function Carrito({ onClose }) {
             <label className="pagolabel">
               ${selectedCards.reduce((acc, card) => acc + card.price * card.cont, 0)}
             </label>
-            <button onClick={handlePagar}>Pagar</button>
+            {preferenceId ? null: (
+              
+              <button onClick={handleBuy}>Pagar</button>
+            )}
+            <div></div>
           </div>
         )}
       </div>
@@ -204,3 +309,4 @@ function Carrito({ onClose }) {
 }
 
 export default Carrito;
+

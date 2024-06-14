@@ -222,3 +222,7 @@
 .ticketCompra li {
   margin-bottom: 5px;
 }
+.boton_flex{
+  display: flex;
+  height: 30px;
+}
