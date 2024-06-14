@@ -23,14 +23,17 @@ import {
 
 
   CREATELISTAORDERSCOMPANY,
-  CANCELARCOMPRAUSER // CArrito deshabilitar datos 
+  CANCELARCOMPRAUSER, // CArrito deshabilitar datos 
+  IDCARRITOMERCADOPAGO //hacer la verificaicon de compra
 } from "../Redux/action-types";
 
 const initialState = {
   USER: null,
-  Carrito: null,
-  ListaOrderCompany: null, //create lista order company
-  Compra_Inabilitada: null,
+
+  Carrito:null,
+  ListaOrderCompany:null, //create lista order company
+  Compra_Inabilitada:null,
+  Venta: null,
 
 
   RegisterUserData: null,
@@ -105,6 +108,66 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allMenuItems: payload
       };
+
+   
+        case CREATE_MENU:
+          return {
+            ...state,
+            createMenu: payload
+          };
+          case CREATE_MENU_ITEMS:
+          return {
+            ...state,
+            createMenuItems: payload
+          };
+
+          case GET_RESTAURANTS:
+            return{
+              ...state,
+              allRestaurants: payload,
+            };
+
+          case UPDATE_USER:
+            return {
+              ...state,
+              User_Actualizado: payload,
+            };
+          case LOGOUT_USER:
+            return {
+              ...state,
+              USER: null,
+            };
+            case CREATE_CATEGORIES:
+              return {
+                ...state,
+                createCategories: payload,
+              }
+            case GET_CATEGORIES:
+              return {
+                ...state,
+                allCategories: payload,
+              }
+            case CREATECOMPRA:
+              return{
+                ...state,
+                Carrito: payload,
+              }
+              case CREATELISTAORDERSCOMPANY:
+                return{
+                  ...state,
+                ListaOrderCompany: payload,
+                }
+          case CANCELARCOMPRAUSER:
+            return{
+              ...state,
+              Compra_Inabilitada: payload,
+            }
+            case IDCARRITOMERCADOPAGO:
+            return{
+              ...state,
+              Venta: payload
+            }
+
     case CREATE_MENU:
       return {
         ...state,

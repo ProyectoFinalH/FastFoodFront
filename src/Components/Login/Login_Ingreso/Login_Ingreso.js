@@ -5,11 +5,16 @@ import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-import { login_User } from "../../../Redux/actions";
+import { login_User, login_user_localstorag } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoginGoogle from "../Login_Google/Login_Google";
+
+
+import {guardarNombreUsuario, guardarCorreoUsuario, guardarEstatusUsuario, guardarIdUsuario,
+  obtenerEstatusUsuario, obtenerCorreoUsuario, obtenerNombreUsuario, obtenerIdUsuario
+} from './LocalStorange_user/LocalStorange_user'
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
@@ -20,8 +25,8 @@ const LoginIngreso = ({ setView }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    emailOrPhone: "",
-    password: "",
+    emailOrPhone: "labc.1021@gmail.com",
+    password: "geminis",
   });
   const [errors, setErrors] = useState({});
 
@@ -48,16 +53,50 @@ const LoginIngreso = ({ setView }) => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
+      
+      
+      
+      
       await dispatch(login_User(formData));
+
+     
+
+
+
+
+
+
     }
   };
 
   const handleInvitado = () => {
     dispatch(login_User("invitado"));
   };
+  
+
+  useEffect(() => {
+if(obtenerCorreoUsuario()){
+
+  const tem_Users = {
+    state:  obtenerEstatusUsuario(), 
+    id:obtenerIdUsuario(),
+    email: obtenerCorreoUsuario(), 
+    name:obtenerNombreUsuario(), 
+  }
+  dispatch(login_user_localstorag(tem_Users))
+  navigate('/menu')
+}
+  
+
+  }, [ dispatch,navigate])
+
 
   useEffect(() => {
     if (User) {
+      guardarNombreUsuario(User.name);
+      guardarCorreoUsuario(User.email);
+      guardarEstatusUsuario(User.state);
+      guardarIdUsuario(User.id)
       navigate("/home");
     } else {
       navigate("/");

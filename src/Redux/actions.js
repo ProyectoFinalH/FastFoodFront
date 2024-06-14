@@ -17,8 +17,10 @@ import {
   GET_MENUS,
   GET_MENUITEMS_BYNAME,
   CREATE_CATEGORIES,
+
   GET_MENUITEMS_ADMIN,
   GET_MENUS_ADMIN,
+
 } from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
@@ -73,7 +75,7 @@ export const register_user = (dataquery) => {
 export const register_business = (dataquery) => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:3001/atleticos/register";
+      const endpoint = "http://localhost:5000/atleticos/register";
       const response = await axios.post(endpoint, dataquery);
       const userData = response.data;
 
@@ -98,7 +100,7 @@ export const register_business = (dataquery) => {
 export const recovery_key_user = (dataquery) => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:3001/atleticos/register";
+      const endpoint = "http://localhost:5000/atleticos/register";
       const response = await axios.post(endpoint, dataquery);
       const userData = response.data;
 
@@ -160,8 +162,10 @@ export const login_User = (dataquery) => {
 export const login_User_Google = (dataquery) => {
   return async (dispatch) => {
     try {
+
       const endpoint = "http://localhost:5000/users/auth/google";
       const response = await axios.post(endpoint, { token: dataquery.token });
+
 
       const userData = response.data;
 
@@ -178,6 +182,21 @@ export const login_User_Google = (dataquery) => {
     }
   };
 };
+//Loguear usuario con localsotrag
+
+export const login_user_localstorag =(auser)=>{
+  return async (dispatch)=>{
+
+    dispatch({
+      type: USERLOGIN,
+      payload: auser,
+    });
+  }
+
+
+}
+
+
 
 export function getAllMenus() {
   return async function (dispatch) {
@@ -217,15 +236,7 @@ export function getAllMenuitems() {
     });
   };
 }
-// export function  getAllCategories(){
-//   return async function(dispatch){
-//       const response = await axios("http://localhost:5000/categories")
-//       return dispatch({
-//           type:"GET_RESTAURANT",
-//           payload:response.data
-//       })
-//   }
-// }
+
 
 export function getMenuItemsByName(name) {
   return async function (dispatch) {
@@ -436,3 +447,34 @@ export const Deshabilito_Compra_User = (id) => {
     }
   };
 };
+
+export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo)=>{
+  return async (dispatch) => {
+    console.log("Usuario de Mercado pago"+JSON.stringify(DAtosMercadoPAgo))
+    const mercadopago = {
+      description:DAtosMercadoPAgo.descriptions,
+      price_total: DAtosMercadoPAgo.price,
+      quantity_order: DAtosMercadoPAgo.quantity
+    }
+
+  
+    try {
+      const endpoint = 'http://localhost:5000/mercadopago/create';
+      const response = await axios.post(endpoint, mercadopago);
+      const compra = response.data;
+
+        console.log("respuesta ID" +  compra)
+        return {id:compra}
+ /* dispatch({
+    type: IDCARRITOMERCADOPAGO,
+    payload: compra,
+  });
+ 
+*/
+  
+    } catch (error) {
+      alert("Error al enviar compra del carrito", error.message);
+      console.log("Error al enviar la información", error.message);
+    }
+  };
+}

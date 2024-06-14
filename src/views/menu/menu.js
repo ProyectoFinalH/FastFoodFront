@@ -18,7 +18,18 @@ import CardsMenus from "../../Components/cards/cardsMenus/cardsMenus";
 import Navbar from "../../Components/navbar/navbar";
 import Detail from "../detail/detail";
 
-import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
+import { useLocalStorage,  } from "../../Components/localStorage/useLocalStorage";
+
+
+
+import { login_user_localstorag } from "../../Redux/actions";
+
+import {
+  obtenerEstatusUsuario,
+  obtenerCorreoUsuario,
+  obtenerNombreUsuario,
+  obtenerIdUsuario,
+} from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
 function Menu() {
   const dispatch = useDispatch();
@@ -47,6 +58,29 @@ function Menu() {
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
   };
+
+//localstorang del usuario
+useEffect(() => {
+  const email = obtenerCorreoUsuario();
+ // alert("mail es "+ email)
+  if (email) {
+    const tem_Users = {
+      state: obtenerEstatusUsuario(),
+      id: obtenerIdUsuario(),
+      email: email,
+      name: obtenerNombreUsuario(),
+    };
+    dispatch(login_user_localstorag(tem_Users));
+    navigate('/menu');
+  }else{
+    navigate('/')
+  }
+}, [dispatch, navigate]);
+
+
+
+
+
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
