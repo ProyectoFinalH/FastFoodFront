@@ -39,6 +39,5 @@
   
   .cardResContainer:hover {
     border: 1px solid transparent;
-    border-image: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
     border-image-slice: 1;
   }
