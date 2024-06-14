@@ -19,7 +19,8 @@ import {
   CREATE_CATEGORIES,
   GET_MENUITEMS_ADMIN,
   GET_MENUS_ADMIN,
-  GET_RESTAURANTS_ALL
+  GET_RESTAURANTS_ALL,
+  GET_USERS_ALL
 } from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
@@ -450,3 +451,18 @@ export const Deshabilito_Compra_User = (id) => {
     }
   };
 };
+
+
+export function getAllUsersAdmin() {
+  return async function (dispatch) {
+    try {
+      const response = await axios("http://localhost:5000/users/all");
+      dispatch({
+        type: GET_USERS_ALL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los restaurantes:", error);
+    }
+  };
+}

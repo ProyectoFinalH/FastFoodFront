@@ -19,6 +19,7 @@ import {
   CREATE_CATEGORIES,
   GET_CATEGORIES,
   CREATECOMPRA,
+  GET_USERS_ALL,
 
 
 
@@ -31,7 +32,7 @@ const initialState = {
   Carrito: null,
   ListaOrderCompany: null, //create lista order company
   Compra_Inabilitada: null,
-
+  allUsersAdmin:[],
   allRestaurantsAdmin: [],
   RegisterUserData: null,
   RegisterBusiness: null,
@@ -172,7 +173,11 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allRestaurantsAdmin: payload
       }
-
+      case  GET_USERS_ALL:
+        return{
+          ...state,
+          allUsersAdmin: payload
+        }
     default:
       return { ...state };
   }

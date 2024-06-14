@@ -65,13 +65,17 @@ function MenusAdmin({ allMenusAdmin, allMenuItemsAdmin, allRestaurantsAdmin }) {
               {menus
                 .filter((menu) => menu?.restaurant_id === restaurant?.id)
                 .map((menu) => (
-                  <div key={menu.id}
+                  <div key={menu.id }
                   onClick={() => handleMenuSelect(restaurant.id, menu.id)}>
+                    <div className="menuSelectAdmin">
                     <ul>
+                      <div className="menuLi">
+
                       <li>{menu.name}</li>
+                      </div>
                     </ul>
                     <button
-                              className="buttonactdes"
+                              className="buttonactdesMenus"
                               onClick={() =>
                                 toggleActivationMenu(
                                   menu.id,
@@ -86,15 +90,16 @@ function MenusAdmin({ allMenusAdmin, allMenuItemsAdmin, allRestaurantsAdmin }) {
                               )}
                             </button>
                   </div>
+                  </div>
                   
                 ))}
             </div>
             <div className="MenuItemsContainer">
-                    {selectedMenuIds[restaurant.id] && // Verifica si hay un menú seleccionado para este restaurante
+                    {selectedMenuIds[restaurant.id] && // Verifica si hay un menu seleccionado para este rest
                 menuItems
                       .filter((menuItem) => menuItem?.menu_id === selectedMenuIds[restaurant.id])
                       .map((menuItem) => (
-                        <div key={menuItem.id} className="MenuItemmenu">
+                        <div key={menuItem.id} className={`MenuItemmenu ${menuItem?.active ? "" : "inactive"}`}>
                           <div className="imageItem">
                             <img src={menuItem.image_url} alt="imgItem" />
                           </div>
@@ -111,7 +116,7 @@ function MenusAdmin({ allMenusAdmin, allMenuItemsAdmin, allRestaurantsAdmin }) {
                           <div className="priceItem">${menuItem.price}</div>
                           <div>
                             <button
-                              className="buttonactdes"
+                              className="buttonactdesMenus"
                               onClick={() =>
                                 toggleActivationMenuItem(
                                   menuItem.id,

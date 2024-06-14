@@ -2,7 +2,7 @@ import Sidebar from "./sidebar/sidebar";
 // import logo from "../../images/logo.png"
 import "./admin.css";
 
-import { getAllMenuitemsAdmin,getAllMenusAdmin,getAllRestaurantsAdmin } from "../../Redux/actions";
+import { getAllMenuitemsAdmin,getAllMenusAdmin,getAllRestaurantsAdmin, getAllUsersAdmin } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
@@ -10,7 +10,7 @@ function Admin() {
   const allRestaurantsAdmin = useSelector((state) => state.allRestaurantsAdmin);
   const allMenuItemsAdmin = useSelector((state)=> state.getAllMenuitemsAdmin)
   const allMenusAdmin = useSelector((state)=> state.allMenusAdmin)
-  // const allUsers = useSelector((state) => state.allRestaurants);
+  const allUsersAdmin = useSelector((state) => state.allUsersAdmin);
 
   
 
@@ -20,12 +20,13 @@ function Admin() {
     dispatch(getAllRestaurantsAdmin());
     dispatch(getAllMenuitemsAdmin());
     dispatch(getAllMenusAdmin());
+    dispatch(getAllUsersAdmin())
   }, [dispatch]);
 
   return (
     <div className="companyContainer">
       <div>
-        <Sidebar allRestaurantsAdmin={allRestaurantsAdmin} allMenuItemsAdmin={allMenuItemsAdmin} allMenusAdmin={allMenusAdmin}/>
+        <Sidebar allUsersAdmin={allUsersAdmin} allRestaurantsAdmin={allRestaurantsAdmin} allMenuItemsAdmin={allMenuItemsAdmin} allMenusAdmin={allMenusAdmin}/>
       </div>
     </div>
   );
