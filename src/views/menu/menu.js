@@ -58,7 +58,7 @@ function Menu() {
     dispatch(getAllRestaurants());
   }, [dispatch]);
 
-  const restaurant1 = allRestaurants.find((restaurant) => restaurant.id === 2);
+  const restaurant1 = allRestaurants.find((restaurant) => restaurant.id === 7);
 
   //FILTRO POR RANGO
   const applyPriceRangeFilter = (menuItems, range) => {

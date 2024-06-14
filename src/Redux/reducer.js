@@ -15,7 +15,7 @@ import {
   GET_RESTAURANTS,
   UPDATE_USER,
   LOGOUT_USER,
-
+  GET_RESTAURANTS_ALL,
   CREATE_CATEGORIES,
   GET_CATEGORIES,
   CREATECOMPRA,
@@ -32,7 +32,7 @@ const initialState = {
   ListaOrderCompany: null, //create lista order company
   Compra_Inabilitada: null,
 
-
+  allRestaurantsAdmin: [],
   RegisterUserData: null,
   RegisterBusiness: null,
   allRestaurants: [],
@@ -166,6 +166,11 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allMenusAdmin: payload,
+      }
+    case GET_RESTAURANTS_ALL:
+      return{
+        ...state,
+        allRestaurantsAdmin: payload
       }
 
     default:
