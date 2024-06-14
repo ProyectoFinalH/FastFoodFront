@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./MisCompras.css"; // Importar el archivo de estilos CSS
+import "./MisCompras.css";
 import Eliminarproducto from "../../images/eliminar.png";
 import sindatos from '../../images/pizzeria-SINDATOS.png';
 
