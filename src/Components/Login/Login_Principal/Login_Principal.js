@@ -43,7 +43,7 @@ const LoginPrincipal = () => {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
-      navigate('/menu');
+      navigate('/home');
     }else{
       navigate('/')
     }
