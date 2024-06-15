@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
-import { getAllRestaurants } from "../../Redux/actions";
+import { getAllRestaurants,login_user_localstorag } from "../../Redux/actions";
 import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
 import CardOpiniones from "../../Components/card/cardOpiniones/cardOpiniones";
 import CardPagos from "../../Components/card/cardPagos/cardPagos";
@@ -11,16 +11,6 @@ import Image1 from "../../images/Image1.jpg";
 import Image2 from "../../images/image2.jpg";
 import Image3 from "../../images/image3.jpg";
 import "./home.css";
-
-import CardOpiniones from "../../Components/card/cardOpiniones/cardOpiniones";
-import CardPagos from "../../Components/card/cardPagos/cardPagos";
-
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-
-import Navbar from "../../Components/navbar/navbar";
-import { getAllRestaurants, login_user_localstorag} from "../../Redux/actions";
 
 //import localUser from '../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user'
 
@@ -48,7 +38,7 @@ function Home() {
     if (!user) {
       navigate("/");
     }
-  }, [User, navigate, dispatch]);
+  }, [user, navigate, dispatch]);
 
   useEffect(() => {
     const email = obtenerCorreoUsuario();
