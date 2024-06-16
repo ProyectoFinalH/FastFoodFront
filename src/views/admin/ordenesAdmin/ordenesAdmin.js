@@ -34,34 +34,34 @@ console.log("orden:",orders)
         </thead>
         <tbody>
           {orders?.map((order) => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.user_name}</td>
-              <td>{order.restaurant_name}</td>
+            <tr key={order?.id}>
+              <td>{order?.id}</td>
+              <td>{order?.user_name}</td>
+              <td>{order?.restaurant_name}</td>
               <td>
-                {order.items.map((item, index) => (
+                {order?.items?.map((item, index) => (
                   <div key={index}>
-                    <p>{item.name_item}</p>
+                    <p>{item?.name_item}</p>
                   </div>
                 ))}
               </td>
               <td>
-                {order.items.map((item, index) => (
+                {order?.items?.map((item, index) => (
                   <div key={index}>
-                    <p>{item.quantity}</p>
+                    <p>{item?.quantity}</p>
                   </div>
                 ))}
               </td>
               <td>
-                {order.items.map((item, index) => (
+                {order?.items?.map((item, index) => (
                   <div key={index}>
-                    <p>{item.partial_price}</p>
+                    <p>{item?.partial_price}</p>
                   </div>
                 ))}
               </td>
-              <td>Dia: {order.order_date.slice(0, 19).replace("T"," Hora: ")}</td>
-              <td>{order.status_order}</td>
-              <td>{order.total_price}</td>
+              <td>Dia: {order?.order_date?.slice(0, 19).replace("T"," Hora: ")}</td>
+              <td>{order?.status_order}</td>
+              <td>{order?.total_price}</td>
             </tr>
           ))}
         </tbody>
