@@ -17,10 +17,13 @@ import {
   GET_MENUS,
   GET_MENUITEMS_BYNAME,
   CREATE_CATEGORIES,
-
+GET_ORDERS_ADMIN,
   GET_MENUITEMS_ADMIN,
   GET_MENUS_ADMIN,
+  
 
+  GET_RESTAURANTS_ALL,
+  GET_USERS_ALL
 } from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
@@ -259,6 +262,19 @@ export function getAllRestaurants() {
     });
   };
 }
+export function getAllRestaurantsAdmin() {
+  return async function (dispatch) {
+    try {
+      const response = await axios("http://localhost:5000/restaurants/all");
+      dispatch({
+        type: GET_RESTAURANTS_ALL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los restaurantes:", error);
+    }
+  };
+}
 
 export function sortedMenuItemsAsc(sortedMenuItems) {
   return {
@@ -448,6 +464,20 @@ export const Deshabilito_Compra_User = (id) => {
   };
 };
 
+
+
+export function getAllUsersAdmin() {
+  return async function (dispatch) {
+    try {
+      const response = await axios("http://localhost:5000/users/all");
+      dispatch({
+        type: GET_USERS_ALL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los restaurantes:", error);}}}
+
+
 export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo)=>{
   return async (dispatch) => {
     console.log("Usuario de Mercado pago"+JSON.stringify(DAtosMercadoPAgo))
@@ -478,3 +508,17 @@ export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo)=>{
     }
   };
 }
+
+
+
+
+export function getOrdersAdmin() {
+  return async function (dispatch) {
+    try {
+      const response = await axios("http://localhost:5000/orders/all");
+      dispatch({
+        type: GET_ORDERS_ADMIN,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los ordenes:", error);}}}

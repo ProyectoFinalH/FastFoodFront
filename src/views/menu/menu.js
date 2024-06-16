@@ -92,7 +92,7 @@ useEffect(() => {
     dispatch(getAllRestaurants());
   }, [dispatch]);
 
-  const restaurant1 = allRestaurants.find((restaurant) => restaurant.id === 2);
+  const restaurant1 = allRestaurants.find((restaurant) => restaurant.id === 1);
 
   //FILTRO POR RANGO
   const applyPriceRangeFilter = (menuItems, range) => {
