@@ -12,6 +12,9 @@ import Image2 from "../../images/image2.jpg";
 import Image3 from "../../images/image3.jpg";
 import "./home.css";
 
+
+
+
 //import localUser from '../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user'
 
 import {
@@ -51,7 +54,7 @@ function Home() {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
-      navigate('/menu');
+     // navigate('/menu');
     }else{
       navigate('/')
     }

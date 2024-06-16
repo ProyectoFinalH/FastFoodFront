@@ -36,7 +36,7 @@ function Carrito({ onClose }) {
   const id_restaurante = 1;
 
   // Inicializar Mercado Pago
-  initMercadoPago('APP_USR-21e77af0-08a4-4fb5-b959-a1adef0a6ec1', 
+  initMercadoPago('TEST-50122e74-1f4b-40e3-8ddb-a830cd00b7bf', 
     {
       locale:"es-CO"
     }
@@ -83,7 +83,7 @@ function Carrito({ onClose }) {
       const { id } = datos; // Ajusta esto según la estructura de `venta
       
       
-      alert(id)
+      //alert(id)
       
       
       return id;

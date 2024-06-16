@@ -15,6 +15,8 @@ import {
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+
+  
 } from "../Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
 const LoginPrincipal = () => {
@@ -41,7 +43,7 @@ const LoginPrincipal = () => {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
-      navigate('/menu');
+      navigate('/home');
     }else{
       navigate('/')
     }
