@@ -17,9 +17,10 @@ import {
   GET_MENUS,
   GET_MENUITEMS_BYNAME,
   CREATE_CATEGORIES,
-
+GET_ORDERS_ADMIN,
   GET_MENUITEMS_ADMIN,
   GET_MENUS_ADMIN,
+  
 
   GET_RESTAURANTS_ALL,
   GET_USERS_ALL
@@ -507,3 +508,17 @@ export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo)=>{
     }
   };
 }
+
+
+
+
+export function getOrdersAdmin() {
+  return async function (dispatch) {
+    try {
+      const response = await axios("http://localhost:5000/orders/all");
+      dispatch({
+        type: GET_ORDERS_ADMIN,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los ordenes:", error);}}}

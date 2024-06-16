@@ -4,6 +4,7 @@ import "./usersAdmin.css";
 import axios from "axios";
 import activar from "../../../images/activar.png";
 import desactivar from "../../../images/desactivar.png";
+import NavbarAdmin from "../navbarAdmin/navbarAdmin";
 
 function UsersAdmin({allUsersAdmin}) {
   const [users, setUsers] = useState([]);
@@ -39,6 +40,7 @@ const filteredUsers = users.filter((user)=> user.role_id === 1)
 
   return (
     <div className="restaurantAdminContainer">
+       <NavbarAdmin/>
     {filteredUsers?.map((user) => (
       <div
         key={user.id}
@@ -61,8 +63,9 @@ const filteredUsers = users.filter((user)=> user.role_id === 1)
             <p>{user?.telefono}</p>
           </div>
         </div>
-          <div className="buttonactdes">
+          <div >
           <button 
+          className="buttonactdesMenus"
 onClick={() => toggleActivation(user?.id, !user?.active) }
 >
 {user?.active ? 

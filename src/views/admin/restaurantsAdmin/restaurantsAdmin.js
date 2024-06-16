@@ -1,18 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import "./restaurantsAdmin.css";
 import axios from "axios";
 import activar from "../../../images/activar.png";
 import desactivar from "../../../images/desactivar.png";
+import NavbarAdmin from "../navbarAdmin/navbarAdmin";
+// import { useLocalStorage } from "../../../Components/localStorage/useLocalStorage";
+
 
 function RestaurantsAdmin({ allRestaurantsAdmin }) {
-  const [restaurants, setRestaurants] = useState([]);
 
-  
+
+  const [restaurants, setRestaurants] = useState([]);
+  // const [restaurants, setRestaurants] = useLocalStorage("restaurants", []);
+
   useEffect(() => {
     setRestaurants(allRestaurantsAdmin);
-  }, [allRestaurantsAdmin]);
+  }, [allRestaurantsAdmin, setRestaurants]);
+
   
-  console.log(restaurants)
   const toggleActivation = async (restaurantId, active) => {
     try {
       if (active) {
@@ -23,12 +28,18 @@ function RestaurantsAdmin({ allRestaurantsAdmin }) {
         await axios.put(
           `http://localhost:5000/restaurants/delete/${restaurantId}`
         );
+        console.log("Solicitud PUT enviada correctamente.");
+        
       }
 
       const updatedRestaurants = restaurants.map((restaurant) =>
         restaurant.id === restaurantId ? { ...restaurant, active } : restaurant
       );
+      
       setRestaurants(updatedRestaurants);
+      localStorage.setItem("restaurants", JSON.stringify(updatedRestaurants));
+
+      console.log("Restaurants después de actualizar:", restaurants);
     } catch (error) {
       console.error("Error al cambiar el estado del restaurante:", error);
     }
@@ -36,6 +47,7 @@ function RestaurantsAdmin({ allRestaurantsAdmin }) {
 
   return (
     <div className="restaurantAdminContainer">
+     <NavbarAdmin/>
       {restaurants?.map((restaurant) => (
         <div
           key={restaurant.id}
@@ -66,24 +78,23 @@ function RestaurantsAdmin({ allRestaurantsAdmin }) {
               <p>{restaurant?.description}</p>
             </div>
           </div>
-            <div className="buttonactdes">
-            <button 
-  onClick={() => toggleActivation(restaurant?.id, !restaurant?.active) }
->
-  {restaurant?.active ? 
-    <img 
-      src={activar} 
-      alt="activar"
-    /> :
-    <img 
-      src={desactivar} 
-      alt="desactivar"
-    />
-  }
-</button>
+          <div>
+            <button
+            className="buttonactdesMenus"
+              onClick={() =>
+                toggleActivation(restaurant?.id, !restaurant?.active)
+              }
+            >
+              {restaurant?.active ? (
+                <img src={activar} alt="activar" />
+              ) : (
+                <img src={desactivar} alt="desactivar" />
+              )}
+            </button>
             </div>
         </div>
       ))}
+      
     </div>
   );
 }

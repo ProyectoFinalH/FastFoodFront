@@ -5,24 +5,30 @@
     
     .cardRest{
         display: flex;
-        height: 100%;
         margin: 40px 20px;
+        background-color: white;
+        /* padding: 15px; */
         border-radius: 10px;
-        border: solid 1px rgba(0, 0, 0, 0.2);
-        justify-content: flex-start;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        justify-content: space-between;
         align-items: center;
         cursor: pointer;
     }
     
+    
     .cardRest:hover{
-        border: solid 1px #c90a06;
+        border: solid 1px #ff3239;
     }
     
     .resImage{
-        margin: 10px;
-      width: 300px;
-      height: 200px;
-    overflow: hidden;
+      border: solid 1px rgb(0, 0, 0, 0.2);
+      margin: 10px;
+      min-width: 150px;
+      max-width: 200px;
+      /* width: 10%; */
+      /* height: 200px; */
+      overflow: hidden;
+    
     }
     
     .resImage img {
@@ -51,34 +57,29 @@
     }
     
     .cardRest.inactive {
-        background-color: #a8a8a8; /* Cambia el color de fondo a gris */
+        background-color: #d6d6d6; /* Cambia el color de fondo a gris */
       }
     
       .cardRest.inactive img {
         filter: grayscale(100%); /* Aplica el filtro de escala de grises al 100% */
       }
     
-      .buttonactdes{
-        width: 80px;
+      .buttonactdesMenus{
+        width: 50px;
         height: 40px;
         margin-right: 10px;
+        border: none;
+        background: none;
       }
     
-    
-    .buttonactdes button{
-        background: none;
-        border: none;
-    }
-      .buttonactdes img {
+      .buttonactdesMenus img {
         width: 100%;
     overflow:auto;
     cursor: pointer;
-    filter: grayscale(100%);
+    
     
     
       }
-      .buttonactdes button img {
-        filter:contrast(100%);
-      }
+   
     
       

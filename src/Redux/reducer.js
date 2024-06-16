@@ -20,6 +20,7 @@ import {
   GET_CATEGORIES,
   CREATECOMPRA,
   GET_USERS_ALL,
+  GET_ORDERS_ADMIN,
   CREATELISTAORDERSCOMPANY,
   CANCELARCOMPRAUSER, // CArrito deshabilitar datos
   IDCARRITOMERCADOPAGO, //hacer la verificaicon de compra
@@ -33,6 +34,7 @@ const initialState = {
   allUsersAdmin: [],
   allRestaurantsAdmin: [],
   Venta: null,
+  allOrdersAdmin:[],
   RegisterUserData: null,
   RegisterBusiness: null,
   allRestaurants: [],
@@ -181,6 +183,11 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allUsersAdmin: payload,
       };
+      case GET_ORDERS_ADMIN:
+        return {
+          ...state,
+          allOrdersAdmin: payload,
+        };
     default:
       return { ...state };
   }

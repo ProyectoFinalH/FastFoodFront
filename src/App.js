@@ -22,6 +22,7 @@ import { AuthProvider } from "./AuthContext/AuthContext";
 import ProtectedRoute from "./AuthContext/ProtectedRoute";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard"; // Verifica que esta ruta sea correcta
+import ScrollToTopButton from "./Components/scrollTop/scrollTop";
 
 
 
@@ -51,6 +52,7 @@ function App() {
           />
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
+      <ScrollToTopButton/>
       </AuthProvider>
     </div>
   );
