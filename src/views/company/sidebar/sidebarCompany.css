@@ -3,6 +3,7 @@
 }
 .OptionContainer{
     width: 25%;
+    max-width: 300px;
 
     height: 80vh;
     background-color: #ff5a5f;

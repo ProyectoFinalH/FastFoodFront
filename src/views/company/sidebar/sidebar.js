@@ -38,7 +38,7 @@ function Sidebar({restaurant}) {
         <li tabindex="0" onClick={() => handleOptionClick(2)}>Editar Perfil</li>
 
         <li tabindex="0" onClick={() => handleOptionClick(3)}>Ordenes Realizadas</li>
-        <li tabindex="0" onClick={() => handleOptionClick(4)}>Caificaciones</li>
+        <li tabindex="0" onClick={() => handleOptionClick(7)}>Caificaciones</li>
         <li tabindex="0" onClick={() => handleOptionClick(5)}>Cerrar Sesion</li>
       </ul>
 
