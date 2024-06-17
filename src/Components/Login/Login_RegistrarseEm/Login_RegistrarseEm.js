@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login_RegistrarseEm.css";
-
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
+import { register_business } from "../../../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+
 const RegistrarseEmpresa = ({ setView }) => {
+  const dispatch = useDispatch();
+  const Register = useSelector((state) => state.RegisterUserData);
   const [keyVisible, setKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
@@ -13,7 +17,9 @@ const RegistrarseEmpresa = ({ setView }) => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
-
+  const toggleVisibility = () => {
+    setKeyVisible(!keyVisible);
+  };
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserData({
@@ -23,10 +29,6 @@ const RegistrarseEmpresa = ({ setView }) => {
     setErrors(validateField(name, value));
   };
 
-  const toggleVisibility = () => {
-    setKeyVisible(!keyVisible);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const validationErrors = validateForm(userData);
@@ -34,7 +36,7 @@ const RegistrarseEmpresa = ({ setView }) => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
-      // lógica para enviar los datos del formulario al servidor
+      dispatch(register_business(userData));
     }
   };
 
@@ -80,7 +82,7 @@ const RegistrarseEmpresa = ({ setView }) => {
       case "username":
         if (!value.trim()) {
           fieldErrors.username = "El nombre de usuario es requerido";
-        } else if (value.trim().length < 4 || value.trim().length > 20) {
+        } else if (value.trim().length < 4 || value.trim().length > 600) {
           fieldErrors.username =
             "El nombre de usuario debe tener entre 4 y 20 caracteres";
         }
@@ -114,10 +116,21 @@ const RegistrarseEmpresa = ({ setView }) => {
     return fieldErrors;
   };
 
+  const handleLoginLinkClick = () => {
+    setView("login");
+  };
+
+  useEffect(() => {
+    if (Register) {
+      alert("Bienvenido " + Register.username + " ahora puedes continuar");
+      setView("login");
+    }
+  }, [Register, setView]);
+
   return (
     <div className="bodyregister">
       <form className="formRegister" onSubmit={handleSubmit}>
-        <h2>Registro de Empresa</h2>
+        <h2>Registrarse</h2>
         <div className="formGroup">
           <label htmlFor="username">Nombre de usuario</label>
           <input
@@ -125,6 +138,8 @@ const RegistrarseEmpresa = ({ setView }) => {
             id="username"
             name="username"
             value={userData.username}
+            maxLength={45}
+            title="Solo se adminten 45 caractres"
             onChange={handleChange}
           />
           {errors.username && (
@@ -138,6 +153,8 @@ const RegistrarseEmpresa = ({ setView }) => {
             id="email"
             name="email"
             value={userData.email}
+            maxLength={60}
+            title="Solo se adminten 60 caractres"
             onChange={handleChange}
           />
           {errors.email && <span className="errorMessage">{errors.email}</span>}
@@ -149,8 +166,10 @@ const RegistrarseEmpresa = ({ setView }) => {
               type={keyVisible ? "text" : "password"}
               id="password"
               name="password"
+              maxLength={15}
               value={userData.password}
               onChange={handleChange}
+              title="Solo se adminten 15 caractres"
             />
             <img
               src={keyVisible ? icono_ocultar : icono_ver}
@@ -165,29 +184,23 @@ const RegistrarseEmpresa = ({ setView }) => {
           )}
         </div>
         <div className="formGroup">
-          <label htmlFor="confirmPassword">Confirmar contraseña</label>
-          <div className="pass_display_flex">
-            <input
-              type={keyVisible ? "text" : "password"}
-              id="confirmPassword"
-              name="confirmPassword"
-              value={userData.confirmPassword}
-              onChange={handleChange}
-            />
-          </div>
+          <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+          <input
+            type={keyVisible ? "text" : "password"}
+            id="confirmPassword"
+            name="confirmPassword"
+            value={userData.confirmPassword}
+            maxLength={15}
+            onChange={handleChange}
+          />
           {errors.confirmPassword && (
             <span className="errorMessage">{errors.confirmPassword}</span>
           )}
         </div>
         <button type="submit" className="buttonSubmit">
-          Registrar Empresa
+          Registrarse con empresa
         </button>
-        <div
-          className="loginLink"
-          onClick={() => {
-            setView("login");
-          }}
-        >
+        <div className="loginLink" onClick={handleLoginLinkClick}>
           ¿Ya tienes una cuenta? Inicia sesión aquí
         </div>
       </form>

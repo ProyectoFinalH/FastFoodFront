@@ -8,8 +8,10 @@ import cancelar from './image/cancelar.png'
 import guardar from './image/actualizar.png';
 
 
+
 import {Actualizar_Compra_Usuario, Create_Lista_Order_Company} from '../../../Redux/actions'
 import axios from 'axios';
+
 
 function OrderCompany() {
   //const dispatch = useDispatch()
@@ -35,10 +37,25 @@ function OrderCompany() {
 
       alert("Esta es la respuesta " + JSON.stringify(data));
 
+
      // dispatch(Eliminar_Registro_Compra(id));
     } catch (error) {
       console.error("Error eliminando la orden:", error);
       alert("Ocurrió un error al eliminar la orden.");
+
+  const handleModificar = (id) => {
+    setActiveId(id);
+    const selectedOrder = Order_List_Company?.find(order => order.id === id);
+    if (selectedOrder) {
+      setFormData({
+        id: selectedOrder?.id,
+        user_id: selectedOrder?.user_id,
+        restaurant_id: selectedOrder?.restaurant_id,
+        order_date: selectedOrder?.order_date,
+        active: selectedOrder?.active, // Se mantiene true/false directamente
+        total_price: selectedOrder?.total_price ? `$${selectedOrder?.total_price}` : 'N/A'
+      });
+
     }
 
     distpach(Create_Lista_Order_Company())
@@ -104,6 +121,7 @@ function OrderCompany() {
           </thead>
           <tbody>
             {Order_List_Company.map((order) => (
+
               <tr key={order.id}>
                 <td>{order.id}</td>
                 <td>{order.user_name || 'Sin nombre'}</td>
@@ -113,6 +131,62 @@ function OrderCompany() {
                       {item.quantity || item.cont} x {item.name_item || item.name} (${item.partial_price || item.price})
                     </div>
                   ))}
+
+              <tr key={order?.id}>
+                <td>{order?.id}</td>
+                <td>{order?.user_id}</td>
+                <td>
+                  {activeId === order?.id ? (
+                    <input
+                      type="text"
+                      name="restaurant_id"
+                      value={formData?.restaurant_id}
+                      onChange={handleChange}
+                      className='text-edit-order'
+                    />
+                  ) : (
+                    order?.restaurant_id
+                  )}
+                </td>
+                <td>
+                  {activeId === order?.id ? (
+                    <input
+                      type="text"
+                      name="order_date"
+                      value={formData.order_date}
+                      onChange={handleChange}
+                      className='text-edit-order'
+                    />
+                  ) : (
+                    order?.order_date?.substr(0, 19)
+                  )}
+                </td>
+                <td>
+                  {activeId === order?.id ? (
+                    <input
+                      type="checkbox"
+                      name="active"
+                      checked={formData.active}
+                      onChange={handleChange}
+                      className='checkbox-edit-order'
+                    />
+                  ) : (
+                    <span>{order?.active?.toString()}</span>
+                  )}
+                </td>
+                <td>
+                  {activeId === order?.id ? (
+                    <input
+                      type="text"
+                      name="total_price"
+                      value={formData?.total_price}
+                      onChange={handleChange}
+                      className='text-edit-order'
+                    />
+                  ) : (
+                    order?.total_price ? `$${order?.total_price}` : 'N/A'
+                  )}
+
                 </td>
                 <td>{order.order_date.substr(0, 19)}</td>
                 <td>{order.active
@@ -120,6 +194,7 @@ function OrderCompany() {
                  :'Eliminado'}</td>
                 <td>{order.total_price ? `$${order.total_price}` : 'N/A'}</td>
                 <td>
+
                   <div className="btn btn-delete" onClick={() => handleEliminar(order.id)}>
                     <img src={ order.active
                                 ?eliminar
@@ -130,6 +205,26 @@ function OrderCompany() {
                 <td>
                   <div className="btn btn-modify" onClick={() => handleModificar(order)}>
                     <img src={modificar} alt='Modificar order' className='img_List_Order' />
+
+                  <div className="btn btn-delete" onClick={() => handleEliminar(order?.id)}>
+                    <img src={eliminar} alt='Eliminar order' className='img_List_Order' />
+                  </div>
+                </td>
+                <td>
+                  <div className={activeId === order?.id ? "btn btn-edit" : "btn btn-modify"}>
+                    {activeId === order?.id ? (
+                      <>
+                        <div className="btn btn-Guardar">
+                          <img src={modificar} alt='Guardar order' className='img_List_Order' onClick={() => handleGuardar(order?.id)} />
+                        </div>
+                        <div className='btn btn-cancelar'>
+                          <img src={cancelar} alt='Cancelar order' className='img_Cancelar-Order' onClick={handleCancelar} />
+                        </div>
+                      </>
+                    ) : (
+                      <img src={guardar} alt='Modificar order' className='img_List_Order' onClick={() => handleModificar(order?.id)} />
+                    )}
+
                   </div>
                 </td>
               </tr>

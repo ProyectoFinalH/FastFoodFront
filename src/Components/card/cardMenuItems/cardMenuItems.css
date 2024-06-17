@@ -7,25 +7,22 @@
   height: 400px;
   padding: 10px;
   margin: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   align-content: stretch;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cardMenuContainer:hover {
-  border: solid 1px #c90a06;
-}
-
-.cardLink {
-  display: block;
-  text-decoration: none;
-  color: black;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .cardImage {
   height: 200px;
   width: 100%;
   object-fit: cover;
+  border-radius: 10px 10px 0 0;
 }
 
 .cardContent {
@@ -35,55 +32,58 @@
 
 .cardTitle {
   margin-top: 0;
+  font-size: 1.2rem;
+  color: #333333;
 }
 
 .cardDescription {
   color: gray;
-  height: 20px;
-  word-break: break-word;
+  height: 40px;
+  overflow: hidden;
 }
 
 .cardPrice {
   margin-bottom: 0;
+  font-size: 1.2rem;
+  color: #ff5a5f;
 }
 
 .buttonDecInc-Menu {
   display: flex;
   justify-content: space-evenly;
-  font-size: 20px;
-  width: 70px;
-  height: 30px;
   align-items: center;
-  margin-right: 10px;
-  background-color: rgb(104, 16, 16);
-  border-radius: 5px;
-  cursor: pointer;
-  color: white;
-}
-.buttonDecInc-Menu label {
-  border: none;
-  background: none;
-  padding: 0;
+  margin-top: 10px;
 }
 
-.buttonDecInc-Menu:hover {
-  background-color: #c90a06;
+.inputcard {
+  width: 30px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.aumentardisminuir {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.botonesCarrito {
+  margin-top: 10px;
 }
 
 .iconoOjo {
-  width: 150px;
+  width: 100%;
   height: 30px;
-  font-size: 1.4rem;
-  float: right;
-  margin: 5% 20% 0% 0%;
-  border-radius: 25px;
-  align-items: center;
-  display: flex;
-  justify-content: center;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 .iconoOjo:hover {
-  background-color: rgb(168, 168, 168);
+  background-color: rgba(168, 168, 168, 0.8);
 }
+
 .iconoOjoOcultar {
   background-color: rgb(173, 0, 0);
   color: #ffffff;

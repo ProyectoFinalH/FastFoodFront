@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginAdmin = ({ setView }) => {
   const dispatch = useDispatch();
-  const USER = useSelector((state) => state.USER);
+  const USER = useSelector((state) => state?.USER);
   const [keyVisible, setKeyVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -67,21 +67,21 @@ const LoginAdmin = ({ setView }) => {
             <input
               type="text"
               name="emailOrPhone"
-              value={formData.emailOrPhone}
+              value={formData?.emailOrPhone}
               onChange={handleChange}
               maxLength={100}
               placeholder="Datos de Administrador"
             />
           </div>
           {errors.emailOrPhone && (
-            <div className="login-admin-espacioError">{errors.emailOrPhone}</div>
+            <div className="login-admin-espacioError">{errors?.emailOrPhone}</div>
           )}
           <div className="login-admin-Grupoinput">
             <img src={icono_key} alt="icono ingreso" />
             <input
               type={keyVisible ? "text" : "password"}
               name="password"
-              value={formData.password}
+              value={formData?.password}
               onChange={handleChange}
               maxLength={15}
               placeholder="Contraseña"
@@ -94,7 +94,7 @@ const LoginAdmin = ({ setView }) => {
             />
           </div>
           {errors.password && (
-            <div className="login-admin-espacioError">{errors.password}</div>
+            <div className="login-admin-espacioError">{errors?.password}</div>
           )}
           <div className="login-admin-olvidastekey" onClick={() => setView("recuperarkey")}>
             ¿Olvidaste tu Contraseña?

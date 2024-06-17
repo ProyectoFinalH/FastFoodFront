@@ -2,7 +2,7 @@ import { useState } from 'react';
 import InfoCompany from '../infoCompany/infoCompany';
 import ProductsCompany from '../productsCompany/productsCompany';
 import OrderCompany from '../orderCompany/orderCompany';
-import "./sidebar.css"
+import "./sidebarCompany.css"
 import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Principal';
 
 function Sidebar({restaurant}) {
