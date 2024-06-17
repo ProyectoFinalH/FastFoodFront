@@ -5,6 +5,7 @@ import OrderCompany from '../orderCompany/orderCompany';
 import "./sidebarCompany.css"
 import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Principal';
 import MenuesCompany from '../menuesCompany/menuesCompany';
+import CategoriesCompany from '../categoriesCompany/categoriesCompany';
 
 function Sidebar({restaurant}) {
 
@@ -49,6 +50,7 @@ function Sidebar({restaurant}) {
         {selectedOption === 2 && <InfoCompany restaurant={restaurant}/>}
         {selectedOption === 3 && <OrderCompany />}
         {selectedOption === 5 && <LoginPrincipal />}
+        {selectedOption === 6 && <CategoriesCompany />}
       </div>
     </div>
   );
