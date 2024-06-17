@@ -54,9 +54,11 @@ function MenuesCompany() {
 
     return (
         <div className="mainContainer">
+            <div className="linktocreate">
             <Link to="/menu/create">
                 <button>Crear Menu</button>
             </Link>
+            </div>
             <div className="menusContainer">
                 {allMenus.map((menu) => (
                     <div className="menuCardsCompany" key={menu.id}>

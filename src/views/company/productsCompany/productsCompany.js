@@ -19,10 +19,10 @@ function ProductsCompany() {
     dispatch(getAllMenusAdmin());
     dispatch(getAllMenuitemsAdmin());
   }, [dispatch]);
-  
+
   let filteredMenuItems = [...allMenuitems];
 
-  
+
   if (selectMenuItem) {
     filteredMenuItems = filteredMenuItems.filter(
       (menu) => menu.menu_id === selectMenuItem
@@ -30,14 +30,16 @@ function ProductsCompany() {
   }
 
   return (
-    <div className="mainContainer">      
-      <Link to="/menu/create">
-      <button>Crear Menu Item</button>
-      </Link>
-      <div className="cardMenusContainer2">
-      <CardsMenuItems AllMenuitems={filteredMenuItems} selectMenuItem={selectMenuItem} hideCartButtons={true} showEyeIcon={true} />
+    <div className="mainContainer">
+      <div className="linktocreate">
+        <Link to="/menu/create">
+          <button>Crear Menu Item</button>
+        </Link>
       </div>
-       
+      <div className="cardMenusContainer2">
+        <CardsMenuItems AllMenuitems={filteredMenuItems} selectMenuItem={selectMenuItem} hideCartButtons={true} showEyeIcon={true} />
+      </div>
+
     </div>
   )
 }

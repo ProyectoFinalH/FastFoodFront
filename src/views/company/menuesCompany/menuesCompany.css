@@ -2,38 +2,45 @@
     width: 100%;
 }
 .menusContainer{
-    display: flex;    
+    display: flex;
+    flex-wrap: wrap;
  overflow-y: auto;
- width: 750px;
+ width: 90%;
  height: 70vh;
- border: solid 1px black;
- box-shadow: 0px 0px 5px rgb(126, 126, 126);
+ border: solid 1px rgb(131, 131, 131);
+ box-shadow: 0px 0px 20px rgb(126, 126, 126);
+ margin: 20px 0px 0px 5%;
+ border-radius: 20px;
 }
 
 .menuCardsCompany{
-    border: solid 1px black;
+    flex: 1;
+    border: solid 1px rgb(110, 110, 110);
     padding: 20px;
     margin: 20px;
+    width: 300px;
     border-radius: 20px;
     box-shadow: 0px 0px 5px rgb(126, 126, 126);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    height: 80px;
+    cursor: default;
+    transition: all 0.3s ease-in-out;
 }
+.menuCardsCompany:hover{
+    transform: scale(1.01);
+    border: solid 1px rgb(255, 55, 55);
+
+}
+
+@media (max-width: 70vh/* Ancho específico donde quieres que cambie el diseño */ ) {
+    .menusContainer {
+       flex-direction: column; /* Cambia la dirección del flex a columna */
+    }
+   }
+
 .button-show {
     cursor: pointer;
-    background-color: rgb(131, 131, 131);
-    color: #cecece;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    width: 110px;
-    height: 30px;
-    margin: 5% 20% 0% 20%;
-    border-radius: 25px;
-}
-  
-.button-hide {
-    cursor: pointer;
-    background-color: rgb(173, 0, 0);
+    background-color: #ff3239;
     color: #ffffff;
     align-items: center;
     display: flex;
@@ -42,4 +49,24 @@
     height: 30px;
     margin: 5% 20% 0% 20%;
     border-radius: 25px;
+    font-size: 1.2rem;
 }
+  
+.button-hide {
+    cursor: pointer;
+    background-color: #858585;
+    color: #dadada;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 110px;
+    height: 30px;
+    margin: 5% 20% 0% 20%;
+    border-radius: 25px;
+    font-size: 1.2rem;
+}
+
+.button-hide:hover, .button-show:hover {
+    background-color: rgb(168, 168, 168);
+    box-shadow: 0px 0px 5px rgb(126, 126, 126);
+  }
