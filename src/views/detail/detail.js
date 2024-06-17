@@ -1,7 +1,6 @@
-
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.min.css'; // Importa los estilos de AlertifyJS
-import 'alertifyjs/build/css/themes/default.min.css'; 
+import 'alertifyjs/build/css/themes/default.min.css';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from "react";
@@ -11,7 +10,6 @@ import axios from "axios";
 import carrito from '../../images/carrito.png';
 import Carrito from "../../Components/Carrito/Carrito";
 import { obtenerContCarrito, handleSumar, handleDisminuir } from '../../Components/localStorage-car/LocalStorageCar';
-
 
 function Detail({ isOpen, handleCloseModal, menuItemId }) {
   const [viewCard, setViewCard] = useState(false);
@@ -38,7 +36,6 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
 
   const handleMenuCarrito = () => {
     setViewCard(!viewCard);
-
   };
 
   const handleClickOutside = (event) => {
@@ -52,7 +49,6 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-
   }, []);
 
   const handleDisminuirItem = (idcard) => {
@@ -63,13 +59,11 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
       setCant(newCant);
     }
   };
-  
+
   const handleAumentarItem = (idcard) => {
-    
     const newCant = handleSumar(idcard);
     setCant(newCant);
   };
-
 
   if (!isOpen || !menuItem) return null;
 
@@ -94,33 +88,16 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
           <h2>Unidades</h2>
           <div className="botones-flex">
             <div className="buttonDecInc-Menu">
-
               <label className="aumentardisminuir" onClick={() => handleDisminuirItem(menuItem.id)}>
-
-              <label
-                className="aumentardisminuir"
-                onClick={() => handleDisminuir(menuItem.id)}
-              >
-
                 -
               </label>
               <input
                 className="inputcard"
                 type="text"
-
                 value={cant} 
                 disabled
               />
               <label className="aumentardisminuir" onClick={() => handleAumentarItem(menuItem.id)}>
-
-                value={cant} // Usa el estado para mostrar la cantidad
-                disabled
-              />
-              <label
-                className="aumentardisminuir"
-                onClick={() => handleSumar(menuItem.id)}
-              >
-
                 +
               </label>
             </div>
