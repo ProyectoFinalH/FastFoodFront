@@ -412,11 +412,11 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
 export const Create_Lista_Order_Company = () => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:5000/menuitems";
+      const endpoint = "http://localhost:5000/orders/all";
       const response = await axios.get(endpoint);
       const compra = response.data;
       //alert("Esta es la lista de compras "+compra)
-      console.log("Esta es la lista de compras " + compra);
+      console.log("Esta es la lista de compras " + JSON.stringify(compra));
 
       dispatch({
         type: CREATELISTAORDERSCOMPANY,
@@ -424,6 +424,56 @@ export const Create_Lista_Order_Company = () => {
       });
     } catch (error) {
       alert("Error al enviar la información", error.message);
+      console.log("Error al enviar la información", error.message);
+    }
+  };
+};
+
+
+//! este es el eliminar registro del usuario 
+export const Eliminar_Registro_Compra = async (id)=>{
+  return  () => {
+    try {
+      console.log(id)
+      const endpoint = `http://localhost:5000/orders/delete/${id}`;
+      const response =  axios.put(endpoint);
+      const data = response;
+      //alert("Esta es la lista de compras "+compra)
+      console.log("Este si es " + JSON.stringify(data));
+
+    return data; 
+    } catch (error) {
+      alert("Error al enviar la información", error.message);
+      console.log("Error al enviar la información", error.message);
+    }
+  };
+
+
+}
+
+//!Actualizar la compra de usuario
+
+export const Actualizar_Compra_Usuario = (datauser) => {
+  return async (dispatch) => {
+    try {
+      console.log("Estos son los datos a enviar: " + JSON.stringify(datauser));
+      alert("este es el user ID " + datauser.id)
+      const endpoint = `http://localhost:5000/orders/${datauser.id}`;
+      const response = await axios.put(endpoint, {
+        total_price: datauser.total_price,
+        items: datauser.items,
+        statusorder_id: datauser.statusorder_id
+      });
+      const compra = response.data;
+      console.log("Actualizado: " + JSON.stringify(compra));
+      
+      // Descomenta esto si necesitas usar dispatch
+      /* dispatch({
+        type: CREATELISTAORDERSCOMPANY,
+        payload: compra,
+      }); */
+    } catch (error) {
+      alert(`Error al enviar la información del carrito: ${error.message}`);
       console.log("Error al enviar la información", error.message);
     }
   };
