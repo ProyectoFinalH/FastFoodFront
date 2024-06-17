@@ -4,6 +4,7 @@ import ProductsCompany from '../productsCompany/productsCompany';
 import OrderCompany from '../orderCompany/orderCompany';
 import "./sidebar.css"
 import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Principal';
+import MenuesCompany from '../menuesCompany/menuesCompany';
 
 function Sidebar({restaurant}) {
 
@@ -31,6 +32,8 @@ function Sidebar({restaurant}) {
           </div>  
       </div>
         <li tabindex="0" onClick={() => handleOptionClick(1)}>Menu Items</li>
+        <li tabindex="0" onClick={() => handleOptionClick(4)}>Menues</li>
+        <li tabindex="0" onClick={() => handleOptionClick(1)}>Categories</li>
         <li tabindex="0" onClick={() => handleOptionClick(2)}>Editar Perfil</li>
 
         <li tabindex="0" onClick={() => handleOptionClick(3)}>Ordenes Realizadas</li>
@@ -39,10 +42,11 @@ function Sidebar({restaurant}) {
       </ul>
 
       </div>
-      <div className="content">
+      <div className="conent2">
 
-        {selectedOption === 2 && <InfoCompany restaurant={restaurant}/>}
         {selectedOption === 1 && <ProductsCompany />}
+        {selectedOption === 4 && <MenuesCompany />}
+        {selectedOption === 2 && <InfoCompany restaurant={restaurant}/>}
         {selectedOption === 3 && <OrderCompany />}
         {selectedOption === 5 && <LoginPrincipal />}
       </div>

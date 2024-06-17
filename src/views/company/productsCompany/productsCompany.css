@@ -1,6 +1,5 @@
 .mainContainer{
     display: grid;
-
 }
 
 .mainContainer button{
@@ -23,8 +22,8 @@
   }
 .cardMenusContainer2{
  overflow-y: auto;
- height: 60vh;
- width: 80%;
+ width: 750px;
+ height: 70vh;
  margin-left: 10%;
  margin-top: 20px;
  border-bottom: solid 1px rgb(168, 168, 168);

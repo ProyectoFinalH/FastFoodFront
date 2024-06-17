@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 
 function ProductsCompany() {
   const dispatch = useDispatch();
-  const allMenus = useSelector((state) => state.allMenusAdmin);
   const allMenuitems = useSelector((state) => state.getAllMenuitemsAdmin);
   const [selectMenuItem] = useState(null);
 
@@ -23,7 +22,6 @@ function ProductsCompany() {
   
   let filteredMenuItems = [...allMenuitems];
 
-  console.log("este son los menu", allMenus);
   
   if (selectMenuItem) {
     filteredMenuItems = filteredMenuItems.filter(
@@ -32,15 +30,14 @@ function ProductsCompany() {
   }
 
   return (
-    <div className="mainContainer">
+    <div className="mainContainer">      
       <Link to="/menu/create">
-      <button>Crear Menu</button>
+      <button>Crear Menu Item</button>
       </Link>
       <div className="cardMenusContainer2">
       <CardsMenuItems AllMenuitems={filteredMenuItems} selectMenuItem={selectMenuItem} hideCartButtons={true} showEyeIcon={true} />
-        </div>
-
-
+      </div>
+       
     </div>
   )
 }

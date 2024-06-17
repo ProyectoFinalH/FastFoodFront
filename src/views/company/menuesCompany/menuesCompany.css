@@ -1,0 +1,45 @@
+.mainContainer{
+    width: 100%;
+}
+.menusContainer{
+    display: flex;    
+ overflow-y: auto;
+ width: 750px;
+ height: 70vh;
+ border: solid 1px black;
+ box-shadow: 0px 0px 5px rgb(126, 126, 126);
+}
+
+.menuCardsCompany{
+    border: solid 1px black;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px rgb(126, 126, 126);
+    font-size: 1.2rem;
+}
+.button-show {
+    cursor: pointer;
+    background-color: rgb(131, 131, 131);
+    color: #cecece;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 110px;
+    height: 30px;
+    margin: 5% 20% 0% 20%;
+    border-radius: 25px;
+}
+  
+.button-hide {
+    cursor: pointer;
+    background-color: rgb(173, 0, 0);
+    color: #ffffff;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 110px;
+    height: 30px;
+    margin: 5% 20% 0% 20%;
+    border-radius: 25px;
+}

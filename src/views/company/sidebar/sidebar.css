@@ -1,6 +1,5 @@
 .sidebarContainer{
     display: flex;
-    
 }
 .OptionContainer{
     width: 25%;
@@ -42,8 +41,9 @@
     color: #c90a06;
 }
 
-.content {
-    width: 100%;
+.content2 {
+    width: 75%;
+    padding-right: 800px;
 }
 
 .cardRestConainerSidebar {
