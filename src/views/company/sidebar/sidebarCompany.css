@@ -1,15 +1,17 @@
 .sidebarContainer{
     display: flex;
-    
 }
 .OptionContainer{
     width: 25%;
-    height: 100rem;
-    background-color: #c90a06;
+
+    height: 80vh;
+    background-color: #ff5a5f;
+
     min-width: 200px;
     color: white;
-    
-
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0px 5px 15px rgb(71, 71, 71);
 }
 .OptionContainer ul{
     list-style-type: none;
@@ -30,17 +32,20 @@
 }
 
 .OptionContainer ul li:hover{
+
     background-color: rgb(255, 255, 255);
     color: #c90a06;
+
 }
 
 .OptionContainer ul li:focus{
     background-color: rgb(255, 255, 255);
     color: #c90a06;
 }
-.content {
-    width: 100%;
-    
+
+.content2 {
+    width: 75%;
+    padding-right: 800px;
 }
 
 .cardRestConainerSidebar {
@@ -65,7 +70,8 @@ border-radius: 30px;
 }
 .cardRestConainerSidebar img {
     margin-top: 10px;
-        width: 120px;
-        height: 120px;
+        width: 100%;
+        
          
+
 }

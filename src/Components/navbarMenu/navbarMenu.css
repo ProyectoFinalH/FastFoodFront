@@ -2,7 +2,7 @@
   background-color: #fff;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
   margin-bottom: 20px;
 }
 
@@ -37,7 +37,10 @@
 .navbarMenuSelect {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+}
+
+.navbarMenuSelect > div {
+  margin-bottom: 10px;
 }
 
 .navbarMenuSelect button,
@@ -62,6 +65,7 @@
 .navbarMenuSelect ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 .navbarMenuSelect ul li {
@@ -73,6 +77,7 @@
 .navbarMenuSelect ul li:hover {
   background-color: #f0f0f0;
 }
+
 
 select:focus,
 button:focus {
