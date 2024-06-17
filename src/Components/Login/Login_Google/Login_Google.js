@@ -11,8 +11,8 @@ const LoginGoogle = () => {
 
   const handleLogin = async () => {
     try {
-      const result = await auth.signInWithPopup(googleProvider);
-      const token = await result.user.getIdToken();
+      const result = await auth?.signInWithPopup(googleProvider);
+      const token = await result?.user?.getIdToken();
 
       dispatch(login_User_Google({ token }));
 

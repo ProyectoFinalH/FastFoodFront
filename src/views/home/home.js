@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
-import { getAllRestaurants } from "../../Redux/actions";
+import { getAllRestaurants,login_user_localstorag } from "../../Redux/actions";
 import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
 import CardOpiniones from "../../Components/card/cardOpiniones/cardOpiniones";
 import CardPagos from "../../Components/card/cardPagos/cardPagos";
@@ -14,6 +14,7 @@ import "./home.css";
 import Footer from '../../Components/Footer/Footer';
 
 import { login_user_localstorag } from "../../Redux/actions";
+
 import {
   obtenerEstatusUsuario,
   obtenerCorreoUsuario,

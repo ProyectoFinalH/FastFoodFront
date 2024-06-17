@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import logo from '../../../images/logo.png'
+import "./sidebarAdmin.css"
 
-import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Principal';
 import RestaurantsAdmin from '../restaurantsAdmin/restaurantsAdmin';
 import MenusAdmin from '../menusAdmin/menusAdmin';
 import UsersAdmin from '../usersAdmin/usersAdmin';
-import OrdenesAdmin from '../ordenesAdmin/ordenesAdmin';
+
+import OrdersAdmin from '../ordenesAdmin/ordenesAdmin';
 
 
-function Sidebar({allRestaurants, allMenuItems, allMenus}) {
+function Sidebar({allRestaurantsAdmin, allMenuItemsAdmin, allMenusAdmin, allUsersAdmin , allOrdersAdmin}) {
   const [selectedOption, setSelectedOption] = useState(1);
 
   const handleOptionClick = (option) => {
@@ -19,33 +20,29 @@ function Sidebar({allRestaurants, allMenuItems, allMenus}) {
 
 
   return (
-    <div className="sidebarContainer">
-      
-      <div className='OptionContainer'>
+    <div className="sidebarContainerAdmin">
+      <div className='OptionContainerAdmin'>
       <ul>
-      <div className="cardRestConainerSidebar">
+      <div className="cardRestConainerSidebarAdmin">
         
-        <img src={logo} alt="imglogRes"/>
+        <img src={logo} alt="imglogResAdmin"/>
+        <h2>FastFood</h2>
         
-        <div className="cardRestConainerSidebarh2">
-        <h2>ADMIN</h2>
-          </div>  
       </div>
-        <li  onClick={() => handleOptionClick(1)}>Restaurantes</li>
-        <li  onClick={() => handleOptionClick(2)}>Menues</li>
-        <li  onClick={() => handleOptionClick(4)}>Usuarios</li>
-        <li  onClick={() => handleOptionClick(7)}>Ordenes</li>
-        <li  onClick={() => handleOptionClick(5)}>Caificaciones</li>
-        <li  onClick={() => handleOptionClick(6)}>Cerrar Sesion</li>
+        <li className={selectedOption === 1 ? 'selected' : ''} tabIndex="0" onClick={() => handleOptionClick(1)}>Restaurantes</li>
+        <li className={selectedOption === 2 ? 'selected' : ''} tabIndex="0" onClick={() => handleOptionClick(2)}>Menues</li>
+        <li className={selectedOption === 4 ? 'selected' : ''} tabIndex="0" onClick={() => handleOptionClick(4)}>Usuarios</li>
+        <li className={selectedOption === 7 ? 'selected' : ''} tabIndex="0" onClick={() => handleOptionClick(7)}>Ordenes</li>
+        <li className={selectedOption === 5 ? 'selected' : ''} tabIndex="0" onClick={() => handleOptionClick(5)}>Caificaciones</li>
       </ul>
 
       </div>
-       <div className="content">
-        {selectedOption === 1 && <RestaurantsAdmin allRestaurants={allRestaurants}/>}
-        {selectedOption === 2 && <MenusAdmin allMenus={allMenus} allMenuItems={allMenuItems} allRestaurants={allRestaurants}/> }
-        {selectedOption === 4 && <UsersAdmin />}
-        {selectedOption === 7 && <OrdenesAdmin/>}
-        {selectedOption === 6 && <LoginPrincipal />}
+    
+       <div className="OptionContentAdmin">
+        {selectedOption === 1 && <RestaurantsAdmin allRestaurantsAdmin={allRestaurantsAdmin}/>}
+        {selectedOption === 2 && <MenusAdmin allMenusAdmin={allMenusAdmin} allMenuItemsAdmin={allMenuItemsAdmin} allRestaurantsAdmin={allRestaurantsAdmin}/> }
+        {selectedOption === 4 && <UsersAdmin allUsersAdmin={allUsersAdmin}/>}
+        {selectedOption === 7 && <OrdersAdmin allOrdersAdmin={allOrdersAdmin}/>}
       </div> 
     </div>
   );

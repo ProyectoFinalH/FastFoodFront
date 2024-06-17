@@ -85,12 +85,12 @@ function Menu() {
     dispatch(getAllRestaurants());
   }, [dispatch]);
 
-  const restaurant1 = allRestaurants.find((restaurant) => restaurant.id === 2);
+  const restaurant1 = allRestaurants?.find((restaurant) => restaurant?.id === 1);
 
   //FILTRO POR RANGO
   const applyPriceRangeFilter = (menuItems, range) => {
-    const [min, max] = range.split("-").map(Number);
-    return menuItems.filter((menu) => menu.price >= min && menu.price <= max);
+    const [min, max] = range?.split("-").map(Number);
+    return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   };
 
   //HANDLERS PARA EL SEARCH
@@ -132,14 +132,14 @@ function Menu() {
   };
 
   if (selectMenuItem) {
-    filteredMenuItems = filteredMenuItems.filter(
-      (menu) => menu.menu_id === selectMenuItem
+    filteredMenuItems = filteredMenuItems?.filter(
+      (menu) => menu?.menu_id === selectMenuItem
     );
   }
 
   if (selectedCategory) {
-    filteredMenuItems = filteredMenuItems.filter(
-      (menuItem) => menuItem.category_id === selectedCategory
+    filteredMenuItems = filteredMenuItems?.filter(
+      (menuItem) => menuItem?.category_id === selectedCategory
     );
   }
   console.log(selectedCategory);
@@ -147,19 +147,19 @@ function Menu() {
   // ORDENAMIENTO DE ITEMSMENU
 
   if (sortBy === "menorPrecio") {
-    filteredMenuItems = filteredMenuItems.sort((a, b) => a.price - b.price);
+    filteredMenuItems = filteredMenuItems?.sort((a, b) => a.price - b.price);
   } else if (sortBy === "mayorPrecio") {
-    filteredMenuItems = filteredMenuItems.sort((a, b) => b.price - a.price);
+    filteredMenuItems = filteredMenuItems?.sort((a, b) => b.price - a.price);
   }
 
-  if (priceRange && filteredMenuItems.length > 0) {
+  if (priceRange && filteredMenuItems?.length > 0) {
     filteredMenuItems = applyPriceRangeFilter(filteredMenuItems, priceRange);
   }
 
   //SEARCH POR NOMBRE
   if (searchString.trim() !== "") {
-    filteredMenuItems = filteredMenuItems.filter((menuItem) =>
-      menuItem.name.toLowerCase().includes(searchString.toLowerCase())
+    filteredMenuItems = filteredMenuItems?.filter((menuItem) =>
+      menuItem?.name?.toLowerCase().includes(searchString.toLowerCase())
     );
   }
 
@@ -207,12 +207,12 @@ function Menu() {
         </div>
         <div className="cards-menus">
           <div className="cards-menu-items">
-            {allMenus.map((menu) => (
-              <div key={menu.id} className="menu-item-container">
-                <h2>{menu.name}</h2>
+            {allMenus?.map((menu) => (
+              <div key={menu?.id} className="menu-item-container">
+                <h2>{menu?.name}</h2>
                 <CardsMenuItem
-                  AllMenuitems={filteredMenuItems.filter(
-                    (menuItem) => menuItem.menu_id === menu.id
+                  AllMenuitems={filteredMenuItems?.filter(
+                    (menuItem) => menuItem?.menu_id === menu?.id
                   )}
                   handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
                 />
