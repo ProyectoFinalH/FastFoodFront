@@ -24,24 +24,24 @@ const MisCompras = ({ onClose }) => {
 
   const handleDisminuir = (id) => {
     setSelectedCards((prevCards) => {
-      const updatedCards = prevCards.map((card) => {
-        if (card.id === id && card.cont > 0) {
-          const newCount = card.cont - 1;
+      const updatedCards = prevCards?.map((card) => {
+        if (card?.id === id && card?.cont > 0) {
+          const newCount = card?.cont - 1;
           const updatedCard = { ...card, cont: newCount };
           actualizarItemCarrito(updatedCard);
           return updatedCard;
         }
         return card;
       });
-      return updatedCards.filter((card) => card.cont > 0);
+      return updatedCards.filter((card) => card?.cont > 0);
     });
   };
 
   const handleSumar = (id) => {
     setSelectedCards((prevCards) => {
-      const updatedCards = prevCards.map((card) => {
-        if (card.id === id && card.cont > 0) {
-          const newCount = card.cont + 1;
+      const updatedCards = prevCards?.map((card) => {
+        if (card?.id === id && card?.cont > 0) {
+          const newCount = card?.cont + 1;
           const updatedCard = { ...card, cont: newCount };
           actualizarItemCarrito(updatedCard);
           return updatedCard;
@@ -59,7 +59,7 @@ const MisCompras = ({ onClose }) => {
 
   const handleDeleteItem = (id) => {
     eliminarItemCarrito(id);
-    setSelectedCards((prevCards) => prevCards.filter((card) => card.id !== id));
+    setSelectedCards((prevCards) => prevCards?.filter((card) => card?.id !== id));
   };
 
   const handleSalirCarrito = () => {
@@ -75,7 +75,7 @@ const MisCompras = ({ onClose }) => {
           <div className="closeButton" onClick={handleSalirCarrito}>X</div>
         </div>
         <div className="carCarritoContent">
-          {selectedCards.length === 0 ? (
+          {selectedCards?.length === 0 ? (
             <div className="emptyCarrito">
               <img src={sindatos} alt="Eliminar producto" />
               <p>¡Comienza tu carrito con tus comidas favoritas!</p>
@@ -83,36 +83,36 @@ const MisCompras = ({ onClose }) => {
               <div className="login-button-regresar" onClick={handleSalirCarrito}>Regresar al Menú</div>
             </div>
           ) : (
-            selectedCards.map((card) => (
-              <div className="cardProducto" key={card.id}>
-                <img src={card.image} alt="imgproducto" />
+            selectedCards?.map((card) => (
+              <div className="cardProducto" key={card?.id}>
+                <img src={card?.image} alt="imgproducto" />
                 <div className="card-nombre-costo">
-                  <label>{card.name}</label>
-                  <label>${card.price}</label>
+                  <label>{card?.name}</label>
+                  <label>${card?.price}</label>
                 </div>
                 <div className="CarritoBotones">
                   <div className="signos">
-                    <img src={Eliminarproducto} onClick={() => handleDeleteItem(card.id)} alt="Eliminar comida" />
+                    <img src={Eliminarproducto} onClick={() => handleDeleteItem(card?.id)} alt="Eliminar comida" />
                   </div>
-                  <div className="signos" onClick={() => handleDisminuir(card.id)}>-</div>
+                  <div className="signos" onClick={() => handleDisminuir(card?.id)}>-</div>
                   <div>
-                    <input name="contador" type="text" maxLength={100} value={obtenerContCarrito(card.id)} disabled />
+                    <input name="contador" type="text" maxLength={100} value={obtenerContCarrito(card?.id)} disabled />
                   </div>
-                  <div className="signos" onClick={() => handleSumar(card.id)}>+</div>
+                  <div className="signos" onClick={() => handleSumar(card?.id)}>+</div>
                 </div>
                 <div className="costoTotal">
                   <label>Costo Total</label>
-                  <label>${card.price * card.cont}</label>
+                  <label>${card?.price * card?.cont}</label>
                 </div>
               </div>
             ))
           )}
         </div>
-        {selectedCards.length > 0 && (
+        {selectedCards?.length > 0 && (
           <div className="Pagarproductos">
             <label className="pagolabel">Costo Total</label>
             <label className="pagolabel">
-              ${selectedCards.reduce((acc, card) => acc + card.price * card.cont, 0)}
+              ${selectedCards?.reduce((acc, card) => acc + card?.price * card?.cont, 0)}
             </label>
             <buttonpagarButton  onClick={handlePagar}>Pagar</buttonpagarButton>
           </div>

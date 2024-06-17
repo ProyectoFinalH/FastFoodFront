@@ -17,10 +17,13 @@ import {
   GET_MENUS,
   GET_MENUITEMS_BYNAME,
   CREATE_CATEGORIES,
-
+GET_ORDERS_ADMIN,
   GET_MENUITEMS_ADMIN,
   GET_MENUS_ADMIN,
+  
 
+  GET_RESTAURANTS_ALL,
+  GET_USERS_ALL
 } from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
@@ -75,20 +78,29 @@ export const register_user = (dataquery) => {
 export const register_business = (dataquery) => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:5000/atleticos/register";
-      const response = await axios.post(endpoint, dataquery);
-      const userData = response.data;
-
-      console.log("Datos encontrados", JSON.stringify(userData));
-
-      if (userData && userData.save === "yes") {
-        dispatch({
-          type: REGISTERBUSINESS,
-          payload: userData,
-        });
-      } else {
-        alert("Error al registrar el usuario");
-      }
+      const userData = {
+        username: dataquery.username,
+        email: dataquery.email,
+        password: dataquery.password,
+        role_id: 2,
+      };
+      const endpoint = "http://localhost:5000/users/create";
+      const response = await axios.post(endpoint, userData);
+      const { id, username, email, password, google_id, role_id } =
+        response.data;
+      const userDatauser = {
+        id,
+        username,
+        email,
+        password,
+        google_id,
+        role_id,
+      };
+      console.log("Datos encontrados", JSON.stringify(userDatauser));
+      dispatch({
+        type: REGISTERBUSINESS,
+        payload: userDatauser,
+      });
     } catch (error) {
       console.log("Error al enviar la información", error.message);
     }
@@ -257,6 +269,19 @@ export function getAllRestaurants() {
       type: GET_RESTAURANTS,
       payload: response.data,
     });
+  };
+}
+export function getAllRestaurantsAdmin() {
+  return async function (dispatch) {
+    try {
+      const response = await axios("http://localhost:5000/restaurants/all");
+      dispatch({
+        type: GET_RESTAURANTS_ALL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los restaurantes:", error);
+    }
   };
 }
 
@@ -448,6 +473,20 @@ export const Deshabilito_Compra_User = (id) => {
   };
 };
 
+
+
+export function getAllUsersAdmin() {
+  return async function (dispatch) {
+    try {
+      const response = await axios("http://localhost:5000/users/all");
+      dispatch({
+        type: GET_USERS_ALL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los restaurantes:", error);}}}
+
+
 export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo)=>{
   return async (dispatch) => {
     console.log("Usuario de Mercado pago"+JSON.stringify(DAtosMercadoPAgo))
@@ -478,3 +517,17 @@ export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo)=>{
     }
   };
 }
+
+
+
+
+export function getOrdersAdmin() {
+  return async function (dispatch) {
+    try {
+      const response = await axios("http://localhost:5000/orders/all");
+      dispatch({
+        type: GET_ORDERS_ADMIN,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al obtener los ordenes:", error);}}}

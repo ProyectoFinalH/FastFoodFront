@@ -45,11 +45,11 @@ const Registrarse = ({ setView }) => {
   const validateForm = (data) => {
     let errors = {};
 
-    if (!data.username.trim()) {
+    if (!data?.username.trim()) {
       errors.username = "El nombre de usuario es requerido";
     } else if (
-      data.username.trim().length < 4 ||
-      data.username.trim().length > 60
+      data?.username.trim().length < 4 ||
+      data?.username.trim().length > 60
     ) {
       errors.username =
         "El nombre de usuario debe tener entre 4 y 20 caracteres";
@@ -57,20 +57,20 @@ const Registrarse = ({ setView }) => {
 
     if (!data.email.trim()) {
       errors.email = "El correo electrónico es requerido";
-    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(data?.email)) {
       errors.email = "El correo electrónico ingresado no es válido";
     }
 
     if (!data.password.trim()) {
       errors.password = "La contraseña es requerida";
-    } else if (!/^[a-zA-Z0-9]{5,20}$/.test(data.password)) {
+    } else if (!/^[a-zA-Z0-9]{5,20}$/.test(data?.password)) {
       errors.password =
         "La contraseña debe contener solo letras y números, y tener entre 5 y 20 caracteres";
     }
 
     if (!data.confirmPassword.trim()) {
       errors.confirmPassword = "Por favor confirma tu contraseña";
-    } else if (data.password !== data.confirmPassword) {
+    } else if (data?.password !== data?.confirmPassword) {
       errors.confirmPassword = "Las contraseñas no coinciden";
     }
 
@@ -84,7 +84,7 @@ const Registrarse = ({ setView }) => {
       case "username":
         if (!value.trim()) {
           fieldErrors.username = "El nombre de usuario es requerido";
-        } else if (value.trim().length < 4 || value.trim().length > 600) {
+        } else if (value?.trim().length < 4 || value?.trim().length > 600) {
           fieldErrors.username =
             "El nombre de usuario debe tener entre 4 y 20 caracteres";
         }
@@ -97,7 +97,7 @@ const Registrarse = ({ setView }) => {
         }
         break;
       case "password":
-        if (!value.trim()) {
+        if (!value?.trim()) {
           fieldErrors.password = "La contraseña es requerida";
         } else if (!/^[a-zA-Z0-9]{5,20}$/.test(value)) {
           fieldErrors.password =
@@ -107,7 +107,7 @@ const Registrarse = ({ setView }) => {
       case "confirmPassword":
         if (!value.trim()) {
           fieldErrors.confirmPassword = "Por favor confirma tu contraseña";
-        } else if (userData.password !== value) {
+        } else if (userData?.password !== value) {
           fieldErrors.confirmPassword = "Las contraseñas no coinciden";
         }
         break;
@@ -124,7 +124,7 @@ const Registrarse = ({ setView }) => {
 
   useEffect(() => {
     if (Register) {
-      alert("Bienvenido " + Register.username + " ahora puedes continuar");
+      alert("Bienvenido " + Register?.username + " ahora puedes continuar");
       setView("login");
     }
   }, [Register, setView]);
@@ -145,7 +145,7 @@ const Registrarse = ({ setView }) => {
             onChange={handleChange}
           />
           {errors.username && (
-            <span className="errorMessage">{errors.username}</span>
+            <span className="errorMessage">{errors?.username}</span>
           )}
         </div>
         <div className="formGroup">
@@ -154,12 +154,12 @@ const Registrarse = ({ setView }) => {
             type="email"
             id="email"
             name="email"
-            value={userData.email}
+            value={userData?.email}
             maxLength={60}
             title="Solo se adminten 60 caractres"
             onChange={handleChange}
           />
-          {errors.email && <span className="errorMessage">{errors.email}</span>}
+          {errors?.email && <span className="errorMessage">{errors?.email}</span>}
         </div>
         <div className="formGroup">
           <label htmlFor="password">Contraseña</label>
@@ -170,7 +170,7 @@ const Registrarse = ({ setView }) => {
             id="password"
             name="password"
             maxLength={15}
-            value={userData.password}
+            value={userData?.password}
             onChange={handleChange}
             title="Solo se adminten 15 caractres"
           />
@@ -184,7 +184,7 @@ const Registrarse = ({ setView }) => {
 </div>
 
           {errors.password && (
-            <span className="errorMessage">{errors.password}</span>
+            <span className="errorMessage">{errors?.password}</span>
           )}
         </div>
         <div className="formGroup">
@@ -193,12 +193,12 @@ const Registrarse = ({ setView }) => {
             type={keyVisible ? "text" : "password"}
             id="confirmPassword"
             name="confirmPassword"
-            value={userData.confirmPassword}
+            value={userData?.confirmPassword}
             maxLength={15}
             onChange={handleChange}
           />
           {errors.confirmPassword && (
-            <span className="errorMessage">{errors.confirmPassword}</span>
+            <span className="errorMessage">{errors?.confirmPassword}</span>
           )}
         </div>
         <button type="submit" className="buttonSubmit">

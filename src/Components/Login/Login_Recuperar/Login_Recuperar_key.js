@@ -21,7 +21,7 @@ const Recuperarkey = ({ setView }) => {
   };
 
   const handleSubmit = () => {
-    if (!userData.name.trim()) {
+    if (!userData?.name.trim()) {
       setErrors({
         name: "Por favor, ingresa tu correo electrónico o número de celular",
       });
@@ -49,13 +49,13 @@ const Recuperarkey = ({ setView }) => {
           <input
             type="text"
             name="name"
-            value={userData.name}
+            value={userData?.name}
             onChange={handleChange}
             maxLength={100}
             placeholder="Celular/Correo"
           />
-          {attemptedSubmit && errors.name && (
-            <div className="espacioError">{errors.name}</div>
+          {attemptedSubmit && errors?.name && (
+            <div className="espacioError">{errors?.name}</div>
           )}
         </div>
 

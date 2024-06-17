@@ -26,15 +26,15 @@
 
 .Restaurantes h2 {
   font-size: 44px;
-  color: #333; 
+  color: #333;
 }
 
-@media (max-width:800px ) {
-    .cardContainer{
-      flex-direction: column;
-    
-    }
-    .cardRestContainer{
-      width: 100%;
-    }
+@media (max-width: 800px) {
+  .cardContainer {
+    flex-direction: column;
+  }
+  
+  .cardRestContainer {
+    width: 100%;
+  }
 }

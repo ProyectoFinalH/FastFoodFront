@@ -18,7 +18,7 @@ import {guardarNombreUsuario, guardarCorreoUsuario, guardarEstatusUsuario, guard
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
-  const User = useSelector((state) => state.USER);
+  const User = useSelector((state) => state?.USER);
   const [keyVisible, setKeyVisible] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [userType, setUserType] = useState("");
@@ -36,7 +36,7 @@ const LoginIngreso = ({ setView }) => {
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event?.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -94,10 +94,10 @@ if(obtenerCorreoUsuario()){
 
   useEffect(() => {
     if (User) {
-      guardarNombreUsuario(User.name);
-      guardarCorreoUsuario(User.email);
-      guardarEstatusUsuario(User.state);
-      guardarIdUsuario(User.id)
+      guardarNombreUsuario(User?.name);
+      guardarCorreoUsuario(User?.email);
+      guardarEstatusUsuario(User?.state);
+      guardarIdUsuario(User?.id)
       navigate("/home");
     } else {
       navigate("/");
@@ -112,8 +112,8 @@ if(obtenerCorreoUsuario()){
     };
 
     setIsButtonEnabled(
-      isValidEmailOrPhone(formData.emailOrPhone.trim()) &&
-        formData.password.trim() !== "" &&
+      isValidEmailOrPhone(formData?.emailOrPhone?.trim()) &&
+        formData?.password?.trim() !== "" &&
         userType !== ""
     );
   }, [formData, userType]);
@@ -154,14 +154,14 @@ if(obtenerCorreoUsuario()){
             <input
               type="text"
               name="emailOrPhone"
-              value={formData.emailOrPhone}
+              value={formData?.emailOrPhone}
               onChange={handleChange}
               maxLength={100}
               placeholder="Celular/Correo"
             />
           </div>
           {errors.emailOrPhone && (
-            <div className="error-space">{errors.emailOrPhone}</div>
+            <div className="error-space">{errors?.emailOrPhone}</div>
           )}
           <div className="input-group">
             <img src={icono_key} alt="icono ingreso" />
@@ -181,7 +181,7 @@ if(obtenerCorreoUsuario()){
             />
           </div>
           {errors.password && (
-            <div className="error-space">{errors.password}</div>
+            <div className="error-space">{errors?.password}</div>
           )}
           <div
             className="forgot-password"
