@@ -32,7 +32,7 @@ function RestaurantsAdmin({ allRestaurantsAdmin }) {
         
       }
 
-      const updatedRestaurants = restaurants.map((restaurant) =>
+      const updatedRestaurants = restaurants?.map((restaurant) =>
         restaurant.id === restaurantId ? { ...restaurant, active } : restaurant
       );
       
@@ -50,7 +50,7 @@ function RestaurantsAdmin({ allRestaurantsAdmin }) {
      <NavbarAdmin/>
       {restaurants?.map((restaurant) => (
         <div
-          key={restaurant.id}
+          key={restaurant?.id}
           className={`cardRest ${restaurant?.active ? "" : "inactive"}`}
         >
           <div className="resImage">

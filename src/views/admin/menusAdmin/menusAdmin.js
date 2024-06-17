@@ -22,8 +22,8 @@ function MenusAdmin({ allMenusAdmin, allMenuItemsAdmin, allRestaurantsAdmin }) {
         `http://localhost:5000/menus/${active ? "restore" : "delete"}/${menuId}`
       );
 
-      const updatedMenus = menus.map((menu) =>
-        menu.id === menuId ? { ...menu, active } : menu
+      const updatedMenus = menus?.map((menu) =>
+        menu?.id === menuId ? { ...menu, active } : menu
       );
       setMenus(updatedMenus);
     } catch (error) {
@@ -39,8 +39,8 @@ function MenusAdmin({ allMenusAdmin, allMenuItemsAdmin, allRestaurantsAdmin }) {
         }/${menuItemID}`
       );
 
-      const updatedMenuItems = menuItems.map((menuItem) =>
-        menuItem.id === menuItemID ? { ...menuItem, active } : menuItem
+      const updatedMenuItems = menuItems?.map((menuItem) =>
+        menuItem?.id === menuItemID ? { ...menuItem, active } : menuItem
       );
       setMenuItems(updatedMenuItems);
     } catch (error) {
@@ -76,6 +76,7 @@ function MenusAdmin({ allMenusAdmin, allMenuItemsAdmin, allRestaurantsAdmin }) {
                     onClick={() => handleMenuSelect(restaurant?.id, menu?.id)}
                     className={`MenusAdmin ${menu?.active ? '' : 'inactive'} ${
                       selectedMenuIds[restaurant.id] === menu.id ? 'selectedMenu' : ''
+
                     }`}
                   >
                     <div className="menuSelectAdmin">
@@ -109,7 +110,7 @@ function MenusAdmin({ allMenusAdmin, allMenuItemsAdmin, allRestaurantsAdmin }) {
                   )
                   .map((menuItem) => (
                     <div
-                      key={menuItem.id}
+                      key={menuItem?.id}
                       className={`MenuItemmenu ${
                         menuItem?.active ? "" : "inactive"
                       }`}
