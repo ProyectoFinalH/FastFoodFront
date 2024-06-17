@@ -117,7 +117,7 @@ function OrderCompany() {
                 <td>{order.order_date.substr(0, 19)}</td>
                 <td>{order.active
                 ?'Aprobado'
-                 :'No Aprobada'}</td>
+                 :'Eliminado'}</td>
                 <td>{order.total_price ? `$${order.total_price}` : 'N/A'}</td>
                 <td>
                   <div className="btn btn-delete" onClick={() => handleEliminar(order.id)}>
