@@ -17,13 +17,12 @@ import {
   GET_MENUS,
   GET_MENUITEMS_BYNAME,
   CREATE_CATEGORIES,
-GET_ORDERS_ADMIN,
+  GET_ORDERS_ADMIN,
   GET_MENUITEMS_ADMIN,
   GET_MENUS_ADMIN,
-  
-
   GET_RESTAURANTS_ALL,
-  GET_USERS_ALL
+  GET_USERS_ALL,
+  GET_CATEGORIES_ADMIN,
 } from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
@@ -196,8 +195,8 @@ export const login_User_Google = (dataquery) => {
 };
 //Loguear usuario con localsotrag
 
-export const login_user_localstorag =(auser)=>{
-  return async (dispatch)=>{
+export const login_user_localstorag = (auser) => {
+  return async (dispatch) => {
 
     dispatch({
       type: USERLOGIN,
@@ -306,8 +305,8 @@ export function CreateMenu(dataquery) {
         payload: menuData,
       });
     } catch (error) {
-      alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
+      throw new Error(error.response.data.message || "Error desconocido");
     }
   };
 }
@@ -334,8 +333,8 @@ export function CreateMenuItems(formData) {
         payload: menuItemData,
       });
     } catch (error) {
-      alert("Error al enviar la información", error.message);
-      console.log(error);
+      console.log("Error al enviar la información", error.message);
+      throw new Error(error.response.data.message || "Error desconocido");
     }
   };
 }
@@ -352,8 +351,8 @@ export function CreateCategory(dataquery) {
         payload: categoriesData,
       });
     } catch (error) {
-      alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
+      throw new Error(error.response.data.message || "Error desconocido");
     }
   };
 }
@@ -361,6 +360,7 @@ export function CreateCategory(dataquery) {
 export function getAllCategories() {
   return async function (dispatch) {
     const response = await axios("http://localhost:5000/categories");
+    console.log("Categorías obtenidas:", response.data);
     return dispatch({
       type: GET_CATEGORIES,
       payload: response.data,
@@ -534,33 +534,36 @@ export function getAllUsersAdmin() {
         payload: response.data,
       });
     } catch (error) {
-      console.error("Error al obtener los restaurantes:", error);}}}
+      console.error("Error al obtener los restaurantes:", error);
+    }
+  }
+}
 
 
-export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo)=>{
+export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
   return async (dispatch) => {
-    console.log("Usuario de Mercado pago"+JSON.stringify(DAtosMercadoPAgo))
+    console.log("Usuario de Mercado pago" + JSON.stringify(DAtosMercadoPAgo))
     const mercadopago = {
-      description:DAtosMercadoPAgo.descriptions,
+      description: DAtosMercadoPAgo.descriptions,
       price_total: DAtosMercadoPAgo.price,
       quantity_order: DAtosMercadoPAgo.quantity
     }
 
-  
+
     try {
       const endpoint = 'http://localhost:5000/mercadopago/create';
       const response = await axios.post(endpoint, mercadopago);
       const compra = response.data;
 
-        console.log("respuesta ID" +  compra)
-        return {id:compra}
- /* dispatch({
-    type: IDCARRITOMERCADOPAGO,
-    payload: compra,
-  });
- 
-*/
-  
+      console.log("respuesta ID" + compra)
+      return { id: compra }
+      /* dispatch({
+         type: IDCARRITOMERCADOPAGO,
+         payload: compra,
+       });
+      
+     */
+
     } catch (error) {
       alert("Error al enviar compra del carrito", error.message);
       console.log("Error al enviar la información", error.message);
@@ -580,4 +583,19 @@ export function getOrdersAdmin() {
         payload: response.data,
       });
     } catch (error) {
-      console.error("Error al obtener los ordenes:", error);}}}
+      console.error("Error al obtener los ordenes:", error);
+    }
+  }
+}
+
+
+export function getAllCategoriesAdmin() {
+  return async function (dispatch) {
+    const response = await axios("http://localhost:5000/categories/all");
+    console.log("Categorías obtenidas:", response.data);
+    return dispatch({
+      type: GET_CATEGORIES_ADMIN,
+      payload: response.data,
+    });
+  };
+}

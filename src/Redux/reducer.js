@@ -24,6 +24,7 @@ import {
   CREATELISTAORDERSCOMPANY,
   CANCELARCOMPRAUSER, // CArrito deshabilitar datos
   IDCARRITOMERCADOPAGO, //hacer la verificaicon de compra
+  GET_CATEGORIES_ADMIN,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -42,7 +43,8 @@ const initialState = {
   getAllMenuitemsAdmin: [],
   allMenus: [],
   allMenusAdmin: [],
-  allCategories: [],
+  allCategories: [],  
+  allCategoriesAdmin: [],
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
@@ -189,6 +191,11 @@ const reducer = (state = initialState, { type, payload }) => {
           ...state,
           allOrdersAdmin: payload,
         };
+        case GET_CATEGORIES_ADMIN:
+        return {
+          ...state,
+          allCategoriesAdmin: payload,
+        }
     default:
       return { ...state };
   }
