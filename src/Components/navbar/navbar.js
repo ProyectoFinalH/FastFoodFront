@@ -9,6 +9,7 @@ import { logoutUser } from "../../Redux/actions";
 import Carrito from "../Carrito/Carrito";
 
 import { eliminarDatosUsuario } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import { eliminarItemCarrito, resetearCarrito } from "../localStorage-car/LocalStorageCar";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,6 +20,8 @@ function Navbar() {
   const handleLogout = () => {
     dispatch(logoutUser());
     eliminarDatosUsuario()
+    eliminarItemCarrito();
+    resetearCarrito();
     window.location.href = "/";
   };
 

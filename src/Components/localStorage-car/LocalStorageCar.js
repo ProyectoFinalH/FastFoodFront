@@ -2,6 +2,7 @@ const getItem = (id) => JSON.parse(localStorage.getItem(`card-${id}`));
 const setItem = (id, item) => localStorage.setItem(`card-${id}`, JSON.stringify(item));
 const removeItem = (id) => localStorage.removeItem(`card-${id}`);
 
+// Obtener todos los items del carrito
 export const obtenerItemsCarrito = () => {
   return Object.keys(localStorage)
     .filter((key) => key.startsWith("card-"))
@@ -9,31 +10,41 @@ export const obtenerItemsCarrito = () => {
     .filter((item) => item.cont > 0);
 };
 
+// Guardar un item en el carrito
 export const guardarItemCarrito = (item) => setItem(item.id, item);
 export const eliminarItemCarrito = removeItem;
-export const limpiarCarrito = () => localStorage.clear();
+
+// Limpiar el carrito completamente
+export const limpiarCarrito = () => {
+  Object.keys(localStorage)
+    .filter((key) => key.startsWith("card-"))
+    .forEach((key) => removeItem(key.split("-")[1]));
+};
 
 export const actualizarItemCarrito = guardarItemCarrito;
 
+// Obtener un item del carrito por ID
 export const obtenerItemCarrito = (id) => getItem(id);
 
+// Obtener el contador de un item en el carrito por ID
 export const obtenerContCarrito = (id) => {
   const item = getItem(id);
   return item ? item.cont : 0;
 };
 
+// Función para actualizar la cantidad de un item
 const updateItemCount = (id, increment) => {
-  const item = getItem(id);
-  if (item) {
-    item.cont = Math.max(item.cont + increment, 0);
-    if (item.cont === 0) {
-      removeItem(id);
-    } else {
-      setItem(id, item);
-    }
-    return item;
+  let item = getItem(id);
+  if (!item) {
+    item = { id: id, cont: 0 }; // Inicializar item si no existe
   }
-  return null;
+  item.cont = Math.max(item.cont + increment, 0);
+  if (item.cont === 0) {
+    removeItem(id);
+  } else {
+    setItem(id, item);
+  }
+  return item.cont;
 };
 
 export const handleSumar = (id) => updateItemCount(id, 1);

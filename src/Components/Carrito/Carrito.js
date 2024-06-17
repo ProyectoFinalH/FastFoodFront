@@ -43,31 +43,6 @@ function Carrito({ onClose }) {
   );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // Función para crear la preferencia de pago
   const createPreference = async () => {
     try {
@@ -162,7 +137,7 @@ function Carrito({ onClose }) {
       const compraData = {
         Carrito: {
           id: Math.floor(Math.random() * 1000),
-          user_id: User.register,
+          user_id: User.email,
           restaurant_id: id_restaurante,
           items: cards,
           total_price,
@@ -173,7 +148,7 @@ function Carrito({ onClose }) {
         }
       };
 
-      dispatch(Desarrollode_Compra(cards, User.register, id_restaurante))
+      dispatch(Desarrollode_Compra(cards, User.id, id_restaurante))
         .then(() => {
           resetearCarrito();
           setSelectedCards([]);
