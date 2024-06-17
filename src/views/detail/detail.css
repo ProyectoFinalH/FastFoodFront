@@ -29,7 +29,7 @@
 }
 
 .imageDetail img {
-  max-width: 100%;
+  max-width: 80%;
   border-radius: 5px;
   margin-bottom: 10px;
 }
@@ -67,7 +67,6 @@
   background-color: #ff5a5f;
   color: #fff;
   font-size: 1rem;
-  padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
   margin: 0 5px;

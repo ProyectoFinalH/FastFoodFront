@@ -13,7 +13,6 @@ import Image3 from "../../images/image3.jpg";
 import "./home.css";
 import Footer from '../../Components/Footer/Footer';
 
-import { login_user_localstorag } from "../../Redux/actions";
 
 import {
   obtenerEstatusUsuario,
