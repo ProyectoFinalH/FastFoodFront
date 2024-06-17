@@ -10,10 +10,10 @@ import { obtenerContCarrito,guardarItemCarrito } from '../../localStorage-car/Lo
 
 import Carrito from '../../Carrito/Carrito'
 
-function CardMenuItems({ id, name, description, price, image, handleSelectMenuItem, hideCartButtons, showEyeIcon, active}) {
+function CardMenuItems({ id, name, description, price, image, handleSelectMenuItem, hideCartButtons, showEyeIcon}) {
   const [viewCard, setViewCard] = useState(false);
   const navigator = useNavigate();
-  const [id_Card, setId_Card] = useState({ id, name, description, price, image, cont: 0 }); // Inicializa cont en 0
+  const [id_Card, setId_Card] = useState({ id, name, description, price, image, cont: 0 });// Inicializa cont en 0
   const [isRestored, setIsRestored] = useState(false);
 
   useEffect(() => {
@@ -26,7 +26,6 @@ function CardMenuItems({ id, name, description, price, image, handleSelectMenuIt
   }, [id,id_Card.cont]);
 
   useEffect(() => {
-    // Función para cargar el estado actual del menú desde la API
     const fetchMenuState = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/menuitems/${id}`);
