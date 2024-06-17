@@ -16,6 +16,7 @@
 .content {
   display: flex;
   flex: 1;
+  overflow: auto; 
 }
 
 .sidebar {
@@ -26,7 +27,7 @@
   flex-direction: column;
   gap: 20px;
   position: sticky;
-  top: 60px;
+  top: 0.1px;
 }
 
 .button-back {
@@ -66,18 +67,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.navbarMenuContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.navbarMenuSelect {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .cards-menus-container {

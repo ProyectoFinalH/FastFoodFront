@@ -18,9 +18,7 @@ import CardsMenus from "../../Components/cards/cardsMenus/cardsMenus";
 import Navbar from "../../Components/navbar/navbar";
 import Detail from "../detail/detail";
 
-import { useLocalStorage,  } from "../../Components/localStorage/useLocalStorage";
-
-
+import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
 
 import { login_user_localstorag } from "../../Redux/actions";
 
@@ -59,28 +57,23 @@ function Menu() {
     setSelectedCategory(Number(category));
   };
 
-//localstorang del usuario
-useEffect(() => {
-  const email = obtenerCorreoUsuario();
- // alert("mail es "+ email)
-  if (email) {
-    const tem_Users = {
-      state: obtenerEstatusUsuario(),
-      id: obtenerIdUsuario(),
-      email: email,
-      name: obtenerNombreUsuario(),
-    };
-    dispatch(login_user_localstorag(tem_Users));
-    navigate('/menu');
-  }else{
-    navigate('/')
-  }
-}, [dispatch, navigate]);
-
-
-
-
-
+  //localstorang del usuario
+  useEffect(() => {
+    const email = obtenerCorreoUsuario();
+    // alert("mail es "+ email)
+    if (email) {
+      const tem_Users = {
+        state: obtenerEstatusUsuario(),
+        id: obtenerIdUsuario(),
+        email: email,
+        name: obtenerNombreUsuario(),
+      };
+      dispatch(login_user_localstorag(tem_Users));
+      navigate("/menu");
+    } else {
+      navigate("/");
+    }
+  }, [dispatch, navigate]);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -174,7 +167,7 @@ useEffect(() => {
   const handleGoBack = () => {
     navigate("/home");
   };
-  
+
   return (
     <div className="menu-container">
       <Navbar />
