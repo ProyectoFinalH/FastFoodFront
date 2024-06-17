@@ -78,20 +78,29 @@ export const register_user = (dataquery) => {
 export const register_business = (dataquery) => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:5000/atleticos/register";
-      const response = await axios.post(endpoint, dataquery);
-      const userData = response.data;
-
-      console.log("Datos encontrados", JSON.stringify(userData));
-
-      if (userData && userData.save === "yes") {
-        dispatch({
-          type: REGISTERBUSINESS,
-          payload: userData,
-        });
-      } else {
-        alert("Error al registrar el usuario");
-      }
+      const userData = {
+        username: dataquery.username,
+        email: dataquery.email,
+        password: dataquery.password,
+        role_id: 2,
+      };
+      const endpoint = "http://localhost:5000/users/create";
+      const response = await axios.post(endpoint, userData);
+      const { id, username, email, password, google_id, role_id } =
+        response.data;
+      const userDatauser = {
+        id,
+        username,
+        email,
+        password,
+        google_id,
+        role_id,
+      };
+      console.log("Datos encontrados", JSON.stringify(userDatauser));
+      dispatch({
+        type: REGISTERBUSINESS,
+        payload: userDatauser,
+      });
     } catch (error) {
       console.log("Error al enviar la información", error.message);
     }

@@ -11,11 +11,8 @@ import Image1 from "../../images/Image1.jpg";
 import Image2 from "../../images/image2.jpg";
 import Image3 from "../../images/image3.jpg";
 import "./home.css";
+import Footer from '../../Components/Footer/Footer';
 
-
-
-
-//import localUser from '../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user'
 
 import {
   obtenerEstatusUsuario,
@@ -24,16 +21,13 @@ import {
   obtenerIdUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
-
 const mockImages = [Image1, Image2, Image3];
 
 function Home() {
   const allRestaurants = useSelector((state) => state.allRestaurants);
   const user = useSelector((state) => state.USER);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
 
   useEffect(() => {
     dispatch(getAllRestaurants());
@@ -45,7 +39,7 @@ function Home() {
 
   useEffect(() => {
     const email = obtenerCorreoUsuario();
-   
+
     if (email) {
       const tem_Users = {
         state: obtenerEstatusUsuario(),
@@ -54,14 +48,10 @@ function Home() {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
-     // navigate('/menu');
-    }else{
-      navigate('/')
+    } else {
+      navigate("/");
     }
   }, [dispatch, navigate]);
-
-
-
 
   return (
     <div className="homeContainer">
@@ -78,6 +68,8 @@ function Home() {
             <CardsRestaurant allRestaurants={allRestaurants} />
           </Link>
         </div>
+      </div>
+      <div className="otherContent">
         <div>
           <h2>Conocé más!</h2>
           <div className="cardOtherContainer">
@@ -94,6 +86,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
