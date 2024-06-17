@@ -74,8 +74,9 @@ function MenusAdmin({ allMenusAdmin, allMenuItemsAdmin, allRestaurantsAdmin }) {
                   <div
                     key={menu.id}
                     onClick={() => handleMenuSelect(restaurant?.id, menu?.id)}
-                    className={`MenusAdmin ${menu.active ? '' : 'inactive'} ${
-                      selectedMenuIds[restaurant?.id] === menu?.id ? 'selectedMenu' : ''
+                    className={`MenusAdmin ${menu?.active ? '' : 'inactive'} ${
+                      selectedMenuIds[restaurant.id] === menu.id ? 'selectedMenu' : ''
+
                     }`}
                   >
                     <div className="menuSelectAdmin">

@@ -44,12 +44,12 @@ const LoginInvitado = ({ setView }) => {
           <input
             type="text"
             name="name"
-            value={userData.name}
+            value={userData?.name}
             onChange={handleChange}
             maxLength={100}
             placeholder="Nombre del Usuario"
           />
-          {attemptedSubmit && errors.name && (
+          {attemptedSubmit && errors?.name && (
             <div className="espacioError">{errors.name}</div>
           )}
         </div>
@@ -88,7 +88,7 @@ const LoginInvitado = ({ setView }) => {
           <input
             type="text"
             name="domicilio"
-            value={userData.domicilio}
+            value={userData?.domicilio}
             onChange={handleChange}
             maxLength={15}
             placeholder={
@@ -97,7 +97,7 @@ const LoginInvitado = ({ setView }) => {
           />
 
           {attemptedSubmit && errors.pass && (
-            <div className="espacioError">{errors.pass}</div>
+            <div className="espacioError">{errors?.pass}</div>
           )}
         </div>
 
