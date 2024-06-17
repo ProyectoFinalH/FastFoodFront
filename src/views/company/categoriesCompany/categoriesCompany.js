@@ -30,15 +30,15 @@ function CategoriesCompany() {
         fetchMenuState();
     }, [id]);
 
-    const toggleItemState = async (menu) => {
+    const toggleItemState = async (categories) => {
         try {
-            const url = menu.active
-            ? `http://localhost:5000/menus/delete/${menu.id}`
-            : `http://localhost:5000/menus/restore/${menu.id}`;
+            const url = categories.active
+            ? `http://localhost:5000/categories/delete/${categories.id}`
+            : `http://localhost:5000/categories/restore/${categories.id}`;
 
             await axios.put(url);
     const updatedMenus = allCategories.map((item) => {
-      if (item.id === menu.id) {
+      if (item.id === categories.id) {
         return { ...item, active: !item.active }; 
       }
       return item;

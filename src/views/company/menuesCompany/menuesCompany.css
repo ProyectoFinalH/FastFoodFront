@@ -73,6 +73,7 @@
     margin: 5% 20% 0% 20%;
     border-radius: 5px;
     font-size: 1.2rem;
+    transition: all 0.2s ease-in-out;
 }
 
 .button-hide {
@@ -87,10 +88,11 @@
     margin: 5% 20% 0% 20%;
     border-radius: 5px;
     font-size: 1.2rem;
+    transition: all 0.2s ease-in-out;
 }
 
 .button-hide:hover,
-.button-show:hover {
+.button-show:hover {    
     background-color: rgb(168, 168, 168);
     box-shadow: 0px 0px 5px rgb(126, 126, 126);
 }

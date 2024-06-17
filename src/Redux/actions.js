@@ -541,7 +541,7 @@ export function getOrdersAdmin() {
 
 export function getAllCategoriesAdmin() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:5000/categories");
+    const response = await axios("http://localhost:5000/categories/all");
     console.log("Categorías obtenidas:", response.data);
     return dispatch({
       type: GET_CATEGORIES_ADMIN,
