@@ -31,11 +31,17 @@ function NavbarMenu({
     setIsOpen3(!isOpen3);
   };
 
-  const handleLiClick = (e, sortBy, range, category) => {
+  const handleLiClick = (e, options) => {
     e.stopPropagation();
-    handleSort(sortBy);
-    handlePriceRange(range);
-    handleCategoryFilter(category);
+    if (options.sortBy) {
+      handleSort(options.sortBy);
+    }
+    if (options.range) {
+      handlePriceRange(options.range);
+    }
+    if (options.category) {
+      handleCategoryFilter(options.category);
+    }
   };
 
   const handleChange = (e) => {
@@ -66,7 +72,7 @@ function NavbarMenu({
             <span>Ordenar por ⮟</span>
             {isOpen1 && (
               <ul>
-                <li onClick={(e) => handleLiClick(e, "menorPrecio")}>
+                <li onClick={(e) => handleLiClick(e, { sortBy: "menorPrecio" })}>
                   Menor precio
                 </li>
                 <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>
@@ -81,16 +87,16 @@ function NavbarMenu({
             <span>Rango de precio ⮟</span>
             {isOpen3 && (
               <ul>
-                <li onClick={(e) => handleLiClick(e, "1-5", "1-5")}>
+                <li onClick={(e) => handleLiClick(e, { range: "1-5" })}>
                   1 - 5</li>
-                <li onClick={(e) => handleLiClick(e, "5-15", "5-15")}>
-                  5 - 15
+                  <li onClick={(e) => handleLiClick(e, { range: "6-15" })}>
+                  6 - 15
                 </li>
-                <li onClick={(e) => handleLiClick(e, "15-30", "15-30")}>
-                  15 - 30
+                <li onClick={(e) => handleLiClick(e, { range: "16-30" })}>
+                  16 - 30
                 </li>
-                <li onClick={(e) => handleLiClick(e, "30-50", "30-50")}>
-                  30 - 50
+                <li onClick={(e) => handleLiClick(e, { range: "31-50" })}>
+                  31 - 50
                 </li>
               </ul>
             )}
