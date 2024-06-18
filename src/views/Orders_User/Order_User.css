@@ -1,0 +1,42 @@
+.order-container {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    height: 100%;
+    margin: 50px auto 30px; /* Agregado un espacio inferior de 30px */
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.order-table {
+    width: auto;
+    height: 100%;
+    overflow-x: auto; /* Agrega scroll horizontal si la tabla es demasiado ancha */
+}
+
+.order-table tr:hover {
+    background-color: darkgreen;
+    color: wheat;
+}
+
+.order-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.order-table th {
+    background-color: #f2f2f2;
+}
+
+.order-table th:first-child,
+.order-table td:first-child {
+    text-align: left;
+}
