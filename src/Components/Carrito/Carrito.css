@@ -62,7 +62,7 @@
 }
 
 .cardProducto {
-  background-color: white;
+  
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -70,7 +70,18 @@
   border-radius: 10px;
   display: flex;
   align-items: center;
+ 
 }
+
+.cardProducto:hover{
+  background-color: rgb(97, 175, 97);
+}
+.cardProducto:active{
+  background-color: rgb(99, 190, 99);
+}
+
+
+
 
 .cardProducto img {
   width: 100px;
@@ -224,4 +235,30 @@
 .boton_flex{
   display: flex;
   height: 30px;
+}
+
+
+/*! menu carrito botones de otras cars */
+.buttonDecInc-Menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 10px;
+}
+.card-eliminar img{
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.card-inputcard{
+  width: 30px;
+  height: 25px;
+  text-align: center;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-left: none; /* Remove left border to connect with decrement button */
+  border-right: none; /* Remove right border to connect with increment button */
 }
