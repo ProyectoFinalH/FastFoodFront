@@ -25,12 +25,14 @@ import {
   CANCELARCOMPRAUSER, // CArrito deshabilitar datos
   IDCARRITOMERCADOPAGO, //hacer la verificaicon de compra
   GET_CATEGORIES_ADMIN,
+  LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
 } from "../Redux/action-types";
 
 const initialState = {
   USER: null,
   Carrito: null,
   ListaOrderCompany: null, //create lista order company
+  ListaOrderUser: null, //create lista order Uduario
   Compra_Inabilitada: null,
   allUsersAdmin: [],
   allRestaurantsAdmin: [],
@@ -196,6 +198,12 @@ const reducer = (state = initialState, { type, payload }) => {
           ...state,
           allCategoriesAdmin: payload,
         }
+        case LISTADOORDERSUSERS:
+          return {
+            ...state,
+            ListaOrderUser: payload,
+          }
+
     default:
       return { ...state };
   }

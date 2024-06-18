@@ -9,6 +9,7 @@ import guardar from './image/actualizar.png';
 
 import { Actualizar_Compra_Usuario, Create_Lista_Order_Company } from '../../../Redux/actions';
 import axios from 'axios';
+import alertify from 'alertifyjs';
 
 function OrderCompany() {
   const Order_List_Company = useSelector((state) => state.ListaOrderCompany || []);
@@ -51,9 +52,10 @@ function OrderCompany() {
   };
 
   const handleGuardar = async() => {
-    alert("Guardar id: " + JSON.stringify(formData));
+    //alert("Guardar id: " + JSON.stringify(formData));
     dispatch(Actualizar_Compra_Usuario(formData));
     await dispatch(Create_Lista_Order_Company())
+    alertify.alert("Mensaje", "Actualizacion desarrollada correctamente")
   };
 
   const handleCancelar = () => {
