@@ -45,7 +45,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+   // document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
