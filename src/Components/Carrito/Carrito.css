@@ -225,3 +225,12 @@
   display: flex;
   height: 30px;
 }
+
+
+/*! menu carrito botones de otras cars */
+.buttonDecInc-Menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 10px;
+}

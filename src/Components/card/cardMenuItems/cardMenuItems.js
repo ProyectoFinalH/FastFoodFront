@@ -83,8 +83,9 @@ const toggleItemState = async () => {
   
 
   return (
+    <div> {viewCard && <Carrito onClose={handleMenuCarrito} />}
     <div className="cardMenuContainer">
-      {viewCard && <Carrito onClose={handleMenuCarrito} />}
+     
 
       
         <img alt="imagemenuitems" src={image} className="cardImage" onClick={handleClick}/>
@@ -112,6 +113,7 @@ const toggleItemState = async () => {
         {isRestored ? '👁 Ocultar' : '👁 Mostrar'}</div>}  
 
       </div>
+    </div>
     </div>
   );
 }

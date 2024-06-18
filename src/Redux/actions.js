@@ -482,7 +482,7 @@ export const Actualizar_Compra_Usuario = (datauser) => {
   return async (dispatch) => {
     try {
       console.log("Estos son los datos a enviar: " + JSON.stringify(datauser));
-      alert("este es el user ID " + datauser.id)
+     
       const endpoint = `http://localhost:5000/orders/${datauser.id}`;
       const response = await axios.put(endpoint, {
         total_price: datauser.total_price,
