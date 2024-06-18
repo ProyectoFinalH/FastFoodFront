@@ -249,15 +249,16 @@ function Carrito({ onClose }) {
                       <label>{card.name}</label>
                       <label>${card.price}</label>
                     </div>
-                    <div className="buttonDecInc-Menu">
-                      <div className="signos">
-                        <img src={Eliminarproducto} onClick={() => handleDeleteItem(card.id)} alt="Eliminar comida" />
-                      </div>
-                      <div className="aumentardisminuir" onClick={() => handleDisminuir(card.id)}>-</div>
+                    <div >
+                    <div className="card-eliminar">
+                      <img src={Eliminarproducto} onClick={() => handleDeleteItem(card.id)} alt="Eliminar comida" style={{ width: '30px', height: '30px' }} />
+                    </div>
+
+                      <div className="car-aumentardisminuir" onClick={() => handleDisminuir(card.id)}>-</div>
                       <div>
-                        <input name="contador" type="text" maxLength={100} value={obtenerContCarrito(card.id)} disabled />
+                        <input className="card-inputcard" name="contador" type="text" maxLength={100} value={obtenerContCarrito(card.id)} disabled />
                       </div>
-                      <div className="aumentardisminuir" onClick={() => handleSumar(card.id)}>+</div>
+                      <div className="car-aumentardisminuir" onClick={() => handleSumar(card.id)}>+</div>
                     </div>
                     <div className="costoTotal">
                       <label>Costo Total</label>

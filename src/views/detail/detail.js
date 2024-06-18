@@ -68,8 +68,9 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   if (!isOpen || !menuItem) return null;
 
   return (
+    <div>
     <div className="detailContainer">
-      {viewCard && <Carrito onClose={handleMenuCarrito} />}
+      
 
       <div ref={detailRef} className="detailCardContainer">
         <div className="buttonClose">
@@ -111,6 +112,8 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
           </div>
         </div>
       </div>
+    </div>
+    {viewCard && <Carrito onClose={handleMenuCarrito} />}
     </div>
   );
 }
