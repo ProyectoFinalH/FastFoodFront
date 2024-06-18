@@ -63,10 +63,10 @@ function NavbarMenu({
           </button>
         </div>
       </form>
-      <div className="navbarMenuSelect">
         <div className="customSection">
           <button onClick={clearFilter}>Deshacer Filtros</button>
         </div>
+      <div className="navbarMenuSelect">
         <div className="customSection">
           <div onClick={Options1}>
             <span>Ordenar por ⮟</span>
@@ -84,7 +84,7 @@ function NavbarMenu({
         </div>
         <div className="customSection">
           <div onClick={Options3}>
-            <span>Rango de precio ⮟</span>
+          <span >Rango de precio ⮟</span>
             {isOpen3 && (
               <ul>
                 <li onClick={(e) => handleLiClick(e, { range: "1-5" })}>
@@ -104,7 +104,7 @@ function NavbarMenu({
         </div>
         <div className="customSection">
           <div onClick={Options2}>
-            <span>Categorías</span>
+            <div className="spancategoires">Categorías</div>
           </div>
           <select
             id="category-select"
