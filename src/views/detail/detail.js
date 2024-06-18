@@ -45,7 +45,11 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   };
 
   useEffect(() => {
-   // document.addEventListener("mousedown", handleClickOutside);
+  // document.addEventListener("mousedown", handleClickOutside); 
+   //!el error o la salida la da esta linea de arriba si la elimino fimcioma 
+   //!sin problema el detail y el carrito juntos  
+   //! aclaro no se va a afectar en nada el codigo solo que van a 
+   //!tener que dar clic en X para poder salir del detail
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
