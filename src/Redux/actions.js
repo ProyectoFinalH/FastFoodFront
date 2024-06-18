@@ -402,14 +402,14 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
       }));
 
       console.log("Items array:", items); // Verificar el formato de items
-      const itemsJSON = JSON.stringify(items);
+      
 
       // Crear el objeto dataquery con las propiedades en el orden especificado
       const dataquery = {
         user_id: id,
         restaurant_id: res_id,
         total_price: totalCost,
-        items: itemsJSON,
+        items: items,
       };
 
       console.log("Dataquery:", dataquery); // Verificar el formato de dataquery
@@ -482,7 +482,7 @@ export const Actualizar_Compra_Usuario = (datauser) => {
   return async (dispatch) => {
     try {
       console.log("Estos son los datos a enviar: " + JSON.stringify(datauser));
-      alert("este es el user ID " + datauser.id)
+     
       const endpoint = `http://localhost:5000/orders/${datauser.id}`;
       const response = await axios.put(endpoint, {
         total_price: datauser.total_price,

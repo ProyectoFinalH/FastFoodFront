@@ -21,10 +21,11 @@ import { Wallet, initMercadoPago } from '@mercadopago/sdk-react';
 function Carrito({ onClose }) {
   //const dispach = useDispatch()
   const User = useSelector((state) => state.USER);
-
+  const Empresa = useSelector((state)=>state.allRestaurants)
   const Carrito = useSelector((state) => state.Carrito);
   const [selectedCards, setSelectedCards] = useState([]);
   const [mensaje] = useState("¡Comienza tu carrito con tus comidas favoritas!");
+  
   const [compraRealizada, setCompraRealizada] = useState(false);
   const [ordenCompra, setOrdenCompra] = useState(null);
   const [preferenceId, setPreferenceId] = useState(null);
@@ -33,7 +34,7 @@ function Carrito({ onClose }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const id_restaurante = 1;
+  
 
   // Inicializar Mercado Pago
   initMercadoPago('TEST-50122e74-1f4b-40e3-8ddb-a830cd00b7bf', 
@@ -128,9 +129,12 @@ function Carrito({ onClose }) {
   };
 
   const handlePagar = () => {
+    const restaurant_id = Empresa[0].id //!agrego item Empresa para comprender a quien se le vende, se debe identificar el vector al que pertenece
+   
     if (!User || !User.state) {
       alert("Debes registrarte para poder hacer tu pedido");
     } else {
+     
       const cards = obtenerItemsCarrito();
       const total_price = cards.reduce((acc, card) => acc + card.price * card.cont, 0).toFixed(2);
       const order_date = new Date().toISOString();
@@ -138,8 +142,8 @@ function Carrito({ onClose }) {
         Carrito: {
           id: Math.floor(Math.random() * 1000),
           user_id: User.email,
-          restaurant_id: id_restaurante,
-          items: cards,
+          restaurant_id,
+          items: selectedCards,
           total_price,
           order_date,
           active: true,
@@ -148,7 +152,7 @@ function Carrito({ onClose }) {
         }
       };
 
-      dispatch(Desarrollode_Compra(cards, User.id, id_restaurante))
+      dispatch(Desarrollode_Compra(cards, User.id, restaurant_id ))
         .then(() => {
           resetearCarrito();
           setSelectedCards([]);
@@ -245,15 +249,16 @@ function Carrito({ onClose }) {
                       <label>{card.name}</label>
                       <label>${card.price}</label>
                     </div>
-                    <div className="CarritoBotones">
-                      <div className="signos">
-                        <img src={Eliminarproducto} onClick={() => handleDeleteItem(card.id)} alt="Eliminar comida" />
-                      </div>
-                      <div className="signos" onClick={() => handleDisminuir(card.id)}>-</div>
+                    <div >
+                    <div className="card-eliminar">
+                      <img src={Eliminarproducto} onClick={() => handleDeleteItem(card.id)} alt="Eliminar comida" style={{ width: '30px', height: '30px' }} />
+                    </div>
+
+                      <div className="car-aumentardisminuir" onClick={() => handleDisminuir(card.id)}>-</div>
                       <div>
-                        <input name="contador" type="text" maxLength={100} value={obtenerContCarrito(card.id)} disabled />
+                        <input className="card-inputcard" name="contador" type="text" maxLength={100} value={obtenerContCarrito(card.id)} disabled />
                       </div>
-                      <div className="signos" onClick={() => handleSumar(card.id)}>+</div>
+                      <div className="car-aumentardisminuir" onClick={() => handleSumar(card.id)}>+</div>
                     </div>
                     <div className="costoTotal">
                       <label>Costo Total</label>

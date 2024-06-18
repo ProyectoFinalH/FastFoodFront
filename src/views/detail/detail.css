@@ -104,6 +104,23 @@
 .buttonClose button:hover {
   background-color: #d94c51;
 }
+.car-aumentardisminuir{
+  width: 30px;
+  height: 30px;
+  background-color: #ff5a5f;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display:flex;
+}
+
+
+
 
 @media (max-width: 768px) {
   .detailCardContainer {

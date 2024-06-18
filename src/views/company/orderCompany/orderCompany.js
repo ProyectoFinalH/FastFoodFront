@@ -27,9 +27,11 @@ function OrderCompany() {
     try {
       console.log(id);
       const endpoint = `http://localhost:5000/orders/delete/${id}`;
-      const response = await axios.put(endpoint);
-      const data = response.data;
-      alert("Esta es la respuesta " + JSON.stringify(data));
+      //const response = 
+      await axios.put(endpoint);
+   //   const data = response.data;
+      //alert("Esta es la respuesta " + JSON.stringify(data));
+      dispatch(Create_Lista_Order_Company())
     } catch (error) {
       console.error("Error eliminando la orden:", error);
       alert("Ocurrió un error al eliminar la orden.");
@@ -48,9 +50,10 @@ function OrderCompany() {
     });
   };
 
-  const handleGuardar = () => {
+  const handleGuardar = async() => {
     alert("Guardar id: " + JSON.stringify(formData));
     dispatch(Actualizar_Compra_Usuario(formData));
+    await dispatch(Create_Lista_Order_Company())
   };
 
   const handleCancelar = () => {
@@ -122,6 +125,10 @@ function OrderCompany() {
           </tbody>
         </table>
       </div>
+
+      {
+        //!desde aqui en adelante se desarrolla la tajeta de modificaicon 
+      }
       {activeOrder && (
         <div className="modal" style={{ display: 'block' }}>
           <div className="modal-content">
@@ -135,15 +142,7 @@ function OrderCompany() {
               <label className='Texto-Name'>Fecha:</label>
               <span>{formData.order_date}</span>
             </div>
-            <div className="form-group">
-              <label className='Texto-Name'>Activo:</label>
-              <input
-                type="checkbox"
-                name="active"
-                checked={formData.active}
-                onChange={handleChange}
-              />
-            </div>
+            
             <div className="form-group">
               <label className='Texto-Name'>Costo Total:</label>
               <input

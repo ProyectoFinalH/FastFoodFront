@@ -56,10 +56,15 @@
   border: 1px solid #ccc;
   font-size: 16px;
   transition: background-color 0.3s, transform 0.1s, box-shadow 0.1s;
+
+
+
+
 }
 
 .aumentardisminuir:first-of-type {
   border-radius: 4px 0 0 4px;
+
 }
 
 .aumentardisminuir:last-of-type {
