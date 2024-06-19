@@ -115,6 +115,8 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
                 alt="Carrito"
                 className="aumentardisminuir"
                 onClick={handleMenuCarrito}
+
+                
               />
             </div>
           </div>
