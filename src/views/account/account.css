@@ -10,7 +10,7 @@
   border-radius: 8px;
 }
 
-.sidebar {
+.account-sidebar{
   width: 250px;
   padding: 20px;
   border-right: 1px solid #ddd;
@@ -142,7 +142,7 @@
 
 .update-button:hover,
 .home-button:hover {
-  background-color: #e04a00;
+  background-color: #29d884;
 }
 
 .profile-header img {
