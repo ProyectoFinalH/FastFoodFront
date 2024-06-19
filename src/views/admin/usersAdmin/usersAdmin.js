@@ -1,42 +1,39 @@
 
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import "./usersAdmin.css";
-import axios from "axios";
 import activar from "../../../images/activar.png";
 import desactivar from "../../../images/desactivar.png";
 import NavbarAdmin from "../navbarAdmin/navbarAdmin";
+import { useDispatch, useSelector } from "react-redux";
+import { PutUsers, getAllUsersAdmin } from "../../../Redux/actions";
 
-function UsersAdmin({allUsersAdmin}) {
-  const [users, setUsers] = useState([]);
-  
-  
-  useEffect(() => {
-    setUsers(allUsersAdmin);
-  }, [allUsersAdmin]);
+function UsersAdmin() {
 
 
-  const toggleActivation = async (usersId, active) => {
+  const allUsersAdmin = useSelector((state) => state.allUsersAdmin);
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getAllUsersAdmin())
+  },[dispatch])
+
+
+  const toggleActivation = async (userId, active) => {
     try {
-      if (active) {
-        await axios.put(
-          `http://localhost:5000/users/restore/${usersId}`
-        );
-      } else {
-        await axios.put(
-          `http://localhost:5000/users/delete/${usersId}`
-        );
+      if (!userId) {
+        console.error("El id del usuario es incorrecto");
+        return;
       }
-
-      const updatedUsers = users.map((user) =>
-        user.id === usersId ? { ...user, active } : user
-      );
-      setUsers(updatedUsers);
+      await dispatch(PutUsers(userId, active));
     } catch (error) {
-      console.error("Error al cambiar el estado del user:", error);
+      console.error("Error al cambiar el estado del usuario:", error);
     }
   };
+
+
+
   
-const filteredUsers = users.filter((user)=> user.role_id === 1)
+const filteredUsers = allUsersAdmin.filter((user)=> user.role_id === 1)
 
   return (
     <div className="restaurantAdminContainer">
@@ -44,7 +41,7 @@ const filteredUsers = users.filter((user)=> user.role_id === 1)
     {filteredUsers?.map((user) => (
       <div
         key={user.id}
-        className={`cardRest ${user?.active ? "" : "inactive"}`}
+        className={`cardRestaurant ${user?.active ? "" : "inactive"}`}
       >
         <div className="resImage">
           <img src={user?.image_url} alt="imgRes" />

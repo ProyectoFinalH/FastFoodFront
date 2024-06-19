@@ -9,7 +9,7 @@ import UsersAdmin from '../usersAdmin/usersAdmin';
 import OrdersAdmin from '../ordenesAdmin/ordenesAdmin';
 
 
-function Sidebar({allRestaurantsAdmin, allMenuItemsAdmin, allMenusAdmin, allUsersAdmin , allOrdersAdmin}) {
+function Sidebar() {
   const [selectedOption, setSelectedOption] = useState(1);
 
   const handleOptionClick = (option) => {
@@ -39,10 +39,10 @@ function Sidebar({allRestaurantsAdmin, allMenuItemsAdmin, allMenusAdmin, allUser
       </div>
     
        <div className="OptionContentAdmin">
-        {selectedOption === 1 && <RestaurantsAdmin allRestaurantsAdmin={allRestaurantsAdmin}/>}
-        {selectedOption === 2 && <MenusAdmin allMenusAdmin={allMenusAdmin} allMenuItemsAdmin={allMenuItemsAdmin} allRestaurantsAdmin={allRestaurantsAdmin}/> }
-        {selectedOption === 4 && <UsersAdmin allUsersAdmin={allUsersAdmin}/>}
-        {selectedOption === 7 && <OrdersAdmin allOrdersAdmin={allOrdersAdmin}/>}
+        {selectedOption === 1 && <RestaurantsAdmin/>}
+        {selectedOption === 2 && <MenusAdmin/> }
+        {selectedOption === 4 && <UsersAdmin/>}
+        {selectedOption === 7 && <OrdersAdmin/>}
       </div> 
     </div>
   );

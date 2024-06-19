@@ -33,12 +33,12 @@ function App() {
     <div className="App">
       <AuthProvider>
         <Routes>
+          <Route path="/LoginAdmin" element={<LoginAdmin />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/company" element={<Company />} />
           <Route path="/restaurants/:id" element={<DetailCompany />} />
 
           <Route path="/" element={<LoginPrincipal />} />
-          <Route path="/LoginAdmin" element={<LoginAdmin />} />
           <Route path="/home" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/menu/:id" element={<Detail />} />
