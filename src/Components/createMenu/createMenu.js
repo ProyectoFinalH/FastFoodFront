@@ -1,7 +1,7 @@
 import "./createMenu.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateMenu, CreateMenuItems, getAllMenus } from "../../Redux/actions";
+import { CreateMenu, CreateMenuItems, getAllMenus, CreateCategory, getAllCategories } from "../../Redux/actions";
 import NavBar from "../navbar/navbar";
 import { Link } from 'react-router-dom';
 
@@ -17,13 +17,21 @@ function CreateMenuForm() {
     const [itemSuccessMessage, setItemSuccessMessage] = useState("");
     const [menuErrorMessage, setMenuErrorMessage] = useState("");
     const [itemErrorMessage, setItemErrorMessage] = useState("");
+    const [categoryName, setCategoryName] = useState("");
+    const [categorySuccessMessage, setCategorySuccessMessage] = useState("");
+    const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
+    const allCategories = useSelector((store) => store.allCategories || []);
+    const [selectedCategoryId, setSelectedCategoryId] = useState("");
+
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (menuName.menuname.trim() === "") {
             setMenuErrorMessage("Debe ingresar un nombre válido para el menú.");
         } else {
-            dispatch(CreateMenu({ name: menuName.menuname }));
+            dispatch(CreateMenu({ name: menuName.menuname, restaurant_id: 2 }));
             setMenuSuccessMessage("Menú creado con éxito");
         }
     };
@@ -33,32 +41,33 @@ function CreateMenuForm() {
         if (
             menuItemName.trim() === "" ||
             description.trim() === "" ||
-            price.trim() === "" 
+            price.trim() === ""
         ) {
             setItemErrorMessage("Todos los campos deben ser llenados");
         } else {
             const formData = new FormData();
             formData.append('menu_id', menuName.itemMenu);
-            formData.append('category_id', 1);
+            formData.append('category_id', selectedCategoryId);
             formData.append('name', menuItemName);
             formData.append('description', description);
             formData.append('price', price);
             formData.append('image_url', imageFile);
+            formData.append('restaurant_id', 2);
 
             // Para verificar que el FormData contiene los datos correctos
             for (let [key, value] of formData.entries()) {
                 console.log(`${key}: ${value}`);
             }
-
-            // Enviar los datos al backend
             dispatch(CreateMenuItems(formData));
             setItemSuccessMessage("Ítem del menú creado con éxito");
         }
     };
 
     useEffect(() => {
+        dispatch(getAllCategories());
         dispatch(getAllMenus());
     }, [dispatch]);
+    
 
     const handleMenuChange = (event) => {
         setMenuName({ ...menuName, itemMenu: event.target.value });
@@ -66,6 +75,30 @@ function CreateMenuForm() {
 
     const handleImageChange = (event) => {
         setImageFile(event.target.files[0]);
+    };
+
+    const handleCategorySubmit = (event) => {
+        event.preventDefault();
+        if (categoryName.trim() === "") {
+            setCategoryErrorMessage("Debe ingresar un nombre válido.");
+        } else {
+            dispatch(CreateCategory({ name: categoryName, restaurant_id: 2 }))
+                .then(() => {
+                    setCategorySuccessMessage("Categoría creada con éxito.");
+                    setCategoryErrorMessage("");
+                })
+                .catch((error) => {
+                    if (error.response && error.response.data === "Duplicate category") {
+                        setCategoryErrorMessage("Categoría duplicada.");
+                    } else {
+                        setCategoryErrorMessage("Error al crear, categoría dupicada.");
+                    }
+                    setCategorySuccessMessage("");
+                });
+        }
+    };
+    const handleCategoryChange = (event) => {
+        setSelectedCategoryId(event.target.value);
     };
 
     return (
@@ -90,19 +123,46 @@ function CreateMenuForm() {
                 {menuSuccessMessage && <p className="success-message">{menuSuccessMessage}</p>}
                 {menuErrorMessage && <p className="error-message">{menuErrorMessage}</p>}
             </form>
+            <form className="form" onSubmit={handleCategorySubmit}>
+                <h1>Create Category</h1>
+                <label htmlFor="categoryName">Nombre de la categoría:</label>
+                <input
+                    type="text"
+                    id="categoryName"
+                    name="name"
+                    value={categoryName}
+                    onChange={(event) => setCategoryName(event.target.value)}
+                />
+                <button type="submit">Create Category</button>
+                {categorySuccessMessage && <p className="success-message">{categorySuccessMessage}</p>}
+                {categoryErrorMessage && <p className="error-message">{categoryErrorMessage}</p>}
+            </form>
 
             <div className="menuitemcontainer">
                 <h1>Create Item Menu</h1>
-                <label htmlFor="menuItemName">Nombre del menú:</label> 
+                <label htmlFor="menuItemName">Nombre del menú:</label>
                 <select onChange={handleMenuChange}>
                     <option value="">Seleccionar Menú</option>
                     {allMenuss.map((element) => (
-                        <option key={element.id} value={element.id}> 
+                        <option key={element.id} value={element.id}>
                             {element.name}
                         </option>
                     ))}
                 </select>
-                <label htmlFor="menuItemName">MenuItem Name:</label> 
+                <label htmlFor="category">Categoría:</label>
+                <select
+                    id="category"
+                    value={selectedCategoryId}
+                    onChange={handleCategoryChange}
+                >
+                    <option value="">Seleccionar Categoría</option>
+                    {allCategories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                            {category.name}
+                        </option>
+                    ))}
+                </select>
+                <label htmlFor="menuItemName">MenuItem Name:</label>
                 <input
                     type="text"
                     id="menuItemName"
@@ -138,7 +198,7 @@ function CreateMenuForm() {
                 {itemSuccessMessage && <p className="success-message">{itemSuccessMessage}</p>}
                 {itemErrorMessage && <p className="error-message">{itemErrorMessage}</p>}
             </div>
-            <div className="footpage"></div>        
+            <div className="footpage"></div>
         </div>
     );
 }

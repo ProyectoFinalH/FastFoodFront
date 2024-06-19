@@ -23,6 +23,7 @@ import ProtectedRoute from "./AuthContext/ProtectedRoute";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard"; // Verifica que esta ruta sea correcta
 import ScrollToTopButton from "./Components/scrollTop/scrollTop";
+import OrderUsers from "./views/Orders_User/Order_User";
 
 
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/menu/create" element={<CreateMenuForm />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/miscompras" element={<MisCompras />} />
+          <Route path="/userorders" element={<OrderUsers/>} /> {/*! Ordenes del usuario */}
           <Route path="/respuestacarrito" element={<RespuestaCarr />} />
           <Route
             path="/dashboard"

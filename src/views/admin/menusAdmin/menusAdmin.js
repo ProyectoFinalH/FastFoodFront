@@ -88,6 +88,7 @@ console.log(allMenuItemsAdmin);
                     onClick={() => handleMenuSelect(restaurant?.id, menu?.id, menu?.name)}
                     className={`MenusAdmin ${menu?.active ? '' : 'inactive'} ${
                       selectedMenuIds[restaurant.id] === menu.id ? 'selectedMenu' : ''
+
                     }`}
                   >
                     <div className="menuSelectAdmin">
@@ -124,7 +125,7 @@ console.log(allMenuItemsAdmin);
                   )
                   .map((menuItem) => (
                     <div
-                      key={menuItem.id}
+                      key={menuItem?.id}
                       className={`MenuItemmenu ${
                         menuItem?.active ? "" : "inactive"
                       }`}

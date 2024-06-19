@@ -3,8 +3,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import "./account.css";
-import { updateUser } from "../../Redux/actions";
+import { updateUser, Listado_Orders_Usuario, login_user_localstorag } from "../../Redux/actions";
+
+
 import Notification from "../../Components/Notification/Notification";
+
+import OrderUsers from "../Orders_User/Order_User";
+
+
+
+
+import {
+  obtenerEstatusUsuario,
+  obtenerCorreoUsuario,
+  obtenerNombreUsuario,
+  obtenerIdUsuario,
+
+  
+} from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+
+
 
 function Account() {
   const user = useSelector((state) => state.USER);
@@ -15,24 +33,17 @@ function Account() {
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [orders, setOrders] = useState(false)
 
-  useEffect(() => {
-    if (user) {
-      setEmail(user.email || "");
-      setUsername(user.username || "");
+  const defaultAvatarUrl =
+    "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
 
-      const storedAvatarURL = localStorage.getItem("avatarURL");
-      if (storedAvatarURL) {
-        setAvatar(storedAvatarURL);
-      }
-    }
-  }, [user]);
+  
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     const imageURL = URL.createObjectURL(file);
 
-    localStorage.setItem("avatarURL", imageURL);
     setAvatar(imageURL);
   };
 
@@ -41,13 +52,14 @@ function Account() {
       alert("Por favor, completa todos los campos.");
       return;
     }
-  
+
     try {
-      if (avatar) {
+      let imageUrl = avatar;
+      if (avatar && typeof avatar !== "string") {
         const formData = new FormData();
         formData.append("file", avatar);
         formData.append("upload_preset", "tu_upload_preset_aqui");
-  
+
         const response = await fetch(
           "https://api.cloudinary.com/v1_1/dfhkqwfio/image/upload",
           {
@@ -56,30 +68,18 @@ function Account() {
           }
         );
         const data = await response.json();
-        
-        const imageUrl = data.secure_url;
-        
-        const userData = {
-          id: user.id,
-          email,
-          username,
-          password,
-          avatar: imageUrl,
-        };
-        
-        dispatch(updateUser(user.id, userData));
-        
-      } else {
-        const userData = {
-          id: user.id,
-          email,
-          username,
-          password,
-        };
-  
-        dispatch(updateUser(user.id, userData));
+        imageUrl = data.secure_url;
       }
-  
+
+      const userData = {
+        id: user.id,
+        email,
+        username,
+        password,
+        image_url: imageUrl,
+      };
+
+      dispatch(updateUser(user.id, userData));
       setShowSuccessNotification(true);
     } catch (error) {
       console.error("Error al cargar la imagen:", error);
@@ -88,6 +88,67 @@ function Account() {
     }
   };
 
+
+  useEffect(() => {
+    if (user) {
+      setEmail(user.email || "");
+      setUsername(user.username || "");
+      setAvatar(user.image_url || defaultAvatarUrl);
+     
+    }
+  }, [user]);
+
+//!DEsarrollado para las ordes 
+const handleOrders = async (data) => {
+
+  if(data==="order"){
+  
+    setOrders(!orders)
+  }
+}
+
+useEffect(() => {
+  const email = obtenerCorreoUsuario();
+  if (email) {
+    const tem_Users = {
+      state: obtenerEstatusUsuario(),
+      id: obtenerIdUsuario(),
+      email: email,
+      name: obtenerNombreUsuario(),
+    };
+
+    // Verifica los valores de tem_Users antes de enviar las solicitudes
+    console.log('tem_Users:', tem_Users);
+
+    dispatch(login_user_localstorag(tem_Users))
+      .then(() => {
+        if (tem_Users.id) {
+          return dispatch(Listado_Orders_Usuario(tem_Users.id));
+        } else {
+          console.error('ID de usuario no válido:', tem_Users.id);
+          return Promise.reject('ID de usuario no válido');
+        }
+      })
+      .catch((error) => {
+        console.error('Error en la solicitud de login o listado de órdenes:', error);
+      });
+  } else {
+    console.log('No se encontró el correo del usuario');
+  }
+}, [dispatch]);
+
+
+
+
+
+
+//! hasta aqui 
+
+
+
+
+
+
   return (
     <div>
       <Navbar />
@@ -95,11 +156,7 @@ function Account() {
         <div className="account-sidebar">
           <div className="profile-header">
             <label htmlFor="avatarInput">
-              {avatar ? (
-                <img src={avatar} alt="Avatar" />
-              ) : (
-                <img src={user.avatar} alt="Avatar" />
-              )}
+              <img src={avatar} alt="Avatar" />
             </label>
             <input
               type="file"
@@ -122,7 +179,7 @@ function Account() {
                 <Link to="#">Centro de notificaciones</Link>
               </li>
               <li>
-                <Link to="#">Últimas órdenes</Link>
+              <Link to="#"> <div onClick={()=>{handleOrders("order")}}>Últimas órdenes</div></Link>
               </li>
             </ul>
           </nav>
@@ -170,6 +227,12 @@ function Account() {
           </div>
         </div>
       </div>
+      {
+        orders
+        ?<OrderUsers/>
+        :null
+      }
+      
     </div>
   );
 }

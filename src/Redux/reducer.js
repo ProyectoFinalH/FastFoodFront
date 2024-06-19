@@ -29,14 +29,16 @@ import {
   CANCELARCOMPRAUSER, // CArrito deshabilitar datos
   IDCARRITOMERCADOPAGO,//hacer la verificaicon de compra
   ADMIN_LOGIN,
-  ADMIN_LOGOUT 
-
+  ADMIN_LOGOUT,
+  GET_CATEGORIES_ADMIN,
+  LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
 } from "../Redux/action-types";
 
 const initialState = {
   USER: null,
   Carrito: null,
   ListaOrderCompany: null, //create lista order company
+  ListaOrderUser: null, //create lista order Uduario
   Compra_Inabilitada: null,
   allUsersAdmin: [],
   allRestaurantsAdmin: [],
@@ -49,7 +51,8 @@ const initialState = {
   getAllMenuitemsAdmin: [],
   allMenus: [],
   allMenusAdmin: [],
-  allCategories: [],
+  allCategories: [],  
+  allCategoriesAdmin: [],
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
@@ -236,6 +239,16 @@ const reducer = (state = initialState, { type, payload }) => {
                 };
 
               
+        case GET_CATEGORIES_ADMIN:
+        return {
+          ...state,
+          allCategoriesAdmin: payload,
+        }
+        case LISTADOORDERSUSERS:
+          return {
+            ...state,
+            ListaOrderUser: payload,
+          }
 
     default:
       return { ...state };

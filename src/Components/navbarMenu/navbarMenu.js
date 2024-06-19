@@ -31,11 +31,17 @@ function NavbarMenu({
     setIsOpen3(!isOpen3);
   };
 
-  const handleLiClick = (e, sortBy, range, category) => {
+  const handleLiClick = (e, options) => {
     e.stopPropagation();
-    handleSort(sortBy);
-    handlePriceRange(range);
-    handleCategoryFilter(category);
+    if (options.sortBy) {
+      handleSort(options.sortBy);
+    }
+    if (options.range) {
+      handlePriceRange(options.range);
+    }
+    if (options.category) {
+      handleCategoryFilter(options.category);
+    }
   };
 
   const handleChange = (e) => {
@@ -57,52 +63,61 @@ function NavbarMenu({
           </button>
         </div>
       </form>
+        <div className="customSection">
+          <button onClick={clearFilter}>Deshacer Filtros</button>
+        </div>
       <div className="navbarMenuSelect">
-        <button onClick={clearFilter}>Deshacer Filtros</button>
-        <div onClick={Options1}>
-          <span>Ordenar por: ⮟</span>
-
-          {isOpen1 && (
-            <ul>
-              <li onClick={(e) => handleLiClick(e, "menorPrecio")}>
-                Menor precio
-              </li>
-              <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>
-                Mayor precio
-              </li>
-            </ul>
-          )}
+        <div className="customSection">
+          <div onClick={Options1}>
+            <span>Ordenar por ⮟</span>
+            {isOpen1 && (
+              <ul>
+                <li onClick={(e) => handleLiClick(e, { sortBy: "menorPrecio" })}>
+                  Menor precio
+                </li>
+                <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>
+                  Mayor precio
+                </li>
+              </ul>
+            )}
+          </div>
         </div>
-        <div onClick={Options3}>
-          <span>Rango de precio ⮟</span>
-          {isOpen3 && (
-            <ul>
-              <li onClick={(e) => handleLiClick(e, "1-30", "1-30")}>1-30</li>
-              <li onClick={(e) => handleLiClick(e, "31-60", "31-60")}>31-60</li>
-              <li onClick={(e) => handleLiClick(e, "61-100", "61-100")}>
-                61-100
-              </li>
-              <li onClick={(e) => handleLiClick(e, "100-1000", "100-1000")}>
-                100-1000
-              </li>
-            </ul>
-          )}
+        <div className="customSection">
+          <div onClick={Options3}>
+          <span >Rango de precio ⮟</span>
+            {isOpen3 && (
+              <ul>
+                <li onClick={(e) => handleLiClick(e, { range: "1-5" })}>
+                  1 - 5</li>
+                  <li onClick={(e) => handleLiClick(e, { range: "6-15" })}>
+                  6 - 15
+                </li>
+                <li onClick={(e) => handleLiClick(e, { range: "16-30" })}>
+                  16 - 30
+                </li>
+                <li onClick={(e) => handleLiClick(e, { range: "31-50" })}>
+                  31 - 50
+                </li>
+              </ul>
+            )}
+          </div>
         </div>
-        <div onClick={Options2}>
-          <span>Categorías ⮟</span>
-          {isOpen2 && <ul></ul>}
+        <div className="customSection">
+          <div onClick={Options2}>
+            <div className="spancategoires">Categorías</div>
+          </div>
+          <select
+            id="category-select"
+            onChange={(e) => handleCategoryClick(e.target.value)}
+          >
+            <option value="">Todas</option>
+            {allCategories?.map((category) => (
+              <option key={category?.id} value={category?.id}>
+                {category?.name}
+              </option>
+            ))}
+          </select>
         </div>
-        <select
-          id="category-select"
-          onChange={(e) => handleCategoryClick(e.target.value)}
-        >
-          <option value="">Todas</option>
-          {allCategories?.map((category) => (
-            <option key={category?.id} value={category?.id}>
-              {category?.name}
-            </option>
-          ))}
-        </select>
       </div>
     </div>
   );
