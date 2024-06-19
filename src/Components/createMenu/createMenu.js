@@ -31,7 +31,7 @@ function CreateMenuForm() {
         if (menuName.menuname.trim() === "") {
             setMenuErrorMessage("Debe ingresar un nombre válido para el menú.");
         } else {
-            dispatch(CreateMenu({ name: menuName.menuname }));
+            dispatch(CreateMenu({ name: menuName.menuname, restaurant_id: 2 }));
             setMenuSuccessMessage("Menú creado con éxito");
         }
     };
@@ -47,11 +47,12 @@ function CreateMenuForm() {
         } else {
             const formData = new FormData();
             formData.append('menu_id', menuName.itemMenu);
-            formData.append('category_id', 1);
+            formData.append('category_id', selectedCategoryId);
             formData.append('name', menuItemName);
             formData.append('description', description);
             formData.append('price', price);
             formData.append('image_url', imageFile);
+            formData.append('restaurant_id', 2);
 
             // Para verificar que el FormData contiene los datos correctos
             for (let [key, value] of formData.entries()) {
@@ -81,7 +82,7 @@ function CreateMenuForm() {
         if (categoryName.trim() === "") {
             setCategoryErrorMessage("Debe ingresar un nombre válido.");
         } else {
-            dispatch(CreateCategory({ name: categoryName }))
+            dispatch(CreateCategory({ name: categoryName, restaurant_id: 2 }))
                 .then(() => {
                     setCategorySuccessMessage("Categoría creada con éxito.");
                     setCategoryErrorMessage("");
@@ -128,6 +129,7 @@ function CreateMenuForm() {
                 <input
                     type="text"
                     id="categoryName"
+                    name="name"
                     value={categoryName}
                     onChange={(event) => setCategoryName(event.target.value)}
                 />

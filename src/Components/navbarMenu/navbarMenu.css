@@ -2,7 +2,6 @@
   background-color: #fff;
   padding: 15px;
   border-radius: 10px;
-
   margin-bottom: 20px;
 }
 
@@ -35,6 +34,8 @@
 }
 
 .navbarMenuSelect {
+  overflow: auto;
+  height: 35vh;
   display: flex;
   flex-direction: column;
 }
@@ -43,7 +44,7 @@
   margin-bottom: 10px;
 }
 
-.navbarMenuSelect button,
+.customSection button,
 .navbarMenuSelect select {
   background-color: #ff5a5f;
   color: white;
@@ -84,3 +85,17 @@ button:focus {
   outline: none;
 }
 
+.navbarMenuSelect span{
+  cursor: pointer;
+}
+.navbarMenuSelect span:hover{
+  background-color: #d8d8d8;
+  border-radius: 5px;
+  padding: 2px;
+  transition: 0.3s ease-in-out;
+}
+.span-active, .span-range-active {
+  background-color: #ff5a60b2;
+  border-radius: 5px;
+  padding: 2px;
+}
