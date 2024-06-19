@@ -8,11 +8,9 @@ import {
   Listado_Orders_Usuario,
   login_user_localstorag,
 } from "../../Redux/actions";
-
 import Notification from "../../Components/Notification/Notification";
 import NotificationCenter from "./Components/NotificationCenter";
 import OrderUsers from "../Orders_User/Order_User";
-
 import {
   obtenerEstatusUsuario,
   obtenerCorreoUsuario,
@@ -35,59 +33,52 @@ function Account() {
   const defaultAvatarUrl =
     "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
 
-    const handleAvatarChange = (e) => {
-      const file = e.target.files[0];
-      setAvatar(file);
-    };
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
 
-    const handleSubmit = async () => {
-      if (!email || !username || !password) {
-        alert("Por favor, completa todos los campos.");
-        return;
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to upload image");
       }
-    
-      try {
-        let imageUrl = avatar ? await uploadToCloudinary(avatar) : null;
-    
-        const userData = {
-          id: user.id,
-          email,
-          username,
-          password,
-          image_url: imageUrl || user.image_url,
-        };
-    
-        const updatedUser = await dispatch(updateUser(user.id, userData));
-    
-        if (updatedUser) {
-          setAvatar(updatedUser.image_url);
-          setShowSuccessNotification(true);
-        } else {
-          setShowSuccessNotification(false);
-        }
-      } catch (error) {
-        console.error("Error al cargar la imagen:", error);
-        alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
-        setShowSuccessNotification(false);
-      }
-    };
-    
-    const uploadToCloudinary = async (file) => {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "tu_upload_preset_aqui");
-    
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/dfhkqwfio/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+
       const data = await response.json();
-      return data.secure_url;
-    };
-    
+      setAvatar(data.imageUrl);
+    } catch (error) {
+      console.error("Error al cargar la imagen:", error);
+      alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!email || !username || !password) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    try {
+      const userData = {
+        id: user.id,
+        email,
+        username,
+        password,
+        image_url: avatar || user.image_url,
+      };
+
+      dispatch(updateUser(user.id, userData));
+      setShowSuccessNotification(true);
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+      setShowSuccessNotification(false);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -97,13 +88,7 @@ function Account() {
     }
   }, [user]);
 
-  //!DEsarrollado para las ordes
-  const handleOrders = async (data) => {
-    if (data === "order") {
-      setOrders(!orders);
-    }
-  };
-
+  //! Desarrollado para las órdenes
   useEffect(() => {
     const email = obtenerCorreoUsuario();
     if (email) {
@@ -113,9 +98,6 @@ function Account() {
         email: email,
         name: obtenerNombreUsuario(),
       };
-
-      // Verifica los valores de tem_Users antes de enviar las solicitudes
-      console.log("tem_Users:", tem_Users);
 
       dispatch(login_user_localstorag(tem_Users))
         .then(() => {
@@ -169,9 +151,7 @@ function Account() {
               </li>
               <li>
                 <Link to="#">
-                  <div onClick={() => handleOrders("order")}>
-                    Últimas órdenes
-                  </div>
+                  <div onClick={() => setOrders(!orders)}>Últimas órdenes</div>
                 </Link>
               </li>
             </ul>
