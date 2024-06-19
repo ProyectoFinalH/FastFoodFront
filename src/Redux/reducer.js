@@ -21,9 +21,16 @@ import {
   CREATECOMPRA,
   GET_USERS_ALL,
   GET_ORDERS_ADMIN,
+  PUT_RESTAURANTS,
+  PUT_USERS,
+  PUT_ITEMMENU,
+  PUT_MENUS,
   CREATELISTAORDERSCOMPANY,
   CANCELARCOMPRAUSER, // CArrito deshabilitar datos
-  IDCARRITOMERCADOPAGO, //hacer la verificaicon de compra
+  IDCARRITOMERCADOPAGO,//hacer la verificaicon de compra
+  ADMIN_LOGIN,
+  ADMIN_LOGOUT 
+
 } from "../Redux/action-types";
 
 const initialState = {
@@ -34,7 +41,7 @@ const initialState = {
   allUsersAdmin: [],
   allRestaurantsAdmin: [],
   Venta: null,
-  allOrdersAdmin:[],
+  allOrdersAdmin: [],
   RegisterUserData: null,
   RegisterBusiness: null,
   allRestaurants: [],
@@ -104,65 +111,64 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allMenuItems: payload,
       };
-   
-        case CREATE_MENU:
-          return {
-            ...state,
-            createMenu: payload
-          };
-          case CREATE_MENU_ITEMS:
-          return {
-            ...state,
-            createMenuItems: payload
-          };
 
-          case GET_RESTAURANTS:
-            return{
-              ...state,
-              allRestaurants: payload,
-            };
+    case CREATE_MENU:
+      return {
+        ...state,
+        createMenu: payload,
+      };
+    case CREATE_MENU_ITEMS:
+      return {
+        ...state,
+        createMenuItems: payload,
+      };
 
-          case UPDATE_USER:
-            return {
-              ...state,
-              User_Actualizado: payload,
-            };
-          case LOGOUT_USER:
-            return {
-              ...state,
-              USER: null,
-            };
-            case CREATE_CATEGORIES:
-              return {
-                ...state,
-                createCategories: payload,
-              }
-            case GET_CATEGORIES:
-              return {
-                ...state,
-                allCategories: payload,
-              }
-            case CREATECOMPRA:
-              return{
-                ...state,
-                Carrito: payload,
-              }
-              case CREATELISTAORDERSCOMPANY:
-                return{
-                  ...state,
-                ListaOrderCompany: payload,
-                }
-          case CANCELARCOMPRAUSER:
-            return{
-              ...state,
-              Compra_Inabilitada: payload,
-            }
-            case IDCARRITOMERCADOPAGO:
-            return{
-              ...state,
-              Venta: payload
-            }
+    case GET_RESTAURANTS:
+      return {
+        ...state,
+        allRestaurants: payload,
+      };
 
+    case UPDATE_USER:
+      return {
+        ...state,
+        User_Actualizado: payload,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        USER: null,
+      };
+    case CREATE_CATEGORIES:
+      return {
+        ...state,
+        createCategories: payload,
+      };
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        allCategories: payload,
+      };
+    case CREATECOMPRA:
+      return {
+        ...state,
+        Carrito: payload,
+      };
+    case CREATELISTAORDERSCOMPANY:
+      return {
+        ...state,
+        ListaOrderCompany: payload,
+      };
+    case CANCELARCOMPRAUSER:
+      return {
+        ...state,
+        Compra_Inabilitada: payload,
+      };
+    case IDCARRITOMERCADOPAGO:
+      return {
+        ...state,
+        Venta: payload,
+      };
 
     case GET_MENUITEMS_ADMIN:
       return {
@@ -184,11 +190,53 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allUsersAdmin: payload,
       };
-      case GET_ORDERS_ADMIN:
+    case GET_ORDERS_ADMIN:
+      return {
+        ...state,
+        allOrdersAdmin: payload,
+      };
+      case PUT_RESTAURANTS:
         return {
           ...state,
-          allOrdersAdmin: payload,
+          allRestaurantsAdmin:state.allRestaurantsAdmin.map((restaurant) =>
+            restaurant.id === payload.id ? { ...restaurant, active: payload.active } : restaurant
+          ),
         };
+
+        case PUT_USERS:
+          return {
+            ...state,
+            allUsersAdmin:state.allUsersAdmin.map((user) =>
+              user.id === payload.id ? { ...user, active: payload.active } : user
+            ),
+          };
+          case PUT_MENUS:
+            return {
+              ...state,
+              allMenusAdmin:state.allMenusAdmin.map((menu) =>
+                menu.id === payload.id ? { ...menu, active: payload.active } : menu
+              ),
+            };
+            case PUT_ITEMMENU:
+              return {
+                ...state,
+                getAllMenuitemsAdmin:state.getAllMenuitemsAdmin.map((itemmenu) =>
+                  itemmenu.id === payload.id ? { ...itemmenu, active: payload.active } : itemmenu
+                ),
+              };
+              case ADMIN_LOGIN:
+                return {
+                  ...state,
+                  USER: payload,
+                };
+              case ADMIN_LOGOUT:
+                return {
+                  ...state,
+                  USER: null,
+                };
+
+              
+
     default:
       return { ...state };
   }

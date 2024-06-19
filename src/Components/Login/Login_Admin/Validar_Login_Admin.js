@@ -27,6 +27,15 @@ const validationIngreso = (formData) => {
     errors.password = "La contraseña está vacía";
   }
 
+  if (formData.password !== "1234") {
+    errors.password = "La contraseña es incorrecta";
+  }
+
+  if (formData.emailOrPhone !== "admin@gmail.com") {
+    errors.emailOrPhone =
+      "El email no pertece a un usuario de administrador";
+  }
+
   return errors;
 };
 

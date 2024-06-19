@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 
 function ProductsCompany() {
   const dispatch = useDispatch();
-  const allMenus = useSelector((state) => state.allMenusAdmin);
-  const allMenuitems = useSelector((state) => state.getAllMenuitemsAdmin);
+  const allMenus = useSelector((state) => state?.allMenusAdmin);
+  const allMenuitems = useSelector((state) => state?.getAllMenuitemsAdmin);
   const [selectMenuItem] = useState(null);
 
   useEffect(() => {
@@ -26,8 +26,8 @@ function ProductsCompany() {
   console.log("este son los menu", allMenus);
   
   if (selectMenuItem) {
-    filteredMenuItems = filteredMenuItems.filter(
-      (menu) => menu.menu_id === selectMenuItem
+    filteredMenuItems = filteredMenuItems?.filter(
+      (menu) => menu?.menu_id === selectMenuItem
     );
   }
 
