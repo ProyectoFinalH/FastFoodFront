@@ -35,53 +35,59 @@ function Account() {
   const defaultAvatarUrl =
     "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
 
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    const imageURL = URL.createObjectURL(file);
+    const handleAvatarChange = (e) => {
+      const file = e.target.files[0];
+      setAvatar(file);
+    };
 
-    setAvatar(imageURL);
-  };
-
-  const handleSubmit = async () => {
-    if (!email || !username || !password) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
-
-    try {
-      let imageUrl = avatar;
-      if (avatar && typeof avatar !== "string") {
-        const formData = new FormData();
-        formData.append("file", avatar);
-        formData.append("upload_preset", "tu_upload_preset_aqui");
-
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dfhkqwfio/image/upload",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const data = await response.json();
-        imageUrl = data.secure_url;
+    const handleSubmit = async () => {
+      if (!email || !username || !password) {
+        alert("Por favor, completa todos los campos.");
+        return;
       }
-
-      const userData = {
-        id: user.id,
-        email,
-        username,
-        password,
-        image_url: imageUrl,
-      };
-
-      dispatch(updateUser(user.id, userData));
-      setShowSuccessNotification(true);
-    } catch (error) {
-      console.error("Error al cargar la imagen:", error);
-      alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
-      setShowSuccessNotification(false);
-    }
-  };
+    
+      try {
+        let imageUrl = avatar ? await uploadToCloudinary(avatar) : null;
+    
+        const userData = {
+          id: user.id,
+          email,
+          username,
+          password,
+          image_url: imageUrl || user.image_url,
+        };
+    
+        const updatedUser = await dispatch(updateUser(user.id, userData));
+    
+        if (updatedUser) {
+          setAvatar(updatedUser.image_url);
+          setShowSuccessNotification(true);
+        } else {
+          setShowSuccessNotification(false);
+        }
+      } catch (error) {
+        console.error("Error al cargar la imagen:", error);
+        alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+        setShowSuccessNotification(false);
+      }
+    };
+    
+    const uploadToCloudinary = async (file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "tu_upload_preset_aqui");
+    
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dfhkqwfio/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await response.json();
+      return data.secure_url;
+    };
+    
 
   useEffect(() => {
     if (user) {
