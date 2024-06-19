@@ -718,3 +718,14 @@ export const loginAdmin = (formData, navigate) => {
 export const logoutAdmin = () => ({
   type: ADMIN_LOGOUT,
 });
+
+export function getAllCategoriesAdmin() {
+  return async function (dispatch) {
+    const response = await axios("http://localhost:5000/categories/all");
+    console.log("Categorías obtenidas:", response.data);
+    return dispatch({
+      type: GET_CATEGORIES_ADMIN,
+      payload: response.data,
+    });
+  };
+}
