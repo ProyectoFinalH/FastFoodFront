@@ -24,7 +24,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
         if (data?.id) {
           setMenuItem(data);
           const storedCant = obtenerContCarrito(data.id);
-          setCant(storedCant || 1);
+          setCant(storedCant || 0);
         }
       } catch (error) {
         console.log("Error al ingresar al menuItem", error);
@@ -40,37 +40,38 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
 
   useEffect(() => {
     const storedCant = obtenerContCarrito(menuItemId);
-    setCant(storedCant || 1);
+    setCant(storedCant || 0);
+  }, [menuItemId]);
+
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key && event.key.startsWith('card-')) {
+        const storedCant = obtenerContCarrito(menuItemId);
+        setCant(storedCant || 0);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, [menuItemId]);
 
   const handleMenuCarrito = () => {
     setViewCard(!viewCard);
   };
 
-  /*const handleClickOutside = (event) => {
-    if (detailRef.current && !detailRef.current.contains(event.target)) {
-      handleCloseModal();
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);*/
-
-  const handleDisminuirItem = (idcard) => {
+  const handleDisminuirItem = async (idcard) => {
     if (cant === 0) {
       alertify.warning("No puedes disminuir de 0");
     } else {
-      const newCant = handleDisminuir(idcard);
+      const newCant = await handleDisminuir(idcard);
       setCant(newCant);
     }
   };
 
-  const handleAumentarItem = (idcard) => {
-    const newCant = handleSumar(idcard);
+  const handleAumentarItem = async (idcard) => {
+    const newCant = await handleSumar(idcard);
     setCant(newCant);
   };
 
@@ -102,7 +103,7 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
                 <input
                   className="inputcard"
                   type="text"
-                  value={ obtenerContCarrito(menuItemId)} 
+                  value={obtenerContCarrito(menuItem.id)} 
                   disabled
                 />
                 <label className="aumentardisminuir" onClick={() => handleAumentarItem(menuItem.id)}>
@@ -115,8 +116,6 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
                 alt="Carrito"
                 className="aumentardisminuir"
                 onClick={handleMenuCarrito}
-
-                
               />
             </div>
           </div>
