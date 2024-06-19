@@ -167,8 +167,8 @@ function Carrito({ onClose }) {
     }
   };
 
-  const handleDeleteItem = (id) => {
-    eliminarItemCarrito(id);
+  const handleDeleteItem = async (id) => {
+    await eliminarItemCarrito(id);
     setSelectedCards((prevCards) => {
       const updatedCards = prevCards.filter((card) => card.id !== id);
       return updatedCards;

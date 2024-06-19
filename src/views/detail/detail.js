@@ -1,8 +1,7 @@
 import alertify from 'alertifyjs';
-import 'alertifyjs/build/css/alertify.min.css'; // Importa los estilos de AlertifyJS
+import 'alertifyjs/build/css/alertify.min.css';
 import 'alertifyjs/build/css/themes/default.min.css';
 
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from "react";
 import "./detail.css";
 import axios from "axios";
@@ -19,53 +18,60 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   const detailRef = useRef(null);
 
   useEffect(() => {
-    axios(`http://localhost:5000/menuitems/${menuItemId}`)
-      .then(({ data }) => {
+    const fetchMenuItem = async () => {
+      try {
+        const { data } = await axios(`http://localhost:5000/menuitems/${menuItemId}`);
         if (data?.id) {
           setMenuItem(data);
           const storedCant = obtenerContCarrito(data.id);
-          setCant(storedCant);
+          setCant(storedCant || 0);
         }
-      })
-      .catch(() => {
-        console.log("Error al ingresar al menuItem");
-      });
+      } catch (error) {
+        console.log("Error al ingresar al menuItem", error);
+      }
+    };
+
+    if (menuItemId) {
+      fetchMenuItem();
+    }
 
     return () => setMenuItem({});
+  }, [menuItemId]);
+
+  useEffect(() => {
+    const storedCant = obtenerContCarrito(menuItemId);
+    setCant(storedCant || 0);
+  }, [menuItemId]);
+
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key && event.key.startsWith('card-')) {
+        const storedCant = obtenerContCarrito(menuItemId);
+        setCant(storedCant || 0);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, [menuItemId]);
 
   const handleMenuCarrito = () => {
     setViewCard(!viewCard);
   };
 
-  const handleClickOutside = (event) => {
-    if (detailRef.current && !detailRef.current.contains(event.target)) {
-      handleCloseModal();
-    }
-  };
-
-  useEffect(() => {
-  // document.addEventListener("mousedown", handleClickOutside); 
-   //!el error o la salida la da esta linea de arriba si la elimino fimcioma 
-   //!sin problema el detail y el carrito juntos  
-   //! aclaro no se va a afectar en nada el codigo solo que van a 
-   //!tener que dar clic en X para poder salir del detail
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const handleDisminuirItem = (idcard) => {
+  const handleDisminuirItem = async (idcard) => {
     if (cant === 0) {
-      alertify.warning("no puedes disminuir de 0");
+      alertify.warning("No puedes disminuir de 0");
     } else {
-      const newCant = handleDisminuir(idcard);
+      const newCant = await handleDisminuir(idcard);
       setCant(newCant);
     }
   };
 
-  const handleAumentarItem = (idcard) => {
-    const newCant = handleSumar(idcard);
+  const handleAumentarItem = async (idcard) => {
+    const newCant = await handleSumar(idcard);
     setCant(newCant);
   };
 
@@ -73,51 +79,49 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
 
   return (
     <div>
-    <div className="detailContainer">
-      
-
-      <div ref={detailRef} className="detailCardContainer">
-        <div className="buttonClose">
-          <button onClick={handleCloseModal}>X</button>
-        </div>
-        <div className="imageDetail">
-          <img src={menuItem?.image_url} alt={menuItem.name} />
-        </div>
-        <div className="cardDetail">
-          <div className="titleDetail">
-            <h2>{menuItem?.name}</h2>
+      <div className="detailContainer">
+        <div ref={detailRef} className="detailCardContainer">
+          <div className="buttonClose">
+            <button onClick={handleCloseModal}>X</button>
           </div>
-          <p className="description-detal">{menuItem?.description}</p>
-        </div>
-        <div className="cantContainer">
-          <h2>Unidades</h2>
-          <div className="botones-flex">
-            <div className="buttonDecInc-Menu">
-              <label className="aumentardisminuir" onClick={() => handleDisminuirItem(menuItem.id)}>
-                -
-              </label>
-              <input
-                className="inputcard"
-                type="text"
-                value={cant} 
-                disabled
-              />
-              <label className="aumentardisminuir" onClick={() => handleAumentarItem(menuItem.id)}>
-                +
-              </label>
+          <div className="imageDetail">
+            <img src={menuItem?.image_url} alt={menuItem.name} />
+          </div>
+          <div className="cardDetail">
+            <div className="titleDetail">
+              <h2>{menuItem?.name}</h2>
             </div>
-            <img
-              src={carrito}
-              title="Ve Al Carrito"
-              alt="Carrito"
-              className="aumentardisminuir"
-              onClick={handleMenuCarrito}
-            />
+            <p className="description-detal">{menuItem?.description}</p>
+          </div>
+          <div className="cantContainer">
+            <h2>Unidades</h2>
+            <div className="botones-flex">
+              <div className="buttonDecInc-Menu">
+                <label className="aumentardisminuir" onClick={() => handleDisminuirItem(menuItem.id)}>
+                  -
+                </label>
+                <input
+                  className="inputcard"
+                  type="text"
+                  value={obtenerContCarrito(menuItem.id)} 
+                  disabled
+                />
+                <label className="aumentardisminuir" onClick={() => handleAumentarItem(menuItem.id)}>
+                  +
+                </label>
+              </div>
+              <img
+                src={carrito}
+                title="Ve Al Carrito"
+                alt="Carrito"
+                className="aumentardisminuir"
+                onClick={handleMenuCarrito}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    {viewCard && <Carrito onClose={handleMenuCarrito} />}
+      {viewCard && <Carrito onClose={handleMenuCarrito} />}
     </div>
   );
 }

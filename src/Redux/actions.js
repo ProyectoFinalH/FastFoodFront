@@ -23,7 +23,8 @@ import {
   GET_RESTAURANTS_ALL,
   GET_USERS_ALL,
   GET_CATEGORIES_ADMIN,
-} from "./action-types";
+  LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
+ } from "./action-types";
 
 // import {GET_RESTAURANTS} from "./action-types"
 
@@ -476,6 +477,33 @@ export const Eliminar_Registro_Compra = async (id)=>{
 
 }
 
+
+//!Identificar datos del las ordenes del Usuario 
+
+export const  Listado_Orders_Usuario=(id)=>{
+  return async (dispatch) => {
+    try {
+      console.log(id)
+      const endpoint = `http://localhost:5000/orders/user/${id}`;
+      const response = await  axios.get(endpoint);
+      const data = response.data;
+      //alert("Esta es la lista de compras "+compra)
+      console.log("Este si es " + JSON.stringify(data));
+      dispatch({
+        type: LISTADOORDERSUSERS,
+        payload: data,
+      }); 
+
+
+
+   
+    } catch (error) {
+      alert("Error al enviar la información", error.message);
+      console.log("Error al enviar la información", error.message);
+    }
+  
+  }
+}
 //!Actualizar la compra de usuario
 
 export const Actualizar_Compra_Usuario = (datauser) => {
