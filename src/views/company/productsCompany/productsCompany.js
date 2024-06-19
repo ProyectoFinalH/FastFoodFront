@@ -24,8 +24,8 @@ function ProductsCompany() {
 
 
   if (selectMenuItem) {
-    filteredMenuItems = filteredMenuItems.filter(
-      (menu) => menu.menu_id === selectMenuItem
+    filteredMenuItems = filteredMenuItems?.filter(
+      (menu) => menu?.menu_id === selectMenuItem
     );
   }
 

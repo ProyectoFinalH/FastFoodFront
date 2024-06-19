@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import "./ordenesAdmin.css"
 
 import NavbarAdmin from "../navbarAdmin/navbarAdmin";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrdersAdmin } from "../../../Redux/actions";
 
-function OrdersAdmin({allOrdersAdmin}) {
-  const [orders, setOrders] = useState([]);
+function OrdersAdmin() {
+ 
   
+  const allOrdersAdmin = useSelector((state)=> state.allOrdersAdmin)
+  const dispatch = useDispatch()
   
   useEffect(() => {
-    setOrders(allOrdersAdmin);
-  }, [allOrdersAdmin]);
+    dispatch(getOrdersAdmin());
+  }, [dispatch]);
 
-console.log("orden:",orders)
   return (
     <div>
          <NavbarAdmin/>
@@ -26,14 +29,14 @@ console.log("orden:",orders)
             <th>Restaurante</th>
             <th>Productos</th>
             <th>Cantidad</th>
-            <th>Precio Unidad</th>
+            <th>Precio parcia</th>
             <th>Fecha</th>
             <th>Estado Compra</th>
             <th>Costo Total</th>
           </tr>
         </thead>
         <tbody>
-          {orders?.map((order) => (
+          {allOrdersAdmin?.map((order) => (
             <tr key={order?.id}>
               <td>{order?.id}</td>
               <td>{order?.user_name}</td>

@@ -75,7 +75,7 @@ function NavbarMenu({
                 <li onClick={(e) => handleLiClick(e, { sortBy: "menorPrecio" })}>
                   Menor precio
                 </li>
-                <li onClick={(e) => handleLiClick(e, "mayorPrecio")}>
+                <li onClick={(e) => handleLiClick(e, { sortBy: "mayorPrecio" })}>
                   Mayor precio
                 </li>
               </ul>

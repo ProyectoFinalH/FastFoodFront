@@ -22,10 +22,15 @@ import {
   GET_MENUS_ADMIN,
   GET_RESTAURANTS_ALL,
   GET_USERS_ALL,
+  PUT_RESTAURANTS,
+  PUT_USERS,
+  PUT_MENUS,
+  PUT_ITEMMENU,
+  ADMIN_LOGIN,
+  ADMIN_LOGOUT,
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
  } from "./action-types";
-
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from "axios";
@@ -174,10 +179,8 @@ export const login_User = (dataquery) => {
 export const login_User_Google = (dataquery) => {
   return async (dispatch) => {
     try {
-
       const endpoint = "http://localhost:5000/users/auth/google";
       const response = await axios.post(endpoint, { token: dataquery.token });
-
 
       const userData = response.data;
 
@@ -187,10 +190,8 @@ export const login_User_Google = (dataquery) => {
         type: USERLOGINGOOGLE,
         payload: userData,
       });
-
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
-
     }
   };
 };
@@ -198,17 +199,12 @@ export const login_User_Google = (dataquery) => {
 
 export const login_user_localstorag = (auser) => {
   return async (dispatch) => {
-
     dispatch({
       type: USERLOGIN,
       payload: auser,
     });
-  }
-
-
-}
-
-
+  };
+};
 
 export function getAllMenus() {
   return async function (dispatch) {
@@ -248,7 +244,6 @@ export function getAllMenuitems() {
     });
   };
 }
-
 
 export function getMenuItemsByName(name) {
   return async function (dispatch) {
@@ -551,8 +546,6 @@ export const Deshabilito_Compra_User = (id) => {
   };
 };
 
-
-
 export function getAllUsersAdmin() {
   return async function (dispatch) {
     try {
@@ -570,37 +563,32 @@ export function getAllUsersAdmin() {
 
 export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
   return async (dispatch) => {
-    console.log("Usuario de Mercado pago" + JSON.stringify(DAtosMercadoPAgo))
+    console.log("Usuario de Mercado pago" + JSON.stringify(DAtosMercadoPAgo));
     const mercadopago = {
       description: DAtosMercadoPAgo.descriptions,
       price_total: DAtosMercadoPAgo.price,
-      quantity_order: DAtosMercadoPAgo.quantity
-    }
-
+      quantity_order: DAtosMercadoPAgo.quantity,
+    };
 
     try {
-      const endpoint = 'http://localhost:5000/mercadopago/create';
+      const endpoint = "http://localhost:5000/mercadopago/create";
       const response = await axios.post(endpoint, mercadopago);
       const compra = response.data;
 
-      console.log("respuesta ID" + compra)
-      return { id: compra }
+      console.log("respuesta ID" + compra);
+      return { id: compra };
       /* dispatch({
-         type: IDCARRITOMERCADOPAGO,
-         payload: compra,
-       });
-      
-     */
-
+    type: IDCARRITOMERCADOPAGO,
+    payload: compra,
+  });
+ 
+*/
     } catch (error) {
       alert("Error al enviar compra del carrito", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
-}
-
-
-
+};
 
 export function getOrdersAdmin() {
   return async function (dispatch) {
@@ -613,9 +601,123 @@ export function getOrdersAdmin() {
     } catch (error) {
       console.error("Error al obtener los ordenes:", error);
     }
-  }
+  };
 }
 
+export const PutRestaurants = (id, isActive) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/restaurants/${
+          isActive ? "restore" : "delete"
+        }/${id}`
+      );
+
+      // Suponiendo que la API devuelve el restaurante actualizado con `id` y `active`
+      dispatch({
+        type: PUT_RESTAURANTS,
+        payload: response.data, // Ajusta según la respuesta de tu API
+      });
+
+      console.log("Solicitud PUT enviada correctamente.");
+    } catch (error) {
+      console.error("Error al cambiar el estado del restaurante:", error);
+    }
+  };
+};
+
+export const PutUsers = (id, isActive) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/users/${isActive ? "restore" : "delete"}/${id}`
+      );
+
+      // Suponiendo que la API devuelve el restaurante actualizado con `id` y `active`
+      dispatch({
+        type: PUT_USERS,
+        payload: response.data, // Ajusta según la respuesta de tu API
+      });
+
+      console.log("Solicitud PUT enviada correctamente.");
+    } catch (error) {
+      console.error("Error al cambiar el estado del restaurante:", error);
+    }
+  };
+};
+
+export const PutMenus = (id, isActive) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/menus/${isActive ? "restore" : "delete"}/${id}`
+      );
+
+      // Suponiendo que la API devuelve el restaurante actualizado con `id` y `active`
+      dispatch({
+        type: PUT_MENUS,
+        payload: response.data, // Ajusta según la respuesta de tu API
+      });
+
+      console.log("Solicitud PUT enviada correctamente.");
+    } catch (error) {
+      console.error("Error al cambiar el estado del restaurante:", error);
+    }
+  };
+};
+export const PutItemMenu = (id, isActive) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/menuitems/${
+          isActive ? "restore" : "delete"
+        }/${id}`
+      );
+
+      // Suponiendo que la API devuelve el restaurante actualizado con `id` y `active`
+      dispatch({
+        type: PUT_ITEMMENU,
+        payload: response.data, // Ajusta según la respuesta de tu API
+      });
+
+      console.log("Solicitud PUT enviada correctamente.");
+    } catch (error) {
+      console.error("Error al cambiar el estado del restaurante:", error);
+    }
+  };
+};
+
+
+
+export const loginAdmin = (formData, navigate) => {
+  const { emailOrPhone, password } = formData;
+
+  return (dispatch) => {
+    try {
+      if (emailOrPhone === 'admin@gmail.com' && password === '1234') {
+        const adminUser = {
+          emailOrPhone: 'admin@gmail.com',
+          role_id: 2,
+        };
+  
+        dispatch({
+          type: ADMIN_LOGIN,
+          payload: adminUser,
+        });
+  
+        navigate('/admin')
+
+       }
+       } catch (error) {
+        console.error("error al iniciar como administrador", error)
+       }
+
+    }
+  };
+
+export const logoutAdmin = () => ({
+  type: ADMIN_LOGOUT,
+});
 
 export function getAllCategoriesAdmin() {
   return async function (dispatch) {

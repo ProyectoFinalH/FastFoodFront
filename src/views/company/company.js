@@ -11,7 +11,7 @@ import { useEffect } from "react";
 function Company() {
 
 
-const allRestaurants = useSelector((state)=> state.allRestaurants)
+const allRestaurants = useSelector((state)=> state?.allRestaurants)
 
 console.log("Datos de todos los restaurantes:", allRestaurants);
 

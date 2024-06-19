@@ -18,7 +18,7 @@
 }
 
 .login-admin-imageningreso {
-  width: 250px;
+  width: 400px;
 }
 
 .login-admin-contenedoringreso {
@@ -143,13 +143,13 @@
   position: relative;
 }
 
-.login-admin-ov-btn-grow-box {
+.login-button {
+  text-align: center;
   margin-top: 20px;
-  height: 20px;
+  height: 25px;
   background: linear-gradient(283deg, #ff2426, #ff9259);
   width: 350px;
   color: white;
-  border: 2px solid black;
   padding: 5px 10px;
   border-radius: 10px;
   position: relative;
@@ -157,14 +157,16 @@
   overflow: hidden;
   display: inline-block;
   font-weight: bolder;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
-.login-admin-ov-btn-grow-box:hover {
+.login-button:hover {
   color: #fff;
   cursor: pointer;
 }
 
-.login-admin-ov-btn-grow-box::after {
+.login-button::after {
   content: "";
   background: #29d884;
   position: absolute;
@@ -179,9 +181,25 @@
   transition: all 0.3s ease;
 }
 
-.login-admin-ov-btn-grow-box:hover::after {
+.login-button:hover::after {
   transition: all 0.3s ease-out;
   transform: scale(1, 1);
+}
+
+.login-button.disabled {
+  background: linear-gradient(283deg, #616161, #080808);
+  cursor: not-allowed;
+  color: #d4d4d4;
+  font-weight: 500;
+}
+
+.login-button.disabled:hover {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.login-button.disabled::after {
+  display: none;
 }
 
 .login-admin-espacioError {
