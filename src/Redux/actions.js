@@ -1,3 +1,4 @@
+import axiosInstance from "../AuthContext/axiosInstance";
 import {
   GET_CATEGORIES,
   CANCELARCOMPRAUSER,
@@ -228,7 +229,7 @@ export function getAllMenusAdmin() {
 
 export function getAllMenuitemsAdmin() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:5000/menuitems/all");
+    const response = await axiosInstance("http://localhost:5000/menuitems/all");
     return dispatch({
       type: GET_MENUITEMS_ADMIN,
       payload: response.data,
@@ -690,30 +691,45 @@ export const PutItemMenu = (id, isActive) => {
 
 
 export const loginAdmin = (formData, navigate) => {
-  const { emailOrPhone, password } = formData;
+  //const { emailOrPhone, password } = formData;
+  console.log(formData);
 
-  return (dispatch) => {
+  return async (dispatch) => {
+    // try {
+    //   if (emailOrPhone === 'admin@gmail.com' && password === '1234') {
+    //     const adminUser = {
+    //       emailOrPhone: 'admin@gmail.com',
+    //       role_id: 2,
+    //     };
+  
+    //     dispatch({
+    //       type: ADMIN_LOGIN,
+    //       payload: adminUser,
+    //     });
+  
+    //     navigate('/admin')
+
+    //    }
+    //    } catch (error) {
+    //     console.error("error al iniciar como administrador", error)
+    //    }
+
     try {
-      if (emailOrPhone === 'admin@gmail.com' && password === '1234') {
-        const adminUser = {
-          emailOrPhone: 'admin@gmail.com',
-          role_id: 2,
-        };
-  
-        dispatch({
-          type: ADMIN_LOGIN,
-          payload: adminUser,
-        });
-  
-        navigate('/admin')
+      const URL="http://localhost:5000/users/login"
+      let response=await axios.post(URL,formData);
+      return dispatch({
+        type:ADMIN_LOGIN,
+        payload: response
+      })
 
-       }
-       } catch (error) {
-        console.error("error al iniciar como administrador", error)
-       }
+    } catch (error) {
+      console.log("error al iniciar como administrador", error);
+    }
 
     }
   };
+
+
 
 export const logoutAdmin = () => ({
   type: ADMIN_LOGOUT,

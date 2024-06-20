@@ -8,20 +8,20 @@ import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
 import { loginAdmin} from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_Admin";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const LoginAdmin = () => {
   const dispatch = useDispatch();
-  const USER = useSelector((state) => state?.USER);
+  //const USER = useSelector((state) => state?.USER);
   const [keyVisible, setKeyVisible] = useState(false);
   
   const navigate = useNavigate();
 
-  console.log("user", USER)
+  //console.log("user", USER)
 
   const [formData, setFormData] = useState({
-    emailOrPhone: "",
+    email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
@@ -49,7 +49,7 @@ const LoginAdmin = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Datos del formulario:", formData);
+      //console.log("Datos del formulario:", formData);
       dispatch(loginAdmin(formData, navigate));
     }
   };
@@ -64,15 +64,15 @@ const LoginAdmin = () => {
             <img src={icono_usuario} alt="icono ingreso" />
             <input
               type="text"
-              name="emailOrPhone"
-              value={formData?.emailOrPhone}
+              name="email"
+              value={formData?.email}
               onChange={handleChange}
               maxLength={100}
               placeholder="Datos de Administrador"
             />
           </div>
-          {errors.emailOrPhone && (
-            <div className="login-admin-espacioError">{errors?.emailOrPhone}</div>
+          {errors.email && (
+            <div className="login-admin-espacioError">{errors?.email}</div>
           )}
           <div className="login-admin-Grupoinput">
             <img src={icono_key} alt="icono ingreso" />

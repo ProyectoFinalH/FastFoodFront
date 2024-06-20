@@ -57,6 +57,7 @@ const initialState = {
   createMenuItems: null,
   createCategories: null,
   User_Actualizado: null,
+  token:null,//estado global que guarda el token obtenido en login
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -230,7 +231,7 @@ const reducer = (state = initialState, { type, payload }) => {
               case ADMIN_LOGIN:
                 return {
                   ...state,
-                  USER: payload,
+                  token: payload,
                 };
               case ADMIN_LOGOUT:
                 return {
