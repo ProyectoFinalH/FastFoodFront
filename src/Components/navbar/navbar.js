@@ -25,6 +25,12 @@ function Navbar() {
     window.location.href = "/";
   };
 
+  const handleIniciarSesion = ()=>{
+    dispatch(logoutUser());
+    eliminarDatosUsuario()
+    window.location.href = "/";
+  }
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -45,7 +51,7 @@ function Navbar() {
         </div>
       </div>
       <div className="right-section">
-        {!User || User !== "invitado" ? (
+        {!User || User.name !== "invitado" ? (
           <div className="carrito-container" onClick={handleMenuCarrito}>
             <img src={carrito} alt="Carrito" className="carrito-img" />
           </div>
@@ -70,7 +76,7 @@ function Navbar() {
                 Inicio
               </NavLink>
             </li>
-            {!User || User !== "invitado" ? (
+            {!User || User.name !== "invitado" ? (
               <li>
                 <NavLink to="/account" onClick={toggleMenu}>
                   Mi cuenta
@@ -81,7 +87,7 @@ function Navbar() {
               <NavLink to="/order">Mi Pedido</NavLink>
             </li>
            
-            {!User || User !== "invitado" ? (
+            {!User || User.name !== "invitado" ? (
               <li>
                 <button className="close-btn" onClick={handleLogout}>
                   Cerrar sesión
@@ -89,7 +95,7 @@ function Navbar() {
               </li>
             ) : (
               <li>
-                <NavLink to="/">Iniciar sesión</NavLink>
+                <NavLink onClick={handleIniciarSesion}>Iniciar sesión</NavLink>
               </li>
             )}
           </ul>
