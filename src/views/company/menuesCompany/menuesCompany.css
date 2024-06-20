@@ -109,3 +109,20 @@
     background-color: rgb(168, 168, 168);
     box-shadow: 0px 0px 5px rgb(126, 126, 126);
 }
+.custom-modal-button2{
+    margin-left: 80%;
+    margin-bottom: 25vh;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: #ff5d5d;
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 50px; 
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.3rem;
+  }
+  .custom-modal-button2:hover{
+    background-color: #ac0000;
+  }
