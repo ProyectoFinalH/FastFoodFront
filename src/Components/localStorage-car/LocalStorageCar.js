@@ -7,7 +7,7 @@ export const obtenerItemsCarrito = () => {
   return Object.keys(localStorage)
     .filter((key) => key.startsWith("card-"))
     .map((key) => getItem(key.split("-")[1]))
-    .filter((item) => item.cont > 0);
+    .filter((item) => item && item.cont > 0); // Verifica que item no sea nulo y tenga cont > 0
 };
 
 // Guardar un item en el carrito
@@ -60,4 +60,22 @@ export const resetearCarrito = () => {
         setItem(item.id, item);
       }
     });
+};
+
+
+export const obtenerItemsCarritoenCeros = () => {
+  return Object.keys(localStorage)
+    .filter((key) => key.startsWith("card-"))
+    .map((key) => getItem(key.split("-")[1]))
+    .filter((item) => item && item.cont > 0); // Verifica que item no sea nulo y tenga cont > 0
+};
+
+export const obtenerItemsCarritoenCerosfinal = () => {
+  return Object.keys(localStorage)
+    .filter((key) => key.startsWith("card-"))
+    .map((key) => {
+      const item = getItem(key.split("-")[1]);
+      return item ? item : { id: key.split("-")[1], cont: 0 }; // Si el item es nulo, devuelve un objeto con cont = 0
+    })
+    .filter((item) => item.cont >= 0); // Filtra los elementos con contador mayor o igual a cero
 };
