@@ -5,23 +5,19 @@ const validationRigistro = (userData) => {
     return errors;
   }
 
-  if (!userData.emailOrPhone || userData.emailOrPhone.trim().length === 0) {
-    errors.emailOrPhone = "El correo electrónico o el número esta vacío";
+  if (!userData.email || userData.email.trim().length === 0) {
+    errors.email = "El campo electrónico está vacío";
   } else {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phonePattern = /^\d{10}$/;
+  //  const phonePattern = /^\d{10}$/;
 
     if (
-      !emailPattern.test(userData.emailOrPhone) &&
-      !phonePattern.test(userData.emailOrPhone)
+      !emailPattern.test(userData.email)// &&
+ //     !phonePattern.test(userData.emailOrPhone)
     ) {
-      errors.emailOrPhone =
-        "Ingrese un correo electrónico válido o un número de teléfono válido";
+      errors.email =
+        "Ingrese un correo electrónico válido";
     }
-  }
-
-  if (!userData.password || userData.password.trim().length === 0) {
-    errors.password = "La contraseña esta vacía";
   }
 
   return errors;
