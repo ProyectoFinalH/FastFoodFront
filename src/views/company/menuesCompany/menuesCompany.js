@@ -54,7 +54,7 @@ function MenuesCompany() {
 
     return (
         <div className="mainContainerMenues">
-            <div className="linktocreate">
+            <div className="linktocreate2">
             <Link to="/menu/create">
                 <button>Crear Menu</button>
             </Link>

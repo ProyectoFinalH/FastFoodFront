@@ -5,10 +5,9 @@
     overflow-y: auto;
     width: 90%;
     height: 70vh;
-    border: solid 1px rgb(146, 146, 146);
     margin: auto;
-    border-radius: 25px 10px 10px 25px;
-    box-shadow: 0px 0px 15px rgb(75, 75, 75);
+    border-radius:  10px;
+    box-shadow: 0px 0px 15px rgb(136, 136, 136);
 }
 .infoCompanyContainer::-webkit-scrollbar{
   width: 10px;
@@ -103,3 +102,41 @@ width: 150px;
     color: #c90a06;
     border: solid 1px #c90a06 ;
   }
+  .RGDbutton{
+    margin-left: 10%;
+  }
+  .RGDbutton button{    
+    padding: 2px 0px;
+    width: 200px;
+    font-size: 20px;
+    background-color: #ff4646;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid rgb(196, 196, 196);    
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-top: 10px;
+    box-shadow: 0px 2px 5px rgb(126, 126, 126);    
+    transition:  0.3s ease-in-out;
+  }
+  .confirmationMessage{
+    margin-left: 10%;
+    margin-bottom: 10px;
+    color: #2cbb00;
+    filter: drop-shadow(0px 0px 1px rgb(199, 199, 199))
+  }
+  button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+input:disabled, select:disabled {
+  background-color: #f0f0f0;
+  color: #999999;
+  cursor: not-allowed;
+}
+button:disabled:hover {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}

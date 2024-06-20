@@ -18,14 +18,27 @@
 .menusContainer {
     display: flex;
     flex-wrap: wrap;
-    overflow-y: auto;
+    overflow-y: scroll;
     width: 90%;
     height: 70vh;
-    border: solid 1px rgb(131, 131, 131);
-    box-shadow: 0px 0px 20px rgb(126, 126, 126);
+    box-shadow: 0px 0px 15px rgb(143, 143, 143);
     margin: 20px 0px 0px 5%;
-    border-radius: 20px;
+    border-radius: 10px;
 }
+.menusContainer::-webkit-scrollbar{
+    width: 10px;
+    scroll-margin-top: 200px;
+  }
+  
+  .menusContainer::-webkit-scrollbar-thumb{
+    background-color: #c90000;
+   border-radius: 5px;
+  }
+  
+  .menusContainer::-webkit-scrollbar-thumb:hover{
+    background-color: #dbba00;
+  }
+  
 
 .menuCardsCompany {
     display: flex;
