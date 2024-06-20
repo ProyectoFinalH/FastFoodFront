@@ -51,6 +51,7 @@ const LoginAdmin = () => {
     if (Object.keys(validationErrors).length === 0) {
       //console.log("Datos del formulario:", formData);
       dispatch(loginAdmin(formData, navigate));
+      navigate("/Admin")
     }
   };
   const isButtonDisabled = Object.keys(errors).length !== 0;

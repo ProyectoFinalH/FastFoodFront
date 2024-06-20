@@ -1,4 +1,4 @@
-import axiosInstance from "../AuthContext/axiosInstance";
+import { axiosInstance, configureAxios } from "../AuthContext/axiosInstance";
 import {
   GET_CATEGORIES,
   CANCELARCOMPRAUSER,
@@ -219,6 +219,7 @@ export function getAllMenus() {
 
 export function getAllMenusAdmin() {
   return async function (dispatch) {
+    
     const response = await axios("http://localhost:5000/menus/all");
     return dispatch({
       type: GET_MENUS_ADMIN,
@@ -228,8 +229,12 @@ export function getAllMenusAdmin() {
 }
 
 export function getAllMenuitemsAdmin() {
-  return async function (dispatch) {
-    const response = await axiosInstance("http://localhost:5000/menuitems/all");
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    console.log('este es el token: ',token);
+    configureAxios(token);
+
+    const response = await axiosInstance.get("http://localhost:5000/menuitems/all");
     return dispatch({
       type: GET_MENUITEMS_ADMIN,
       payload: response.data,

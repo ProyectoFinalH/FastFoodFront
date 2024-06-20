@@ -22,14 +22,14 @@ function Admin() {
   }, []);
 
 
-  useEffect(()=>{
-    if (USER && USER.role_id === 2){
-      // alertify.alert("Mensaje:", "Hola administrador")
+  // useEffect(()=>{
+  //   if (USER && USER.role_id === 2){
+  //     // alertify.alert("Mensaje:", "Hola administrador")
 
-    }else{
-      navigate("/loginAdmin")
-    }
-  })
+  //   }else{
+  //     navigate("/loginAdmin")
+  //   }
+  // })
 
   return (
     <div className="adminContainer">
