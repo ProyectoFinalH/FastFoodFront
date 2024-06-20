@@ -9,10 +9,17 @@ import {
   eliminarItemCarrito,
   resetearCarrito,
   actualizarItemCarrito,
+
 } from "../localStorage-car/LocalStorageCar";
-import { useNavigate } from "react-router-dom";
+
+
+
+
+
+//import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Wallet, initMercadoPago } from '@mercadopago/sdk-react';
+import alertify from "alertifyjs";
 
 
 
@@ -23,17 +30,22 @@ function Carrito({ onClose }) {
   const User = useSelector((state) => state.USER);
   const Empresa = useSelector((state)=>state.allRestaurants)
   const Carrito = useSelector((state) => state.Carrito);
+  
   const [selectedCards, setSelectedCards] = useState([]);
   const [mensaje] = useState("¡Comienza tu carrito con tus comidas favoritas!");
   
   const [compraRealizada, setCompraRealizada] = useState(false);
   const [ordenCompra, setOrdenCompra] = useState(null);
   const [preferenceId, setPreferenceId] = useState(null);
+
+  const [pagarstado, setPagarestado] = useState(false)
+
   
   const [mensajePago] = useState("");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+ 
+
   
 
   // Inicializar Mercado Pago
@@ -82,6 +94,14 @@ function Carrito({ onClose }) {
     
    
   }
+//!datos de iniciar sesion invitados
+  const handelIniciarsesion = ()=>{
+   
+    /**/
+
+    alertify.alert("Mensaje", "Para hacer la compra debes iniciar sesion")
+      
+  }
 
 
 
@@ -128,7 +148,7 @@ function Carrito({ onClose }) {
     });
   };
 
-  const handlePagar = () => {
+  const handlePagar = async () => {
     const restaurant_id = Empresa[0].id //!agrego item Empresa para comprender a quien se le vende, se debe identificar el vector al que pertenece
    
     if (!User || !User.state) {
@@ -153,12 +173,14 @@ function Carrito({ onClose }) {
       };
 
       dispatch(Desarrollode_Compra(cards, User.id, restaurant_id ))
-        .then(() => {
-          resetearCarrito();
+        .then(async () => {
+         await resetearCarrito();
+          
           setSelectedCards([]);
           setCompraRealizada(true);
           setOrdenCompra(compraData);
-
+         setPagarestado(true)
+       
         })
         .catch((error) => {
           console.error("Error al procesar el pago", error.message);
@@ -176,8 +198,12 @@ function Carrito({ onClose }) {
   };
 
   const handleSalirCarrito = () => {
+    if(pagarstado){
+      window.location.replace('http://localhost:3000/menu')
+    }
+    
+   
     onClose();
-    navigate('/menu');
   };
 
   const renderTiqueteCompra = () => {
@@ -222,6 +248,7 @@ function Carrito({ onClose }) {
 
   return (
     <div className="CarritoBody">
+
       <div className="carCarrito">
         <div className="carCarritoHeader">
           <h1>Pagos</h1>
@@ -276,9 +303,11 @@ function Carrito({ onClose }) {
             <label className="pagolabel">
               ${selectedCards.reduce((acc, card) => acc + card.price * card.cont, 0)}
             </label>
-            {preferenceId ? null: (
-              
-              <button onClick={handleBuy}>Pagar</button>
+            {preferenceId ? 
+            null: (
+              User.name === "invitado"
+              ?<button onClick={handelIniciarsesion} style={{'background-color':'red'}}>Pagrar</button>
+              :<button onClick={handleBuy}>Pagar</button>
             )}
             <div></div>
           </div>

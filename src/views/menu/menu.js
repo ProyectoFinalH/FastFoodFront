@@ -28,6 +28,7 @@ import {
   obtenerNombreUsuario,
   obtenerIdUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import Loading from "../../Components/loading/Loading";
 
 function Menu() {
   const dispatch = useDispatch();
@@ -52,6 +53,18 @@ function Menu() {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [loading, setLoading] = useState(true)
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
@@ -170,6 +183,11 @@ function Menu() {
 
   return (
     <div className="menu-container">
+      {
+        loading
+        ?<Loading/>
+        :null
+      }
       <Navbar />
       <div className="content">
         <div className="sidebar">

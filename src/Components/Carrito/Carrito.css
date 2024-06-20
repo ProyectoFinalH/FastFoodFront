@@ -54,9 +54,11 @@
 
 .carCarritoContent {
   overflow-y: auto;
+  overflow-x: auto;
   flex: 1;
   width: 100%;
-  
+  max-height: 400px; /* Altura máxima, ajusta según sea necesario */
+  max-width: 100%; /* Asegura que el ancho no sobrepase el contenedor padre */
   padding-top: 20px;
   padding-bottom: 20px;
 }
