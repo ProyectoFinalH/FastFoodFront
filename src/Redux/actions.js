@@ -36,7 +36,7 @@ import {
 import axios from "axios";
 
 export const logoutUser = () => {
-  return {
+  return  {
     type: LOGOUT_USER,
   };
 };
@@ -143,9 +143,17 @@ export const login_User = (dataquery) => {
     try {
       if (dataquery === "invitado") {
         // For guest user scenario
+
+        const invitado = {
+          state:true,
+          name:"invitado",
+          email:"invitado@invitado.invitado",
+          id:0
+
+        }
         dispatch({
           type: USERLOGIN,
-          payload: dataquery,
+          payload: invitado,
         });
       } else {
         // For regular user login

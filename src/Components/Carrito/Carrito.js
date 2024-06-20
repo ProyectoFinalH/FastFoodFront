@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Carrito.css";
 import Eliminarproducto from "../../images/eliminar.png";
 import sindatos from '../../images/pizzeria-SINDATOS.png';
-import { Desarrollode_Compra, ID_Registro_Mercado_Pago } from '../../Redux/actions';
+import { Desarrollode_Compra, ID_Registro_Mercado_Pago, logoutUser } from '../../Redux/actions';
 import {
   obtenerContCarrito,
   obtenerItemsCarrito,
@@ -10,9 +10,18 @@ import {
   resetearCarrito,
   actualizarItemCarrito,
 } from "../localStorage-car/LocalStorageCar";
+
+
+
+import { eliminarDatosUsuario } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+
+
+
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Wallet, initMercadoPago } from '@mercadopago/sdk-react';
+import alertify from "alertifyjs";
 
 
 
@@ -81,6 +90,23 @@ function Carrito({ onClose }) {
       }
     
    
+  }
+//!datos de iniciar sesion invitados
+  const handelIniciarsesion = ()=>{
+   
+    /**/
+
+    alertify.confirm("Mensaje", "Para hacer la compra debes iniciar sesion",
+      function() {
+          alertify.success('aceptado');
+          dispatch(logoutUser());
+          eliminarDatosUsuario()
+          window.location.href = "/";
+
+      },
+      function() {
+          alertify.error('Cancelado');
+      }).set({labels:{ok:'Iniciar sesión', cancel:'Cancelar Accion'}});
   }
 
 
@@ -276,9 +302,11 @@ function Carrito({ onClose }) {
             <label className="pagolabel">
               ${selectedCards.reduce((acc, card) => acc + card.price * card.cont, 0)}
             </label>
-            {preferenceId ? null: (
-              
-              <button onClick={handleBuy}>Pagar</button>
+            {preferenceId ? 
+            null: (
+              User.name === "invitado"
+              ?<button onClick={handelIniciarsesion}>Iniciar sesión</button>
+              :<button onClick={handleBuy}>Pagar</button>
             )}
             <div></div>
           </div>
