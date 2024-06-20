@@ -668,6 +668,8 @@ export const PutMenus = (id, isActive) => {
 export const PutItemMenu = (id, isActive) => {
   return async function (dispatch) {
     try {
+
+      console.log("isActive", isActive);
       const response = await axios.put(
         `http://localhost:5000/menuitems/${
           isActive ? "restore" : "delete"
