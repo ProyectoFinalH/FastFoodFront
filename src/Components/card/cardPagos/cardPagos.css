@@ -1,26 +1,43 @@
-.cardPagosContainer img {
-  height: 200px;
-  width: 100%;
-  object-fit: cover;
-}
-
-.cardPagosContainer {
-  color: black;
-  background: rgba(233, 233, 233, 0.8);
+.cardOtherContainer {
+  margin: 10px;
+  background-color: #ffffff;
   text-align: left;
   width: 300px;
   height: 350px;
- 
-  margin-top: 5%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardOtherContainer img {
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+  border-radius: 10px 10px 0 0;
 }
 
 .textContainer {
-  margin-left: 15px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.cardPagosContainer h4 {
-  display: flex;
-  justify-content: right;
-  margin: 10px;
+.restaurantName {
+  font-size: 1.2rem;
+  color: #333333;
+}
+
+.restaurantType {
+  color: #666666;
+  font-size: 0.9rem;
+  padding: 10px;
+}
+
+.cardOtherContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }

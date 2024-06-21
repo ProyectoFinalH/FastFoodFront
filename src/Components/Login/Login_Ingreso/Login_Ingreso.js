@@ -11,10 +11,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoginGoogle from "../Login_Google/Login_Google";
 
-
-import {guardarNombreUsuario, guardarCorreoUsuario, guardarEstatusUsuario, guardarIdUsuario,
-  obtenerEstatusUsuario, obtenerCorreoUsuario, obtenerNombreUsuario, obtenerIdUsuario
-} from './LocalStorange_user/LocalStorange_user'
+import {
+  guardarNombreUsuario,
+  guardarCorreoUsuario,
+  guardarEstatusUsuario,
+  guardarIdUsuario,
+  obtenerEstatusUsuario,
+  obtenerCorreoUsuario,
+  obtenerNombreUsuario,
+  obtenerIdUsuario,
+} from "./LocalStorange_user/LocalStorange_user";
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
@@ -28,16 +34,16 @@ const LoginIngreso = ({ setView }) => {
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     password: "",
-    
   });
   const [errors, setErrors] = useState({});
+  const [loginError, setLoginError] = useState("");
 
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
   };
 
   const handleChange = (event) => {
-    const { name, value } = event?.target;
+    const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -53,57 +59,48 @@ const LoginIngreso = ({ setView }) => {
   const handleSubmit = async () => {
     const validationErrors = validationIngreso(formData);
     setErrors(validationErrors);
-
+  
     if (Object.keys(validationErrors).length === 0) {
-      
-      
-      if(userType === "user"){
-
-        await dispatch(login_User(formData));
-      }else{
-        await dispatch(login_Busnnes(formData));
+      try {
+        const responseData = await dispatch(login_User(formData));
+        if (responseData) {
+          guardarNombreUsuario(responseData.name);
+          guardarCorreoUsuario(responseData.email);
+          guardarEstatusUsuario(responseData.state);
+          guardarIdUsuario(responseData.id);
+          navigate("/home");
+        }
+      } catch (error) {
+        console.error("Error al intentar iniciar sesión:", error.message);
+        setLoginError(error.message);
       }
-      
-     
-
-     
-
-
-
-
-
-
     }
   };
+  
 
   const handleInvitado = () => {
     dispatch(login_User("invitado"));
   };
-  
 
   useEffect(() => {
-if(obtenerCorreoUsuario()){
-
-  const tem_Users = {
-    state:  obtenerEstatusUsuario(), 
-    id:obtenerIdUsuario(),
-    email: obtenerCorreoUsuario(), 
-    name:obtenerNombreUsuario(), 
-  }
-  dispatch(login_user_localstorag(tem_Users))
-  navigate('/home')
-}
-  
-
-  }, [ dispatch,navigate])
-
+    if (obtenerCorreoUsuario()) {
+      const tem_Users = {
+        state: obtenerEstatusUsuario(),
+        id: obtenerIdUsuario(),
+        email: obtenerCorreoUsuario(),
+        name: obtenerNombreUsuario(),
+      };
+      dispatch(login_user_localstorag(tem_Users));
+      navigate("/home");
+    }
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     if (User) {
       guardarNombreUsuario(User?.name);
       guardarCorreoUsuario(User?.email);
       guardarEstatusUsuario(User?.state);
-      guardarIdUsuario(User?.id)
+      guardarIdUsuario(User?.id);
       navigate("/home");
     } else {
       navigate("/");
@@ -197,6 +194,7 @@ if(obtenerCorreoUsuario()){
           {errors.password && (
             <div className="error-space">{errors?.password}</div>
           )}
+          {loginError && <div className="error-space">{loginError}</div>}
           <div
             className="forgot-password"
             onClick={() => setView("recuperarkey")}

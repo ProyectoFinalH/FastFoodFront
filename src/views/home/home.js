@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
-import { getAllRestaurants,login_user_localstorag } from "../../Redux/actions";
+import { getAllRestaurants, login_user_localstorag } from "../../Redux/actions";
 import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
 import CardOpiniones from "../../Components/card/cardOpiniones/cardOpiniones";
 import CardPagos from "../../Components/card/cardPagos/cardPagos";
@@ -11,8 +11,7 @@ import Image1 from "../../images/Image1.jpg";
 import Image2 from "../../images/image2.jpg";
 import Image3 from "../../images/image3.jpg";
 import "./home.css";
-import Footer from '../../Components/Footer/Footer';
-
+import Footer from "../../Components/Footer/Footer";
 
 import {
   obtenerEstatusUsuario,
@@ -77,18 +76,14 @@ function Home() {
       </div>
       <div className="otherContent">
         <div>
-          <h2>Conocé más!</h2>
-          <div className="cardOtherContainer">
-            <div className="cardOtherItem">
-              <Link to="/opiniones">
-                <CardOpiniones />
-              </Link>
-            </div>
-            <div className="cardOtherItem">
-              <Link to="/pagos">
-                <CardPagos />
-              </Link>
-            </div>
+          <h2 className="conoceMasTitle">Conocé más!</h2>
+          <div className="cardOtherItems1">
+            <Link to="/opiniones">
+              <CardOpiniones />
+            </Link>
+            <Link to="/pagos">
+              <CardPagos />
+            </Link>
           </div>
         </div>
       </div>

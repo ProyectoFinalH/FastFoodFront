@@ -31,24 +31,3 @@ const validationIngreso = (formData) => {
 };
 
 export default validationIngreso;
-
-//if (userData.name) {
-// const emailPattern = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
-//const phonePattern = /^\d{10}$/; // Asumiendo que el número de celular es un número de 10 dígitos
-
-//  if (!emailPattern.test(userData.name) && !phonePattern.test(userData.name)) {
-////      errors.name = 'Usuario no valido';
-//  }
-//}
-// Verificar la longitud del nombre
-//else if (userData.name && (userData.name.trim().length < 4 || userData.name.trim().length > 40)) {
-//errors.name = 'Usuario no valido';
-//} else
-//if (userData.name) {
-// const emailPattern = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
-// const phonePattern = /^\d{10}$/; // Asumiendo que el número de celular es un número de 10 dígitos
-
-// if (!emailPattern.test(userData.name) && !phonePattern.test(userData.name)) {
-//     errors.name = 'Usuario no valido';
-// }
-//}
