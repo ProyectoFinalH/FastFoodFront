@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import "./Login_Admin.css";
 import logo from "../../../images/logo.png"
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
@@ -8,13 +8,17 @@ import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 
 import { loginAdmin} from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_Admin";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import alertify from "alertifyjs";
+import { jwtDecode } from "jwt-decode";
+import { logoutAdmin } from "../../../Redux/actions";
 
 const LoginAdmin = () => {
   const dispatch = useDispatch();
   //const USER = useSelector((state) => state?.USER);
   const [keyVisible, setKeyVisible] = useState(false);
+  const token = useSelector((state)=> state.token)
   
   const navigate = useNavigate();
 
@@ -44,17 +48,50 @@ const LoginAdmin = () => {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const validationErrors = validationIngreso(formData);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       //console.log("Datos del formulario:", formData);
       dispatch(loginAdmin(formData, navigate));
-      navigate("/Admin")
+      
     }
   };
+
   const isButtonDisabled = Object.keys(errors).length !== 0;
+
+  // useEffect(()=>{
+  //   if(token){
+  //     navigate("/Admin");
+  //   }
+  // },[token,navigate]);
+
+  useEffect(()=>{
+    if (token){
+      //console.log(token.data);
+      const infoAdmin=jwtDecode(token.data);
+      //console.log(infoAdmin);
+      if(infoAdmin.role_id!==3){
+        alertify.alert("Mensaje", 
+          'Usuario no autorizado',()=>{
+            dispatch(logoutAdmin());
+            navigate("/loginAdmin");
+          }); 
+        }
+      else{
+        navigate("/Admin")
+      }  
+
+    }else{
+      alertify.alert("Mensaje", 
+        'No hay token presente, debe loguearse para continuar',()=>{
+          navigate("/loginAdmin");
+        }); 
+      
+    }
+  },[token,navigate,dispatch]);
 
   return (
     <div className="login-admin-container">

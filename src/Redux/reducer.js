@@ -236,7 +236,7 @@ const reducer = (state = initialState, { type, payload }) => {
               case ADMIN_LOGOUT:
                 return {
                   ...state,
-                  USER: null,
+                  token: null,
                 };
 
               

@@ -1,3 +1,4 @@
+import alertify from "alertifyjs";
 import { axiosInstance, configureAxios } from "../AuthContext/axiosInstance";
 import {
   GET_CATEGORIES,
@@ -231,7 +232,6 @@ export function getAllMenusAdmin() {
 export function getAllMenuitemsAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
-    console.log('este es el token: ',token);
     configureAxios(token);
 
     const response = await axiosInstance.get("http://localhost:5000/menuitems/all");
@@ -697,7 +697,7 @@ export const PutItemMenu = (id, isActive) => {
 
 export const loginAdmin = (formData, navigate) => {
   //const { emailOrPhone, password } = formData;
-  console.log(formData);
+  //console.log(formData);
 
   return async (dispatch) => {
     // try {
@@ -728,7 +728,9 @@ export const loginAdmin = (formData, navigate) => {
       })
 
     } catch (error) {
-      console.log("error al iniciar como administrador", error);
+       alertify.alert("Mensaje", 
+          'Usuario no autorizado');
+      //console.log("error al iniciar como administrador", error);
     }
 
     }
