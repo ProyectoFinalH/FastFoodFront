@@ -39,6 +39,7 @@ function App() {
 
           <Route path="/" element={<LoginPrincipal />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
           <Route path="/menu/:id" element={<Menu />} />
           <Route path="/account" element={<Account />} />
           <Route path="/menu/create" element={<CreateMenuForm />} />
