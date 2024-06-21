@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../Components/loading/Loading";
+// import alertify from "alertifyjs";
 
 
 function Admin() {
