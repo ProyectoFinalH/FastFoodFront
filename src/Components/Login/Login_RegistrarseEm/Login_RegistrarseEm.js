@@ -4,6 +4,9 @@ import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 import { register_business } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
+import 'alertifyjs/build/css/themes/default.css'; 
 
 const RegistrarseEmpresa = ({ setView }) => {
   const dispatch = useDispatch();
@@ -37,7 +40,14 @@ const RegistrarseEmpresa = ({ setView }) => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
-      dispatch(register_business(userData));
+     const result = dispatch(register_business(userData));
+     if(result){
+      alertify.alert("Creado", "<div>Usuario Creado Correctamente</div><br/><div>Ahora ingresa con tu usuario y contraseña</div>", function() {
+        window.location.href = '/';
+      });
+    }else{
+      alertify.waring("Error", "No se pude registrar la Empresa")
+     }
     }
   };
 
