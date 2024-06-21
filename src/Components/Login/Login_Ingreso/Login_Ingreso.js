@@ -62,18 +62,16 @@ const LoginIngreso = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         const responseData = await dispatch(login_User(formData));
-        if (responseData.error) {
-          setLoginError(responseData.error);
-        } else {
-          guardarNombreUsuario(responseData.user.name);
-          guardarCorreoUsuario(responseData.user.email);
-          guardarEstatusUsuario(responseData.user.state);
-          guardarIdUsuario(responseData.user.id);
+        if (responseData) {
+          guardarNombreUsuario(responseData.name);
+          guardarCorreoUsuario(responseData.email);
+          guardarEstatusUsuario(responseData.state);
+          guardarIdUsuario(responseData.id);
           navigate("/home");
         }
       } catch (error) {
-        console.error("Error al intentar iniciar sesión:", error);
-        setLoginError("Error al intentar iniciar sesión");
+        console.error("Error al intentar iniciar sesión:", error.message);
+        setLoginError(error.message);
       }
     }
   };

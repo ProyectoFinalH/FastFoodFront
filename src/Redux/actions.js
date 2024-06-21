@@ -137,48 +137,45 @@ export const recovery_key_user = (dataquery) => {
   };
 };
 
-//Loguear usuario
+// Loguear usuario
 export const login_User = (dataquery) => {
   return async (dispatch) => {
     try {
       if (dataquery === "invitado") {
-        // For guest user scenario
-
         const invitado = {
-          state:true,
-          name:"invitado",
-          email:"invitado@invitado.invitado",
-          id:0
-
-        }
+          state: true,
+          name: "invitado",
+          email: "invitado@invitado.invitado",
+          id: 0
+        };
         dispatch({
           type: USERLOGIN,
           payload: invitado,
         });
       } else {
-        // For regular user login
         const userData = {
           email: dataquery.emailOrPhone,
           password: dataquery.password,
         };
-
         const endpoint = "http://localhost:5000/users/login";
         const response = await axios.post(endpoint, userData);
+
         const user = response.data;
-
-        // Assuming the backend returns a JWT token upon successful login,
-        // store the token in localStorage for persistent session management
         localStorage.setItem("token", user.token);
-
-        // Update Redux state with the authenticated user data
         dispatch({
           type: USERLOGIN,
           payload: user,
         });
+        return user;
       }
     } catch (error) {
-      console.error("Error al iniciar sesión:", error.message);
-      // Handle error (e.g., show error message to user)
+      console.error("Error al iniciar sesión:", error);
+
+      if (error.response && error.response.status === 400) {
+        throw new Error("Usuario o contraseña incorrectos");
+      } else {
+        throw new Error("Error al intentar iniciar sesión");
+      }
     }
   };
 };
