@@ -18,9 +18,8 @@ function NavbarMenu({
   const handleCategoryClick = (category) => {
     handleCategoryFilter(category);
   };
-  const Options1 = (sortBy) => {
+  const Options1 = () => {
     setIsOpen1(!isOpen1);
-    handleSort(sortBy);
   };
 
   const Options2 = () => {
@@ -70,36 +69,21 @@ function NavbarMenu({
         <div className="customSection">
           <div onClick={Options1}>
             <span>Ordenar por ⮟</span>
-            {isOpen1 && (
-              <ul>
-                <li onClick={(e) => handleLiClick(e, { sortBy: "menorPrecio" })}>
-                  Menor precio
-                </li>
-                <li onClick={(e) => handleLiClick(e, { sortBy: "mayorPrecio" })}>
-                  Mayor precio
-                </li>
-              </ul>
-            )}
+            <select onChange={(e) => handleLiClick(e, { sortBy: e.target.value })}>
+            <option value="menorPrecio">Menor precio</option>
+            <option value="mayorPrecio">Mayor precio</option>
+          </select>
           </div>
         </div>
         <div className="customSection">
           <div onClick={Options3}>
           <span >Rango de precio ⮟</span>
-            {isOpen3 && (
-              <ul>
-                <li onClick={(e) => handleLiClick(e, { range: "1-5" })}>
-                  1 - 5</li>
-                  <li onClick={(e) => handleLiClick(e, { range: "6-15" })}>
-                  6 - 15
-                </li>
-                <li onClick={(e) => handleLiClick(e, { range: "16-30" })}>
-                  16 - 30
-                </li>
-                <li onClick={(e) => handleLiClick(e, { range: "31-50" })}>
-                  31 - 50
-                </li>
-              </ul>
-            )}
+          <select onChange={(e) => handleLiClick(e, { range: e.target.value })}>
+            <option value="1-10">1 - 10</option>
+            <option value="11-20">11 - 20</option>
+            <option value="21-30">21 - 30</option>
+            <option value="31-40">31 - 40</option>
+          </select>
           </div>
         </div>
         <div className="customSection">
