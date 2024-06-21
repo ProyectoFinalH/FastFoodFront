@@ -1,57 +1,38 @@
-import React, { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css'; // Importa los estilos de alertify
+import 'alertifyjs/build/css/themes/default.css'; 
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+import Navbar from '../navbar/navbar';
 import Loading from '../loading/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const RespuestaCarr = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-  
-    useEffect(() => {
-      const searchParams = new URLSearchParams(location.search);
-  
-      const collectionId = searchParams.get('collection_id');
-      const collectionStatus = searchParams.get('collection_status');
-      const paymentId = searchParams.get('payment_id');
-      const status = searchParams.get('status');
-      const externalReference = searchParams.get('external_reference');
-      const paymentType = searchParams.get('payment_type');
-      const merchantOrderId = searchParams.get('merchant_order_id');
-      const preferenceId = searchParams.get('preference_id');
-      const siteId = searchParams.get('site_id');
-      const processingMode = searchParams.get('processing_mode');
-      const merchantAccountId = searchParams.get('merchant_account_id');
-  
-      // Aquí puedes manejar la respuesta y realizar cualquier acción necesaria
-      console.log({
-        collectionId,
-        collectionStatus,
-        paymentId,
-        status,
-        externalReference,
-        paymentType,
-        merchantOrderId,
-        preferenceId,
-        siteId,
-        processingMode,
-        merchantAccountId,
-      });
-  
-      // Ejemplo de redirección después de procesar la información
-      if (status === 'approved') {
-        alert('Pago aprobado. Redirigiendo al menú...');
-        navigate('/menu');
-      } else {
-        alert('Pago no aprobado. Por favor, verifica tu información.');
-        navigate('/menu');
-      }
-    }, [location, navigate]);
-  
-    return (
-      <div>
-        <Loading />
-        <p>Procesando respuesta del carrito...</p>
-      </div>
-    );
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+      // Mostrar el alert cuando el loading termina
+      alertify.alert('Tu pago ha sido Aprobado', '<i class="fas fa-check-circle" style="color: green; font-size: 48px;"></i><br/>Gracias por tu compra',
+        function() {
+          alertify.success('Continua Disfrutando');
+          navigate('/home')
+        }
+      );
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
+  return (
+    <div>
+      {loading ? <Loading/> : null}
+      <Navbar/>
+    </div>
+  );
 };
 
 export default RespuestaCarr;
