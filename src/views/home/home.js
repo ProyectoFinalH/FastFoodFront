@@ -19,6 +19,7 @@ import {
   obtenerNombreUsuario,
   obtenerIdUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import Maintenance from "../maintenance/maintenance";
 
 const mockImages = [Image1, Image2, Image3];
 
@@ -52,6 +53,10 @@ function Home() {
       navigate("/");
     }
   }, [dispatch, navigate]);
+
+  if (!allRestaurants || allRestaurants.length === 0) {
+    return <Maintenance />;
+  }
 
   return (
     <div className="homeContainer">
