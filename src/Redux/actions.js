@@ -181,12 +181,18 @@ export const login_User_Google = (dataquery) => {
       const response = await axios.post(endpoint, { token: dataquery.token });
 
       const userData = response.data;
+      const usuario = {
+        state:true,
+        id: userData.id,
+        email: userData.email,
+        name: userData.username
+      }
 
-      localStorage.setItem("token", userData.token);
+      localStorage.setItem("token", usuario.token);
 
       dispatch({
         type: USERLOGINGOOGLE,
-        payload: userData,
+        payload: usuario,
       });
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
