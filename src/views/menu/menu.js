@@ -67,6 +67,7 @@ function Menu() {
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
   };
+  const selectedRestaurantId = allRestaurants[0]?.id;
 
   //localstorang del usuario
   useEffect(() => {
@@ -80,11 +81,15 @@ function Menu() {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
-      navigate("/menu");
+      if (selectedRestaurantId) {
+        navigate(`/menu/${selectedRestaurantId}`);
+      } else {
+        navigate("/menu");
+      }
     } else {
       navigate("/");
     }
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, selectedRestaurantId]);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -113,12 +118,6 @@ function Menu() {
     const [min, max] = range.split("-").map(Number);
     return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   };
-
-  //HANDLERS PARA EL SEARCH
-  // function handleChange(e) {
-  //   setSearchString(e.target.value);
-  // }
-
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getMenuItemsByName(searchString));
@@ -187,7 +186,7 @@ function Menu() {
   //Boton volver Atras
   const handleGoBack = () => {
     navigate("/home");
-  };
+  };  
 
   return (
     <div className="menu-container">
@@ -208,12 +207,15 @@ function Menu() {
               <h2 className="restaurant-name">{restaurant1?.name}</h2>
             </div>
           </div>
+          <div className="cardsContentMenu">
+
           <div className="cards-menus-container">
             <CardsMenus
               AllMenus={allMenus}
               handleSelectMenu={handleSelectMenu}
-            />
+              />
           </div>
+              </div>
           <div className="search-container">
             <NavbarMenu
               searchString={searchString}

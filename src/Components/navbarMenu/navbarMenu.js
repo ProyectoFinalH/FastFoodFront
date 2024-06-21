@@ -22,6 +22,7 @@ function NavbarMenu({
     handleCategoryFilter(category);
   };
 
+
   const handleSortChange = (e) => {
     const selectedSort = e.target.value;
     handleSort(selectedSort);
