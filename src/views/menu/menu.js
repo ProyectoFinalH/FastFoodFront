@@ -54,8 +54,7 @@ function Menu() {
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const [loading, setLoading] = useState(true)
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -64,7 +63,6 @@ function Menu() {
 
     return () => clearTimeout(timer);
   }, []);
-
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
@@ -98,7 +96,9 @@ function Menu() {
     dispatch(getAllRestaurants());
   }, [dispatch]);
 
-  const restaurant1 = allRestaurants?.find((restaurant) => restaurant?.id === 1);
+  const restaurant1 = allRestaurants?.find(
+    (restaurant) => restaurant?.id === 1
+  );
 
   //FILTRO POR RANGO
   const applyPriceRangeFilter = (menuItems, range) => {
@@ -183,11 +183,7 @@ function Menu() {
 
   return (
     <div className="menu-container">
-      {
-        loading
-        ?<Loading/>
-        :null
-      }
+      {loading ? <Loading /> : null}
       <Navbar />
       <div className="content">
         <div className="sidebar">
@@ -226,28 +222,25 @@ function Menu() {
         <div className="cards-menus">
           <div className="cards-menu-items">
             {allMenus?.map((menu) => {
-              // Filtrar los ítems de menú asociados a este menú
-      const menuItems = filteredMenuItems?.filter(
-        (menuItem) => menuItem?.menu_id === menu?.id
-      );
+              const menuItems = filteredMenuItems?.filter(
+                (menuItem) => menuItem?.menu_id === menu?.id
+              );
 
-      // Verificar si hay ítems de menú asociados
-      if (menuItems?.length > 0) {
-        return (
-            
-              <div key={menu?.id} className="menu-item-container">
-                <h2>{menu?.name}</h2>
-                <CardsMenuItem
-                  AllMenuitems={filteredMenuItems?.filter(
-                    (menuItem) => menuItem?.menu_id === menu?.id
-                  )}
-                  handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
-                />
-              </div>
-        )
-      } else {
-        return null;
-      }
+              if (menuItems?.length > 0) {
+                return (
+                  <div key={menu?.id} className="menu-item-container">
+                    <h2>{menu?.name}</h2>
+                    <CardsMenuItem
+                      AllMenuitems={filteredMenuItems?.filter(
+                        (menuItem) => menuItem?.menu_id === menu?.id
+                      )}
+                      handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
+                    />
+                  </div>
+                );
+              } else {
+                return null;
+              }
             })}
           </div>
         </div>
