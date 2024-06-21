@@ -225,7 +225,16 @@ function Menu() {
         </div>
         <div className="cards-menus">
           <div className="cards-menu-items">
-            {allMenus?.map((menu) => (
+            {allMenus?.map((menu) => {
+              // Filtrar los ítems de menú asociados a este menú
+      const menuItems = filteredMenuItems?.filter(
+        (menuItem) => menuItem?.menu_id === menu?.id
+      );
+
+      // Verificar si hay ítems de menú asociados
+      if (menuItems?.length > 0) {
+        return (
+            
               <div key={menu?.id} className="menu-item-container">
                 <h2>{menu?.name}</h2>
                 <CardsMenuItem
@@ -235,7 +244,11 @@ function Menu() {
                   handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
                 />
               </div>
-            ))}
+        )
+      } else {
+        return null;
+      }
+            })}
           </div>
         </div>
       </div>
