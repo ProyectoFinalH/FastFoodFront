@@ -101,8 +101,16 @@ function Menu() {
   );
 
   //FILTRO POR RANGO
+  // const applyPriceRangeFilter = (menuItems, range) => {
+  //   const [min, max] = range?.split("-").map(Number);
+  //   return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
+  // };
   const applyPriceRangeFilter = (menuItems, range) => {
-    const [min, max] = range?.split("-").map(Number);
+    if (!range || typeof range !== 'string') {
+      return menuItems;
+    }
+  
+    const [min, max] = range.split("-").map(Number);
     return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   };
 
@@ -119,7 +127,7 @@ function Menu() {
   // FUNCION PARA DESHACER FILTROS
   const clearFilters = () => {
     setSearchString("");
-    setSortBy(null);
+    setSortBy("");
     setPriceRange("");
     setSelectMenuItem(null);
     setSelectedCategory("");
@@ -216,6 +224,9 @@ function Menu() {
               clearFilter={clearFilters}
               handleCategoryFilter={handleCategoryFilter}
               allCategories={allCategories}
+              sortBy={sortBy}
+              applyPriceRangeFilter={applyPriceRangeFilter}
+              priceRange={priceRange}
             />
           </div>
         </div>

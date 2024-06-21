@@ -46,6 +46,7 @@
 
 .customSection button,
 .navbarMenuSelect select {
+  margin-bottom: 15px;
   background-color: #ff5a5f;
   color: white;
   border: none;
@@ -98,4 +99,9 @@ button:focus {
   background-color: #ff5a60b2;
   border-radius: 5px;
   padding: 2px;
+}
+
+.menuSelectNavbarMenu {
+  margin-bottom: 15px;
+
 }

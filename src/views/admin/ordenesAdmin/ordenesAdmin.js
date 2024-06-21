@@ -52,6 +52,8 @@ function OrdersAdmin() {
     searchOrder
   ]);
 
+
+
   useEffect(() => {
     let filteredOrders = [...allOrdersAdmin];
     if (searchOrder.trim() !== "") {
@@ -92,6 +94,9 @@ function OrdersAdmin() {
     setSelectOrderPriceOrder(e.target.value);
   
   }
+
+
+  
   return (
     <div>
          <NavbarAdmin/>
