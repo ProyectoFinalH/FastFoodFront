@@ -27,8 +27,9 @@ function Account() {
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
-  const [orders, setOrders] = useState(false);
+  const [showAccountSettings, setShowAccountSettings] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
   const defaultAvatarUrl =
@@ -131,6 +132,24 @@ function Account() {
     }
   }, [username]);
 
+  const handleAccountSettingsClick = () => {
+    setShowAccountSettings(true);
+    setShowNotifications(false);
+    setShowOrders(false);
+  };
+
+  const handleNotificationsClick = () => {
+    setShowAccountSettings(false);
+    setShowNotifications(true);
+    setShowOrders(false);
+  };
+
+  const handleOrdersClick = () => {
+    setShowAccountSettings(false);
+    setShowNotifications(false);
+    setShowOrders(true);
+  };
+
   return (
     <div>
       <Navbar />
@@ -152,27 +171,25 @@ function Account() {
           <nav className="menu">
             <ul>
               <li>
-                <Link to="#" onClick={() => setShowNotifications(false)}>
+                <Link to="#" onClick={handleAccountSettingsClick}>
                   Ajustes de cuenta
                 </Link>
               </li>
               <li>
-                <Link to="#" onClick={() => setShowNotifications(true)}>
+                <Link to="#" onClick={handleNotificationsClick}>
                   Centro de notificaciones
                 </Link>
               </li>
               <li>
-                <Link to="#">
-                  <div onClick={() => setOrders(!orders)}>Últimas órdenes</div>
+                <Link to="#" onClick={handleOrdersClick}>
+                  Últimas órdenes
                 </Link>
               </li>
             </ul>
           </nav>
         </div>
         <div className="account-info">
-          {showNotifications ? (
-            <NotificationCenter />
-          ) : (
+          {showAccountSettings && (
             <>
               <h2>Información de tu cuenta</h2>
               <div className="input-group-container">
@@ -221,9 +238,10 @@ function Account() {
               </div>
             </>
           )}
+          {showNotifications && <NotificationCenter />}
+          {showOrders && <OrderUsers />}
         </div>
       </div>
-      {orders ? <OrderUsers /> : null}
     </div>
   );
 }
