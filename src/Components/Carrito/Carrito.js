@@ -83,8 +83,8 @@ function Carrito({ onClose }) {
   const handleBuy = async () => {
     handlePagar()
      const id = await createPreference();
-
-     alert(id)
+  
+     
      setDatopago({url:id})
           if (id) {
      
@@ -232,14 +232,11 @@ function Carrito({ onClose }) {
         <div className="login-button-regresar" onClick={handleSalirCarrito}>Salir</div>
         {preferenceId 
         && (  <>
-          
+                  
+<div onClick={PagarConUrl} > <Wallet   /> </div>
 
-        
-<Wallet initialization={{ preferenceId, redirectMode: 'blank' }} target="_blank" customization={{ texts:{ valueProp: 'smart_option'}, visual: {
-        buttonBackground: 'black', // Cambia este valor al color que desees
-        borderRadius: '6px',
-      },}} />
-      <button onClick={PagarConUrl}>Pagar con URL</button> 
+
+     
 
       </> 
 
