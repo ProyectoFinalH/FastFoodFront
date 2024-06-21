@@ -1,5 +1,5 @@
 
-import { useEffect} from "react";
+import { useEffect, useState} from "react";
 import "./usersAdmin.css";
 import activar from "../../../images/activar.png";
 import desactivar from "../../../images/desactivar.png";
@@ -12,7 +12,11 @@ function UsersAdmin() {
 
   const allUsersAdmin = useSelector((state) => state.allUsersAdmin);
   const dispatch = useDispatch();
-
+  const [search, setSearch] = useState("");
+  const [filterUsers, setFilterUsers] = useState([]);
+  const [selectOrderNameUsers, setSelectOrderNameUsers] = useState("");
+  const [selectOrderEmailUsers, setSelectOrderEmailUsers] = useState("");
+  const [noResults, setNoResults] = useState(false);
   useEffect(()=>{
     dispatch(getAllUsersAdmin())
   },[dispatch])
@@ -30,18 +34,139 @@ function UsersAdmin() {
     }
   };
 
-
-
   
-const filteredUsers = allUsersAdmin.filter((user)=> user.role_id === 1)
+  useEffect(() => {
+    let filteredUsers = [...allUsersAdmin];
 
-  return (
-    <div className="restaurantAdminContainer">
+
+    if (search.trim() !== "") {
+      filteredUsers = filteredUsers.filter(
+        (user) =>
+          user.username.toLowerCase().includes(search.toLowerCase()) ||
+          user.email.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+
+    if (selectOrderNameUsers !== "") {
+      filteredUsers.sort((a, b) =>
+        selectOrderNameUsers === "asc"
+          ? a.username.localeCompare(b.username)
+          : b.username.localeCompare(a.username)
+      );
+    }
+
+ 
+    setFilterUsers(filteredUsers);
+    setNoResults(filteredUsers.length === 0)
+  }, [allUsersAdmin, search, selectOrderNameUsers]);
+
+  useEffect(() => {
+    let filteredUsers = [...allUsersAdmin];
+
+   
+    if (search.trim() !== "") {
+      filteredUsers = filteredUsers.filter(
+        (user) =>
+          user.username.toLowerCase().includes(search.toLowerCase()) ||
+          user.email.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+   
+    if (selectOrderEmailUsers !== "") {
+      filteredUsers.sort((a, b) =>
+        selectOrderEmailUsers === "asc"
+          ? a.email.localeCompare(b.email)
+          : b.email.localeCompare(a.email)
+      );
+    }
+
+    setFilterUsers(filteredUsers);
+  }, [allUsersAdmin, search, selectOrderEmailUsers]);
+
+
+const handleSearchChange = (e) => {
+  setSearch(e.target.value);
+};
+
+const handleOrderEmailChange = (e) => {
+  setSelectOrderEmailUsers(e.target.value);
+};
+
+const handleOrderNameChange = (e) => {
+  setSelectOrderNameUsers(e.target.value);
+};
+
+const filteredUsers = filterUsers.filter((user)=> user.role_id === 1)
+return (
+  <div className="restaurantAdminContainer">
        <NavbarAdmin/>
-    {filteredUsers?.map((user) => (
+       <div className="restaurantH2">
+        <h2>Usuarios</h2>
+       </div>
+       <div className="SearchRestAdmin">
+        <div className="inputSearchResAdmin">
+          <input
+            type="search"
+            placeholder="Nombre o Email..."
+            value={search}
+            onChange={handleSearchChange}
+          />
+          <div className="buttonSearchAdmin">
+            <button>🔍︎</button>
+          </div>
+        </div>
+        <div className="selectsAdmin">
+          <div className="SelectsContainerAdmin">
+          <label>Por Nombre:</label>
+            <select
+              className="selectAdmin"
+              value={selectOrderNameUsers}
+              onChange={handleOrderNameChange}
+            >
+              <option className="optionAdmin" value="">
+              Selecionar orden...
+              </option>
+              <option className="optionAdmin" value="asc">
+                Acendente
+              </option>
+              <option className="optionAdmin" value="des">
+                Descendente
+              </option>
+            </select>
+          </div>
+
+          <div className="SelectsContainerAdmin">
+            <label>Por Email:</label>
+            <select
+              className="selectAdmin"
+              value={selectOrderEmailUsers}
+              onChange={handleOrderEmailChange}
+            >
+              <option className="optionAdmin" value="">
+              Selecionar orden...
+              </option>
+              <option className="optionAdmin" value="dec">
+                Descendente
+              </option>
+              <option className="optionAdmin" value="asc">
+                Acendente
+              </option>
+            
+            </select>
+          </div>
+        </div>
+      </div>
+      {noResults ? (
+        <div className="noResultsMessage">
+          <p>No se encontraron resultados.</p>
+        </div>
+      ) : (
+    filteredUsers?.map((user) => (
       <div
-        key={user.id}
-        className={`cardRestaurant ${user?.active ? "" : "inactive"}`}
+      key={user.id}
+      className={`cardRestaurant ${user?.active ? "" : "inactive"}`}
       >
         <div className="resImage">
           <img src={user?.image_url} alt="imgRes" />
@@ -78,7 +203,7 @@ onClick={() => toggleActivation(user?.id, !user?.active) }
 </button>
           </div>
       </div>
-    ))}
+    )))}
   </div>
   )
 }

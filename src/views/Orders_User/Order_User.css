@@ -40,3 +40,8 @@
 .order-table td:first-child {
     text-align: left;
 }
+.Cetrado-textos{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

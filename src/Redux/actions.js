@@ -5,7 +5,7 @@ import {
   CREATECOMPRA,
   UPDATE_USER,
   REGISTERUSER,
-  REGISTERBUSINESS,
+  //REGISTERBUSINESS,
   RECOVERYKEY,
   USERLOGIN,
   USERLOGINGOOGLE,
@@ -30,13 +30,14 @@ import {
   ADMIN_LOGOUT,
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
+  EMPRESALOGIN,
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from "axios";
 
 export const logoutUser = () => {
-  return {
+  return  {
     type: LOGOUT_USER,
   };
 };
@@ -81,31 +82,23 @@ export const register_user = (dataquery) => {
 
 //Registramos empresa
 export const register_business = (dataquery) => {
-  return async (dispatch) => {
+  return async () => {
     try {
       const userData = {
-        username: dataquery.username,
-        email: dataquery.email,
-        password: dataquery.password,
-        role_id: 2,
+        name:dataquery.username,
+        email:dataquery.email,
+        password:dataquery.password,
+        address:"",
+        phone:"",
+        description:""
       };
-      const endpoint = "http://localhost:5000/users/create";
+      console.log(JSON.stringify(userData))
+      const endpoint = "http://localhost:5000/restaurants/create";
       const response = await axios.post(endpoint, userData);
-      const { id, username, email, password, google_id, role_id } =
-        response.data;
-      const userDatauser = {
-        id,
-        username,
-        email,
-        password,
-        google_id,
-        role_id,
-      };
-      console.log("Datos encontrados", JSON.stringify(userDatauser));
-      dispatch({
-        type: REGISTERBUSINESS,
-        payload: userDatauser,
-      });
+      if(response){
+        return true
+      }
+        return false
     } catch (error) {
       console.log("Error al enviar la información", error.message);
     }
@@ -143,9 +136,17 @@ export const login_User = (dataquery) => {
     try {
       if (dataquery === "invitado") {
         // For guest user scenario
+
+        const invitado = {
+          state:true,
+          name:"invitado",
+          email:"invitado@invitado.invitado",
+          id:0
+
+        }
         dispatch({
           type: USERLOGIN,
-          payload: dataquery,
+          payload: invitado,
         });
       } else {
         // For regular user login
@@ -205,6 +206,37 @@ export const login_user_localstorag = (auser) => {
     });
   };
 };
+
+//! logueo empresz
+export const login_Busnnes = (dataUser) =>{
+  return async (dispatch) => {
+    try {
+     
+        const userData = {
+          email: dataUser.emailOrPhone,
+          password: dataUser.password,
+        };
+
+        const endpoint = "http://localhost:5000/restaurants/login";
+        const response = await axios.post(endpoint, userData);
+        const empresa = response.data;
+        console.log("Encontrado " + JSON.stringify(empresa))
+        // Assuming the backend returns a JWT token upon successful login,
+        // store the token in localStorage for persistent session management
+        localStorage.setItem("token", empresa.token);
+
+        // Update Redux state with the authenticated user data
+        dispatch({
+          type: EMPRESALOGIN,
+          payload: empresa,
+        });
+      
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error.message);
+      // Handle error (e.g., show error message to user)
+    }
+  };
+}
 
 export function getAllMenus() {
   return async function (dispatch) {
@@ -668,6 +700,8 @@ export const PutMenus = (id, isActive) => {
 export const PutItemMenu = (id, isActive) => {
   return async function (dispatch) {
     try {
+
+      console.log("isActive", isActive);
       const response = await axios.put(
         `http://localhost:5000/menuitems/${
           isActive ? "restore" : "delete"

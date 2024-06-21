@@ -5,7 +5,7 @@ import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-import { login_User, login_user_localstorag } from "../../../Redux/actions";
+import { login_User, login_user_localstorag, login_Busnnes } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ import {guardarNombreUsuario, guardarCorreoUsuario, guardarEstatusUsuario, guard
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
   const User = useSelector((state) => state?.USER);
+  const Empresa = useSelector((state)=> state.EMPRESAUSER)
   const [keyVisible, setKeyVisible] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [userType, setUserType] = useState("");
@@ -56,9 +57,14 @@ const LoginIngreso = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       
       
+      if(userType === "user"){
+
+        await dispatch(login_User(formData));
+      }else{
+        await dispatch(login_Busnnes(formData));
+      }
       
-      
-      await dispatch(login_User(formData));
+     
 
      
 
@@ -103,6 +109,14 @@ if(obtenerCorreoUsuario()){
       navigate("/");
     }
   }, [User, navigate]);
+
+  useEffect(()=>{
+    if(Empresa===true){
+      navigate('/company')
+    }
+  },[Empresa, navigate])
+
+
 
   useEffect(() => {
     const isValidEmailOrPhone = (value) => {

@@ -28,6 +28,7 @@ import {
   obtenerNombreUsuario,
   obtenerIdUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import Loading from "../../Components/loading/Loading";
 
 function Menu() {
   const dispatch = useDispatch();
@@ -52,6 +53,16 @@ function Menu() {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
@@ -90,11 +101,21 @@ function Menu() {
     dispatch(getAllRestaurants());
   }, [dispatch]);
 
-  const restaurant1 = allRestaurants?.find((restaurant) => restaurant?.id === 1);
+  const restaurant1 = allRestaurants?.find(
+    (restaurant) => restaurant?.id === 1
+  );
 
   //FILTRO POR RANGO
+  // const applyPriceRangeFilter = (menuItems, range) => {
+  //   const [min, max] = range?.split("-").map(Number);
+  //   return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
+  // };
   const applyPriceRangeFilter = (menuItems, range) => {
-    const [min, max] = range?.split("-").map(Number);
+    if (!range || typeof range !== 'string') {
+      return menuItems;
+    }
+  
+    const [min, max] = range.split("-").map(Number);
     return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   };
   function handleSubmit(e) {
@@ -105,7 +126,7 @@ function Menu() {
   // FUNCION PARA DESHACER FILTROS
   const clearFilters = () => {
     setSearchString("");
-    setSortBy(null);
+    setSortBy("");
     setPriceRange("");
     setSelectMenuItem(null);
     setSelectedCategory("");
@@ -169,6 +190,7 @@ function Menu() {
 
   return (
     <div className="menu-container">
+      {loading ? <Loading /> : null}
       <Navbar />
       <div className="content">
         <div className="sidebar">
@@ -204,28 +226,36 @@ function Menu() {
               clearFilter={clearFilters}
               handleCategoryFilter={handleCategoryFilter}
               allCategories={allCategories}
+              sortBy={sortBy}
+              applyPriceRangeFilter={applyPriceRangeFilter}
+              priceRange={priceRange}
             />
           </div>
         </div>
         <div className="cards-menus">
-        <div className="cards-menu-items">
-  {allMenus?.map((menu) => {
-    const filteredItems = filteredMenuItems?.filter(
-      (menuItem) => menuItem?.menu_id === menu?.id
-    );
+          <div className="cards-menu-items">
+            {allMenus?.map((menu) => {
+              const menuItems = filteredMenuItems?.filter(
+                (menuItem) => menuItem?.menu_id === menu?.id
+              );
 
-    // Renderiza el contenedor solo si hay elementos filtrados
-    return filteredItems.length > 0 ? (
-      <div key={menu?.id} className="menu-item-container">
-        <h2>{menu?.name}</h2>
-        <CardsMenuItem
-          AllMenuitems={filteredItems}
-          handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
-        />
-      </div>
-    ) : null;
-  })}
-</div>
+              if (menuItems?.length > 0) {
+                return (
+                  <div key={menu?.id} className="menu-item-container">
+                    <h2>{menu?.name}</h2>
+                    <CardsMenuItem
+                      AllMenuitems={filteredMenuItems?.filter(
+                        (menuItem) => menuItem?.menu_id === menu?.id
+                      )}
+                      handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
+                    />
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </div>
         </div>
       </div>
       {selectedMenuItemId && (

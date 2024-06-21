@@ -59,6 +59,7 @@
 
 .customSection button,
 .navbarMenuSelect select {
+  margin-bottom: 15px;
   background-color: #ff5a5f;
   color: white;
   border: none;

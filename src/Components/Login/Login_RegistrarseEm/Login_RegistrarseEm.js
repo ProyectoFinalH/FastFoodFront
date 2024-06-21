@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Login_RegistrarseEm.css";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-
 import { register_business } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
+import 'alertifyjs/build/css/themes/default.css'; 
 
 const RegistrarseEmpresa = ({ setView }) => {
   const dispatch = useDispatch();
@@ -17,9 +19,11 @@ const RegistrarseEmpresa = ({ setView }) => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
   };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserData({
@@ -36,7 +40,14 @@ const RegistrarseEmpresa = ({ setView }) => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
-      dispatch(register_business(userData));
+     const result = dispatch(register_business(userData));
+     if(result){
+      alertify.alert("Creado", "<div>Usuario Creado Correctamente</div><br/><div>Ahora ingresa con tu usuario y contraseña</div>", function() {
+        window.location.href = '/';
+      });
+    }else{
+      alertify.waring("Error", "No se pude registrar la Empresa")
+     }
     }
   };
 
@@ -50,7 +61,7 @@ const RegistrarseEmpresa = ({ setView }) => {
       data.username.trim().length > 60
     ) {
       errors.username =
-        "El nombre de usuario debe tener entre 4 y 20 caracteres";
+        "El nombre de usuario debe tener entre 4 y 60 caracteres";
     }
 
     if (!data.email.trim()) {
@@ -82,9 +93,9 @@ const RegistrarseEmpresa = ({ setView }) => {
       case "username":
         if (!value.trim()) {
           fieldErrors.username = "El nombre de usuario es requerido";
-        } else if (value.trim().length < 4 || value.trim().length > 600) {
+        } else if (value.trim().length < 4 || value.trim().length > 60) {
           fieldErrors.username =
-            "El nombre de usuario debe tener entre 4 y 20 caracteres";
+            "El nombre de usuario debe tener entre 4 y 60 caracteres";
         }
         break;
       case "email":
@@ -122,7 +133,7 @@ const RegistrarseEmpresa = ({ setView }) => {
 
   useEffect(() => {
     if (Register) {
-      alert("Bienvenido " + Register.username + " ahora puedes continuar");
+      alert("Bienvenido " + Register.username + ", ahora puedes continuar");
       setView("login");
     }
   }, [Register, setView]);

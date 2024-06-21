@@ -264,3 +264,22 @@
   border-left: none; /* Remove left border to connect with decrement button */
   border-right: none; /* Remove right border to connect with increment button */
 }
+
+
+/*boton mercado pago*/
+
+.mercado-pago-button {
+  background-color: #000; /* Color de fondo negro */
+  color: #fff; /* Color de texto blanco */
+  font-size: 16px; /* Tamaño de fuente */
+  font-weight: bold; /* Fuente en negrita */
+  padding: 12px 24px; /* Relleno del botón */
+  border: none; /* Sin borde */
+  border-radius: 8px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de puntero */
+  transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+.mercado-pago-button:hover {
+  background-color: #333; /* Color de fondo al pasar el ratón */
+}
