@@ -25,38 +25,12 @@ function Account() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showAccountSettings, setShowAccountSettings] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
-
-  const defaultAvatarUrl =
-    "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
-
-  const handleAvatarChange = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      const data = await response.json();
-      setAvatar(data.imageUrl);
-    } catch (error) {
-      console.error("Error al cargar la imagen:", error);
-      alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
-    }
-  };
+  const [profileImage, setProfileImage] = useState(""); 
 
   const handleSubmit = async () => {
     if (!email || !username) {
@@ -70,7 +44,6 @@ function Account() {
         email,
         username,
         password: changePassword ? password : undefined,
-        image_url: avatar || user.image_url,
       };
 
       dispatch(updateUser(user.id, userData));
@@ -119,7 +92,7 @@ function Account() {
       console.log("Usuario desde Redux:", user);
       setEmail(user.email || "");
       setUsername(user.username || "");
-      setAvatar(user.image_url || defaultAvatarUrl);
+      setProfileImage(user.image_url || ""); // Set profile image URL if available
     }
   }, [user]);
 
@@ -150,23 +123,41 @@ function Account() {
     setShowOrders(true);
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setProfileImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <label htmlFor="avatarInput">
-              <img src={avatar} alt="Avatar" />
+            <p>Bienvenido {username}</p>
+            <img
+              className="profile-image"
+              src={profileImage || "/default-profile-image.png"}
+              alt="Profile"
+            />
+            <label htmlFor="imageUpload" className="image-upload-label">
+              <i className="fas fa-camera"></i> Cambiar Foto
             </label>
             <input
               type="file"
-              id="avatarInput"
-              accept="image/*"
+              id="imageUpload"
+              accept=".jpg,.png"
+              onChange={handleImageChange}
               style={{ display: "none" }}
-              onChange={handleAvatarChange}
             />
-            <p>Bienvenido {username}</p>
           </div>
           <nav className="menu">
             <ul>
