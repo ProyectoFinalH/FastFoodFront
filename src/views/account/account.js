@@ -27,7 +27,7 @@ function Account() {
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
-  const [showAccountSettings, setShowAccountSettings] = useState(false);
+  const [showAccountSettings, setShowAccountSettings] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
