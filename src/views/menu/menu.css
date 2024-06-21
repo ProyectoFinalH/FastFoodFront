@@ -28,6 +28,7 @@
   gap: 20px;
   position: sticky;
   top: 0.1px;
+  height: 60vh;
 }
 
 .button-back {
@@ -36,6 +37,7 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  margin-bottom: -20px;
 }
 
 .info-rest {
@@ -66,6 +68,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 30px;
 }
 
 .cards-menus {
@@ -78,6 +81,7 @@
 
 .cards-menu-items {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 20px;
   flex-direction: column;
@@ -102,4 +106,24 @@ button:focus {
 
 button:hover {
   opacity: 0.8;
+}
+.cardsContentMenu{
+  height: 100px;
+  overflow-y: auto;
+  margin-top: -20px;
+}
+.cardsContentMenu::-webkit-scrollbar{
+  width: 10px;
+  scroll-margin-top: 200px;
+}
+.cardsContentMenu::-webkit-scrollbar-thumb{
+  background-color: #c90000;
+ border-radius: 5px;
+}
+
+.cardsContentMenu::-webkit-scrollbar-thumb:hover{
+  background-color: #dbba00;
+}
+.menu-item-container.hidden {
+  display: none;
 }

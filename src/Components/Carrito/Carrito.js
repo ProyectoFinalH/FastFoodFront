@@ -30,6 +30,7 @@ function Carrito({ onClose }) {
   const User = useSelector((state) => state.USER);
   const Empresa = useSelector((state)=>state.allRestaurants)
   const Carrito = useSelector((state) => state.Carrito);
+  const [datopago, setDatopago] = useState({url:''})
   
   const [selectedCards, setSelectedCards] = useState([]);
   const [mensaje] = useState("¡Comienza tu carrito con tus comidas favoritas!");
@@ -49,10 +50,8 @@ function Carrito({ onClose }) {
   
 
   // Inicializar Mercado Pago
-  initMercadoPago('TEST-50122e74-1f4b-40e3-8ddb-a830cd00b7bf', 
-    {
-      locale:"es-CO"
-    }
+  initMercadoPago('APP_USR-2bf331dc-c934-490b-b87a-76fe4f965b37'//'TEST-50122e74-1f4b-40e3-8ddb-a830cd00b7bf', 
+    
   );
 
 
@@ -84,8 +83,9 @@ function Carrito({ onClose }) {
   const handleBuy = async () => {
     handlePagar()
      const id = await createPreference();
-
-   //  alert(id)
+  
+     
+     setDatopago({url:id})
           if (id) {
      
         setPreferenceId(id);
@@ -93,6 +93,10 @@ function Carrito({ onClose }) {
       }
     
    
+  }
+
+  const PagarConUrl = ()=>{
+    window.location.replace(datopago.url)
   }
 //!datos de iniciar sesion invitados
   const handelIniciarsesion = ()=>{
@@ -227,16 +231,14 @@ function Carrito({ onClose }) {
         <div className="boton_flex">
         <div className="login-button-regresar" onClick={handleSalirCarrito}>Salir</div>
         {preferenceId 
-        && (   
-          
+        && (  <>
+                  
+<div onClick={PagarConUrl} > <Wallet   /> </div>
 
-        
-<Wallet initialization={{ preferenceId, redirectMode: 'blank' }} target="_blank" customization={{ texts:{ valueProp: 'smart_option'}, visual: {
-        buttonBackground: 'black', // Cambia este valor al color que desees
-        borderRadius: '6px',
-      },}} />
 
-      
+     
+
+      </> 
 
           )}
               </div>
@@ -307,8 +309,9 @@ function Carrito({ onClose }) {
             null: (
               User.name === "invitado"
               ?<button onClick={handelIniciarsesion} style={{'background-color':'red'}}>Pagrar</button>
-              :<button onClick={handleBuy}>Pagar</button>
+              : <><button onClick={handleBuy}>Pagar</button></>
             )}
+           
             <div></div>
           </div>
         )}

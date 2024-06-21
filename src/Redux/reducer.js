@@ -32,6 +32,7 @@ import {
   ADMIN_LOGOUT,
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
+  EMPRESALOGIN,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -57,6 +58,7 @@ const initialState = {
   createMenuItems: null,
   createCategories: null,
   User_Actualizado: null,
+  EMPRESAUSER:null,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -249,6 +251,11 @@ const reducer = (state = initialState, { type, payload }) => {
             ...state,
             ListaOrderUser: payload,
           }
+          case EMPRESALOGIN:
+            return{
+              ...state,
+            EMPRESAUSER: payload,
+            }
 
     default:
       return { ...state };

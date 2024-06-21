@@ -54,8 +54,7 @@ function Menu() {
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const [loading, setLoading] = useState(true)
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -65,10 +64,10 @@ function Menu() {
     return () => clearTimeout(timer);
   }, []);
 
-
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
   };
+  const selectedRestaurantId = allRestaurants[0]?.id;
 
   //localstorang del usuario
   useEffect(() => {
@@ -82,11 +81,15 @@ function Menu() {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
-      navigate("/menu");
+      if (selectedRestaurantId) {
+        navigate(`/menu/${selectedRestaurantId}`);
+      } else {
+        navigate("/menu");
+      }
     } else {
       navigate("/");
     }
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, selectedRestaurantId]);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -98,19 +101,23 @@ function Menu() {
     dispatch(getAllRestaurants());
   }, [dispatch]);
 
-  const restaurant1 = allRestaurants?.find((restaurant) => restaurant?.id === 1);
+  const restaurant1 = allRestaurants?.find(
+    (restaurant) => restaurant?.id === 1
+  );
 
   //FILTRO POR RANGO
+  // const applyPriceRangeFilter = (menuItems, range) => {
+  //   const [min, max] = range?.split("-").map(Number);
+  //   return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
+  // };
   const applyPriceRangeFilter = (menuItems, range) => {
-    const [min, max] = range?.split("-").map(Number);
+    if (!range || typeof range !== 'string') {
+      return menuItems;
+    }
+  
+    const [min, max] = range.split("-").map(Number);
     return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   };
-
-  //HANDLERS PARA EL SEARCH
-  // function handleChange(e) {
-  //   setSearchString(e.target.value);
-  // }
-
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getMenuItemsByName(searchString));
@@ -119,7 +126,7 @@ function Menu() {
   // FUNCION PARA DESHACER FILTROS
   const clearFilters = () => {
     setSearchString("");
-    setSortBy(null);
+    setSortBy("");
     setPriceRange("");
     setSelectMenuItem(null);
     setSelectedCategory("");
@@ -179,15 +186,11 @@ function Menu() {
   //Boton volver Atras
   const handleGoBack = () => {
     navigate("/home");
-  };
+  };  
 
   return (
     <div className="menu-container">
-      {
-        loading
-        ?<Loading/>
-        :null
-      }
+      {loading ? <Loading /> : null}
       <Navbar />
       <div className="content">
         <div className="sidebar">
@@ -204,12 +207,15 @@ function Menu() {
               <h2 className="restaurant-name">{restaurant1?.name}</h2>
             </div>
           </div>
+          <div className="cardsContentMenu">
+
           <div className="cards-menus-container">
             <CardsMenus
               AllMenus={allMenus}
               handleSelectMenu={handleSelectMenu}
-            />
+              />
           </div>
+              </div>
           <div className="search-container">
             <NavbarMenu
               searchString={searchString}
@@ -220,22 +226,35 @@ function Menu() {
               clearFilter={clearFilters}
               handleCategoryFilter={handleCategoryFilter}
               allCategories={allCategories}
+              sortBy={sortBy}
+              applyPriceRangeFilter={applyPriceRangeFilter}
+              priceRange={priceRange}
             />
           </div>
         </div>
         <div className="cards-menus">
           <div className="cards-menu-items">
-            {allMenus?.map((menu) => (
-              <div key={menu?.id} className="menu-item-container">
-                <h2>{menu?.name}</h2>
-                <CardsMenuItem
-                  AllMenuitems={filteredMenuItems?.filter(
-                    (menuItem) => menuItem?.menu_id === menu?.id
-                  )}
-                  handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
-                />
-              </div>
-            ))}
+            {allMenus?.map((menu) => {
+              const menuItems = filteredMenuItems?.filter(
+                (menuItem) => menuItem?.menu_id === menu?.id
+              );
+
+              if (menuItems?.length > 0) {
+                return (
+                  <div key={menu?.id} className="menu-item-container">
+                    <h2>{menu?.name}</h2>
+                    <CardsMenuItem
+                      AllMenuitems={filteredMenuItems?.filter(
+                        (menuItem) => menuItem?.menu_id === menu?.id
+                      )}
+                      handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
+                    />
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
           </div>
         </div>
       </div>
