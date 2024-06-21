@@ -37,6 +37,10 @@ const Recuperarkey = ({ setView }) => {
               setView("login");
             }}
           >
+
+
+
+            
             Regresa al inicio
           </div>
         </div>
