@@ -16,13 +16,13 @@ import { logoutAdmin } from "../../../Redux/actions";
 
 const LoginAdmin = () => {
   const dispatch = useDispatch();
-  //const USER = useSelector((state) => state?.USER);
+
   const [keyVisible, setKeyVisible] = useState(false);
   const token = useSelector((state)=> state.token)
   
   const navigate = useNavigate();
 
-  //console.log("user", USER)
+  
 
   const [formData, setFormData] = useState({
     email: "",
@@ -54,26 +54,19 @@ const LoginAdmin = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      //console.log("Datos del formulario:", formData);
-      dispatch(loginAdmin(formData, navigate));
+      dispatch(loginAdmin(formData, navigate));//Lee y guarda token en variable global=token
       
     }
   };
 
   const isButtonDisabled = Object.keys(errors).length !== 0;
 
-  // useEffect(()=>{
-  //   if(token){
-  //     navigate("/Admin");
-  //   }
-  // },[token,navigate]);
-
   useEffect(()=>{
     if (token){
-      //console.log(token.data);
-      const infoAdmin=jwtDecode(token.data);
-      //console.log(infoAdmin);
-      if(infoAdmin.role_id!==3){
+    
+      const infoAdmin=jwtDecode(token.data);//Decodifica el token
+      
+      if(infoAdmin.role_id!==3){//si el token no tiene rol de superadmin regresa Login
         alertify.alert("Mensaje", 
           'Usuario no autorizado',()=>{
             dispatch(logoutAdmin());
@@ -81,11 +74,11 @@ const LoginAdmin = () => {
           }); 
         }
       else{
-        navigate("/Admin")
+        navigate("/Admin")//si tiene rol superadmin va Admin
       }  
 
     }else{
-      alertify.alert("Mensaje", 
+      alertify.alert("Mensaje", //si no hay token regresa a Login
         'No hay token presente, debe loguearse para continuar',()=>{
           navigate("/loginAdmin");
         }); 

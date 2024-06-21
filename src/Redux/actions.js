@@ -694,31 +694,12 @@ export const PutItemMenu = (id, isActive) => {
 };
 
 
-
+//==============Login y Logout Admin=======================================//
 export const loginAdmin = (formData, navigate) => {
-  //const { emailOrPhone, password } = formData;
-  //console.log(formData);
+  
 
   return async (dispatch) => {
-    // try {
-    //   if (emailOrPhone === 'admin@gmail.com' && password === '1234') {
-    //     const adminUser = {
-    //       emailOrPhone: 'admin@gmail.com',
-    //       role_id: 2,
-    //     };
-  
-    //     dispatch({
-    //       type: ADMIN_LOGIN,
-    //       payload: adminUser,
-    //     });
-  
-    //     navigate('/admin')
-
-    //    }
-    //    } catch (error) {
-    //     console.error("error al iniciar como administrador", error)
-    //    }
-
+   
     try {
       const URL="http://localhost:5000/users/login"
       let response=await axios.post(URL,formData);
@@ -730,7 +711,7 @@ export const loginAdmin = (formData, navigate) => {
     } catch (error) {
        alertify.alert("Mensaje", 
           'Usuario no autorizado');
-      //console.log("error al iniciar como administrador", error);
+      
     }
 
     }
@@ -741,6 +722,8 @@ export const loginAdmin = (formData, navigate) => {
 export const logoutAdmin = () => ({
   type: ADMIN_LOGOUT,
 });
+//=============================================================================//
+
 
 export function getAllCategoriesAdmin() {
   return async function (dispatch) {
