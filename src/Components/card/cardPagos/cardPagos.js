@@ -1,15 +1,16 @@
+import React from "react";
 import imgpagos from "../../../images/imagePagos.jpg";
 import "./cardPagos.css";
 
 function CardPagos() {
   return (
-    <div className="cardPagosContainer">
+    <div className="cardResContainer cardOtherContainer">
       <div>
-        <img src={imgpagos} alt="a1" />
+        <img src={imgpagos} alt="Metodos de pago" />
       </div>
       <div className="textContainer">
-        <h2>Metodos de pago</h2>
-        <p>Descubre todas las Opciones</p>
+        <h2 className="restaurantName">Metodos de pago</h2>
+        <p className="restaurantType">Descubre todas las Opciones</p>
       </div>
     </div>
   );

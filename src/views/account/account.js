@@ -27,8 +27,10 @@ function Account() {
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
-  const [orders, setOrders] = useState(false);
+  const [showAccountSettings, setShowAccountSettings] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showOrders, setShowOrders] = useState(false);
+  const [changePassword, setChangePassword] = useState(false);
 
   const defaultAvatarUrl =
     "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
@@ -57,7 +59,7 @@ function Account() {
   };
 
   const handleSubmit = async () => {
-    if (!email || !username || !password) {
+    if (!email || !username) {
       alert("Por favor, completa todos los campos.");
       return;
     }
@@ -67,7 +69,7 @@ function Account() {
         id: user.id,
         email,
         username,
-        password,
+        password: changePassword ? password : undefined,
         image_url: avatar || user.image_url,
       };
 
@@ -81,22 +83,15 @@ function Account() {
   };
 
   useEffect(() => {
-    if (user) {
-      setEmail(user.email || "");
-      setUsername(user.username || "");
-      setAvatar(user.image_url || defaultAvatarUrl);
-    }
-  }, [user]);
-
-  //! Desarrollado para las órdenes
-  useEffect(() => {
     const email = obtenerCorreoUsuario();
+    const name = obtenerNombreUsuario();
+
     if (email) {
       const tem_Users = {
         state: obtenerEstatusUsuario(),
         id: obtenerIdUsuario(),
         email: email,
-        name: obtenerNombreUsuario(),
+        name: name,
       };
 
       dispatch(login_user_localstorag(tem_Users))
@@ -119,6 +114,42 @@ function Account() {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    if (user) {
+      console.log("Usuario desde Redux:", user);
+      setEmail(user.email || "");
+      setUsername(user.username || "");
+      setAvatar(user.image_url || defaultAvatarUrl);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!username) {
+      const localUsername = obtenerNombreUsuario();
+      if (localUsername) {
+        setUsername(localUsername);
+      }
+    }
+  }, [username]);
+
+  const handleAccountSettingsClick = () => {
+    setShowAccountSettings(true);
+    setShowNotifications(false);
+    setShowOrders(false);
+  };
+
+  const handleNotificationsClick = () => {
+    setShowAccountSettings(false);
+    setShowNotifications(true);
+    setShowOrders(false);
+  };
+
+  const handleOrdersClick = () => {
+    setShowAccountSettings(false);
+    setShowNotifications(false);
+    setShowOrders(true);
+  };
+
   return (
     <div>
       <Navbar />
@@ -135,47 +166,41 @@ function Account() {
               style={{ display: "none" }}
               onChange={handleAvatarChange}
             />
-            <p>Mi perfil</p>
+            <p>Bienvenido {username}</p>
           </div>
           <nav className="menu">
             <ul>
               <li>
-                <Link to="#" onClick={() => setShowNotifications(false)}>
+                <Link to="#" onClick={handleAccountSettingsClick}>
                   Ajustes de cuenta
                 </Link>
               </li>
               <li>
-                <Link to="#" onClick={() => setShowNotifications(true)}>
+                <Link to="#" onClick={handleNotificationsClick}>
                   Centro de notificaciones
                 </Link>
               </li>
               <li>
-                <Link to="#">
-                  <div onClick={() => setOrders(!orders)}>Últimas órdenes</div>
+                <Link to="#" onClick={handleOrdersClick}>
+                  Últimas órdenes
                 </Link>
               </li>
             </ul>
           </nav>
         </div>
         <div className="account-info">
-          {showNotifications ? (
-            <NotificationCenter />
-          ) : (
+          {showAccountSettings && (
             <>
               <h2>Información de tu cuenta</h2>
               <div className="input-group-container">
                 <div className="input-group1">
                   <label>Correo Electrónico</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                  <input type="email" value={email} readOnly />
                 </div>
               </div>
               <div className="input-group-container">
                 <div className="input-group1">
-                  <label>Nombre de usuario</label>
+                  <label>Nombre de usuario </label>{" "}
                   <input
                     type="text"
                     value={username}
@@ -183,12 +208,21 @@ function Account() {
                   />
                 </div>
                 <div className="input-group1">
-                  <label>Contraseña</label>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <label className="checkbox-label">
+                    <span>Cambiar Contraseña</span>
+                    <input
+                      type="checkbox"
+                      checked={changePassword}
+                      onChange={() => setChangePassword(!changePassword)}
+                    />
+                  </label>
+                  {changePassword && (
+                    <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  )}
                 </div>
               </div>
               <div className="button-group">
@@ -204,9 +238,10 @@ function Account() {
               </div>
             </>
           )}
+          {showNotifications && <NotificationCenter />}
+          {showOrders && <OrderUsers />}
         </div>
       </div>
-      {orders ? <OrderUsers /> : null}
     </div>
   );
 }
