@@ -32,37 +32,6 @@ function Account() {
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
-  const handleSubmit = async () => {
-    if (!email || !username) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
-
-    try {
-      const userData = {
-        id: user.id,
-        email,
-        username,
-        password: changePassword ? password : undefined,
-      };
-
-      const formData = new FormData();
-      formData.append("id", user.id);
-      formData.append("email", email);
-      formData.append("username", username);
-      if (imageFile) {
-        formData.append("image_url", imageFile);
-      }
-
-      dispatch(updateUser(user.id, formData));
-      setShowSuccessNotification(true);
-    } catch (error) {
-      console.error("Error al actualizar usuario:", error);
-      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
-      setShowSuccessNotification(false);
-    }
-  };
-
   useEffect(() => {
     const email = obtenerCorreoUsuario();
     const name = obtenerNombreUsuario();
@@ -134,21 +103,63 @@ function Account() {
     setImageFile(event.target.files[0]);
   };
 
+  const handleSubmit = async () => {
+    if (!email || !username) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("id", user.id);
+      formData.append("email", email);
+      formData.append("username", username);
+      if (imageFile) {
+        formData.append("image_url", imageFile);
+      }
+      if (changePassword) {
+        formData.append("password", password);
+      }
+
+      await dispatch(updateUser(user.id, formData));
+      setShowSuccessNotification(true);
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+      setShowSuccessNotification(false);
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <p>Bienvenido {user ? user.username : ""}</p>
-            {user && user.image_url && (
-              <img
-                src={user.image_url}
-                alt="Perfil"
-                className="profile-image"
+            <p className="welcome-message">
+              Bienvenido {user ? user.username : ""}
+            </p>
+            <label htmlFor="profile-image" className="profile-image-container">
+              {user && user.image_url ? (
+                <img
+                  src={user.image_url}
+                  alt="Perfil"
+                  className="profile-image"
+                />
+              ) : (
+                <div className="no-image">No hay imagen</div>
+              )}
+              <input
+                type="file"
+                name="image_url"
+                id="profile-image"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
               />
-            )}
-            <input type="file" name="image_url" onChange={handleImageChange} />
+            </label>
+            <label htmlFor="profile-image" className="change-image-label">
+              Cambiar Imagen
+            </label>
           </div>
           <nav className="menu">
             <ul>
