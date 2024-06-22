@@ -1,8 +1,11 @@
+
+
 import {
   REGISTERUSER,
   REGISTERBUSINESS,
   RECOVERYKEY,
   USERLOGIN,
+  USERTOKEN,
   USERLOGINGOOGLE,
   GET_MENUS,
   GET_MENUS_ADMIN,
@@ -58,6 +61,7 @@ const initialState = {
   createMenuItems: null,
   createCategories: null,
   User_Actualizado: null,
+  token:null,//estado global que guarda el token obtenido en login
   EMPRESAUSER:null,
 };
 
@@ -80,11 +84,19 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         Registrado: payload,
       };
+
     case USERLOGIN:
       return {
         ...state,
-        USER: payload,
+        USER: payload, 
       };
+    
+    case USERTOKEN:
+      return {
+        ...state,
+        token: payload, 
+      };  
+      
     case USERLOGINGOOGLE:
       return {
         ...state,
@@ -143,6 +155,7 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         USER: null,
+        token: null,
       };
     case CREATE_CATEGORIES:
       return {
@@ -232,12 +245,12 @@ const reducer = (state = initialState, { type, payload }) => {
               case ADMIN_LOGIN:
                 return {
                   ...state,
-                  USER: payload,
+                  token: payload,
                 };
               case ADMIN_LOGOUT:
                 return {
                   ...state,
-                  USER: null,
+                  token: null,
                 };
 
               

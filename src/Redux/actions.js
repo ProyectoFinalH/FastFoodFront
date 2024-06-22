@@ -1,3 +1,5 @@
+import alertify from "alertifyjs";
+import { axiosInstance, configureAxios } from "../AuthContext/axiosInstance";
 import {
   GET_CATEGORIES,
   CANCELARCOMPRAUSER,
@@ -8,6 +10,7 @@ import {
   //REGISTERBUSINESS,
   RECOVERYKEY,
   USERLOGIN,
+  USERTOKEN,
   USERLOGINGOOGLE,
   CREATE_MENU,
   CREATE_MENU_ITEMS,
@@ -35,6 +38,7 @@ import {
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export const logoutUser = () => {
   return  {
@@ -151,13 +155,20 @@ export const login_User = (dataquery) => {
           password: dataquery.password,
         };
         const endpoint = "http://localhost:5000/users/login";
-        const response = await axios.post(endpoint, userData);
+        const responseToken = await axios.post(endpoint, userData);
+        console.log(responseToken.data);
+        const response=jwtDecode(responseToken.data);//decodificando el token que manda el back
+        
 
-        const user = response.data;
+        const user = response;
         localStorage.setItem("token", user.token);
         dispatch({
           type: USERLOGIN,
-          payload: user,
+          payload:user,
+        });
+        dispatch({
+          type: USERTOKEN,
+          payload:responseToken,
         });
         return user;
       }
@@ -181,12 +192,18 @@ export const login_User_Google = (dataquery) => {
       const response = await axios.post(endpoint, { token: dataquery.token });
 
       const userData = response.data;
+      const usuario = {
+        state:true,
+        id: userData.id,
+        email: userData.email,
+        name: userData.username
+      }
 
-      localStorage.setItem("token", userData.token);
+      localStorage.setItem("token", usuario.token);
 
       dispatch({
         type: USERLOGINGOOGLE,
-        payload: userData,
+        payload: usuario,
       });
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
@@ -246,8 +263,11 @@ export function getAllMenus() {
 }
 
 export function getAllMenusAdmin() {
-  return async function (dispatch) {
-    const response = await axios("http://localhost:5000/menus/all");
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+    
+    const response = await axiosInstance.get("http://localhost:5000/menus/all");
     return dispatch({
       type: GET_MENUS_ADMIN,
       payload: response.data,
@@ -256,8 +276,11 @@ export function getAllMenusAdmin() {
 }
 
 export function getAllMenuitemsAdmin() {
-  return async function (dispatch) {
-    const response = await axios("http://localhost:5000/menuitems/all");
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
+    const response = await axiosInstance.get("http://localhost:5000/menuitems/all");
     return dispatch({
       type: GET_MENUITEMS_ADMIN,
       payload: response.data,
@@ -296,9 +319,12 @@ export function getAllRestaurants() {
   };
 }
 export function getAllRestaurantsAdmin() {
-  return async function (dispatch) {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
-      const response = await axios("http://localhost:5000/restaurants/all");
+      const response = await axiosInstance("http://localhost:5000/restaurants/all");
       dispatch({
         type: GET_RESTAURANTS_ALL,
         payload: response.data,
@@ -317,10 +343,13 @@ export function sortedMenuItemsAsc(sortedMenuItems) {
 }
 
 export function CreateMenu(dataquery) {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       const endpoint = "http://localhost:5000/menus/create";
-      const response = await axios.post(endpoint, dataquery);
+      const response = await axiosInstance.post(endpoint, dataquery);
       const menuData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuData));
@@ -336,14 +365,17 @@ export function CreateMenu(dataquery) {
   };
 }
 export function CreateMenuItems(formData) {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
 
       // Verifica el contenido de FormData antes de enviarlo
       console.log("FormData contenido:", Array.from(formData.entries()));
 
-      const response = await axios.post(endpoint, formData, {
+      const response = await axiosInstance.post(endpoint, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -365,10 +397,13 @@ export function CreateMenuItems(formData) {
 }
 
 export function CreateCategory(dataquery) {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       const endpoint = "http://localhost:5000/categories/create";
-      const response = await axios.post(endpoint, dataquery);
+      const response = await axiosInstance.post(endpoint, dataquery);
       const categoriesData = response.data;
       console.log("Datos encontrados", JSON.stringify(categoriesData));
       dispatch({
@@ -394,10 +429,13 @@ export function getAllCategories() {
 }
 
 export const updateUser = (id, userData) => {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       const endpoint = `http://localhost:5000/api/users/${id}`;
-      const response = await axios.put(endpoint, userData);
+      const response = await axiosInstance.put(endpoint, userData);
 
       return dispatch({
         type: UPDATE_USER,
@@ -412,7 +450,10 @@ export const updateUser = (id, userData) => {
 };
 
 export const Desarrollode_Compra = (cards, id, res_id) => {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       // Calcular el costo total de todos los productos
       const totalCost = cards.reduce((acc, item) => {
@@ -441,7 +482,7 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
 
       console.log("Datos enviados: " + JSON.stringify(dataquery));
       const endpoint = "http://localhost:5000/orders/create";
-      const response = await axios.post(endpoint, dataquery);
+      const response = await axiosInstance.post(endpoint, dataquery);
       const compra = response.data;
 
       console.log("Esta es la compra: " + JSON.stringify(compra));
@@ -460,10 +501,13 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
 //crear la lista de ordenes comapny
 
 export const Create_Lista_Order_Company = () => {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       const endpoint = "http://localhost:5000/orders/all";
-      const response = await axios.get(endpoint);
+      const response = await axiosInstance.get(endpoint);
       const compra = response.data;
       //alert("Esta es la lista de compras "+compra)
       console.log("Esta es la lista de compras " + JSON.stringify(compra));
@@ -481,12 +525,15 @@ export const Create_Lista_Order_Company = () => {
 
 
 //! este es el eliminar registro del usuario 
-export const Eliminar_Registro_Compra = async (id)=>{
-  return  () => {
+export const Eliminar_Registro_Compra = (id)=>{
+  return  async(dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       console.log(id)
       const endpoint = `http://localhost:5000/orders/delete/${id}`;
-      const response =  axios.put(endpoint);
+      const response = await axiosInstance.put(endpoint);
       const data = response;
       //alert("Esta es la lista de compras "+compra)
       console.log("Este si es " + JSON.stringify(data));
@@ -505,11 +552,14 @@ export const Eliminar_Registro_Compra = async (id)=>{
 //!Identificar datos del las ordenes del Usuario 
 
 export const  Listado_Orders_Usuario=(id)=>{
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       console.log(id)
       const endpoint = `http://localhost:5000/orders/user/${id}`;
-      const response = await  axios.get(endpoint);
+      const response = await  axiosInstance.get(endpoint);
       const data = response.data;
       //alert("Esta es la lista de compras "+compra)
       console.log("Este si es " + JSON.stringify(data));
@@ -531,12 +581,15 @@ export const  Listado_Orders_Usuario=(id)=>{
 //!Actualizar la compra de usuario
 
 export const Actualizar_Compra_Usuario = (datauser) => {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       console.log("Estos son los datos a enviar: " + JSON.stringify(datauser));
      
       const endpoint = `http://localhost:5000/orders/${datauser.id}`;
-      const response = await axios.put(endpoint, {
+      const response = await axiosInstance.put(endpoint, {
         total_price: datauser.total_price,
         items: datauser.items,
         statusorder_id: datauser.statusorder_id
@@ -558,10 +611,13 @@ export const Actualizar_Compra_Usuario = (datauser) => {
 
 //deshabilito la compra en el carrito con el user
 export const Deshabilito_Compra_User = (id) => {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
       const endpoint = `http://localhost:5000/orders/delete/${id}`;
-      const response = await axios.put(endpoint);
+      const response = await axiosInstance.put(endpoint);
       const compra = response.data;
 
       dispatch({
@@ -576,9 +632,12 @@ export const Deshabilito_Compra_User = (id) => {
 };
 
 export function getAllUsersAdmin() {
-  return async function (dispatch) {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
-      const response = await axios("http://localhost:5000/users/all");
+      const response = await axiosInstance("http://localhost:5000/users/all");
       dispatch({
         type: GET_USERS_ALL,
         payload: response.data,
@@ -591,7 +650,10 @@ export function getAllUsersAdmin() {
 
 
 export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    configureAxios(token);
+
     console.log("Usuario de Mercado pago" + JSON.stringify(DAtosMercadoPAgo));
     const mercadopago = {
       description: DAtosMercadoPAgo.descriptions,
@@ -601,7 +663,7 @@ export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
 
     try {
       const endpoint = "http://localhost:5000/mercadopago/create";
-      const response = await axios.post(endpoint, mercadopago);
+      const response = await axiosInstance.post(endpoint, mercadopago);
       const compra = response.data;
 
       console.log("respuesta ID" + compra);
@@ -620,9 +682,12 @@ export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
 };
 
 export function getOrdersAdmin() {
-  return async function (dispatch) {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
-      const response = await axios("http://localhost:5000/orders/all");
+      const response = await axiosInstance("http://localhost:5000/orders/all");
       dispatch({
         type: GET_ORDERS_ADMIN,
         payload: response.data,
@@ -634,9 +699,12 @@ export function getOrdersAdmin() {
 }
 
 export const PutRestaurants = (id, isActive) => {
-  return async function (dispatch) {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
-      const response = await axios.put(
+      const response = await axiosInstance.put(
         `http://localhost:5000/restaurants/${
           isActive ? "restore" : "delete"
         }/${id}`
@@ -656,9 +724,12 @@ export const PutRestaurants = (id, isActive) => {
 };
 
 export const PutUsers = (id, isActive) => {
-  return async function (dispatch) {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
-      const response = await axios.put(
+      const response = await axiosInstance.put(
         `http://localhost:5000/users/${isActive ? "restore" : "delete"}/${id}`
       );
 
@@ -676,9 +747,12 @@ export const PutUsers = (id, isActive) => {
 };
 
 export const PutMenus = (id, isActive) => {
-  return async function (dispatch) {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
-      const response = await axios.put(
+      const response = await axiosInstance.put(
         `http://localhost:5000/menus/${isActive ? "restore" : "delete"}/${id}`
       );
 
@@ -695,11 +769,14 @@ export const PutMenus = (id, isActive) => {
   };
 };
 export const PutItemMenu = (id, isActive) => {
-  return async function (dispatch) {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
     try {
 
-      console.log("isActive", isActive);
-      const response = await axios.put(
+      const response = await axiosInstance.put(
+
         `http://localhost:5000/menuitems/${
           isActive ? "restore" : "delete"
         }/${id}`
@@ -719,44 +796,54 @@ export const PutItemMenu = (id, isActive) => {
 };
 
 
-
+//==============Login y Logout Admin=======================================//
 export const loginAdmin = (formData, navigate) => {
-  const { emailOrPhone, password } = formData;
+  
 
-  return (dispatch) => {
+  return async (dispatch) => {
+   
     try {
-      if (emailOrPhone === 'admin@gmail.com' && password === '1234') {
-        const adminUser = {
-          emailOrPhone: 'admin@gmail.com',
-          role_id: 2,
-        };
-  
-        dispatch({
-          type: ADMIN_LOGIN,
-          payload: adminUser,
-        });
-  
-        navigate('/admin')
+      const URL="http://localhost:5000/users/login"
+      let response=await axios.post(URL,formData);
+      return dispatch({
+        type:ADMIN_LOGIN,
+        payload: response
+      })
 
-       }
-       } catch (error) {
-        console.error("error al iniciar como administrador", error)
-       }
+    } catch (error) {
+       alertify.alert("Mensaje", 
+          'Usuario no autorizado');
+      
+    }
 
     }
   };
 
+
+
 export const logoutAdmin = () => ({
   type: ADMIN_LOGOUT,
 });
+//=============================================================================//
+
 
 export function getAllCategoriesAdmin() {
-  return async function (dispatch) {
-    const response = await axios("http://localhost:5000/categories/all");
-    console.log("Categorías obtenidas:", response.data);
-    return dispatch({
-      type: GET_CATEGORIES_ADMIN,
-      payload: response.data,
-    });
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+    
+    try {
+      const response = await axiosInstance("http://localhost:5000/categories/all");
+      console.log("Categorías obtenidas:", response.data);
+      return dispatch({
+        type: GET_CATEGORIES_ADMIN,
+        payload: response.data,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 
+        'No hay categorias');
+    }
+    
   };
 }
