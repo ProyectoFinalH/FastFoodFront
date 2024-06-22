@@ -7,8 +7,8 @@ import {
   obtenerContCarrito,
   obtenerItemsCarrito,
   eliminarItemCarrito,
-  resetearCarrito,
   actualizarItemCarrito,
+  setOrder,
 
 } from "../localStorage-car/LocalStorageCar";
 
@@ -30,7 +30,7 @@ function Carrito({ onClose }) {
   const User = useSelector((state) => state.USER);
   const Empresa = useSelector((state)=>state.allRestaurants)
   const Carrito = useSelector((state) => state.Carrito);
-  const [datopago, setDatopago] = useState({url:''})
+  //const [datopago, setDatopago] = useState({url:''})
   
   const [selectedCards, setSelectedCards] = useState([]);
   const [mensaje] = useState("¡Comienza tu carrito con tus comidas favoritas!");
@@ -68,12 +68,19 @@ function Carrito({ onClose }) {
       
       const datos = await dispatch(ID_Registro_Mercado_Pago(compramercadopago));
       const { id } = datos; // Ajusta esto según la estructura de `venta
+
+
+
+      const fixedPart = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=";
+      const idWithQuotes = id.replace(fixedPart, '');
+
+        // Remueve las comillas si están presentes
+        const idfinal = idWithQuotes.replace(/"/g, '');
+      
+     // alert(idfinal)
       
       
-      //alert(id)
-      
-      
-      return id;
+      return idfinal;
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +92,7 @@ function Carrito({ onClose }) {
      const id = await createPreference();
   
      
-     setDatopago({url:id})
+     //setDatopago({url:id})
           if (id) {
      
         setPreferenceId(id);
@@ -94,10 +101,11 @@ function Carrito({ onClose }) {
     
    
   }
-
+/*
   const PagarConUrl = ()=>{
     window.location.replace(datopago.url)
   }
+    */
 //!datos de iniciar sesion invitados
   const handelIniciarsesion = ()=>{
    
@@ -156,7 +164,7 @@ function Carrito({ onClose }) {
     const restaurant_id = Empresa[0].id //!agrego item Empresa para comprender a quien se le vende, se debe identificar el vector al que pertenece
    
     if (!User || !User.state) {
-      alert("Debes registrarte para poder hacer tu pedido");
+     alertify.alert("Error","Debes registrarte para poder hacer tu pedido");
     } else {
      
       const cards = obtenerItemsCarrito();
@@ -178,15 +186,20 @@ function Carrito({ onClose }) {
 
       dispatch(Desarrollode_Compra(cards, User.id, restaurant_id ))
         .then(async () => {
-         await resetearCarrito();
+  
+
+       setOrder(Carrito.id)
           
-          setSelectedCards([]);
-          setCompraRealizada(true);
-          setOrdenCompra(compraData);
          setPagarestado(true)
+         setSelectedCards([]);
+          setCompraRealizada(true);
+         setOrdenCompra(compraData);
+        
        
         })
+       
         .catch((error) => {
+         
           console.error("Error al procesar el pago", error.message);
           alert("Error al procesar el pago", error.message);
         });
@@ -233,7 +246,11 @@ function Carrito({ onClose }) {
         {preferenceId 
         && (  <>
                   
-<div onClick={PagarConUrl} > <Wallet   /> </div>
+                  <Wallet initialization={{ preferenceId}} customization={{ texts:{ valueProp: 'smart_option'},visual: {
+          buttonBackground: 'black',
+          borderRadius: '16px',
+      },}} />
+
 
 
      
@@ -247,7 +264,7 @@ function Carrito({ onClose }) {
       </div>
     );
   };
-
+//*<div id="wallet_container" onClick={PagarConUrl} > pagar</div>*/
   return (
     <div className="CarritoBody">
 

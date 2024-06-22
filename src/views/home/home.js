@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
@@ -20,16 +20,24 @@ import {
   obtenerIdUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Maintenance from "../maintenance/maintenance";
+import Loading from "../../Components/loading/Loading";
 
 const mockImages = [Image1, Image2, Image3];
 
 function Home() {
   const allRestaurants = useSelector((state) => state.allRestaurants);
   const user = useSelector((state) => state.USER);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selectedRestaurantId = allRestaurants[0]?.id;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
 
+    return () => clearTimeout(timer);
+  }, []);
   useEffect(() => {
     dispatch(getAllRestaurants());
 
@@ -60,6 +68,7 @@ function Home() {
 
   return (
     <div className="homeContainer">
+       {loading && <Loading />}
       <Navbar />
       <div className="sliderContainer">
         <Slider images={mockImages} />

@@ -2,6 +2,12 @@ const getItem = (id) => JSON.parse(localStorage.getItem(`card-${id}`));
 const setItem = (id, item) => localStorage.setItem(`card-${id}`, JSON.stringify(item));
 const removeItem = (id) => localStorage.removeItem(`card-${id}`);
 
+
+export const getOrder = () => JSON.parse(localStorage.getItem('order'));
+export const setOrder = (order) => localStorage.setItem('order', JSON.stringify(order));
+export const removeOrder = () => localStorage.removeItem('order');
+
+
 // Obtener todos los items del carrito
 export const obtenerItemsCarrito = () => {
   return Object.keys(localStorage)

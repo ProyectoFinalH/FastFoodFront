@@ -766,3 +766,22 @@ export function getAllCategoriesAdmin() {
     });
   };
 }
+
+
+
+
+
+export const Actualizar_Orden_Compra_MP = (id, statusorder_id) => {
+  return async () => {
+    try {
+      alert(id); // Solo para pruebas, puedes quitarlo después
+      const response = await axios.put(`http://localhost:5000/orders/status/${id}`, { statusorder_id });
+      console.log("Orden actualizada:", response.data);
+
+      return true;
+    } catch (error) {
+      console.error("Error actualizando la orden:", error);
+      return false;
+    }
+  };
+};
