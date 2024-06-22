@@ -31,7 +31,29 @@ function Account() {
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [profileImage, setProfileImage] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+
+  const handleSubmit = async () => {
+    if (!email || !username) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    try {
+      const userData = {
+        id: user.id,
+        email,
+        username,
+        password: changePassword ? password : undefined,
+      };
+
+      dispatch(updateUser(user.id, userData));
+      setShowSuccessNotification(true);
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+      setShowSuccessNotification(false);
+    }
+  };
 
   useEffect(() => {
     const email = obtenerCorreoUsuario();
@@ -107,35 +129,10 @@ function Account() {
 
     reader.onloadend = () => {
       setProfileImage(reader.result);
-      setImageFile(file);
     };
 
     if (file) {
       reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSubmit = async () => {
-    if (!email || !username) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
-
-    try {
-      const userData = {
-        id: user.id,
-        email,
-        username,
-        password: changePassword ? password : undefined,
-        imageFile: imageFile,
-      };
-
-      dispatch(updateUser(user.id, userData));
-      setShowSuccessNotification(true);
-    } catch (error) {
-      console.error("Error al actualizar usuario:", error);
-      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
-      setShowSuccessNotification(false);
     }
   };
 
@@ -146,12 +143,12 @@ function Account() {
         <div className="account-sidebar">
           <div className="profile-header">
             <p>Bienvenido {username}</p>
+            <img
+              className="profile-image"
+              src={profileImage || "/default-profile-image.png"}
+              alt="Profile"
+            />
             <label htmlFor="imageUpload" className="image-upload-label">
-              <img
-                className="profile-image"
-                src={profileImage }
-                alt="Profile"
-              />
               <i className="fas fa-camera"></i> Cambiar Foto
             </label>
             <input
