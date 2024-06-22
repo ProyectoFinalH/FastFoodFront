@@ -1,0 +1,83 @@
+.sidebarContainerAdmin{
+    display: flex;
+    
+    min-height: 100vh; /* Mínimo alto de la ventana visible */
+    background-color: #f9f9f9;
+    z-index: 1;
+    
+}
+.OptionContainerAdmin{
+    border-radius: 0px 10px 10px 0px;
+   width: 220px;
+   
+    background-color: #ff3239;
+    
+    color: white;
+ 
+    
+
+}
+.OptionContainerAdmin ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+
+
+.OptionContainerAdmin ul li{
+    display: grid;
+    height: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.OptionContainerAdmin ul li:hover{
+    border-radius: 5px;
+    background-color: #ff5a5f;
+    border-left: 4px solid white;
+    color: white;
+    padding-left: 12px;
+}
+
+.OptionContainerAdmin ul li.selected {
+    border-left: 4px solid white;
+    border-radius: 5px;
+  }
+
+.OptionContainerAdmin ul li:focus{
+    background-color: #ff5a5f;
+    color: white;
+}
+
+.OptionContentAdmin {
+    width: 100%;
+    
+}
+
+.cardRestConainerSidebarAdmin {
+    position: relative;
+    top:-16px;
+display: flex;
+justify-items: center; 
+justify-content: flex-start;
+background-color: #ff5a5f;
+border-radius: 0px 10px 1px 1px;
+
+
+}
+
+.cardRestConainerSidebarh2Admin h2{
+    color: black;
+    width: 100%;
+    word-break: break-word;
+}
+.cardRestConainerSidebarAdmin img {
+        width: 70px;
+        margin-left: 10px;
+         
+}
+

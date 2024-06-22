@@ -1,0 +1,15 @@
+.CardsRestContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.CardsRestContainer > div {
+  flex: 1 1 calc(25% - 20px);
+}
+
+@media (max-width: 800px) {
+  .CardsRestContainer > div {
+    flex: 1 1 100%;
+  }
+}

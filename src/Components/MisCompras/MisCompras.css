@@ -1,0 +1,237 @@
+.CarritoBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(19, 0, 0, 0.205);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  margin-bottom: 0;
+}
+
+.carCarrito {
+  background-color: white;
+  padding: 10px 20px;
+  box-shadow: 4px 2px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 800px;
+  max-width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 1001;
+  position: relative;
+  border-radius: 5px;
+}
+
+.carCarritoHeader {
+  background-color:rgb(224, 200, 200);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1002;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-radius: 10px 10px 0 0;
+}
+
+.closeButton {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.closeButton:hover {
+  color: #f44336;
+}
+
+.carCarritoContent {
+  overflow-y: auto;
+  flex: 1;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 100px;
+}
+
+.cardProducto {
+  background-color: white;
+  padding: 10px 20px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.cardProducto img {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.card-nombre-costo {
+  /*background-color: rgba(110, 17, 17, 0.199);*/
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.card-nombre-costo label {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.CarritoBotones {
+  background-color: rgba(110, 17, 17, 0.199);
+  height: 100px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.signos {
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.signos:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.signos img {
+  width: 20px;
+  height: auto;
+}
+
+.costoTotal {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.costoTotal label {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.Pagarproductos {
+  background-color: white;
+  box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1002;
+  width: 100%;
+  height: 80px;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 10px 10px 0 0;
+}
+
+.pagolabel {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.pagolabel:last-child {
+  margin-left: auto;
+}
+
+.emptyCarrito {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+}
+
+.emptyCarrito img {
+  width: 60px;
+}
+
+.emptyCarrito p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.login-button-regresar {
+  margin-top: 20px;
+  height: 40px;
+  background: linear-gradient(283deg, #ff2426, #ff9259);
+  width: 100%;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.login-button-regresar:hover {
+  background-color: #d94c51;
+}
+
+.login-button-regresar::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+}
+
+.login-button-regresar:hover::after {
+  transition: all 0.3s ease-out;
+  transform: scale(1, 1);
+}
+
+.Pagarproductos button {
+  background-color: #29d884;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 10px;
+}
+
+.Pagarproductos button:hover{
+  background-color: #2ef193;
+}
+
+@media (max-width: 768px) {
+  .carCarrito {
+    width: 95%;
+  }
+}
