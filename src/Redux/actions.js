@@ -10,6 +10,7 @@ import {
   //REGISTERBUSINESS,
   RECOVERYKEY,
   USERLOGIN,
+  USERTOKEN,
   USERLOGINGOOGLE,
   CREATE_MENU,
   CREATE_MENU_ITEMS,
@@ -37,6 +38,7 @@ import {
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export const logoutUser = () => {
   return  {
@@ -153,13 +155,20 @@ export const login_User = (dataquery) => {
           password: dataquery.password,
         };
         const endpoint = "http://localhost:5000/users/login";
-        const response = await axios.post(endpoint, userData);
+        const responseToken = await axios.post(endpoint, userData);
+        console.log(responseToken.data);
+        const response=jwtDecode(responseToken.data);//decodificando el token que manda el back
+        
 
-        const user = response.data;
+        const user = response;
         localStorage.setItem("token", user.token);
         dispatch({
           type: USERLOGIN,
-          payload: user,
+          payload:user,
+        });
+        dispatch({
+          type: USERTOKEN,
+          payload:responseToken,
         });
         return user;
       }

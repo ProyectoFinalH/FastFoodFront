@@ -1,8 +1,11 @@
+
+
 import {
   REGISTERUSER,
   REGISTERBUSINESS,
   RECOVERYKEY,
   USERLOGIN,
+  USERTOKEN,
   USERLOGINGOOGLE,
   GET_MENUS,
   GET_MENUS_ADMIN,
@@ -81,11 +84,19 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         Registrado: payload,
       };
+
     case USERLOGIN:
       return {
         ...state,
-        USER: payload,
+        USER: payload, 
       };
+    
+    case USERTOKEN:
+      return {
+        ...state,
+        token: payload, 
+      };  
+      
     case USERLOGINGOOGLE:
       return {
         ...state,
@@ -144,6 +155,7 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         USER: null,
+        token: null,
       };
     case CREATE_CATEGORIES:
       return {
