@@ -25,7 +25,7 @@ function Account() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [imageFile, setImageFile] = useState(null); // State para la imagen del usuario
+  const [imageFile, setImageFile] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showAccountSettings, setShowAccountSettings] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);

@@ -88,6 +88,7 @@
   font-size: 24px;
   color: #333;
 }
+
 .input-group-container {
   display: flex;
   gap: 20px;
@@ -145,8 +146,8 @@
 }
 
 .profile-header img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 10px;
