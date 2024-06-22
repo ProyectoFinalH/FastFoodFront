@@ -2,6 +2,7 @@ import Sidebar from "./sidebar/sidebar";
 import "./admin.css";
 import { useEffect, useState } from "react";
 import Loading from "../../Components/loading/Loading";
+// import alertify from "alertifyjs";
 
 
 function Admin() {

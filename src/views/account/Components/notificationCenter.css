@@ -1,0 +1,33 @@
+.notification-center {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.notification-center h2 {
+  margin-bottom: 20px;
+}
+
+.notification-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.notification-option input {
+  margin-right: 10px;
+}
+
+.save-button {
+  display: inline-block;
+  background-color: #e04a00;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.save-button:hover {
+  background-color: #29d884;
+}

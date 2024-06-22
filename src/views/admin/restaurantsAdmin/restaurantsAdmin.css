@@ -1,8 +1,11 @@
 .restaurantAdminContainer{
     display: block;
     }
-    
-    
+
+  
+    .restaurantH2{
+      margin-left: 20px;
+    }
     .cardRestaurant{
         display: flex;
         margin: 40px 20px;
@@ -84,5 +87,87 @@
     
       }
    
-    
-      
+
+
+      .SearchRestAdmin {
+        width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 20px;
+  
+}
+.inputSearchResAdmin{
+  display: flex;
+}
+.SearchRestAdmin input[type="search"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.buttonSearchAdmin button {
+  background-color: #ff5a5f;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.searchButton p {
+  margin: 0;
+}
+
+
+.selectsAdmin {
+  
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-right: 30px;
+  
+
+}
+
+.selectAdmin {
+  font-size: 1rem;
+  margin-left: 30px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  
+}
+.selectAdmin:hover{
+  background-color: #fad7d8;
+}
+
+.optionAdmin{
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  
+}
+.optionAdmin:hover{
+  cursor: pointer;
+  background-color: #ff3239;
+  color: white;
+
+}
+
+.optionAdmin:checked{
+
+background-color: #ff3239;
+color: white;
+}
+
+.SelectsContainerAdmin{
+  display: flex;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  align-items: center;
+
+}

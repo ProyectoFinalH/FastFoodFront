@@ -229,3 +229,16 @@
   transition: all 0.3s ease-out;
   transform: scale(1, 1);
 }
+
+.espacioError-recordarkey{
+  color: red;
+  font-size: 0.8em;
+  margin-top: 0.2em;
+  height: 30px;
+}
+.Correo-foot{
+  color:red;
+  font-size: 0.8em;
+  margin-top: 0.2em;
+  height: 30px;
+}

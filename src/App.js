@@ -1,8 +1,8 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import LoginAdmin from "./Components/Login/Login_Admin/Login_Admin";
 import LoginPrincipal from "./Components/Login/Login_Principal/Login_Principal";
-import Detail from "./views/detail/detail";
 import Account from "./views/account/account";
 import Home from "./views/home/home";
 import Menu from "./views/menu/menu";
@@ -24,11 +24,43 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard"; // Verifica que esta ruta sea correcta
 import ScrollToTopButton from "./Components/scrollTop/scrollTop";
 import OrderUsers from "./views/Orders_User/Order_User";
+import Maintenance from "./views/maintenance/maintenance";
+import axios from "axios";
+import Loading from "./Components/loading/Loading";
+
 
 
 
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const Data = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/restaurants");
+
+        console.log(response.data); 
+        setLoading(false);
+      } catch (error) {
+        console.error("Error de red:", error);
+        setError(true);
+        setLoading(false);
+      }
+    };
+
+    Data();
+  }, []);
+
+  if (loading) {
+    return <Loading/> 
+  }
+
+  if (error) {
+    return <Maintenance />
+  }
+
   return (
     <div className="App">
       <AuthProvider>
@@ -41,7 +73,7 @@ function App() {
           <Route path="/" element={<LoginPrincipal />} />
           <Route path="/home" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="/menu/:id" element={<Detail />} />
+          <Route path="/menu/:id" element={<Menu />} />
           <Route path="/account" element={<Account />} />
           <Route path="/menu/create" element={<CreateMenuForm />} />
           <Route path="/carrito" element={<Carrito />} />

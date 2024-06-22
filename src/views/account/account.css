@@ -10,7 +10,7 @@
   border-radius: 8px;
 }
 
-.sidebar {
+.account-sidebar {
   width: 250px;
   padding: 20px;
   border-right: 1px solid #ddd;
@@ -107,7 +107,6 @@
 
 .input-group1 input {
   border-radius: 4px;
-  width: 100%;
 }
 
 .input-group-gender label {
@@ -142,13 +141,22 @@
 
 .update-button:hover,
 .home-button:hover {
-  background-color: #e04a00;
+  background-color: #29d884;
 }
 
 .profile-header img {
-  width: 80px; 
+  width: 80px;
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label span {
+  margin-right: 10px;
 }

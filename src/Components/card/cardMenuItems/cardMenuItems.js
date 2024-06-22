@@ -15,6 +15,8 @@ function CardMenuItems({ id, name, description, price, image, handleSelectMenuIt
   const navigator = useNavigate();
   const [id_Card, setId_Card] = useState({ id, name, description, price, image, cont: 0 });// Inicializa cont en 0
   const [isRestored, setIsRestored] = useState(false);
+ 
+
 
   useEffect(() => {
     // Obtener el contador del localStorage al montar el component
