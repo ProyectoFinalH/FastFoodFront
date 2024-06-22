@@ -25,12 +25,12 @@ function Account() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [imageFile, setImageFile] = useState(null); // State para la imagen del usuario
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showAccountSettings, setShowAccountSettings] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
-  const [profileImage, setProfileImage] = useState("");
 
   const handleSubmit = async () => {
     if (!email || !username) {
@@ -46,7 +46,15 @@ function Account() {
         password: changePassword ? password : undefined,
       };
 
-      dispatch(updateUser(user.id, userData));
+      const formData = new FormData();
+      formData.append("id", user.id);
+      formData.append("email", email);
+      formData.append("username", username);
+      if (imageFile) {
+        formData.append("image_url", imageFile);
+      }
+
+      dispatch(updateUser(user.id, formData));
       setShowSuccessNotification(true);
     } catch (error) {
       console.error("Error al actualizar usuario:", error);
@@ -92,7 +100,6 @@ function Account() {
       console.log("Usuario desde Redux:", user);
       setEmail(user.email || "");
       setUsername(user.username || "");
-      setProfileImage(user.image_url || "");
     }
   }, [user]);
 
@@ -124,16 +131,7 @@ function Account() {
   };
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setProfileImage(reader.result);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    setImageFile(event.target.files[0]);
   };
 
   return (
@@ -142,22 +140,15 @@ function Account() {
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <p>Bienvenido {username}</p>
-            <img
-              className="profile-image"
-              src={profileImage || "/default-profile-image.png"}
-              alt="Profile"
-            />
-            <label htmlFor="imageUpload" className="image-upload-label">
-              <i className="fas fa-camera"></i> Cambiar Foto
-            </label>
-            <input
-              type="file"
-              id="imageUpload"
-              accept=".jpg,.png"
-              onChange={handleImageChange}
-              style={{ display: "none" }}
-            />
+            <p>Bienvenido {user ? user.username : ""}</p>
+            {user && user.image_url && (
+              <img
+                src={user.image_url}
+                alt="Perfil"
+                className="profile-image"
+              />
+            )}
+            <input type="file" name="image_url" onChange={handleImageChange} />
           </div>
           <nav className="menu">
             <ul>
