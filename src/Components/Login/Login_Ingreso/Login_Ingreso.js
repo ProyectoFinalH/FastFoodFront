@@ -5,7 +5,7 @@ import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-import { login_User, login_user_localstorag, login_Busnnes } from "../../../Redux/actions";
+import { login_User, login_user_localstorag } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ import {
   obtenerNombreUsuario,
   obtenerIdUsuario,
 } from "./LocalStorange_user/LocalStorange_user";
+
 
 const LoginIngreso = ({ setView }) => {
   const dispatch = useDispatch();
@@ -61,8 +62,11 @@ const LoginIngreso = ({ setView }) => {
     setErrors(validationErrors);
   
     if (Object.keys(validationErrors).length === 0) {
+      
       try {
-        const responseData = await dispatch(login_User(formData));
+        const responseData = await dispatch(login_User(formData));//se guarda el token para luego decodificarlo con jwtDecode
+        console.log(responseData);
+
         if (responseData) {
           guardarNombreUsuario(responseData.name);
           guardarCorreoUsuario(responseData.email);
