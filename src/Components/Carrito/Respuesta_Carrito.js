@@ -3,7 +3,7 @@ import './Respuesta_Carrito.css';
 import imgfastfoot from '../Login/Login_imagenes/food_sin_fondosi.png';
 import imgaprovado from './img/bolsa-de-la-compra.png';
 import imgrechasado from './img/reprobaso.png';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { obtenerItemsCarrito, resetearCarrito, getOrder, removeOrder } from '../localStorage-car/LocalStorageCar';
 import { obtenerNombreUsuario, obtenerCorreoUsuario, obtenerEstatusUsuario, obtenerIdUsuario } from '../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user';
@@ -21,7 +21,7 @@ const RespuestaCarrito = () => {
   const user = useSelector((state) => state.USER);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const navegate = useNavigate()
+  
 
   const query = new URLSearchParams(location.search);
 
@@ -73,12 +73,12 @@ const RespuestaCarrito = () => {
     removeOrder() 
     resetearCarrito(); 
    
-    navegate('home')
+    window.location.replace('http://localhost:3000/home')
   }
 
   
   const handeRegresar=()=>{
-    navegate('home')
+    window.location.replace('http://localhost:3000/home')
   }
 
 

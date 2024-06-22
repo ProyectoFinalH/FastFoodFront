@@ -434,7 +434,7 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
 
       console.log("Items array:", items); // Verificar el formato de items
       
-
+     
       // Crear el objeto dataquery con las propiedades en el orden especificado
       const dataquery = {
         user_id: id,
@@ -451,7 +451,7 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
       const compra = response.data;
 
       console.log("Esta es la compra: " + JSON.stringify(compra));
-
+      
       dispatch({
         type: CREATECOMPRA,
         payload: compra,
