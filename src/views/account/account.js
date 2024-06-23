@@ -25,62 +25,12 @@ function Account() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showAccountSettings, setShowAccountSettings] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
-
-  const defaultAvatarUrl =
-    "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
-
-  const handleAvatarChange = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      const data = await response.json();
-      setAvatar(data.imageUrl);
-    } catch (error) {
-      console.error("Error al cargar la imagen:", error);
-      alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
-    }
-  };
-
-  const handleSubmit = async () => {
-    if (!email || !username) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
-
-    try {
-      const userData = {
-        id: user.id,
-        email,
-        username,
-        password: changePassword ? password : undefined,
-        image_url: avatar || user.image_url,
-      };
-
-      dispatch(updateUser(user.id, userData));
-      setShowSuccessNotification(true);
-    } catch (error) {
-      console.error("Error al actualizar usuario:", error);
-      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
-      setShowSuccessNotification(false);
-    }
-  };
 
   useEffect(() => {
     const email = obtenerCorreoUsuario();
@@ -119,7 +69,6 @@ function Account() {
       console.log("Usuario desde Redux:", user);
       setEmail(user.email || "");
       setUsername(user.username || "");
-      setAvatar(user.image_url || defaultAvatarUrl);
     }
   }, [user]);
 
@@ -150,23 +99,67 @@ function Account() {
     setShowOrders(true);
   };
 
+  const handleImageChange = (event) => {
+    setImageFile(event.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    if (!email || !username) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("id", user.id);
+      formData.append("email", email);
+      formData.append("username", username);
+      if (imageFile) {
+        formData.append("image_url", imageFile);
+      }
+      if (changePassword) {
+        formData.append("password", password);
+      }
+
+      await dispatch(updateUser(user.id, formData));
+      setShowSuccessNotification(true);
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+      setShowSuccessNotification(false);
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <label htmlFor="avatarInput">
-              <img src={avatar} alt="Avatar" />
+            <p className="welcome-message">
+              Bienvenido {user ? user.username : ""}
+            </p>
+            <label htmlFor="profile-image" className="profile-image-container">
+              {user && user.image_url ? (
+                <img
+                  src={user.image_url}
+                  alt="Perfil"
+                  className="profile-image"
+                />
+              ) : (
+                <div className="no-image">No hay imagen</div>
+              )}
+              <input
+                type="file"
+                name="image_url"
+                id="profile-image"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+              />
             </label>
-            <input
-              type="file"
-              id="avatarInput"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleAvatarChange}
-            />
-            <p>Bienvenido {username}</p>
+            <label htmlFor="profile-image" className="change-image-label">
+              Cambiar Imagen
+            </label>
           </div>
           <nav className="menu">
             <ul>

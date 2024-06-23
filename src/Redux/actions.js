@@ -429,23 +429,29 @@ export function getAllCategories() {
 }
 
 export const updateUser = (id, userData) => {
-  return async (dispatch,getState) => {
-    const token=getState().token.data;
-    configureAxios(token);
+  return async (dispatch, getState) => {
+      const token = getState().token;
+      if (!token) {
+          console.error("Token de autenticación no encontrado.");
+          alert("Usuario no autenticado. Inicia sesión nuevamente.");
+          throw new Error("Usuario no autenticado.");
+      }
 
-    try {
-      const endpoint = `http://localhost:5000/api/users/${id}`;
-      const response = await axiosInstance.put(endpoint, userData);
+      configureAxios(token.data);
 
-      return dispatch({
-        type: UPDATE_USER,
-        payload: response.data,
-      });
-    } catch (error) {
-      console.error("Error al actualizar usuario:", error.message);
-      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
-      throw error;
-    }
+      try {
+          const endpoint = `http://localhost:5000/api/users/${id}`;
+          const response = await axiosInstance.put(endpoint, userData);
+
+          return dispatch({
+              type: UPDATE_USER,
+              payload: response.data,
+          });
+      } catch (error) {
+          console.error("Error al actualizar usuario:", error.message);
+          alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+          throw error;
+      }
   };
 };
 
