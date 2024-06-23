@@ -50,7 +50,7 @@ function Account() {
       if (changePassword) {
         formData.append("password", password);
       }
-
+  
       dispatch(updateUser(user.id, formData));
       setShowSuccessNotification(true);
       guardarNombreUsuario(username);
