@@ -39,6 +39,7 @@ import {
 
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { setToken, getToken } from "../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
 export const logoutUser = () => {
   return  {
@@ -170,6 +171,8 @@ export const login_User = (dataquery) => {
           type: USERTOKEN,
           payload:responseToken,
         });
+
+        setToken(responseToken)
         return user;
       }
     } catch (error) {
@@ -222,9 +225,15 @@ export const login_User_Google = (dataquery) => {
 
 export const login_user_localstorag = (auser) => {
   return async (dispatch) => {
+   const responseToken=  getToken()
     dispatch({
       type: USERLOGIN,
       payload: auser,
+    });
+
+    dispatch({
+      type: USERTOKEN,
+      payload:responseToken,
     });
   };
 };
@@ -865,4 +874,12 @@ export function getAllCategoriesAdmin() {
     }
     
   };
+}
+
+//! Actualizo la order 
+export const Actualizar_Orden_Compra_MP = (id, orderdarta) =>{
+  return async(dispatch) => {
+    return true
+
+  }
 }

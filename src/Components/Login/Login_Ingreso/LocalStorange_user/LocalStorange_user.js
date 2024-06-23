@@ -101,3 +101,29 @@ export const eliminarDatosUsuario = () => {
   localStorage.removeItem("User-status");
   localStorage.removeItem("User-id");
 };
+
+
+// Función para guardar el token en el Local Storage
+export const setToken = (token) => {
+  try {
+    localStorage.setItem("token-general", JSON.stringify(token));
+    console.log("Token almacenado correctamente.");
+  } catch (error) {
+    console.error("Error al almacenar el token:", error);
+  }
+};
+
+// Función para obtener el token del Local Storage
+export const getToken = () => {
+  try {
+    const token = localStorage.getItem("token-general");
+    if (token === null || token === undefined) {
+      console.error("Error: token es null o undefined");
+      return null;
+    }
+    return JSON.parse(token);
+  } catch (error) {
+    console.error("Error al parsear el token:", error);
+    return null;
+  }
+};
