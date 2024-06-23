@@ -66,7 +66,7 @@ function Account() {
 
     try {
       const userData = {
-        id: user.id,
+        //id: user.id,//no se manda id en el body
         email,
         username,
         password: changePassword ? password : undefined,
