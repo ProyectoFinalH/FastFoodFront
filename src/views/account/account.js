@@ -16,6 +16,7 @@ import {
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+  guardarNombreUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
 function Account() {
@@ -52,31 +53,32 @@ function Account() {
 
       dispatch(updateUser(user.id, formData));
       setShowSuccessNotification(true);
+      guardarNombreUsuario(username);
     } catch (error) {
       console.error("Error al actualizar usuario:", error);
       alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
       setShowSuccessNotification(false);
     }
   };
-  
+
   useEffect(() => {
     const email = obtenerCorreoUsuario();
     const name = obtenerNombreUsuario();
 
     if (email) {
-      const tem_Users = {
+      const tempUser = {
         state: obtenerEstatusUsuario(),
         id: obtenerIdUsuario(),
         email: email,
-        name: name,
+        username: name,
       };
 
-      dispatch(login_user_localstorag(tem_Users))
+      dispatch(login_user_localstorag(tempUser))
         .then(() => {
-          if (tem_Users.id) {
-            return dispatch(Listado_Orders_Usuario(tem_Users.id));
+          if (tempUser.id) {
+            return dispatch(Listado_Orders_Usuario(tempUser.id));
           } else {
-            console.error("ID de usuario no válido:", tem_Users.id);
+            console.error("ID de usuario no válido:", tempUser.id);
             return Promise.reject("ID de usuario no válido");
           }
         })
@@ -98,15 +100,6 @@ function Account() {
       setUsername(user.username || "");
     }
   }, [user]);
-
-  useEffect(() => {
-    if (!username) {
-      const localUsername = obtenerNombreUsuario();
-      if (localUsername) {
-        setUsername(localUsername);
-      }
-    }
-  }, [username]);
 
   const handleAccountSettingsClick = () => {
     setShowAccountSettings(true);
@@ -130,16 +123,13 @@ function Account() {
     setImageFile(event.target.files[0]);
   };
 
-
   return (
     <div>
       <Navbar />
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <p className="welcome-message">
-              Bienvenido {username}
-            </p>
+            <p className="welcome-message">Bienvenido {username}</p>
             <label htmlFor="profile-image" className="profile-image-container">
               {user && user.image_url ? (
                 <img
