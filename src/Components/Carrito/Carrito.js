@@ -12,6 +12,8 @@ import {
 
 } from "../localStorage-car/LocalStorageCar";
 
+import { getToken } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+
 
 
 
@@ -184,7 +186,7 @@ function Carrito({ onClose }) {
         }
       };
 
-      dispatch(Desarrollode_Compra(cards, User.id, restaurant_id ))
+      dispatch(Desarrollode_Compra(cards, User.id, restaurant_id, getToken() ))
         .then(async () => {
   
 

@@ -18,6 +18,7 @@ import {
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+  getToken
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Maintenance from "../maintenance/maintenance";
 import Loading from "../../Components/loading/Loading";
@@ -27,6 +28,7 @@ const mockImages = [Image1, Image2, Image3];
 function Home() {
   const allRestaurants = useSelector((state) => state.allRestaurants);
   const user = useSelector((state) => state.USER);
+
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,6 +51,7 @@ function Home() {
   useEffect(() => {
     const email = obtenerCorreoUsuario();
 
+
     if (email) {
       const tem_Users = {
         state: obtenerEstatusUsuario(),
@@ -56,7 +59,9 @@ function Home() {
         email: email,
         name: obtenerNombreUsuario(),
       };
-      dispatch(login_user_localstorag(tem_Users));
+      const token = getToken()
+     // alert(token)
+      dispatch(login_user_localstorag(tem_Users ,  token));
     } else {
       navigate("/");
     }

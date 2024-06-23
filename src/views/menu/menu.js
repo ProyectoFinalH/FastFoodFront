@@ -27,6 +27,7 @@ import {
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+  getToken
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
 
@@ -80,7 +81,7 @@ function Menu() {
         email: email,
         name: obtenerNombreUsuario(),
       };
-      dispatch(login_user_localstorag(tem_Users));
+      dispatch(login_user_localstorag(tem_Users, getToken()));
       if (selectedRestaurantId) {
         navigate(`/menu/${selectedRestaurantId}`);
       } else {

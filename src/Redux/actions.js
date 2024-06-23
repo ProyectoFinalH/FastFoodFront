@@ -1,4 +1,5 @@
 import alertify from "alertifyjs";
+import { setToken } from "../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import { axiosInstance, configureAxios } from "../AuthContext/axiosInstance";
 import {
   GET_CATEGORIES,
@@ -156,12 +157,13 @@ export const login_User = (dataquery) => {
         };
         const endpoint = "http://localhost:5000/users/login";
         const responseToken = await axios.post(endpoint, userData);
-        console.log(responseToken.data);
+       
         const response=jwtDecode(responseToken.data);//decodificando el token que manda el back
-        
+      
 
         const user = response;
         localStorage.setItem("token", user.token);
+       
         dispatch({
           type: USERLOGIN,
           payload:user,
@@ -170,6 +172,11 @@ export const login_User = (dataquery) => {
           type: USERTOKEN,
           payload:responseToken,
         });
+
+
+
+        setToken(responseToken)
+        console.log("Reponse data "+JSON.stringify(user))
         return user;
       }
     } catch (error) {
@@ -188,10 +195,13 @@ export const login_User = (dataquery) => {
 export const login_User_Google = (dataquery) => {
   return async (dispatch) => {
     try {
+      
       const endpoint = "http://localhost:5000/users/auth/google";
       const response = await axios.post(endpoint, { token: dataquery.token });
 
       const userData = response.data;
+
+      console.log(JSON.stringify(response))
       const usuario = {
         state:true,
         id: userData.id,
@@ -205,6 +215,10 @@ export const login_User_Google = (dataquery) => {
         type: USERLOGINGOOGLE,
         payload: usuario,
       });
+      
+     
+
+
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
     }
@@ -212,12 +226,19 @@ export const login_User_Google = (dataquery) => {
 };
 //Loguear usuario con localsotrag
 
-export const login_user_localstorag = (auser) => {
+export const login_user_localstorag = (auser, token) => {
   return async (dispatch) => {
     dispatch({
       type: USERLOGIN,
       payload: auser,
     });
+//alert(token)
+    dispatch({
+      type: USERTOKEN,
+      payload:token,
+    });
+
+   
   };
 };
 

@@ -20,6 +20,7 @@ import {
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+  getToken,
 } from "./LocalStorange_user/LocalStorange_user";
 
 
@@ -66,8 +67,10 @@ const LoginIngreso = ({ setView }) => {
       try {
         const responseData = await dispatch(login_User(formData));//se guarda el token para luego decodificarlo con jwtDecode
         console.log(responseData);
+       // alert("Data de jose"+ JSON.stringify(responseData)) 
 
         if (responseData) {
+          
           guardarNombreUsuario(responseData.name);
           guardarCorreoUsuario(responseData.email);
           guardarEstatusUsuario(responseData.state);
@@ -94,7 +97,8 @@ const LoginIngreso = ({ setView }) => {
         email: obtenerCorreoUsuario(),
         name: obtenerNombreUsuario(),
       };
-      dispatch(login_user_localstorag(tem_Users));
+      const a = getToken()
+      dispatch(login_user_localstorag(tem_Users,  a));
       navigate("/home");
     }
   }, [dispatch, navigate]);

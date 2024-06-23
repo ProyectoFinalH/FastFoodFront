@@ -6,7 +6,12 @@ import imgrechasado from './img/reprobaso.png';
 import { useLocation } from 'react-router-dom';
 
 import { obtenerItemsCarrito, resetearCarrito, getOrder, removeOrder } from '../localStorage-car/LocalStorageCar';
-import { obtenerNombreUsuario, obtenerCorreoUsuario, obtenerEstatusUsuario, obtenerIdUsuario } from '../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user';
+import { obtenerNombreUsuario, 
+  obtenerCorreoUsuario, 
+  obtenerEstatusUsuario, 
+  obtenerIdUsuario,
+ 
+  getToken } from '../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user';
 
 
 
@@ -48,6 +53,7 @@ const RespuestaCarrito = () => {
   }, []);
 
   useEffect(() => {
+    alert(JSON.stringify(getToken()))
     const email = obtenerCorreoUsuario();
     if (email) {
       const tem_Users = {
@@ -56,7 +62,7 @@ const RespuestaCarrito = () => {
         email: email,
         name: obtenerNombreUsuario(),
       };
-      dispatch(login_user_localstorag(tem_Users));
+      dispatch(login_user_localstorag(tem_Users, getToken() ));
     }
   }, [dispatch]);
 
