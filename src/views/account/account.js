@@ -16,6 +16,7 @@ import {
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+  guardarNombreUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
 function Account() {
@@ -32,53 +33,52 @@ function Account() {
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
-
-  const defaultAvatarUrl =
-    "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
-
-  const handleAvatarChange = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
+  const handleSubmit = async () => {
+    if (!email || !username) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
 
     try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
+      const formData = new FormData();
+      formData.append("id", user.id);
+      formData.append("email", email);
+      formData.append("username", username);
+      if (imageFile) {
+        formData.append("image_url", imageFile);
       }
-
-      const data = await response.json();
-      setAvatar(data.imageUrl);
+      if (changePassword) {
+        formData.append("password", password);
+      }
+  
+      dispatch(updateUser(user.id, formData));
+      setShowSuccessNotification(true);
+      guardarNombreUsuario(username);
     } catch (error) {
-      console.error("Error al cargar la imagen:", error);
-      alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+      console.error("Error al actualizar usuario:", error);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+      setShowSuccessNotification(false);
     }
   };
-
-
 
   useEffect(() => {
     const email = obtenerCorreoUsuario();
     const name = obtenerNombreUsuario();
 
     if (email) {
-      const tem_Users = {
+      const tempUser = {
         state: obtenerEstatusUsuario(),
         id: obtenerIdUsuario(),
         email: email,
-        name: name,
+        username: name,
       };
 
-      dispatch(login_user_localstorag(tem_Users))
+      dispatch(login_user_localstorag(tempUser))
         .then(() => {
-          if (tem_Users.id) {
-            return dispatch(Listado_Orders_Usuario(tem_Users.id));
+          if (tempUser.id) {
+            return dispatch(Listado_Orders_Usuario(tempUser.id));
           } else {
-            console.error("ID de usuario no válido:", tem_Users.id);
+            console.error("ID de usuario no válido:", tempUser.id);
             return Promise.reject("ID de usuario no válido");
           }
         })
@@ -100,15 +100,6 @@ function Account() {
       setUsername(user.username || "");
     }
   }, [user]);
-
-  useEffect(() => {
-    if (!username) {
-      const localUsername = obtenerNombreUsuario();
-      if (localUsername) {
-        setUsername(localUsername);
-      }
-    }
-  }, [username]);
 
   const handleAccountSettingsClick = () => {
     setShowAccountSettings(true);
@@ -132,42 +123,13 @@ function Account() {
     setImageFile(event.target.files[0]);
   };
 
-  const handleSubmit = async () => {
-    if (!email || !username) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
-
-    try {
-      const formData = new FormData();
-      formData.append("id", user.id);
-      formData.append("email", email);
-      formData.append("username", username);
-      if (imageFile) {
-        formData.append("image_url", imageFile);
-      }
-      if (changePassword) {
-        formData.append("password", password);
-      }
-
-      await dispatch(updateUser(user.id, formData));
-      setShowSuccessNotification(true);
-    } catch (error) {
-      console.error("Error al actualizar usuario:", error);
-      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
-      setShowSuccessNotification(false);
-    }
-  };
-
   return (
     <div>
       <Navbar />
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <p className="welcome-message">
-              Bienvenido {user ? user.username : ""}
-            </p>
+            <p className="welcome-message">Bienvenido {username}</p>
             <label htmlFor="profile-image" className="profile-image-container">
               {user && user.image_url ? (
                 <img
