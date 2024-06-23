@@ -189,14 +189,17 @@ export const login_User_Google = (dataquery) => {
   return async (dispatch) => {
     try {
       const endpoint = "http://localhost:5000/users/auth/google";
-      const response = await axios.post(endpoint, { token: dataquery.token });
+      const responseToken = await axios.post(endpoint, { token: dataquery.token });
 
-      const userData = response.data;
+      const response=jwtDecode(responseToken.data);//decodificando el token que manda el back
+
+      const userData = response;
+      
       const usuario = {
-        state:true,
+        state:userData.state,
         id: userData.id,
         email: userData.email,
-        name: userData.username
+        name: userData.name
       }
 
       localStorage.setItem("token", usuario.token);
@@ -205,6 +208,11 @@ export const login_User_Google = (dataquery) => {
         type: USERLOGINGOOGLE,
         payload: usuario,
       });
+      dispatch({
+        type: USERTOKEN,
+        payload:responseToken,
+      });
+
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
     }
@@ -431,17 +439,22 @@ export function getAllCategories() {
 export const updateUser = (id, userData) => {
   return async (dispatch, getState) => {
       const token = getState().token;
+      configureAxios(token.data);
+    
       if (!token) {
           console.error("Token de autenticación no encontrado.");
           alert("Usuario no autenticado. Inicia sesión nuevamente.");
           throw new Error("Usuario no autenticado.");
       }
 
-      configureAxios(token.data);
 
-      try {
-          const endpoint = `http://localhost:5000/api/users/${id}`;
-          const response = await axiosInstance.put(endpoint, userData);
+    try {
+      console.log('data a modificar del user',userData);
+      const endpoint = `http://localhost:5000/users/${id}`;
+      const response = await axiosInstance.put(endpoint, userData);
+
+      
+
 
           return dispatch({
               type: UPDATE_USER,
@@ -563,7 +576,6 @@ export const  Listado_Orders_Usuario=(id)=>{
     configureAxios(token);
 
     try {
-      console.log(id)
       const endpoint = `http://localhost:5000/orders/user/${id}`;
       const response = await  axiosInstance.get(endpoint);
       const data = response.data;
@@ -578,6 +590,7 @@ export const  Listado_Orders_Usuario=(id)=>{
 
    
     } catch (error) {
+      console.log(error);
       alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
     }

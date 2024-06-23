@@ -32,6 +32,35 @@ function Account() {
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
+
+  const defaultAvatarUrl =
+    "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
+
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      const data = await response.json();
+      setAvatar(data.imageUrl);
+    } catch (error) {
+      console.error("Error al cargar la imagen:", error);
+      alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+    }
+  };
+
+
+
   useEffect(() => {
     const email = obtenerCorreoUsuario();
     const name = obtenerNombreUsuario();
