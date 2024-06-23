@@ -9,13 +9,11 @@ import { obtenerItemsCarrito, resetearCarrito, getOrder, removeOrder } from '../
 import { obtenerNombreUsuario, 
   obtenerCorreoUsuario, 
   obtenerEstatusUsuario, 
-  obtenerIdUsuario,
- 
-  getToken } from '../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user';
+  obtenerIdUsuario } from '../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user';
 
 
 
-import { login_user_localstorag, Actualizar_Orden_Compra_MP } from '../../Redux/actions';
+import { login_user_localstorag, Actualizar_Orden_Compra_MP  } from '../../Redux/actions';
 import Navbar from '../navbar/navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading/Loading';
@@ -56,7 +54,7 @@ const RespuestaCarrito = () => {
 
   
   useEffect(() => {
-    alert(JSON.stringify(getToken()))
+   // alert(JSON.stringify(getToken()))
     const email = obtenerCorreoUsuario();
     if (email) {
       const tem_Users = {
@@ -66,15 +64,18 @@ const RespuestaCarrito = () => {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
+     
     }
   }, [dispatch]);
 
   useEffect(() => {
     if (collectionStatus === "approved") {
       setEstadoCompra(true);
-      dispatch(Actualizar_Orden_Compra_MP(getOrder()))
+      
+      dispatch(Actualizar_Orden_Compra_MP(getOrder(), "2"))
     } else {
       setEstadoCompra(false);
+      dispatch(Actualizar_Orden_Compra_MP(getOrder(), "3"))
     }
   }, [collectionStatus, dispatch]);
 
@@ -90,7 +91,7 @@ const RespuestaCarrito = () => {
     window.location.replace('http://localhost:3000/home')
   }
 
-
+  
   return (
     
     <div className='div-general'>

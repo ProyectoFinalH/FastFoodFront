@@ -243,10 +243,12 @@ const reducer = (state = initialState, { type, payload }) => {
                 ),
               };
               case ADMIN_LOGIN:
+                alert(JSON.stringify(payload))
                 return {
                   ...state,
                   token: payload,
                 };
+              
               case ADMIN_LOGOUT:
                 return {
                   ...state,
