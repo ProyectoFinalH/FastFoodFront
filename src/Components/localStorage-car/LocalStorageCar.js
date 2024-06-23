@@ -62,7 +62,6 @@ export const resetearCarrito = () => {
     });
 };
 
-
 export const obtenerItemsCarritoenCeros = () => {
   return Object.keys(localStorage)
     .filter((key) => key.startsWith("card-"))
@@ -78,4 +77,34 @@ export const obtenerItemsCarritoenCerosfinal = () => {
       return item ? item : { id: key.split("-")[1], cont: 0 }; // Si el item es nulo, devuelve un objeto con cont = 0
     })
     .filter((item) => item.cont >= 0); // Filtra los elementos con contador mayor o igual a cero
+};
+
+// Funciones para la orden
+export const getOrder = () => {
+  try {
+    const order = localStorage.getItem("order");
+    if (order === null || order === undefined) {
+      console.error("Error: order es null o undefined");
+      return null;
+    }
+    return JSON.parse(order);
+  } catch (error) {
+    console.error("Error al parsear la orden:", error);
+    return null;
+  }
+};
+
+export const setOrder = (order) => {
+  try {
+    localStorage.setItem("order", JSON.stringify(order));
+    console.log("Orden almacenada correctamente.");
+  } catch (error) {
+    console.error("Error al almacenar la orden:", error);
+  }
+};
+
+// Función para eliminar la orden del Local Storage
+export const removeOrder = () => {
+  localStorage.removeItem("order");
+  console.log("Orden eliminada correctamente.");
 };

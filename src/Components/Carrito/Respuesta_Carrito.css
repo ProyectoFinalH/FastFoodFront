@@ -1,0 +1,165 @@
+.div-general{
+    height: 100vh;
+  }
+  
+  .respuesta-carrito-container {
+    position: relative; /* Asegura que la posición de la imagen sea relativa a este contenedor */
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px; /* Espacio adicional en la parte superior */
+    margin-bottom: 50px; /* Espacio adicional en la parte inferior */
+  
+    height: 100%;
+  }
+  
+  .info-compra {
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .info-compra div {
+    margin-top: 5px;
+    padding: 2px;
+  }
+  
+  .tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tabla-productos th, .tabla-productos td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .tabla-productos th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .tabla-productos tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  h1, h2 {
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .firma-imagen {
+    position: absolute;
+    top: 10px; /* Ajusta la distancia desde la parte inferior */
+    left: 10px; /* Ajusta la distancia desde el borde derecho */
+    width: 100px; /* Tamaño de la imagen */
+  }
+  
+  .Approved-imagen {
+    position: absolute;
+    top: 10px; /* Ajusta la distancia desde la parte superior */
+    right: 10px; /* Ajusta la distancia desde el borde derecho */
+    width: 100px; /* Tamaño de la imagen */
+  }
+  .Costo-Total{
+    font-weight: 700;
+    padding: 20px;
+  }
+  .texto-approved{
+    color: green;
+    font-weight: 700;
+  }
+  .texto-No-approved{
+    color: red;
+    font-weight: 700;
+  }
+  
+  .btn-reprovado{
+    color:black;
+    background-color: rgba(255, 0, 0, 0.397);
+    border: 2px black groove;
+    border-radius: 10px;
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 10px;
+    margin-top: 10px;
+    height: 30px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .btn-reprovado:hover{
+    color: white;
+  
+    background-color: red;
+   
+  }
+  
+  
+  
+  
+  .negate-div{
+    display:flex ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  
+  
+  .login-button-respuesta {
+    text-align: center;
+    margin-top: 20px;
+    height: 25px;
+    background: linear-gradient(283deg, #ff2426, #ff9259);
+    width: 350px;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    display: inline-block;
+    font-weight: bolder;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+  
+  .login-button-respuesta:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .login-button-respuesta::after {
+    content: "";
+    background: #29d884;
+    position: absolute;
+    z-index: -1;
+    padding: 5px 10px;
+    display: block;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: scale(0, 0);
+    transition: all 0.3s ease;
+  }
+  
+  .login-button-respuesta:hover::after {
+    transition: all 0.3s ease-out;
+    transform: scale(1, 1);
+  }
+  

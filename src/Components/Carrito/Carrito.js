@@ -7,7 +7,7 @@ import {
   obtenerContCarrito,
   obtenerItemsCarrito,
   eliminarItemCarrito,
-  resetearCarrito,
+  setOrder,
   actualizarItemCarrito,
 
 } from "../localStorage-car/LocalStorageCar";
@@ -30,13 +30,13 @@ function Carrito({ onClose }) {
   const User = useSelector((state) => state.USER);
   const Empresa = useSelector((state)=>state.allRestaurants)
   const Carrito = useSelector((state) => state.Carrito);
-  const [datopago, setDatopago] = useState({url:''})
+  //const [datopago, setDatopago] = useState({url:''})
   
   const [selectedCards, setSelectedCards] = useState([]);
   const [mensaje] = useState("¡Comienza tu carrito con tus comidas favoritas!");
   
   const [compraRealizada, setCompraRealizada] = useState(false);
-  const [ordenCompra, setOrdenCompra] = useState(null);
+  const [ordenCompra, setOrdenCompra] = useState(false);
   const [preferenceId, setPreferenceId] = useState(null);
 
   const [pagarstado, setPagarestado] = useState(false)
@@ -83,21 +83,24 @@ function Carrito({ onClose }) {
   const handleBuy = async () => {
     handlePagar()
      const id = await createPreference();
-  
+     const baseUrl = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=";
+     const prefere = id.replace(baseUrl, "");
+    
      
-     setDatopago({url:id})
-          if (id) {
+          if (prefere) {
      
-        setPreferenceId(id);
+        setPreferenceId(prefere);
      
+      }else{
+        alertify.alert("Error", "Por favor intenta nuevamente la compra")
       }
     
    
   }
 
-  const PagarConUrl = ()=>{
+ /* const PagarConUrl = ()=>{
     window.location.replace(datopago.url)
-  }
+  }*/
 //!datos de iniciar sesion invitados
   const handelIniciarsesion = ()=>{
    
@@ -178,12 +181,14 @@ function Carrito({ onClose }) {
 
       dispatch(Desarrollode_Compra(cards, User.id, restaurant_id ))
         .then(async () => {
-         await resetearCarrito();
-          
+       //  await resetearCarrito();
+           const data = Carrito.id
+
           setSelectedCards([]);
           setCompraRealizada(true);
           setOrdenCompra(compraData);
          setPagarestado(true)
+         setOrder(data)
        
         })
         .catch((error) => {
@@ -210,6 +215,16 @@ function Carrito({ onClose }) {
     onClose();
   };
 
+
+
+
+
+  useEffect(() => {
+    if (preferenceId) {
+      // Trigger a re-render or perform any actions needed when preferenceId is set
+    }
+  }, [preferenceId]);
+
   const renderTiqueteCompra = () => {
     if (!ordenCompra) return null;
 
@@ -233,7 +248,7 @@ function Carrito({ onClose }) {
         {preferenceId 
         && (  <>
                   
-<div onClick={PagarConUrl} > <Wallet   /> </div>
+                  <Wallet initialization={{ preferenceId}} customization={{ texts:{ valueProp: 'smart_option'}}} />
 
 
      
