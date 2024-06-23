@@ -3,12 +3,12 @@
 import CardMenuItems from "../../card/cardMenuItems/cardMenuItems";
 import "./cardsMenuItems.css";
 
-
-
-  
-
-function CardsMenuItems({ AllMenuitems, handleSelectMenuItem, hideCartButtons, showEyeIcon }) {
-
+function CardsMenuItems({
+  AllMenuitems,
+  handleSelectMenuItem,
+  hideCartButtons,
+  showEyeIcon,
+}) {
   return (
     <div className="cardsContainer">
       {AllMenuitems &&
@@ -26,7 +26,6 @@ function CardsMenuItems({ AllMenuitems, handleSelectMenuItem, hideCartButtons, s
             showEyeIcon={showEyeIcon}
           />
         ))}
-      
     </div>
   );
 }
