@@ -32,6 +32,33 @@ function Account() {
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
+  const handleSubmit = async () => {
+    if (!email || !username) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("id", user.id);
+      formData.append("email", email);
+      formData.append("username", username);
+      if (imageFile) {
+        formData.append("image_url", imageFile);
+      }
+      if (changePassword) {
+        formData.append("password", password);
+      }
+
+      dispatch(updateUser(user.id, formData));
+      setShowSuccessNotification(true);
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
+      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+      setShowSuccessNotification(false);
+    }
+  };
+  
   useEffect(() => {
     const email = obtenerCorreoUsuario();
     const name = obtenerNombreUsuario();
@@ -103,32 +130,6 @@ function Account() {
     setImageFile(event.target.files[0]);
   };
 
-  const handleSubmit = async () => {
-    if (!email || !username) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
-
-    try {
-      const formData = new FormData();
-      formData.append("id", user.id);
-      formData.append("email", email);
-      formData.append("username", username);
-      if (imageFile) {
-        formData.append("image_url", imageFile);
-      }
-      if (changePassword) {
-        formData.append("password", password);
-      }
-
-      await dispatch(updateUser(user.id, formData));
-      setShowSuccessNotification(true);
-    } catch (error) {
-      console.error("Error al actualizar usuario:", error);
-      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
-      setShowSuccessNotification(false);
-    }
-  };
 
   return (
     <div>
@@ -137,7 +138,7 @@ function Account() {
         <div className="account-sidebar">
           <div className="profile-header">
             <p className="welcome-message">
-              Bienvenido {user ? user.username : ""}
+              Bienvenido {username}
             </p>
             <label htmlFor="profile-image" className="profile-image-container">
               {user && user.image_url ? (
