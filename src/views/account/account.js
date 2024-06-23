@@ -95,7 +95,7 @@ function Account() {
 
   useEffect(() => {
     if (user) {
-      console.log("Usuario desde Redux:", user);
+      console.log("Imagen del usuario:", user.image_url);
       setEmail(user.email || "");
       setUsername(user.username || "");
     }
