@@ -52,6 +52,9 @@ const RespuestaCarrito = () => {
     return () => clearTimeout(timer);
   }, []);
 
+
+
+  
   useEffect(() => {
     alert(JSON.stringify(getToken()))
     const email = obtenerCorreoUsuario();
