@@ -7,7 +7,7 @@ import {
   obtenerContCarrito,
   obtenerItemsCarrito,
   eliminarItemCarrito,
-  resetearCarrito,
+  setOrder,
   actualizarItemCarrito,
 
 } from "../localStorage-car/LocalStorageCar";
@@ -178,12 +178,14 @@ function Carrito({ onClose }) {
 
       dispatch(Desarrollode_Compra(cards, User.id, restaurant_id ))
         .then(async () => {
-         await resetearCarrito();
-          
+       //  await resetearCarrito();
+           const data = Carrito.id
+
           setSelectedCards([]);
           setCompraRealizada(true);
           setOrdenCompra(compraData);
          setPagarestado(true)
+         setOrder(data)
        
         })
         .catch((error) => {
