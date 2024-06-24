@@ -31,6 +31,7 @@ import {
   PUT_ITEMMENU,
   ADMIN_LOGIN,
   ADMIN_LOGOUT,
+  GET_COMMENT,
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
@@ -1010,6 +1011,23 @@ export const Sellcionar_Restaurante = (id) =>{
     }
     
   };
+}
+
+
+export const GetComment = (id) => {
+  return async (dispatch) => {
+    try {
+      const response  = await axios.get(`http://localhost:5000/comments/${id}`);
+      dispatch ({
+        type: GET_COMMENT,
+        payload: response.data,
+      })
+      
+    } catch (error) {
+  console.error("Error al obtener el comentario:", error);
+      
+    }
+  }
 }
 
 

@@ -38,6 +38,7 @@ import {
   EMPRESALOGIN,
   UPDATE_USER_DATA,//! actualizar la data
   SELECTRESTAURANTE, //!Seleccionamos es restaurante
+  GET_COMMENT,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -67,6 +68,7 @@ const initialState = {
   token:null,//estado global que guarda el token obtenido en login
   EMPRESAUSER:null,
   SELCTRESTAURANT:null, //!Seleccionamos El restaurante 
+  allComents:[],
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -286,6 +288,13 @@ const reducer = (state = initialState, { type, payload }) => {
           ...state,
           SELCTRESTAURANT: payload
         }
+
+        case GET_COMMENT:
+          return {
+            ...state,
+            allComents: payload
+          }
+
 
     default:
       return { ...state };

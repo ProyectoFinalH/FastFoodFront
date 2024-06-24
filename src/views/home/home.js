@@ -79,7 +79,7 @@ function Home() {
         <div>
           <h2 className="conoceMasTitle">Conocé más!</h2>
           <div className="cardOtherItems1">
-            <Link to="/opiniones">
+            <Link to="/reviews">
               <CardOpiniones />
             </Link>
             <Link to="/pagos">

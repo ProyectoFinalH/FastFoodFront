@@ -18,7 +18,7 @@ export const GET_USERS_ALL ="GET_USERS_ALL"
 export const GET_ORDERS_ADMIN ="GET_ORDERS_ADMIN"
 export const PUT_ITEMMENU ="PUT_ITEMMENU"
 export const PUT_MENUS ="PUT_MENUS"
-
+export const GET_COMMENT ="GET_COMMENT"
 export const ADMIN_LOGIN = 'ADMIN_LOGIN';
 export const ADMIN_LOGIN_FAIL = 'ADMIN_LOGIN_FAIL';
 export const ADMIN_LOGOUT = 'ADMIN_LOGOUT';

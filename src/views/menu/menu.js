@@ -29,6 +29,8 @@ import {
   obtenerIdUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
+
+import Rating from "../../Components/rating/rating";
 //import alertify from "alertifyjs";
 
 function Menu() {
@@ -55,6 +57,8 @@ function Menu() {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [ratings, setRatings] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
@@ -191,6 +195,15 @@ function Menu() {
     navigate("/home");
   };  
 
+
+  const handleOpenRating = () => {
+    setRatings(true);
+  }
+
+  const handleCloseRating = () => {
+    setRatings(false);
+  };
+
   return (
     <div className="menu-container">
       {loading ? <Loading /> : null}
@@ -210,6 +223,14 @@ function Menu() {
               <h2 className="restaurant-name">{restaurant1?.name}</h2>
             </div>
           </div>
+          <div>
+            <div className="ratingContainer" onClick={handleOpenRating}>
+            <p>Opiniones</p>
+            <p>⭐{restaurant1.rating}</p>
+            </div>
+          </div>
+
+          {ratings && <Rating onClose={handleCloseRating} />}
           <div className="cardsContentMenu">
 
           <div className="cards-menus-container">
@@ -264,8 +285,8 @@ function Menu() {
     );
   } else {
     return (
-      <div key={menu.id} className="menu-item-container">
-        No hay categorías
+      <div className="menu-item-container">
+        No hay productos
       </div>
     );
   }
@@ -281,6 +302,7 @@ function Menu() {
           menuItemId={selectedMenuItemId}
         />
       )}
+     
     </div>
   );
 }
