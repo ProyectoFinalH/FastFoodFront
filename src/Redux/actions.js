@@ -34,11 +34,15 @@ import {
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
+  UPDATE_USER_DATA, //! obtener la data actualizacion 
+  SELECTRESTAURANTE, //!seleccionamos el restaurrante
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { setToken, getToken } from "../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+//import { get } from "firebase/database";
 
 export const logoutUser = () => {
   return  {
@@ -170,6 +174,8 @@ export const login_User = (dataquery) => {
           type: USERTOKEN,
           payload:responseToken,
         });
+
+        setToken(responseToken)
         return user;
       }
     } catch (error) {
@@ -222,9 +228,15 @@ export const login_User_Google = (dataquery) => {
 
 export const login_user_localstorag = (auser) => {
   return async (dispatch) => {
+   const responseToken=  getToken()
     dispatch({
       type: USERLOGIN,
       payload: auser,
+    });
+
+    dispatch({
+      type: USERTOKEN,
+      payload:responseToken,
     });
   };
 };
@@ -456,10 +468,15 @@ export const updateUser = (id, userData) => {
       
 
 
-          return dispatch({
+       dispatch({
               type: UPDATE_USER,
               payload: response.data,
           });
+
+          dispatch({
+            type: UPDATE_USER_DATA,
+            payload: response.data, 
+          })
       } catch (error) {
           console.error("Error al actualizar usuario:", error.message);
           alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
@@ -511,7 +528,7 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
         payload: compra,
       });
     } catch (error) {
-      alert("Error al enviar la información: " + error.message);
+     // alert("Error al enviar la información: " + error.message);
       console.log("Error al enviar la información: " + error.message);
     }
   };
@@ -670,7 +687,7 @@ export function getAllUsersAdmin() {
 
 export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
   return async (dispatch,getState) => {
-    const token=getState().token.data;
+    const token=getToken()//getState().token.data;
     configureAxios(token);
 
     console.log("Usuario de Mercado pago" + JSON.stringify(DAtosMercadoPAgo));
@@ -816,7 +833,7 @@ export const PutItemMenu = (id, isActive) => {
 
 
 //==============Login y Logout Admin=======================================//
-export const loginAdmin = (formData, navigate) => {
+export const loginAdmin = (formData) => {
   
 
   return async (dispatch) => {
@@ -824,6 +841,8 @@ export const loginAdmin = (formData, navigate) => {
     try {
       const URL="http://localhost:5000/users/login"
       let response=await axios.post(URL,formData);
+
+      console.log("Admin", JSON.stringify(response))
       return dispatch({
         type:ADMIN_LOGIN,
         payload: response
@@ -860,9 +879,140 @@ export function getAllCategoriesAdmin() {
       });
       
     } catch (error) {
-      alertify.alert("Mensaje", 
-        'No hay categorias');
+      alertify.alert("Mensaje", 'No hay categorias');
     }
     
   };
 }
+
+//! Actualizo la orden
+export const Actualizar_Orden_Compra_MP = (ordenid, orderData) => {
+  return async (dispatch)=> {
+    const token = await getToken();
+  
+
+
+    console.log("Este es el token ", token);
+    configureAxios(token);
+    
+
+    try {
+      // Asegúrate de utilizar el método HTTP correcto (PUT o PATCH)
+      const response = await axios.put(`http://localhost:5000/orders/status/${ordenid}`, {
+        statusorder_id: orderData // Enviar orderData en el cuerpo de la solicitud
+      });
+     console.log("Orden actualizada orden completo:", JSON.stringify(response));
+      return true;
+    } catch (error) {
+      console.error("Orden actualizada orden completo Otro error:", error);
+      
+      // Verificar el tipo de error
+      if (error.response) {
+        // La solicitud fue hecha y el servidor respondió con un código de estado
+        // que no está en el rango de 2xx
+       
+      //  console.error("Datos del error de respuesta:", error.response.data);
+        //console.error("Estado del error de respuesta:", error.response.status);
+        //console.error("Cabeceras del error de respuesta:", error.response.headers);
+
+        if (error.response.status === 403) {
+          alertify.alert("Mensaje", "No tienes permisos para realizar esta operación.");
+        } else {
+          alertify.alert("Mensaje", `Error al actualizar la orden: ${error.response.data.message}`);
+        }
+      } else if (error.request) {
+        // La solicitud fue hecha pero no se recibió respuesta
+  //      console.error("Error en la solicitud:", error.request);
+        alertify.alert("Mensaje", "No se recibió respuesta del servidor.");
+      } else {
+        // Algo sucedió al configurar la solicitud que desencadenó un error
+    //    console.error("Error", error.message);
+        alertify.alert("Mensaje", `Error al actualizar la orden: ${error.message}`);
+      }
+
+      return false;
+    }
+  };
+};
+
+//! Login Empresa
+
+export const login_Emrpesa =  (userData)=>{
+  return async  (dispatch)=> {
+    const user = {
+      email: userData.emailOrPhone,
+      password: userData.password,
+    };
+    try {
+
+      const endpoint = "http://localhost:5000/restaurants/login";
+      const responseToken= await axios.post(endpoint, user);
+      const response=jwtDecode(responseToken.data);
+      
+      console.log("Empresa desarrollada es :", JSON.stringify(response));
+
+
+
+       dispatch({
+        type: EMPRESALOGIN,
+        payload: response,
+      });
+
+      dispatch({
+        type: USERTOKEN,
+        payload:responseToken,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+
+
+export const Data_Usuario=(id)=>{
+  return async  (dispatch)=> {
+    const token = getToken();
+    configureAxios(token.data);
+    try {
+
+
+    console.log('data a modificar del user',id);
+    const endpoint = `http://localhost:5000/users/${id}`;
+    const response = await axiosInstance.get(endpoint);
+    dispatch({
+      type: UPDATE_USER_DATA,
+      payload: response.data, 
+    })
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+
+
+
+export const Sellcionar_Restaurante = (id) =>{
+  return async  (dispatch)=> {
+   
+    try {
+
+
+   
+    dispatch({
+      type: SELECTRESTAURANTE,
+      payload: id, 
+    })
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+
+
+
+
+

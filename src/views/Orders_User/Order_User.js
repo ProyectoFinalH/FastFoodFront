@@ -39,7 +39,7 @@ const OrderUsers = () => {
           <table>
             <thead>
               <tr>
-                <th><div className="Cetrado-textos">Numero de Ordenes</div></th>
+                <th><div className="Cetrado-textos">Número de Ordenes</div></th>
                
                 <th>Restaurante</th>
                 <th>Items</th>
@@ -49,7 +49,12 @@ const OrderUsers = () => {
             </thead>
             <tbody>
               {Listado.map((order) => (
-                <tr key={order.id}>
+                <tr key={order.id} className={ order.status_order === "Registrada"
+                  ? "Clas-order-Registrada"
+                  : order.status_order === "Pago aceptado"
+                  ? "Clas-order-Aceptado"
+                  : "Clas-order-Reprobado"
+  }>
                   <td > <div className="Cetrado-textos">{order.id}</div></td>
                  
                   <td>{order.restaurant_name}</td>

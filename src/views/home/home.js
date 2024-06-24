@@ -28,7 +28,7 @@ function Home() {
   const user = useSelector((state) => state.USER);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const selectedRestaurantId = allRestaurants[0]?.id;
+  const selectedRestaurantId = null //allRestaurants[0]?.id;
 
   useEffect(() => {
     dispatch(getAllRestaurants());
@@ -70,6 +70,7 @@ function Home() {
       <div className="cardContainer">
         <div className="cardRestContainer">
         <Link to={`/menu/${selectedRestaurantId}`}>
+      
             <CardsRestaurant allRestaurants={allRestaurants} />
           </Link>
         </div>
