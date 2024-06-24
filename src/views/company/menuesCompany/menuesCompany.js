@@ -8,12 +8,14 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import CreateMenuForm from "../../../Components/createMenu/createMenu";
+import { axiosInstance, configureAxios } from "../../../AuthContext/axiosInstance";
 function MenuesCompany() {
     const dispatch = useDispatch();
     const allMenus = useSelector((state) => state.allMenusAdmin);
     const [, setIsRestored] = useState(false);
     const { id } = useParams();    
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
+    const token = useSelector((state)=> state.token.data);
 
     useEffect(() => {
         dispatch(getAllMenusAdmin());
@@ -38,7 +40,9 @@ function MenuesCompany() {
                 ? `http://localhost:5000/menus/delete/${menu.id}`
                 : `http://localhost:5000/menus/restore/${menu.id}`;
 
-            await axios.put(url);
+                configureAxios(token);
+
+            await axiosInstance.put(url);
             const updatedMenus = allMenus.map((item) => {
                 if (item.id === menu.id) {
                     return { ...item, active: !item.active };

@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import CreateCategories from "../../../Components/createMenu/createCategories";
 import ReactModal from 'react-modal';
 import "./categoriesCompany.css"
+import { axiosInstance, configureAxios } from "../../../AuthContext/axiosInstance";
 
 function CategoriesCompany() {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function CategoriesCompany() {
     const { id } = useParams();
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
     ReactModal.setAppElement('#root');
+    const token = useSelector((state) => state.token.data)
 
 
     useEffect(() => {
@@ -41,7 +43,8 @@ function CategoriesCompany() {
                 ? `http://localhost:5000/categories/delete/${categories.id}`
                 : `http://localhost:5000/categories/restore/${categories.id}`;
 
-            await axios.put(url);
+    configureAxios(token);
+            await axiosInstance.put(url);
             const updatedMenus = allCategories.map((item) => {
                 if (item.id === categories.id) {
                     return { ...item, active: !item.active };

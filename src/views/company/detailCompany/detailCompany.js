@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import "./detailCompany.css";
+import { axiosInstance, configureAxios } from "../../../AuthContext/axiosInstance";
+import { useSelector } from "react-redux";
 
 function DetailCompany({ restaurant }) {
   console.log("este es el res detail", restaurant)
@@ -13,7 +14,8 @@ function DetailCompany({ restaurant }) {
   const [Image, setImage] = useState(restaurant?.image_url || "");
   const [showPassword, setShowPassword] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);  
+  const token = useSelector((state) => state.token.data)
 
 
   useEffect(() => {
@@ -36,7 +38,12 @@ function DetailCompany({ restaurant }) {
         };
 
 
-        const response = await axios.put(`http://localhost:5000/restaurants/${restaurant.id}`, updatedRestaurant);
+        configureAxios(token);
+        console.log("info actualizada",updatedRestaurant)
+        const response = await axiosInstance.put(`http://localhost:5000/restaurants/${restaurant.id}`, updatedRestaurant);
+        console.log("respuesta del back",response)
+        console.log("id del restaurante", restaurant.id)
+
         if (response.status === 200) {
           console.log("Actualización exitosa");
           setConfirmationMessage(`¡${field} actualizado correctamente!`);
@@ -84,27 +91,27 @@ function DetailCompany({ restaurant }) {
         <div className="labelContainer">
           <h3>Nombre:</h3>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} disabled={!isEditing} />          
-          <button onClick={() => updateField("Nombre", name)} disabled={!isEditing}>Actualizar nombre</button>
+          <button onClick={() => updateField("name", name)} disabled={!isEditing}>Actualizar nombre</button>
         </div>
         <div className="labelContainer">
           <h3>Descripcion:</h3>
           <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} disabled={!isEditing} />
-          <button onClick={() => updateField("Descripcion", description)} disabled={!isEditing}>Actualizar descripcion</button>
+          <button onClick={() => updateField("description", description)} disabled={!isEditing}>Actualizar descripcion</button>
         </div>
         <div className="labelContainer">
           <h3>Email:</h3>
           <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} disabled={!isEditing}/>
-          <button onClick={() => updateField("Email", email)} disabled={!isEditing}>Actualizar email</button>
+          <button onClick={() => updateField("email", email)} disabled={!isEditing}>Actualizar email</button>
         </div>
         <div className="labelContainer">
           <h3>Telefono:</h3>
           <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} disabled={!isEditing}/>
-          <button onClick={() => updateField("Telefono", phone)} disabled={!isEditing}>Actualizar telefono</button>
+          <button onClick={() => updateField("phone", phone)} disabled={!isEditing}>Actualizar telefono</button>
         </div>
         <div className="labelContainer">
           <h3>Direccion:</h3>
           <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={!isEditing} />
-          <button onClick={() => updateField("Direccion", address)} disabled={!isEditing}>Actualizar direccion</button>
+          <button onClick={() => updateField("address", address)} disabled={!isEditing}>Actualizar direccion</button>
         </div>
         <div className="labelContainer">
           <h3>Contraseña:</h3>
@@ -113,7 +120,7 @@ function DetailCompany({ restaurant }) {
           <button onClick={togglePasswordVisibility} disabled={!isEditing}>
             {showPassword ? "👁️" : "👁️"}
           </button>
-          <button onClick={() => updateField("Contraseña", password)} disabled={!isEditing}>Actualizar Contraseña</button>
+          <button onClick={() => updateField("password", password)} disabled={!isEditing}>Actualizar Contraseña</button>
         </div>
         <div className="labelContainerimg">
           <h3>Imagen de Perfil:</h3>

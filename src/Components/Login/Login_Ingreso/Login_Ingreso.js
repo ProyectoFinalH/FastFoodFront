@@ -5,7 +5,7 @@ import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-import { login_User, login_user_localstorag, login_Emrpesa } from "../../../Redux/actions";
+import { login_User, login_user_localstorag, login_Emrpesa, Data_Empresa } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -123,6 +123,7 @@ const LoginIngreso = ({ setView }) => {
 
   useEffect(()=>{
     if(Empresa && Empresa.role_id === 2 ){
+      dispatch(Data_Empresa(Empresa.id))
       navigate("/company");
     }
       

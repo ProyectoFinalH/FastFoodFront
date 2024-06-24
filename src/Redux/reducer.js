@@ -38,11 +38,12 @@ import {
   EMPRESALOGIN,
   UPDATE_USER_DATA,//! actualizar la data
   SELECTRESTAURANTE, //!Seleccionamos es restaurante
+  GET_DETAIL_EMPRESA,
 } from "../Redux/action-types";
 
 const initialState = {
   USER: null,
-  AllDATAUSER:null,
+  AllDATAUSER: null,
   Carrito: null,
   ListaOrderCompany: null, //create lista order company
   ListaOrderUser: null, //create lista order Uduario
@@ -58,15 +59,16 @@ const initialState = {
   getAllMenuitemsAdmin: [],
   allMenus: [],
   allMenusAdmin: [],
-  allCategories: [],  
+  allCategories: [],
   allCategoriesAdmin: [],
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
   User_Actualizado: null,
-  token:null,//estado global que guarda el token obtenido en login
-  EMPRESAUSER:null,
-  SELCTRESTAURANT:null, //!Seleccionamos El restaurante 
+  token: null,//estado global que guarda el token obtenido en login
+  EMPRESAUSER: null,
+  SELCTRESTAURANT: null, //!Seleccionamos El restaurante 
+  Detail_Empresa: null
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -92,15 +94,15 @@ const reducer = (state = initialState, { type, payload }) => {
     case USERLOGIN:
       return {
         ...state,
-        USER: payload, 
+        USER: payload,
       };
-    
+
     case USERTOKEN:
       return {
         ...state,
-        token: payload, 
-      };  
-      
+        token: payload,
+      };
+
     case USERLOGINGOOGLE:
       return {
         ...state,
@@ -154,7 +156,7 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         User_Actualizado: payload,
-        AllDATAUSER:payload
+        AllDATAUSER: payload
       };
     case LOGOUT_USER:
       return {
@@ -218,74 +220,79 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allOrdersAdmin: payload,
       };
-      case PUT_RESTAURANTS:
-        return {
-          ...state,
-          allRestaurantsAdmin:state.allRestaurantsAdmin.map((restaurant) =>
-            restaurant.id === payload.id ? { ...restaurant, active: payload.active } : restaurant
-          ),
-        };
+    case PUT_RESTAURANTS:
+      return {
+        ...state,
+        allRestaurantsAdmin: state.allRestaurantsAdmin.map((restaurant) =>
+          restaurant.id === payload.id ? { ...restaurant, active: payload.active } : restaurant
+        ),
+      };
 
-        case PUT_USERS:
-          return {
-            ...state,
-            allUsersAdmin:state.allUsersAdmin.map((user) =>
-              user.id === payload.id ? { ...user, active: payload.active } : user
-            ),
-          };
-          case PUT_MENUS:
-            return {
-              ...state,
-              allMenusAdmin:state.allMenusAdmin.map((menu) =>
-                menu.id === payload.id ? { ...menu, active: payload.active } : menu
-              ),
-            };
-            case PUT_ITEMMENU:
-              return {
-                ...state,
-                getAllMenuitemsAdmin:state.getAllMenuitemsAdmin.map((itemmenu) =>
-                  itemmenu.id === payload.id ? { ...itemmenu, active: payload.active } : itemmenu
-                ),
-              };
-              case ADMIN_LOGIN:
-                alert(JSON.stringify(payload))
-                return {
-                  ...state,
-                  token: payload,
-                };
-              
-              case ADMIN_LOGOUT:
-                return {
-                  ...state,
-                  token: null,
-                };
+    case PUT_USERS:
+      return {
+        ...state,
+        allUsersAdmin: state.allUsersAdmin.map((user) =>
+          user.id === payload.id ? { ...user, active: payload.active } : user
+        ),
+      };
+    case PUT_MENUS:
+      return {
+        ...state,
+        allMenusAdmin: state.allMenusAdmin.map((menu) =>
+          menu.id === payload.id ? { ...menu, active: payload.active } : menu
+        ),
+      };
+    case PUT_ITEMMENU:
+      return {
+        ...state,
+        getAllMenuitemsAdmin: state.getAllMenuitemsAdmin.map((itemmenu) =>
+          itemmenu.id === payload.id ? { ...itemmenu, active: payload.active } : itemmenu
+        ),
+      };
+    case ADMIN_LOGIN:
+      alert(JSON.stringify(payload))
+      return {
+        ...state,
+        token: payload,
+      };
 
-              
-        case GET_CATEGORIES_ADMIN:
-        return {
-          ...state,
-          allCategoriesAdmin: payload,
-        }
-        case LISTADOORDERSUSERS:
-          return {
-            ...state,
-            ListaOrderUser: payload,
-          }
-          case EMPRESALOGIN:
-            return{
-              ...state,
-            EMPRESAUSER: payload,
-            }
-            case UPDATE_USER_DATA:
-              return{
-                ...state,
-                AllDATAUSER:payload
-              }
-      case SELECTRESTAURANTE:
-        return {
-          ...state,
-          SELCTRESTAURANT: payload
-        }
+    case ADMIN_LOGOUT:
+      return {
+        ...state,
+        token: null,
+      };
+
+
+    case GET_CATEGORIES_ADMIN:
+      return {
+        ...state,
+        allCategoriesAdmin: payload,
+      }
+    case LISTADOORDERSUSERS:
+      return {
+        ...state,
+        ListaOrderUser: payload,
+      }
+    case EMPRESALOGIN:
+      return {
+        ...state,
+        EMPRESAUSER: payload,
+      }
+    case UPDATE_USER_DATA:
+      return {
+        ...state,
+        AllDATAUSER: payload
+      }
+    case SELECTRESTAURANTE:
+      return {
+        ...state,
+        SELCTRESTAURANT: payload
+      }
+    case GET_DETAIL_EMPRESA:
+      return {
+        ...state,
+        Detail_Empresa: payload
+      }
 
     default:
       return { ...state };
