@@ -10,10 +10,7 @@ function InfoCompany({restaurant}) {
 
   return (
     <div>
-      <div className="h2Company">
-
       <h2>Informacion de tu empresa</h2>
-      </div>
       <div className="infoCompanyContainerMain">
           <DetailCompany key={restaurant?.id} restaurant={restaurant} />
       </div>
