@@ -5,7 +5,7 @@ import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
 import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-import { login_User, login_user_localstorag } from "../../../Redux/actions";
+import { login_User, login_user_localstorag, login_Emrpesa } from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_ingreso";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ const LoginIngreso = ({ setView }) => {
   const Empresa = useSelector((state)=> state.EMPRESAUSER)
   const [keyVisible, setKeyVisible] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState("user");
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -64,6 +64,7 @@ const LoginIngreso = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       
       try {
+        if(userType === "user"){
         const responseData = await dispatch(login_User(formData));//se guarda el token para luego decodificarlo con jwtDecode
         console.log(responseData);
 
@@ -74,6 +75,12 @@ const LoginIngreso = ({ setView }) => {
           guardarIdUsuario(responseData.id);
           navigate("/home");
         }
+      }else
+      if(userType === "business"){
+        const responseData = await dispatch(login_Emrpesa(formData));
+        console.log(responseData);
+      }
+       
       } catch (error) {
         console.error("Error al intentar iniciar sesión:", error.message);
         setLoginError(error.message);
@@ -109,12 +116,19 @@ const LoginIngreso = ({ setView }) => {
     } else {
       navigate("/");
     }
+
+
+    
   }, [User, navigate]);
 
   useEffect(()=>{
-    if(Empresa===true){
-      navigate('/company')
+    if(Empresa && Empresa.role_id === 2 ){
+      navigate("/company");
     }
+      
+
+
+    
   },[Empresa, navigate])
 
 
