@@ -34,12 +34,14 @@ import {
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
+  UPDATE_USER_DATA, //! obtener la data actualizacion 
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { setToken, getToken } from "../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import { get } from "firebase/database";
 
 export const logoutUser = () => {
   return  {
@@ -465,10 +467,15 @@ export const updateUser = (id, userData) => {
       
 
 
-          return dispatch({
+       dispatch({
               type: UPDATE_USER,
               payload: response.data,
           });
+
+          dispatch({
+            type: UPDATE_USER_DATA,
+            payload: response.data, 
+          })
       } catch (error) {
           console.error("Error al actualizar usuario:", error.message);
           alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
@@ -961,3 +968,30 @@ export const login_Emrpesa =  (userData)=>{
     
   };
 }
+
+
+export const Data_Usuario=(id)=>{
+  return async  (dispatch)=> {
+    const token = getToken();
+    configureAxios(token.data);
+    try {
+
+
+    console.log('data a modificar del user',id);
+    const endpoint = `http://localhost:5000/users/${id}`;
+    const response = await axiosInstance.get(endpoint);
+    dispatch({
+      type: UPDATE_USER_DATA,
+      payload: response.data, 
+    })
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+
+
+
+
+

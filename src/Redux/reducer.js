@@ -36,10 +36,12 @@ import {
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
+  UPDATE_USER_DATA,//! actualizar la data
 } from "../Redux/action-types";
 
 const initialState = {
   USER: null,
+  AllDATAUSER:null,
   Carrito: null,
   ListaOrderCompany: null, //create lista order company
   ListaOrderUser: null, //create lista order Uduario
@@ -150,6 +152,7 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         User_Actualizado: payload,
+        AllDATAUSER:payload
       };
     case LOGOUT_USER:
       return {
@@ -271,7 +274,11 @@ const reducer = (state = initialState, { type, payload }) => {
               ...state,
             EMPRESAUSER: payload,
             }
-            
+            case UPDATE_USER_DATA:
+              return{
+                ...state,
+                AllDATAUSER:payload
+              }
 
     default:
       return { ...state };
