@@ -29,7 +29,7 @@ const LoginIngreso = ({ setView }) => {
   const Empresa = useSelector((state)=> state.EMPRESAUSER)
   const [keyVisible, setKeyVisible] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const [userType, setUserType] = useState("user");
+  const [userType, setUserType] = useState(null);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({

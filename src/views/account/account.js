@@ -7,6 +7,7 @@ import {
   updateUser,
   Listado_Orders_Usuario,
   login_user_localstorag,
+  Data_Usuario
 } from "../../Redux/actions";
 import Notification from "../../Components/Notification/Notification";
 import NotificationCenter from "./Components/NotificationCenter";
@@ -20,7 +21,7 @@ import {
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
 function Account() {
-  const user = useSelector((state) => state.USER);
+  const user = useSelector((state) => state.AllDATAUSER);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
@@ -64,6 +65,7 @@ function Account() {
   useEffect(() => {
     const email = obtenerCorreoUsuario();
     const name = obtenerNombreUsuario();
+  
 
     if (email) {
       const tempUser = {
@@ -72,9 +74,10 @@ function Account() {
         email: email,
         username: name,
       };
-
+      dispatch(Data_Usuario(tempUser.id))
       dispatch(login_user_localstorag(tempUser))
         .then(() => {
+          dispatch(Data_Usuario(tempUser.id))
           if (tempUser.id) {
             return dispatch(Listado_Orders_Usuario(tempUser.id));
           } else {

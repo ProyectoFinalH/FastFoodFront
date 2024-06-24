@@ -93,7 +93,7 @@ const toggleItemState = async () => {
         <img alt="imagemenuitems" src={image} className="cardImage" onClick={handleClick}/>
      
       <div className="cardContent">
-        <h2 className="cardTitle">{name}</h2>
+        <h2 className="cardTitle">{name} </h2>
         <p className="cardDescription">{ description.substring(0, 30)}...</p>
         <div className="OrdenarCompra">
           <h2 className="cardPrice">${price}</h2>
