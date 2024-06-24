@@ -37,6 +37,7 @@ import {
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
   UPDATE_USER_DATA,//! actualizar la data
+  SELECTRESTAURANTE, //!Seleccionamos es restaurante
 } from "../Redux/action-types";
 
 const initialState = {
@@ -65,6 +66,7 @@ const initialState = {
   User_Actualizado: null,
   token:null,//estado global que guarda el token obtenido en login
   EMPRESAUSER:null,
+  SELCTRESTAURANT:null, //!Seleccionamos El restaurante 
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -279,6 +281,11 @@ const reducer = (state = initialState, { type, payload }) => {
                 ...state,
                 AllDATAUSER:payload
               }
+      case SELECTRESTAURANTE:
+        return {
+          ...state,
+          SELCTRESTAURANT: payload
+        }
 
     default:
       return { ...state };

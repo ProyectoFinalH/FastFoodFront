@@ -35,13 +35,14 @@ import {
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
   UPDATE_USER_DATA, //! obtener la data actualizacion 
+  SELECTRESTAURANTE, //!seleccionamos el restaurrante
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { setToken, getToken } from "../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
-import { get } from "firebase/database";
+//import { get } from "firebase/database";
 
 export const logoutUser = () => {
   return  {
@@ -983,6 +984,26 @@ export const Data_Usuario=(id)=>{
     dispatch({
       type: UPDATE_USER_DATA,
       payload: response.data, 
+    })
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+
+
+
+export const Sellcionar_Restaurante = (id) =>{
+  return async  (dispatch)=> {
+   
+    try {
+
+
+   
+    dispatch({
+      type: SELECTRESTAURANTE,
+      payload: id, 
     })
     } catch (error) {
       alertify.alert("Mensaje", 'No hay categorias');
