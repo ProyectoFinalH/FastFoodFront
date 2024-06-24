@@ -31,6 +31,9 @@ import {
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
+  UPDATE_USER_DATA, //! obtener la data actualizacion 
+  SELECTRESTAURANTE, //!seleccionamos el restaurrante
+  GET_DETAIL_EMPRESA,
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
@@ -249,8 +252,13 @@ export function getAllMenus() {
 }
 
 export function getAllMenusAdmin() {
-  return async function (dispatch) {
-    const response = await axios("http://localhost:5000/menus/all");
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    
+    const response = await axiosInstance.get(`http://localhost:5000/menus/restaurant/${restaurantId}`);
+
     return dispatch({
       type: GET_MENUS_ADMIN,
       payload: response.data,
@@ -259,8 +267,12 @@ export function getAllMenusAdmin() {
 }
 
 export function getAllMenuitemsAdmin() {
-  return async function (dispatch) {
-    const response = await axios("http://localhost:5000/menuitems/all");
+
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    const response = await axiosInstance.get(`http://localhost:5000/menuitems/restaurant/${restaurantId}`);
     return dispatch({
       type: GET_MENUITEMS_ADMIN,
       payload: response.data,
@@ -463,10 +475,15 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
 //crear la lista de ordenes comapny
 
 export const Create_Lista_Order_Company = () => {
-  return async (dispatch) => {
+
+  return async (dispatch,getState) => {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    console.log(restaurantId)
+    configureAxios(token);
     try {
-      const endpoint = "http://localhost:5000/orders/all";
-      const response = await axios.get(endpoint);
+      const endpoint = `http://localhost:5000/orders/restaurant/${restaurantId}`;
+      const response = await axiosInstance.get(endpoint);
       const compra = response.data;
       //alert("Esta es la lista de compras "+compra)
       console.log("Esta es la lista de compras " + JSON.stringify(compra));
@@ -754,12 +771,170 @@ export const logoutAdmin = () => ({
 });
 
 export function getAllCategoriesAdmin() {
-  return async function (dispatch) {
-    const response = await axios("http://localhost:5000/categories/all");
-    console.log("Categorías obtenidas:", response.data);
-    return dispatch({
-      type: GET_CATEGORIES_ADMIN,
-      payload: response.data,
-    });
+
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    
+    try {
+      const response = await axiosInstance(`http://localhost:5000/categories/restaurant/${restaurantId}`);
+      console.log("Categorías obtenidas:", response.data);
+      return dispatch({
+        type: GET_CATEGORIES_ADMIN,
+        payload: response.data,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
   };
 }
+
+//! Actualizo la orden
+export const Actualizar_Orden_Compra_MP = (ordenid, orderData) => {
+  return async (dispatch)=> {
+    const token = await getToken();
+  
+
+
+    console.log("Este es el token ", token);
+    configureAxios(token);
+    
+
+    try {
+      // Asegúrate de utilizar el método HTTP correcto (PUT o PATCH)
+      const response = await axios.put(`http://localhost:5000/orders/status/${ordenid}`, {
+        statusorder_id: orderData // Enviar orderData en el cuerpo de la solicitud
+      });
+     console.log("Orden actualizada orden completo:", JSON.stringify(response));
+      return true;
+    } catch (error) {
+      console.error("Orden actualizada orden completo Otro error:", error);
+      
+      // Verificar el tipo de error
+      if (error.response) {
+        // La solicitud fue hecha y el servidor respondió con un código de estado
+        // que no está en el rango de 2xx
+       
+      //  console.error("Datos del error de respuesta:", error.response.data);
+        //console.error("Estado del error de respuesta:", error.response.status);
+        //console.error("Cabeceras del error de respuesta:", error.response.headers);
+
+        if (error.response.status === 403) {
+          alertify.alert("Mensaje", "No tienes permisos para realizar esta operación.");
+        } else {
+          alertify.alert("Mensaje", `Error al actualizar la orden: ${error.response.data.message}`);
+        }
+      } else if (error.request) {
+        // La solicitud fue hecha pero no se recibió respuesta
+  //      console.error("Error en la solicitud:", error.request);
+        alertify.alert("Mensaje", "No se recibió respuesta del servidor.");
+      } else {
+        // Algo sucedió al configurar la solicitud que desencadenó un error
+    //    console.error("Error", error.message);
+        alertify.alert("Mensaje", `Error al actualizar la orden: ${error.message}`);
+      }
+
+      return false;
+    }
+  };
+};
+
+//! Login Empresa
+
+export const login_Emrpesa =  (userData)=>{
+  return async  (dispatch)=> {
+    const user = {
+      email: userData.emailOrPhone,
+      password: userData.password,
+    };
+    try {
+
+      const endpoint = "http://localhost:5000/restaurants/login";
+      const responseToken= await axios.post(endpoint, user);
+      const response=jwtDecode(responseToken.data);
+      
+      console.log("Empresa desarrollada es :", JSON.stringify(response));
+
+
+
+       dispatch({
+        type: EMPRESALOGIN,
+        payload: response,
+      });
+
+      dispatch({
+        type: USERTOKEN,
+        payload:responseToken,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+
+
+export const Data_Usuario=(id)=>{
+  return async  (dispatch)=> {
+    const token = getToken();
+    configureAxios(token.data);
+    try {
+
+
+    console.log('data a modificar del user',id);
+    const endpoint = `http://localhost:5000/users/${id}`;
+    const response = await axiosInstance.get(endpoint);
+    dispatch({
+      type: UPDATE_USER_DATA,
+      payload: response.data, 
+    })
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+
+
+
+export const Sellcionar_Restaurante = (id) =>{
+  return async  (dispatch)=> {
+   
+    try {
+
+
+   
+    dispatch({
+      type: SELECTRESTAURANTE,
+      payload: id, 
+    })
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+export const Data_Empresa=(id)=>{
+  console.log("empresa id",id)
+  return async  (dispatch)=> {
+    try {
+    const endpoint = `http://localhost:5000/restaurants/${id}`;
+    const response = await axios.get(endpoint);
+    console.log("detalle del action empresa",response)
+    dispatch({
+      type: GET_DETAIL_EMPRESA,
+      payload: response.data, 
+    })
+
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay info de restaurante');
+      console.log(error)
+    }
+    
+  };
+}
+

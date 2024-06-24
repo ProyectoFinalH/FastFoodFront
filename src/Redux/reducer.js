@@ -33,6 +33,9 @@ import {
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
+  UPDATE_USER_DATA,//! actualizar la data
+  SELECTRESTAURANTE, //!Seleccionamos es restaurante
+  GET_DETAIL_EMPRESA,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -59,6 +62,8 @@ const initialState = {
   createCategories: null,
   User_Actualizado: null,
   EMPRESAUSER:null,
+  SELCTRESTAURANT:null, //!Seleccionamos El restaurante 
+  Detail_Empresa:null
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -256,6 +261,21 @@ const reducer = (state = initialState, { type, payload }) => {
               ...state,
             EMPRESAUSER: payload,
             }
+            case UPDATE_USER_DATA:
+              return{
+                ...state,
+                AllDATAUSER:payload
+              }
+      case SELECTRESTAURANTE:
+        return {
+          ...state,
+          SELCTRESTAURANT: payload
+        }
+        case GET_DETAIL_EMPRESA:
+          return{
+            ...state,
+            Detail_Empresa: payload          
+          }
 
     default:
       return { ...state };

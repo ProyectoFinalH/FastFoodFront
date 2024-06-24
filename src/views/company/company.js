@@ -9,27 +9,24 @@ import { useEffect } from "react";
 
 
 function Company() {
-
-
-const allRestaurants = useSelector((state)=> state?.allRestaurants)
-
-console.log("Datos de todos los restaurantes:", allRestaurants);
-
+  const Restaurant = useSelector((state)=> state.Detail_Empresa)
+  
+  console.log("Datos de todos los restaurantes:", Restaurant);
+  
   const dispatch = useDispatch();
-
-
+  
+  useEffect(() => {
+    dispatch(getAllRestaurants());
+    dispatch(Create_Lista_Order_Company());
+  }, [dispatch]);
+  
+  const restaurant = Restaurant;
 
 useEffect(()=>{
   dispatch(getAllRestaurants())
   dispatch(Create_Lista_Order_Company())
 },[dispatch])
 
-  
-
-
-  const restaurant = allRestaurants && allRestaurants?.length > 0 ? allRestaurants[0] : null;
-    
-  console.log ("este es el res company",restaurant)
 
 
   return (

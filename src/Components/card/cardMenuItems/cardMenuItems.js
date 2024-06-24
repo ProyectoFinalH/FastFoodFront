@@ -4,17 +4,17 @@ import "./cardMenuItems.css";
 import { useNavigate } from "react-router-dom";
 import carrito from '../../../images/carrito.png';
 import axios from 'axios';
-
-// Importa las funciones necesarias de localstorage-card
+import { useSelector } from "react-redux";
 import { obtenerContCarrito,guardarItemCarrito } from '../../localStorage-car/LocalStorageCar';
-
 import Carrito from '../../Carrito/Carrito'
+import { axiosInstance, configureAxios } from "../../../AuthContext/axiosInstance";
 
 function CardMenuItems({ id, name, description, price, image, handleSelectMenuItem, hideCartButtons, showEyeIcon}) {
   const [viewCard, setViewCard] = useState(false);
   const navigator = useNavigate();
   const [id_Card, setId_Card] = useState({ id, name, description, price, image, cont: 0 });// Inicializa cont en 0
   const [isRestored, setIsRestored] = useState(false);
+  const token = useSelector((state)=> state.token.data);
  
 
 
@@ -72,8 +72,8 @@ const toggleItemState = async () => {
     const url = isRestored
     ? `http://localhost:5000/menuitems/delete/${id}`
     : `http://localhost:5000/menuitems/restore/${id}`;
-    
-    const response = await axios.put(url); // Usamos POST pero asegúrate de que coincide con el método esperado en tu backend
+    configureAxios(token);    
+    const response = await axiosInstance.put(url); // Usamos POST pero asegúrate de que coincide con el método esperado en tu backend
     setIsRestored(!isRestored); // Cambiamos el estado después de la solicitud
     console.log(response.data); // Manejo opcional de la respuesta
   } catch (error) {
