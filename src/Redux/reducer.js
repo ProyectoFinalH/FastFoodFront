@@ -271,6 +271,7 @@ const reducer = (state = initialState, { type, payload }) => {
               ...state,
             EMPRESAUSER: payload,
             }
+            
 
     default:
       return { ...state };

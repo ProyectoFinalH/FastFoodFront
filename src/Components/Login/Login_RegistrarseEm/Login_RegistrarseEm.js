@@ -208,7 +208,7 @@ const RegistrarseEmpresa = ({ setView }) => {
             <span className="errorMessage">{errors.confirmPassword}</span>
           )}
         </div>
-        <button type="submit" className="buttonSubmit">
+        <button type="submit" className="buttonSubmit" >
           Registrarse con empresa
         </button>
         <div className="loginLink" onClick={handleLoginLinkClick}>

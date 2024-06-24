@@ -926,3 +926,38 @@ export const Actualizar_Orden_Compra_MP = (ordenid, orderData) => {
     }
   };
 };
+
+//! Login Empresa
+
+export const login_Emrpesa =  (userData)=>{
+  return async  (dispatch)=> {
+    const user = {
+      email: userData.emailOrPhone,
+      password: userData.password,
+    };
+    try {
+
+      const endpoint = "http://localhost:5000/restaurants/login";
+      const responseToken= await axios.post(endpoint, user);
+      const response=jwtDecode(responseToken.data);
+      
+      console.log("Empresa desarrollada es :", JSON.stringify(response));
+
+
+
+       dispatch({
+        type: EMPRESALOGIN,
+        payload: response,
+      });
+
+      dispatch({
+        type: USERTOKEN,
+        payload:responseToken,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
