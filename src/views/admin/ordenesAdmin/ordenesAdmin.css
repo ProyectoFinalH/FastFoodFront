@@ -2,23 +2,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-x: auto; /* Agrega scroll horizontal si es necesario */
-    padding: 20px; /* Ajusta el padding según sea necesario */
+    overflow-x: auto; 
+    padding: 20px;
+    
+    
  }
  
- .OrderAdminContainer {
-    background-color: white;
-    margin: 10px;
-    padding: 20px; /* Ajusta el padding para espaciar el contenido */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Ocupa todo el ancho disponible */
-    overflow-x: auto; /* Agrega scroll horizontal si es necesario */
- }
+
  
  .OrderAdminContainer table {
-     width: 100%; /* Ocupa todo el ancho del contenedor */
-     table-layout: fixed; /* Fuerza a la tabla a ajustarse a la anchura especificada */
+     width: 100%; 
+     table-layout: fixed; 
      border-collapse: collapse;
  }
  
@@ -28,9 +22,9 @@
  }
  
  .OrderAdminContainer th, .OrderAdminContainer td {
-     padding: 10px; /* Reduce el padding para hacer las celdas más pequeñas */
-     text-align: center; /* Alinea el contenido al centro */
-     font-size: 14px; /* Ajusta el tamaño de fuente si es necesario */
+     padding: 10px; 
+     text-align: center;
+     font-size: 14px; 
  }
  
  .OrderAdminContainer tbody tr {
@@ -38,10 +32,15 @@
  }
  
  .OrderAdminContainer tbody tr:hover {
-     background-color: #f8d0d1fd;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* border-bottom: solid 1px #ff3a3a; */
  }
  
- /* Ajustes adicionales si es necesario para bordes y espaciado */
  .OrderAdminContainer td {
-     border-bottom: solid 1px #ff3a3a;
+    box-shadow: 0px 5px rgba(0, 0, 0, 0.1);
+ }
+
+ .OrderAdminContainer td:hover {
+    transform: translateY(-5px);
  }
