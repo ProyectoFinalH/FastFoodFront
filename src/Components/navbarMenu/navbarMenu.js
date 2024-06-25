@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect} from "react";
 import "./navbarMenu.css";
-
+import { getSelctRestaurantapp } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 function NavbarMenu({
   searchString,
   setSearchString,
@@ -130,9 +130,12 @@ function NavbarMenu({
           >
             <option value="">Todas</option>
             {allCategories?.map((category) => (
-              <option key={category?.id} value={category?.id}>
-                {category?.name}
-              </option>
+              category.restaurant_id === getSelctRestaurantapp()
+              ?<><option key={category?.id } value={category?.id}>
+              {category?.name}
+            </option></>
+            :null
+              
             ))}
           </select>
         </div>
