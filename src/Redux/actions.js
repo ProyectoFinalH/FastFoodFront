@@ -41,6 +41,7 @@ import {
   GET_CATEGORIES_COMPANY,
   GET_MENUITEMS_COMPANY,
   GET_MENUS_COMPANY,
+  GET_COMMENTS_COMPANY,
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
@@ -1109,6 +1110,23 @@ export const Update_Empresa=(formData)=>{
   };
 }
 
-
-
-
+export function getCommentsCompany() {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    
+    try {
+      const response = await axiosInstance(`http://localhost:5000/comments/${restaurantId}`);
+      console.log("Categorías obtenidas:", response.data);
+      return dispatch({
+        type: GET_COMMENTS_COMPANY,
+        payload: response.data,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
