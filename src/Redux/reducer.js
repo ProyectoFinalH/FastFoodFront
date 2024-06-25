@@ -39,6 +39,8 @@ import {
   UPDATE_USER_DATA,//! actualizar la data
   SELECTRESTAURANTE, //!Seleccionamos es restaurante
   GET_DETAIL_EMPRESA,
+  SET_TOKEN,
+  CLEAR_TOKEN,
   PUT_DETAIL_EMPRESA,
   GET_CATEGORIES_COMPANY,
   GET_MENUITEMS_COMPANY,
@@ -257,7 +259,6 @@ const reducer = (state = initialState, { type, payload }) => {
         ),
       };
     case ADMIN_LOGIN:
-      alert(JSON.stringify(payload))
       return {
         ...state,
         token: payload,
@@ -300,6 +301,18 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         Detail_Empresa: payload
       }
+    
+    case SET_TOKEN:
+      return {
+        ...state,
+        token: payload
+      }  
+
+    case CLEAR_TOKEN:
+      return {
+        ...state,
+        token: null
+    } 
     case PUT_DETAIL_EMPRESA:
       return {
         ...state,

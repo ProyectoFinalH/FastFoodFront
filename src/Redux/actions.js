@@ -37,6 +37,8 @@ import {
   UPDATE_USER_DATA, //! obtener la data actualizacion 
   SELECTRESTAURANTE, //!seleccionamos el restaurrante
   GET_DETAIL_EMPRESA,
+  SET_TOKEN, // para setear el valor del token 
+  CLEAR_TOKEN,
   PUT_DETAIL_EMPRESA,
   GET_CATEGORIES_COMPANY,
   GET_MENUITEMS_COMPANY,
@@ -290,10 +292,9 @@ export function getAllMenus() {
 export function getAllMenusAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
-    const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
     
-    const response = await axiosInstance.get(`http://localhost:5000/menus/restaurant/${restaurantId}`);
+    const response = await axiosInstance.get(`http://localhost:5000/menus/all`);
     return dispatch({
       type: GET_MENUS_ADMIN,
       payload: response.data,
@@ -329,9 +330,8 @@ export function getAllMenuitemsCompany() {
 export function getAllMenuitemsAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
-    const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
-    const response = await axiosInstance.get(`http://localhost:5000/menuitems/restaurant/${restaurantId}`);
+    const response = await axiosInstance.get(`http://localhost:5000/menuitems/all`);
     return dispatch({
       type: GET_MENUITEMS_ADMIN,
       payload: response.data,
@@ -873,7 +873,6 @@ export const loginAdmin = (formData) => {
       const URL="http://localhost:5000/users/login"
       let response=await axios.post(URL,formData);
 
-      console.log("Admin", JSON.stringify(response))
       return dispatch({
         type:ADMIN_LOGIN,
         payload: response
@@ -893,6 +892,17 @@ export const loginAdmin = (formData) => {
 export const logoutAdmin = () => ({
   type: ADMIN_LOGOUT,
 });
+
+export const setTokenAdmin =(tokenLocalStorage)=>({
+  
+    type: SET_TOKEN,
+    payload:tokenLocalStorage,
+  
+});
+
+export const clearTokenAdmin=()=>({
+  type: CLEAR_TOKEN,
+})
 //=============================================================================//
 
 

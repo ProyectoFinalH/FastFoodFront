@@ -1,15 +1,42 @@
 import Sidebar from "./sidebar/sidebar";
 import { useEffect, useState } from "react";
 import Loading from "../../Components/loading/Loading";
-// import alertify from "alertifyjs";
+import { useDispatch } from "react-redux";
+import { setTokenAdmin } from "../../Redux/actions";
+import alertify from "alertifyjs";
+import { useNavigate } from "react-router-dom";
+
+
 
 function Admin() {
   const [loading, setLoading] = useState(true);
+  const [tokenSet, setTokenSet] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  
+
+  useEffect(()=>{
+    const loggedAdminJSON=window.localStorage.getItem('loggedFastFoodAdmin');
+
+    if(loggedAdminJSON){
+      const token=JSON.parse(loggedAdminJSON);
+      dispatch(setTokenAdmin(token))
+      setTokenSet(true)
+    }
+    else{
+      alertify.alert("Mensaje", //si no hay token regresa a Login
+        'No hay token presente, debe loguearse para continuar',()=>{
+          navigate("/loginAdmin");
+        }); 
+    }
+
+  },[dispatch,navigate])
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -17,7 +44,7 @@ function Admin() {
   return (
     <div className="adminContainer">
       {loading && <Loading />}
-      <Sidebar />
+      {tokenSet&&<Sidebar />}
     </div>
   );
 }
