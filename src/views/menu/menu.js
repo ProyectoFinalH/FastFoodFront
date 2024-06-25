@@ -5,7 +5,6 @@ import {
   getAllCategories,
   getAllRestaurants,
 } from "../../Redux/actions";
-// import { getAllRestaurants, getAllCategories, } from "../../redux/actions"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,13 +12,11 @@ import { useNavigate } from "react-router-dom";
 import CardsMenuItem from "../../Components/cards/cardsMenuItems/cardsMenuItems";
 import NavbarMenu from "../../Components/navbarMenu/navbarMenu";
 import "./menu.css";
-// import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
 import CardsMenus from "../../Components/cards/cardsMenus/cardsMenus";
 import Navbar from "../../Components/navbar/navbar";
 import Detail from "../detail/detail";
 
 import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
-
 import { login_user_localstorag } from "../../Redux/actions";
 
 import {
@@ -29,7 +26,6 @@ import {
   obtenerIdUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
-//import alertify from "alertifyjs";
 
 function Menu() {
   const dispatch = useDispatch();
@@ -46,13 +42,10 @@ function Menu() {
     null
   );
 
-  // const allCategories = useSelector((state)=> state.allCategories)
-
   const [searchString, setSearchString] = useLocalStorage("searchString", "");
   const [sortBy, setSortBy] = useLocalStorage("sortBy", null);
   const [priceRange, setPriceRange] = useLocalStorage("priceRange", "");
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -71,10 +64,8 @@ function Menu() {
   };
   const selectedRestaurantId = selctedRestaurant;
 
-  //localstorang del usuario
   useEffect(() => {
     const email = obtenerCorreoUsuario();
-    // alert("mail es "+ email)
     if (email) {
       const tem_Users = {
         state: obtenerEstatusUsuario(),
@@ -84,7 +75,6 @@ function Menu() {
       };
       dispatch(login_user_localstorag(tem_Users));
       if (selectedRestaurantId) {
-        // alertify.alert("Este es el restaurante seleccionado " + selectedRestaurantId)
         navigate(`/menu/${selectedRestaurantId}`);
       } else {
         navigate("/menu");
@@ -94,10 +84,7 @@ function Menu() {
     }
   }, [dispatch, navigate, selectedRestaurantId]);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
   useEffect(() => {
-    // dispatch(getAllRestaurants())
     dispatch(getAllMenus());
     dispatch(getAllMenuitems());
     dispatch(getAllCategories());
@@ -108,11 +95,6 @@ function Menu() {
     (restaurant) => restaurant?.id === selctedRestaurant
   );
 
-  //FILTRO POR RANGO
-  // const applyPriceRangeFilter = (menuItems, range) => {
-  //   const [min, max] = range?.split("-").map(Number);
-  //   return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
-  // };
   const applyPriceRangeFilter = (menuItems, range) => {
     if (!range || typeof range !== "string") {
       return menuItems;
@@ -121,12 +103,12 @@ function Menu() {
     const [min, max] = range.split("-").map(Number);
     return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   };
+
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getMenuItemsByName(searchString));
   }
 
-  // FUNCION PARA DESHACER FILTROS
   const clearFilters = () => {
     setSearchString("");
     setSortBy("");
@@ -135,18 +117,13 @@ function Menu() {
     setSelectedCategory("");
   };
 
-  //Copia del Estado allMenuItems
   let filteredMenuItems = [...allMenuitems];
-  // FILTRADO DE ITEMMENU EN BASE AL MENU
+
   const handleSelectMenu = (menuItem) => {
-    console.log("menuItem", menuItem);
     try {
       setSelectMenuItem((prevId) => {
-        console.log("prevId", prevId);
         const newId = prevId === menuItem ? null : menuItem;
         window.localStorage.setItem("selectMenuItem", JSON.stringify(newId));
-        console.log("newId", newId);
-        console.log("selectMenuItem", newId);
         return newId;
       });
     } catch (error) {
@@ -165,9 +142,6 @@ function Menu() {
       (menuItem) => menuItem?.category_id === selectedCategory
     );
   }
-  //!console.log(selectedCategory);
-
-  // ORDENAMIENTO DE ITEMSMENU
 
   if (sortBy === "menorPrecio") {
     filteredMenuItems = filteredMenuItems?.sort((a, b) => a.price - b.price);
@@ -179,14 +153,12 @@ function Menu() {
     filteredMenuItems = applyPriceRangeFilter(filteredMenuItems, priceRange);
   }
 
-  //SEARCH POR NOMBRE
   if (searchString.trim() !== "") {
     filteredMenuItems = filteredMenuItems?.filter((menuItem) =>
       menuItem?.name?.toLowerCase().includes(searchString.toLowerCase())
     );
   }
 
-  //Boton volver Atras
   const handleGoBack = () => {
     navigate("/home");
   };
@@ -237,7 +209,6 @@ function Menu() {
         <div className="cards-menus">
           <div className="cards-menu-items">
             {allMenus?.map((menu) => {
-              // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
               const menuItems = filteredMenuItems?.filter(
                 (menuItem) =>
                   menuItem?.restaurant_id === selctedRestaurant &&

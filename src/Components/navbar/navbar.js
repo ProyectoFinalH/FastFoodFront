@@ -9,7 +9,10 @@ import { logoutUser } from "../../Redux/actions";
 import Carrito from "../Carrito/Carrito";
 
 import { eliminarDatosUsuario } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
-import { eliminarItemCarrito, resetearCarrito } from "../localStorage-car/LocalStorageCar";
+import {
+  eliminarItemCarrito,
+  resetearCarrito,
+} from "../localStorage-car/LocalStorageCar";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,17 +22,17 @@ function Navbar() {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    eliminarDatosUsuario()
+    eliminarDatosUsuario();
     eliminarItemCarrito();
     resetearCarrito();
     window.location.href = "/";
   };
 
-  const handleIniciarSesion = ()=>{
+  const handleIniciarSesion = () => {
     dispatch(logoutUser());
-    eliminarDatosUsuario()
+    eliminarDatosUsuario();
     window.location.href = "/";
-  }
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -42,7 +45,6 @@ function Navbar() {
   return (
     <div className="navbar-container">
       <div className="left-section">
-      
         <div className="logo-container">
           <img src={logo} alt="logo" className="logo" />
         </div>
@@ -52,7 +54,12 @@ function Navbar() {
       </div>
       <div className="right-section">
         {!User || User.name !== "invitado" ? (
-          <div className="carrito-container" onClick={handleMenuCarrito}>
+          <div
+            className="carrito-container"
+            onClick={handleMenuCarrito}
+            role="button"
+            aria-label="Open cart"
+          >
             <img src={carrito} alt="Carrito" className="carrito-img" />
           </div>
         ) : null}
@@ -82,7 +89,7 @@ function Navbar() {
                   Mi cuenta
                 </NavLink>
               </li>
-            ) : null}        
+            ) : null}
             {!User || User.name !== "invitado" ? (
               <li>
                 <button className="close-btn" onClick={handleLogout}>
