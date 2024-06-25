@@ -37,7 +37,7 @@ function ProductsCompany() {
         <ReactModal
           isOpen={showCreateCategoryModal}
           onRequestClose={() => setShowCreateCategoryModal(false)}
-          className="custom-modal"
+          className="custom-modal2"
         >
           <CreateMenuItem />
           <button className="custom-modal-button" onClick={() => setShowCreateCategoryModal(false)}>X</button>

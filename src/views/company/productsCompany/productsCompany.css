@@ -49,7 +49,6 @@
 }
 .custom-modal-button{
   margin-left: 80%;
-  margin-bottom: 70vh;
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -63,4 +62,8 @@
 }
 .custom-modal-button:hover{
   background-color: #ac0000;
+}
+
+.custom-modal2{
+  margin-top: -150px;
 }

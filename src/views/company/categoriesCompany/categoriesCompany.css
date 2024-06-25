@@ -11,13 +11,13 @@
 }
 
 .ReactModal__Overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 15%;
+    background-color: rgba(0, 0, 0, 200.5);
     /* Fondo semitransparente */
 }
 
 .custom-modal-button3{
     margin-left: 80%;
-    margin-bottom: 25vh;
     position: absolute;
     bottom: 10px;
     left: 10px;

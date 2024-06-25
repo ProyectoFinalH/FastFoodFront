@@ -89,20 +89,6 @@ function CreateCategories() {
 
     return (
         <div className="createmenu">
-            {/* <form className="form" onSubmit={handleSubmit}>
-                <h1>Create Menu</h1>
-                <label htmlFor="menuName">Nombre del menú:</label>
-                <input
-                    type="text"
-                    name="name"
-                    value={menuName.menuname}
-                    onChange={(event) => setMenuName({ ...menuName, menuname: event.target.value })}
-                    maxLength={24}
-                />
-                <button type="submit">Create Menu</button>
-                {menuSuccessMessage && <p className="success-message">{menuSuccessMessage}</p>}
-                {menuErrorMessage && <p className="error-message">{menuErrorMessage}</p>}
-            </form> */}
             <form className="form" onSubmit={handleCategorySubmit}>
                 <h1>Create Category</h1>
                 <label htmlFor="categoryName">Nombre de la categoría:</label>
@@ -117,67 +103,6 @@ function CreateCategories() {
                 {categorySuccessMessage && <p className="success-message">{categorySuccessMessage}</p>}
                 {categoryErrorMessage && <p className="error-message">{categoryErrorMessage}</p>}
             </form>
-
-            {/* <div className="menuitemcontainer">
-                <h1>Create Item Menu</h1>
-                <label htmlFor="menuItemName">Nombre del menú:</label>
-                <select onChange={handleMenuChange}>
-                    <option value="">Seleccionar Menú</option>
-                    {allMenuss.map((element) => (
-                        <option key={element.id} value={element.id}>
-                            {element.name}
-                        </option>
-                    ))}
-                </select>
-                <label htmlFor="category">Categoría:</label>
-                <select
-                    id="category"
-                    value={selectedCategoryId}
-                    onChange={handleCategoryChange}
-                >
-                    <option value="">Seleccionar Categoría</option>
-                    {allCategories.map((category) => (
-                        <option key={category.id} value={category.id}>
-                            {category.name}
-                        </option>
-                    ))}
-                </select>
-                <label htmlFor="menuItemName">MenuItem Name:</label>
-                <input
-                    type="text"
-                    id="menuItemName"
-                    name="menuItemName"
-                    value={menuItemName}
-                    onChange={(event) => setMenuItemName(event.target.value)}
-                />
-                <label htmlFor="description">Description:</label>
-                <input
-                    className="description"
-                    type="text"
-                    id="description"
-                    name="description"
-                    value={description}
-                    onChange={(event) => setDescription(event.target.value)}
-                />
-                <label htmlFor="price">Price:</label>
-                <input
-                    type="number"
-                    id="price"
-                    name="price"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                />
-                <label htmlFor="imageUrl">Image URL:</label>
-                <input
-                    type="file"
-                    name="image_url"
-                    onChange={handleImageChange}
-                    id="imageUrl"
-                />
-                <button onClick={handleMenuItem}>Create Item</button>
-                {itemSuccessMessage && <p className="success-message">{itemSuccessMessage}</p>}
-                {itemErrorMessage && <p className="error-message">{itemErrorMessage}</p>}
-            </div> */}
             <div className="footpage"></div>
         </div>
     );

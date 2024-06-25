@@ -81,7 +81,7 @@ function OrderCompany() {
   };
 
   return (
-    <div>
+    <div className='orderCompany'>
       <h1>OrderCompany</h1>
       <div className="container">
         <table className="styled-table">
