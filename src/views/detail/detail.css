@@ -1,15 +1,14 @@
 .detailContainer {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
 }
 
 .detailCardContainer {
@@ -29,7 +28,7 @@
 }
 
 .imageDetail img {
-  max-width: 80%;
+  max-width: 50%;
   border-radius: 5px;
   margin-bottom: 10px;
 }
@@ -38,24 +37,50 @@
   padding: 10px 0;
 }
 
-.titleDetail {
+.title-container,
+.unidades-container {
   text-align: center;
   margin-bottom: 10px;
+}
+
+.title-container h2,
+.unidades-container h2 {
+  font-size: 1.5rem;
+  color: #333333;
 }
 
 .description-detail {
   text-align: justify;
   margin-bottom: 10px;
+  margin: 15px;
 }
 
 .cantContainer {
   margin-top: 20px;
 }
 
-.botones-flex {
+.botones-flex-detail {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  background-color: #ff5a5f;
+  padding: 8px;
+  border-radius: 55px;
+  margin-top: 10px;
+}
+
+.botones-flex-detail label {
+  background-color: #ff5a5f;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px;
+  margin: 0 5px;
+}
+
+.botones-flex-detail label:hover {
+  background-color: #d94c51;
 }
 
 .buttonDecInc-Menu {
@@ -69,6 +94,7 @@
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
+  padding: 8px;
   margin: 0 5px;
 }
 
@@ -104,27 +130,37 @@
 .buttonClose button:hover {
   background-color: #d94c51;
 }
-.car-aumentardisminuir{
+
+.car-aumentardisminuir {
+  margin-left: 10px;
   width: 30px;
   height: 30px;
-  background-color: #ff5a5f;
-  color: #fff;
-  font-size: 1rem;
-  border-radius: 5px;
   cursor: pointer;
-
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  display:flex;
+  transition: transform 0.3s ease;
 }
 
+.car-aumentardisminuir:hover {
+  transform: scale(1.1);
+}
 
+.title-detail {
+  text-align: center;
+  margin-bottom: 10px;
+}
 
+.title-detail h2 {
+  font-size: 1.5rem;
+  color: #333333;
+  margin-left: 0;
+}
 
-@media (max-width: 768px) {
-  .detailCardContainer {
-    width: 90%;
-    max-width: 400px;
-  }
+.unidades-detail {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.unidades-detail h2 {
+  font-size: 1.5rem;
+  color: #333333;
+  margin-left: 0;
 }
