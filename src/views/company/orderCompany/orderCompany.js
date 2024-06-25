@@ -10,11 +10,13 @@ import guardar from './image/actualizar.png';
 import { Actualizar_Compra_Usuario, Create_Lista_Order_Company } from '../../../Redux/actions';
 import axios from 'axios';
 import alertify from 'alertifyjs';
+import { axiosInstance, configureAxios } from '../../../AuthContext/axiosInstance';
 
 function OrderCompany() {
   const Order_List_Company = useSelector((state) => state.ListaOrderCompany || []);
   const [activeOrder, setActiveOrder] = useState(null);
   const dispatch = useDispatch();
+  const token = useSelector((state)=>state.token)
   const [formData, setFormData] = useState({
     id: '',
     user_name: '',
@@ -24,15 +26,32 @@ function OrderCompany() {
     items: []
   });
 
-  const handleEliminar = async (id) => {
+  const handleEliminar = async (id, active) => {
+ 
     try {
+      if(active === true){
       console.log(id);
       const endpoint = `http://localhost:5000/orders/delete/${id}`;
       //const response = 
-      await axios.put(endpoint);
+      configureAxios(token)
+      await axiosInstance.put(endpoint);
    //   const data = response.data;
       //alert("Esta es la respuesta " + JSON.stringify(data));
       dispatch(Create_Lista_Order_Company())
+    }else
+    if(active === false){
+      console.log(id);
+      const endpoint = `http://localhost:5000/orders/restore/${id}`;
+      //const response = 
+      configureAxios(token)
+      await axiosInstance.put(endpoint);
+   //   const data = response.data;
+      //alert("Esta es la respuesta " + JSON.stringify(data));
+      dispatch(Create_Lista_Order_Company())
+
+
+
+    }
     } catch (error) {
       console.error("Error eliminando la orden:", error);
       alert("Ocurrió un error al eliminar la orden.");
@@ -117,7 +136,7 @@ function OrderCompany() {
                 <td>{order.status_order}</td>
                 <td>{order.total_price ? `$${order.total_price}` : 'N/A'}</td>
                 <td>
-                  <div className="btn btn-delete" onClick={() => handleEliminar(order.id)}>
+                  <div className="btn btn-delete" onClick={() => handleEliminar(order.id, order.active)}>
                     <img src={order.active ? eliminar : rechasado} alt='Eliminar order' className='img_List_Order' />
                   </div>
                 </td>
