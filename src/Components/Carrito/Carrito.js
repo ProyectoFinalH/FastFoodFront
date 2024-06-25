@@ -78,7 +78,7 @@ function Carrito({ onClose }) {
   useEffect(() => {
     const cards = obtenerItemsCarrito() || [];
     setSelectedCards(cards);
-    alertify.alert("error", "este es el carrito"+ getSelctRestaurantapp())
+   // alertify.alert("error", "este es el carrito"+ getSelctRestaurantapp())
     if (!restaurante) {
       dispatch(Sellcionar_Restaurante(getSelctRestaurantapp()))
       setSelectRestid(getSelctRestaurantapp());
