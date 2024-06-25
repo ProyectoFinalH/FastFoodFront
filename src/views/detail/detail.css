@@ -1,166 +1,106 @@
 .detailContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
   z-index: 1000;
 }
 
 .detailCardContainer {
   background-color: #fff;
-  width: 80%;
-  max-width: 600px;
-  padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow-y: auto;
-  max-height: calc(100vh - 100px);
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+.buttonClose {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonClose button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.title-detail {
+  text-align: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.title-detail h2 {
+  font-size: 24px;
+  margin: 0;
 }
 
 .imageDetail {
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .imageDetail img {
   max-width: 50%;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 .cardDetail {
-  padding: 10px 0;
-}
-
-.title-container,
-.unidades-container {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.title-container h2,
-.unidades-container h2 {
-  font-size: 1.5rem;
-  color: #333333;
+  margin-bottom: 15px;
 }
 
 .description-detail {
-  text-align: justify;
-  margin-bottom: 10px;
-  margin: 15px;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
 }
 
 .cantContainer {
-  margin-top: 20px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
 }
 
 .botones-flex-detail {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  background-color: #ff5a5f;
-  padding: 8px;
-  border-radius: 55px;
   margin-top: 10px;
-}
-
-.botones-flex-detail label {
-  background-color: #ff5a5f;
-  color: #fff;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 8px;
-  margin: 0 5px;
-}
-
-.botones-flex-detail label:hover {
-  background-color: #d94c51;
 }
 
 .buttonDecInc-Menu {
   display: flex;
   align-items: center;
+  margin: 0 auto;
 }
 
-.buttonDecInc-Menu label {
-  background-color: #ff5a5f;
-  color: #fff;
-  font-size: 1rem;
-  border-radius: 5px;
+.aumentardisminuir {
   cursor: pointer;
-  padding: 8px;
-  margin: 0 5px;
-}
-
-.buttonDecInc-Menu label:hover {
-  background-color: #d94c51;
+  font-size: 20px;
+  padding: 0 10px;
+  user-select: none;
 }
 
 .inputcard {
   width: 40px;
   text-align: center;
-  border: none;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #f0f0f0;
   margin: 0 5px;
 }
 
-.buttonClose {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.buttonClose button {
-  background-color: #ff5a5f;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.buttonClose button:hover {
-  background-color: #d94c51;
-}
-
 .car-aumentardisminuir {
-  margin-left: 10px;
+  cursor: pointer;
   width: 30px;
   height: 30px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.car-aumentardisminuir:hover {
-  transform: scale(1.1);
-}
-
-.title-detail {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.title-detail h2 {
-  font-size: 1.5rem;
-  color: #333333;
-  margin-left: 0;
-}
-
-.unidades-detail {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.unidades-detail h2 {
-  font-size: 1.5rem;
-  color: #333333;
-  margin-left: 0;
 }
