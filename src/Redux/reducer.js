@@ -39,6 +39,10 @@ import {
   UPDATE_USER_DATA,//! actualizar la data
   SELECTRESTAURANTE, //!Seleccionamos es restaurante
   GET_DETAIL_EMPRESA,
+  PUT_DETAIL_EMPRESA,
+  GET_CATEGORIES_COMPANY,
+  GET_MENUITEMS_COMPANY,
+  GET_MENUS_COMPANY,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -68,7 +72,10 @@ const initialState = {
   token: null,//estado global que guarda el token obtenido en login
   EMPRESAUSER: null,
   SELCTRESTAURANT: null, //!Seleccionamos El restaurante 
-  Detail_Empresa: null
+  Detail_Empresa: null,
+  categoriesCompany: [],
+  menusCompany: [],
+  menuItemsCompany: [],
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -292,6 +299,26 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         Detail_Empresa: payload
+      }
+    case PUT_DETAIL_EMPRESA:
+      return {
+        ...state,
+        Detail_Empresa: payload
+      }
+    case GET_CATEGORIES_COMPANY:
+      return {
+        ...state,
+        categoriesCompany: payload
+      }
+    case GET_MENUITEMS_COMPANY:
+      return {
+        ...state,
+        menuItemsCompany: payload
+      }
+    case GET_MENUS_COMPANY:
+      return {
+        ...state,
+        menusCompany: payload
       }
 
     default:

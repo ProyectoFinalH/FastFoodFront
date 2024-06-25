@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import InfoCompany from '../infoCompany/infoCompany';
+import DetailCompany from "../detailCompany/detailCompany";
 import ProductsCompany from '../productsCompany/productsCompany';
 import OrderCompany from '../orderCompany/orderCompany';
 import "./sidebarCompany.css"
@@ -47,7 +47,7 @@ function Sidebar({restaurant}) {
 
         {selectedOption === 1 && <ProductsCompany />}
         {selectedOption === 4 && <MenuesCompany />}
-        {selectedOption === 2 && <InfoCompany restaurant={restaurant}/>}
+        {selectedOption === 2 && <DetailCompany/>}
         {selectedOption === 3 && <OrderCompany />}
         {selectedOption === 5 && <LoginPrincipal />}
         {selectedOption === 6 && <CategoriesCompany />}
