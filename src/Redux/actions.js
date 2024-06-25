@@ -613,6 +613,12 @@ export const Listado_Orders_Usuario = (userId) => {
     try {
       const endpoint = `http://localhost:5000/orders/user/${userId}`;
       const response = await axiosInstance.get(endpoint);
+      
+      console.log("Respuesta del servidor:", response);
+
+      if (response.data && response.data.length === 0) {
+        console.log("El usuario no tiene órdenes.");
+      }
 
       dispatch({
         type: LISTADOORDERSUSERS,
