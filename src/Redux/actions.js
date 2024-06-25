@@ -37,6 +37,10 @@ import {
   UPDATE_USER_DATA, //! obtener la data actualizacion 
   SELECTRESTAURANTE, //!seleccionamos el restaurrante
   GET_DETAIL_EMPRESA,
+  PUT_DETAIL_EMPRESA,
+  GET_CATEGORIES_COMPANY,
+  GET_MENUITEMS_COMPANY,
+  GET_MENUS_COMPANY,
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
@@ -292,6 +296,31 @@ export function getAllMenusAdmin() {
     const response = await axiosInstance.get(`http://localhost:5000/menus/restaurant/${restaurantId}`);
     return dispatch({
       type: GET_MENUS_ADMIN,
+      payload: response.data,
+    });
+  };
+}
+export function getAllMenusCompany() {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    
+    const response = await axiosInstance.get(`http://localhost:5000/menus/restaurant/${restaurantId}`);
+    return dispatch({
+      type: GET_MENUS_COMPANY,
+      payload: response.data,
+    });
+  };
+}
+export function getAllMenuitemsCompany() {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    const response = await axiosInstance.get(`http://localhost:5000/menuitems/restaurant/${restaurantId}`);
+    return dispatch({
+      type: GET_MENUITEMS_COMPANY,
       payload: response.data,
     });
   };
@@ -887,6 +916,26 @@ export function getAllCategoriesAdmin() {
     
   };
 }
+export function getAllCategoriesCompany() {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    
+    try {
+      const response = await axiosInstance(`http://localhost:5000/categories/restaurant/${restaurantId}`);
+      console.log("Categorías obtenidas:", response.data);
+      return dispatch({
+        type: GET_CATEGORIES_COMPANY,
+        payload: response.data,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
 
 //! Actualizo la orden
 export const Actualizar_Orden_Compra_MP = (ordenid, orderData) => {
@@ -1033,7 +1082,32 @@ export const Data_Empresa=(id)=>{
     
   };
 }
+export const Update_Empresa=(formData)=>{
+  return async  (dispatch,getState)=> {
+    const token = getToken();
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token.data);
+    console.log("id restaurante",restaurantId);
+    try {
+    const endpoint = `http://localhost:5000/restaurants/${restaurantId}`;
+    const response = await axiosInstance.put(endpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log("detalle del action empresa",response)
+    dispatch({
+      type: PUT_DETAIL_EMPRESA,
+      payload: response.data, 
+    })
 
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay info de restaurante');
+      console.log(error)
+    }
+    
+  };
+}
 
 
 

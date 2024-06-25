@@ -1,5 +1,5 @@
 import {
-    getAllMenusAdmin
+    getAllMenusCompany
 } from "../../../Redux/actions";
 import "./menuesCompany.css";
 import React, { useState, useEffect } from "react";
@@ -11,14 +11,14 @@ import CreateMenuForm from "../../../Components/createMenu/createMenu";
 import { axiosInstance, configureAxios } from "../../../AuthContext/axiosInstance";
 function MenuesCompany() {
     const dispatch = useDispatch();
-    const allMenus = useSelector((state) => state.allMenusAdmin);
+    const allMenus = useSelector((state) => state.menusCompany);
     const [, setIsRestored] = useState(false);
     const { id } = useParams();    
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
     const token = useSelector((state)=> state.token.data);
 
     useEffect(() => {
-        dispatch(getAllMenusAdmin());
+        dispatch(getAllMenusCompany());
     }, [dispatch]);
 
     useEffect(() => {
@@ -49,7 +49,7 @@ function MenuesCompany() {
                 }
                 return item;
             });
-            dispatch(getAllMenusAdmin(updatedMenus));
+            dispatch(getAllMenusCompany(updatedMenus));
         } catch (error) {
             console.error('Hubo un error al realizar la solicitud', error);
         }

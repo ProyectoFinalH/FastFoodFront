@@ -1,5 +1,5 @@
 import {
-    getAllCategoriesAdmin
+    getAllCategoriesCompany
 } from "../../../Redux/actions";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,7 @@ import { axiosInstance, configureAxios } from "../../../AuthContext/axiosInstanc
 
 function CategoriesCompany() {
     const dispatch = useDispatch();
-    const allCategories = useSelector((state) => state.allCategoriesAdmin);
+    const allCategories = useSelector((state) => state.categoriesCompany);
     const [, setIsRestored] = useState(false);
     const { id } = useParams();
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
@@ -21,7 +21,7 @@ function CategoriesCompany() {
 
 
     useEffect(() => {
-        dispatch(getAllCategoriesAdmin());
+        dispatch(getAllCategoriesCompany());
     }, [dispatch]);
 
     useEffect(() => {
@@ -51,7 +51,7 @@ function CategoriesCompany() {
                 }
                 return item;
             });
-            dispatch(getAllCategoriesAdmin(updatedMenus));
+            dispatch(getAllCategoriesCompany(updatedMenus));
         } catch (error) {
             console.error('Hubo un error al realizar la solicitud', error);
         }
