@@ -74,6 +74,7 @@ const LoginAdmin = () => {
           }); 
         }
       else{
+        window.localStorage.setItem('loggedFastFoodAdmin',JSON.stringify(token))
         navigate("/Admin")//si tiene rol superadmin va Admin
       }  
 

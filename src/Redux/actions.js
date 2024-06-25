@@ -37,6 +37,7 @@ import {
   UPDATE_USER_DATA, //! obtener la data actualizacion 
   SELECTRESTAURANTE, //!seleccionamos el restaurrante
   GET_DETAIL_EMPRESA,
+  SET_TOKEN, // para setear el valor del token 
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
@@ -343,6 +344,7 @@ export function getAllRestaurants() {
 export function getAllRestaurantsAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
+    console.log(token);
     configureAxios(token);
 
     try {
@@ -863,6 +865,13 @@ export const loginAdmin = (formData) => {
 
 export const logoutAdmin = () => ({
   type: ADMIN_LOGOUT,
+});
+
+export const setTokenAdmin =(tokenLocalStorage)=>({
+  
+    type: SET_TOKEN,
+    payload:tokenLocalStorage,
+  
 });
 //=============================================================================//
 

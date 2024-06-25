@@ -39,6 +39,7 @@ import {
   UPDATE_USER_DATA,//! actualizar la data
   SELECTRESTAURANTE, //!Seleccionamos es restaurante
   GET_DETAIL_EMPRESA,
+  SET_TOKEN,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -293,6 +294,12 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         Detail_Empresa: payload
       }
+    
+    case SET_TOKEN:
+      return {
+        ...state,
+        token: payload
+      }  
 
     default:
       return { ...state };
