@@ -482,38 +482,24 @@ export function getAllCategories() {
 
 export const updateUser = (id, userData) => {
   return async (dispatch, getState) => {
-      const token = getState().token;
-      configureAxios(token.data);
-    
-      if (!token) {
-          console.error("Token de autenticación no encontrado.");
-          alert("Usuario no autenticado. Inicia sesión nuevamente.");
-          throw new Error("Usuario no autenticado.");
-      }
-
+    const token = getState().token.data;
+    configureAxios(token);
 
     try {
-      console.log('data a modificar del user',userData);
-      const endpoint = `http://localhost:5000/users/${id}`;
+      const endpoint = `http://localhost:5000/users/update/${id}`;
       const response = await axiosInstance.put(endpoint, userData);
-
       
+      dispatch({
+        type: UPDATE_USER,
+        payload: response.data,
+      });
 
+      alertify.success("Usuario actualizado correctamente");
 
-       dispatch({
-              type: UPDATE_USER,
-              payload: response.data,
-          });
-
-          dispatch({
-            type: UPDATE_USER_DATA,
-            payload: response.data, 
-          })
-      } catch (error) {
-          console.error("Error al actualizar usuario:", error.message);
-          alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
-          throw error;
-      }
+    } catch (error) {
+      console.error("Error al actualizar el usuario:", error);
+      alertify.error("Error al enviar la información. Detalle: " + error.message);
+    }
   };
 };
 
@@ -620,33 +606,32 @@ export const Eliminar_Registro_Compra = (id)=>{
 
 //!Identificar datos del las ordenes del Usuario 
 
-export const  Listado_Orders_Usuario=(id)=>{
-  return async (dispatch,getState) => {
-    const token=getState().token.data;
+export const Listado_Orders_Usuario = (userId) => {
+  return async (dispatch, getState) => {
+    const token = getState().token.data;
     configureAxios(token);
 
     try {
-      const endpoint = `http://localhost:5000/orders/user/${id}`;
-      const response = await  axiosInstance.get(endpoint);
-      const data = response.data;
-      //alert("Esta es la lista de compras "+compra)
-      console.log("Este si es " + JSON.stringify(data));
+      const endpoint = `http://localhost:5000/orders/user/${userId}`;
+      const response = await axiosInstance.get(endpoint);
+      
+      console.log("Respuesta del servidor:", response);
+
+      if (response.data && response.data.length === 0) {
+        console.log("El usuario no tiene órdenes.");
+      }
+
       dispatch({
         type: LISTADOORDERSUSERS,
-        payload: data,
-      }); 
+        payload: response.data,
+      });
 
-
-
-   
     } catch (error) {
-      console.log(error);
-      alert("Error al enviar la información", error.message);
-      console.log("Error al enviar la información", error.message);
+      console.error("Error al obtener las órdenes del usuario:", error);
+      alertify.error("Error al enviar la información. Detalle: " + error.message);
     }
-  
-  }
-}
+  };
+};
 //!Actualizar la compra de usuario
 
 export const Actualizar_Compra_Usuario = (datauser) => {

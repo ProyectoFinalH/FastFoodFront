@@ -82,54 +82,50 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   if (!isOpen || !menuItem) return null;
 
   return (
-    <div>
-      <div className="detailContainer">
-        <div ref={detailRef} className="detailCardContainer">
-          <div className="buttonClose">
-            <button onClick={handleCloseModal}>X</button>
-          </div>
-          <div className="imageDetail">
-            <img src={menuItem?.image_url} alt={menuItem.name} />
-          </div>
-          <div className="cardDetail">
-            <div className="title-detail">
-              <h2>{menuItem?.name}</h2>
-            </div>
-            <p className="description-detail">{menuItem?.description}</p>
-          </div>
-          <div className="cantContainer">
-            <div className="unidades-detail">
-              <h2>Unidades</h2>
-            </div>
-            <div className="botones-flex-detail">
-              <div className="buttonDecInc-Menu">
-                <label
-                  className="aumentardisminuir"
-                  onClick={() => handleDisminuirItem(menuItem.id)}
-                >
-                  -
-                </label>
-                <input
-                  className="inputcard"
-                  type="text"
-                  value={obtenerContCarrito(menuItem.id)}
-                  disabled
-                />
-                <label
-                  className="aumentardisminuir"
-                  onClick={() => handleAumentarItem(menuItem.id)}
-                >
-                  +
-                </label>
-              </div>
-              <img
-                src={carrito}
-                title="Ve Al Carrito"
-                alt="Carrito"
-                className="car-aumentardisminuir"
-                onClick={handleMenuCarrito}
+    <div className="detailContainer">
+      <div className="detailCardContainer" ref={detailRef}>
+        <div className="buttonClose">
+          <button onClick={handleCloseModal}>X</button>
+        </div>
+        <div className="title-detail">
+          <h2>{menuItem?.name}</h2>
+        </div>
+        <div className="imageDetail">
+          <img src={menuItem?.image_url} alt={menuItem.name} />
+        </div>
+        <div className="cardDetail">
+          <p className="description-detail">{menuItem?.description}</p>
+        </div>
+        <div className="cantContainer">
+          <h2>Unidades</h2>
+          <div className="botones-flex-detail">
+            <div className="buttonDecInc-Menu">
+              <label
+                className="aumentardisminuir"
+                onClick={() => handleDisminuirItem(menuItem.id)}
+              >
+                -
+              </label>
+              <input
+                className="inputcard"
+                type="text"
+                value={obtenerContCarrito(menuItem.id)}
+                disabled
               />
+              <label
+                className="aumentardisminuir"
+                onClick={() => handleAumentarItem(menuItem.id)}
+              >
+                +
+              </label>
             </div>
+            <img
+              src={carrito}
+              title="Ve Al Carrito"
+              alt="Carrito"
+              className="car-aumentardisminuir"
+              onClick={handleMenuCarrito}
+            />
           </div>
         </div>
       </div>
