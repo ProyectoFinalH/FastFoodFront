@@ -82,11 +82,7 @@ function Navbar() {
                   Mi cuenta
                 </NavLink>
               </li>
-            ) : null}
-            <li>
-              <NavLink to="/order">Mi Pedido</NavLink>
-            </li>
-           
+            ) : null}        
             {!User || User.name !== "invitado" ? (
               <li>
                 <button className="close-btn" onClick={handleLogout}>
