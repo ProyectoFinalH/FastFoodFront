@@ -1,10 +1,12 @@
 /* orederCompay.css */
 
 .container {
+
     margin-left: 10%;
     margin-right: 10%;
     display: flex;
     justify-content: center;
+
   }
   
   .orderCompany h1 {

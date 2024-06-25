@@ -545,6 +545,7 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
         type: CREATECOMPRA,
         payload: compra,
       });
+      return compra;
     } catch (error) {
      // alert("Error al enviar la información: " + error.message);
       console.log("Error al enviar la información: " + error.message);
