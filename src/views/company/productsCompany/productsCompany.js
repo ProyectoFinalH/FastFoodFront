@@ -42,7 +42,7 @@ function ProductsCompany() {
           <CreateMenuItem />
           <button className="custom-modal-button" onClick={() => setShowCreateCategoryModal(false)}>X</button>
         </ReactModal>
-        <button onClick={() => setShowCreateCategoryModal(true)}>Crear Item Menu</button>
+        <button onClick={() => setShowCreateCategoryModal(true)}>Crear Producto</button>
       </div>
       <div className="cardMenusContainer2">
         <CardsMenuItems AllMenuitems={filteredMenuItems} selectMenuItem={selectMenuItem} hideCartButtons={true} showEyeIcon={true} />

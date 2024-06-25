@@ -67,7 +67,7 @@ function CreateMenuItem() {
   return (
     <div className="createmenu">
       <div className="menuitemcontainer">
-        <h1>Create Item Menu</h1>
+        <h1>Formulario del producto</h1>
         <label htmlFor="menuItemName">Nombre del menú:</label>
         <select onChange={handleMenuChange}>
           <option value="">Seleccionar Menú</option>
@@ -90,7 +90,7 @@ function CreateMenuItem() {
             </option>
           ))}
         </select>
-        <label htmlFor="menuItemName">MenuItem Name:</label>
+        <label htmlFor="menuItemName">Nombre del producto:</label>
         <input
           type="text"
           id="menuItemName"
@@ -98,7 +98,7 @@ function CreateMenuItem() {
           value={menuItemName}
           onChange={(event) => setMenuItemName(event.target.value)}
         />
-        <label htmlFor="description">Description:</label>
+        <label htmlFor="description">Descripción:</label>
         <input
           className="description"
           type="text"
@@ -107,7 +107,7 @@ function CreateMenuItem() {
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
-        <label htmlFor="price">Price:</label>
+        <label htmlFor="price">Precio:</label>
         <input
           type="number"
           id="price"
@@ -115,14 +115,16 @@ function CreateMenuItem() {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
-        <label htmlFor="imageUrl">Image URL:</label>
+        <label htmlFor="imageUrl">Imagen:</label>
+        <label htmlFor="imageUrl" className="customFileButton2" >Subir Imagen</label>
         <input
           type="file"
           name="image_url"
           onChange={handleImageChange}
-          id="imageUrl"
+          id="imageUrl"          
+          style={{ display: "none" }}
         />
-        <button onClick={handleMenuItem}>Create Item</button>
+        <button onClick={handleMenuItem}>Crear Producto</button>
         {itemSuccessMessage && (
           <p className="success-message">{itemSuccessMessage}</p>
         )}
