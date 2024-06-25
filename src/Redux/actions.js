@@ -292,10 +292,9 @@ export function getAllMenus() {
 export function getAllMenusAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
-    const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
     
-    const response = await axiosInstance.get(`http://localhost:5000/menus/restaurant/${restaurantId}`);
+    const response = await axiosInstance.get(`http://localhost:5000/menus/all`);
     return dispatch({
       type: GET_MENUS_ADMIN,
       payload: response.data,
@@ -331,9 +330,8 @@ export function getAllMenuitemsCompany() {
 export function getAllMenuitemsAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
-    const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
-    const response = await axiosInstance.get(`http://localhost:5000/menuitems/restaurant/${restaurantId}`);
+    const response = await axiosInstance.get(`http://localhost:5000/menuitems/all`);
     return dispatch({
       type: GET_MENUITEMS_ADMIN,
       payload: response.data,
