@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Listado_Orders_Usuario } from "../../Redux/actions";
 
-import './Order_User.css'
+import "./Order_User.css";
 
 const OrderUsers = () => {
   const Listado = useSelector((state) => state.ListaOrderUser);
@@ -39,8 +39,9 @@ const OrderUsers = () => {
           <table>
             <thead>
               <tr>
-                <th><div className="Cetrado-textos">Número de Ordenes</div></th>
-               
+                <th>
+                  <div className="Cetrado-textos">Número de Ordenes</div>
+                </th>
                 <th>Restaurante</th>
                 <th>Items</th>
                 <th>Estado</th>
@@ -49,30 +50,34 @@ const OrderUsers = () => {
             </thead>
             <tbody>
               {Listado.map((order) => (
-                <tr key={order.id} className={ order.status_order === "Registrada"
-                  ? "Clas-order-Registrada"
-                  : order.status_order === "Pago aceptado"
-                  ? "Clas-order-Aceptado"
-                  : "Clas-order-Reprobado"
-  }>
-                  <td > <div className="Cetrado-textos">{order.id}</div></td>
-                 
+                <tr
+                  key={order.id}
+                  className={
+                    order.status_order === "Registrada"
+                      ? "Clas-order-Registrada"
+                      : order.status_order === "Pago aceptado"
+                      ? "Clas-order-Aceptado"
+                      : "Clas-order-Reprobado"
+                  }
+                >
+                  <td>
+                    {" "}
+                    <div className="Cetrado-textos">{order.id}</div>
+                  </td>
                   <td>{order.restaurant_name}</td>
                   <td>
                     <ul>
-                      {Array.isArray(order.items) ? (
-                        order.items.map((item, index) => (
-                          <li key={index}>
-                            {item.name} - {item.price} x {item.cont || 1}
-                          </li>
-                        ))
-                      ) : (
-                        JSON.parse(order.items).map((item, index) => (
-                          <li key={index}>
-                            {item.name} - {item.price} x {item.cont || 1}
-                          </li>
-                        ))
-                      )}
+                      {Array.isArray(order.items)
+                        ? order.items.map((item, index) => (
+                            <li key={index}>
+                              {item.name} - {item.price} x {item.cont || 1}
+                            </li>
+                          ))
+                        : JSON.parse(order.items).map((item, index) => (
+                            <li key={index}>
+                              {item.name} - {item.price} x {item.cont || 1}
+                            </li>
+                          ))}
                     </ul>
                   </td>
                   <td>{order.status_order}</td>
@@ -83,7 +88,7 @@ const OrderUsers = () => {
           </table>
         </div>
       ) : (
-        <p>No hay órdenes disponibles.</p>
+        !loading && <p>No hay órdenes disponibles.</p>
       )}
     </div>
   );
