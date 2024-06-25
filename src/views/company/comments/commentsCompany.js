@@ -19,12 +19,16 @@ function CommentsCompany() {
 
     return (
         <div className="commentsCompany">
+
             <h1>Comentarios & Reviews</h1>
+
             <div className="tableContainer">
                 <table className="styled-table2">
                     <thead>
                         <tr>
+
                             <th className="table-header">Comentario No.</th>
+
                             <th className="table-header">Usuario</th>
                             <th className="table-header-comment"> Comentario</th>
                             <th className="table-header">Calificación</th>
