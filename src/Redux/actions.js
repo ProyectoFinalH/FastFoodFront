@@ -38,6 +38,7 @@ import {
   SELECTRESTAURANTE, //!seleccionamos el restaurrante
   GET_DETAIL_EMPRESA,
   SET_TOKEN, // para setear el valor del token 
+  CLEAR_TOKEN,
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
@@ -344,7 +345,6 @@ export function getAllRestaurants() {
 export function getAllRestaurantsAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
-    console.log(token);
     configureAxios(token);
 
     try {
@@ -846,7 +846,6 @@ export const loginAdmin = (formData) => {
       const URL="http://localhost:5000/users/login"
       let response=await axios.post(URL,formData);
 
-      console.log("Admin", JSON.stringify(response))
       return dispatch({
         type:ADMIN_LOGIN,
         payload: response
@@ -873,6 +872,10 @@ export const setTokenAdmin =(tokenLocalStorage)=>({
     payload:tokenLocalStorage,
   
 });
+
+export const clearTokenAdmin=()=>({
+  type: CLEAR_TOKEN,
+})
 //=============================================================================//
 
 

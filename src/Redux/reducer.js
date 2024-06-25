@@ -40,6 +40,7 @@ import {
   SELECTRESTAURANTE, //!Seleccionamos es restaurante
   GET_DETAIL_EMPRESA,
   SET_TOKEN,
+  CLEAR_TOKEN,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -300,6 +301,12 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         token: payload
       }  
+
+    case CLEAR_TOKEN:
+      return {
+        ...state,
+        token: null
+    } 
 
     default:
       return { ...state };

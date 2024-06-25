@@ -51,3 +51,4 @@ export const GET_DETAIL_EMPRESA = "GET_DETAIL_EMPRESA"
 
 //Admin
 export const SET_TOKEN = "SET_TOKEN"
+export const CLEAR_TOKEN = "CLEAR_TOKEN"
