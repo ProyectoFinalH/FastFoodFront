@@ -45,6 +45,7 @@ import {
   GET_CATEGORIES_COMPANY,
   GET_MENUITEMS_COMPANY,
   GET_MENUS_COMPANY,
+  GET_COMMENTS_COMPANY,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -78,6 +79,7 @@ const initialState = {
   categoriesCompany: [],
   menusCompany: [],
   menuItemsCompany: [],
+  commentsCompany: [],
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -333,7 +335,11 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         menusCompany: payload
       }
-
+      case GET_COMMENTS_COMPANY:
+        return {
+          ...state,
+          commentsCompany: payload
+          }
     default:
       return { ...state };
   }

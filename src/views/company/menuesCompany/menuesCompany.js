@@ -73,7 +73,7 @@ function MenuesCompany() {
             <div className="menusContainer">
                 {allMenus.map((menu) => (
                     <div className="menuCardsCompany" key={menu.id}>
-                        {menu.name}
+                        {menu.name.charAt(0).toUpperCase() + menu.name.slice(1)}
                         <div className={menu.active ? 'button-show' : 'button-hide'} onClick={() => toggleItemState(menu)}>
                             {menu.active ? '👁 Ocultar' : '👁 Mostrar'}
                         </div>
