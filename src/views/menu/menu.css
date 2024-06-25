@@ -28,7 +28,7 @@
   gap: 20px;
   position: sticky;
   top: 0.1px;
-  height: 60vh;
+  
 }
 
 .button-back {
@@ -136,9 +136,50 @@ button:hover {
 }
 
 .ratingContainer{
+  color: #000;
   display: flex;
     align-items: center;
     margin: 0px 10px 0px 10px;
     justify-content: space-between;
     cursor: pointer;
+    margin-bottom: 30px;
+   
+}
+
+.ratingContainer:hover{
+  
+  color: #949494;
+
+}
+
+.opinionesContainer{
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ratingContainerMenu{
+  color: #000;
+  display: flex;
+    align-items: center;
+    
+    justify-content: space-between;
+    cursor: pointer;
+   
+}
+.ratingContainerMenu:hover{
+  
+  color: #949494;
+
+}
+.opinionesContainer:hover{
+  
+  color: #949494;
+
+}
+.ratingContainerMenu p {
+
+  color: #ffcc00;
 }

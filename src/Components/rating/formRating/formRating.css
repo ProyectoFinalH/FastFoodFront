@@ -1,0 +1,61 @@
+
+.form-rating-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+  
+  .form-rating-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-rating-container h2 {
+    margin-top: 0;
+  }
+  
+  .form-rating-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-rating-container .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-rating-container label {
+    font-weight: bold;
+  }
+  
+  .form-rating-container input[type="text"],
+  .form-rating-container input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-rating-container button {
+    background-color: #ff5a5f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .form-rating-container button:hover {
+    background-color: #f86e72;
+  }

@@ -39,6 +39,8 @@ import {
   UPDATE_USER_DATA,//! actualizar la data
   SELECTRESTAURANTE, //!Seleccionamos es restaurante
   GET_COMMENT,
+  CLEAR_COMMENTS,
+  POST_COMMENT
 } from "../Redux/action-types";
 
 const initialState = {
@@ -68,7 +70,7 @@ const initialState = {
   token:null,//estado global que guarda el token obtenido en login
   EMPRESAUSER:null,
   SELCTRESTAURANT:null, //!Seleccionamos El restaurante 
-  allComents:[],
+  allComments:[],
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -292,9 +294,19 @@ const reducer = (state = initialState, { type, payload }) => {
         case GET_COMMENT:
           return {
             ...state,
-            allComents: payload
+            allComments: payload
           }
-
+          case CLEAR_COMMENTS:
+            return {
+              ...state,
+              allComments: []
+            }
+            case POST_COMMENT:
+              return {
+                ...state,
+                allComments: payload
+              }
+          
 
     default:
       return { ...state };
