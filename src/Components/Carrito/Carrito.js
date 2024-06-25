@@ -28,7 +28,8 @@ import alertify from "alertifyjs";
 function Carrito({ onClose }) {
   //const dispach = useDispatch()
   const User = useSelector((state) => state.USER);
-  const Empresa = useSelector((state)=>state.allRestaurants)
+  //const Empresa = useSelector((state)=>state.allRestaurants)
+  const CompraEmpresa = useSelector((state)=>state.SELCTRESTAURANT)
   const Carrito = useSelector((state) => state.Carrito);
   //const [datopago, setDatopago] = useState({url:''})
   
@@ -85,7 +86,7 @@ function Carrito({ onClose }) {
      const id = await createPreference();
      const baseUrl = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=";
      const prefere = id.replace(baseUrl, "");
-    
+    alert(prefere)
      
           if (prefere) {
      
@@ -156,7 +157,7 @@ function Carrito({ onClose }) {
   };
 
   const handlePagar = async () => {
-    const restaurant_id = Empresa[0].id //!agrego item Empresa para comprender a quien se le vende, se debe identificar el vector al que pertenece
+    const restaurant_id = CompraEmpresa //!agrego item Empresa para comprender a quien se le vende, se debe identificar el vector al que pertenece
    
     if (!User || !User.state) {
       alert("Debes registrarte para poder hacer tu pedido");
@@ -187,13 +188,13 @@ function Carrito({ onClose }) {
           setSelectedCards([]);
           setCompraRealizada(true);
           setOrdenCompra(compraData);
-         setPagarestado(true)
-         setOrder(data)
+          setPagarestado(true)
+          setOrder(data)
        
         })
         .catch((error) => {
           console.error("Error al procesar el pago", error.message);
-          alert("Error al procesar el pago", error.message);
+          alert("Error al procesar el pago", JSON.stringify( error.message));
         });
     }
   };

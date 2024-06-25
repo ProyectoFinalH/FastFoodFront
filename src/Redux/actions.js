@@ -484,11 +484,12 @@ export const updateUser = (id, userData) => {
       }
   };
 };
-
 export const Desarrollode_Compra = (cards, id, res_id) => {
-  return async (dispatch,getState) => {
-    const token=getState().token.data;
-    configureAxios(token);
+  return async (dispatch, getState) => {
+    const token = getState().token.data;
+    const token2 = getToken().data
+    configureAxios(token2);
+    alert("token jose:"+ token +" Token Luis "+token2)
 
     try {
       // Calcular el costo total de todos los productos
@@ -504,7 +505,6 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
       }));
 
       console.log("Items array:", items); // Verificar el formato de items
-      
 
       // Crear el objeto dataquery con las propiedades en el orden especificado
       const dataquery = {
@@ -515,10 +515,11 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
       };
 
       console.log("Dataquery:", dataquery); // Verificar el formato de dataquery
-
-      console.log("Datos enviados: " + JSON.stringify(dataquery));
+     
       const endpoint = "http://localhost:5000/orders/create";
+      
       const response = await axiosInstance.post(endpoint, dataquery);
+      alert(token)
       const compra = response.data;
 
       console.log("Esta es la compra: " + JSON.stringify(compra));
@@ -527,13 +528,31 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
         type: CREATECOMPRA,
         payload: compra,
       });
+
+      return compra; // Devuelve la respuesta de la compra
     } catch (error) {
-     // alert("Error al enviar la información: " + error.message);
-      console.log("Error al enviar la información: " + error.message);
+      console.error("Error al enviar la información: ", error);
+      
+      if (error.response) {
+        // Error de respuesta del servidor
+        console.error("Datos del error de respuesta:", error.response.data);
+        console.error("Estado del error de respuesta:", error.response.status);
+        console.error("Cabeceras del error de respuesta:", error.response.headers);
+        alertify.alert("Mensaje", `Error al enviar la información: ${error.response.data.message}`);
+      } else if (error.request) {
+        // Error de solicitud, no se recibió respuesta
+        console.error("Error en la solicitud:", error.request);
+        alertify.alert("Mensaje", "No se recibió respuesta del servidor.");
+      } else {
+        // Otro tipo de error
+        console.error("Error", error.message);
+        alertify.alert("Mensaje", `Error al enviar la información: ${error.message}`);
+      }
+      
+      return null;
     }
   };
 };
-
 //crear la lista de ordenes comapny
 
 export const Create_Lista_Order_Company = () => {
