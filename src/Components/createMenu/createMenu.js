@@ -9,9 +9,6 @@ function CreateMenuForm() {
     const [menuSuccessMessage, setMenuSuccessMessage] = useState("");
     const [menuErrorMessage, setMenuErrorMessage] = useState("");
 
-
-
-
     const handleSubmit = (event) => {
         event.preventDefault();
         if (menuName.menuname.trim() === "") {
@@ -20,20 +17,17 @@ function CreateMenuForm() {
             dispatch(CreateMenu({ name: menuName.menuname, restaurant_id: 2 }));
             setMenuSuccessMessage("Menú creado con éxito");
         }
-    };
-    
+    };   
 
     useEffect(() => {
         dispatch(getAllCategories());
         dispatch(getAllMenus());
     }, [dispatch]);
-    
-
 
     return (
         <div className="createmenu">
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Create Menu</h1>
+                <h1>Formulario del Menú</h1>
                 <label htmlFor="menuName">Nombre del menú:</label>
                 <input
                     type="text"
@@ -42,7 +36,7 @@ function CreateMenuForm() {
                     onChange={(event) => setMenuName({ ...menuName, menuname: event.target.value })}
                     maxLength={24}
                 />
-                <button type="submit">Create Menu</button>
+                <button type="submit">Crear Menú</button>
                 {menuSuccessMessage && <p className="success-message">{menuSuccessMessage}</p>}
                 {menuErrorMessage && <p className="error-message">{menuErrorMessage}</p>}
             </form>            

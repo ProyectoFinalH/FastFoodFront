@@ -30,6 +30,8 @@ const LoginAdmin = () => {
   });
   const [errors, setErrors] = useState({});
 
+  const [isSubmitComplete, setIsSubmitComplete] = useState(false);
+
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
   };
@@ -54,15 +56,15 @@ const LoginAdmin = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      dispatch(loginAdmin(formData, navigate));//Lee y guarda token en variable global=token
-      
+      dispatch(loginAdmin(formData));//Lee y guarda token en variable global=token
+      setIsSubmitComplete(true);
     }
   };
 
   const isButtonDisabled = Object.keys(errors).length !== 0;
 
   useEffect(()=>{
-    if (token){
+    if (isSubmitComplete&&token){
     
       const infoAdmin=jwtDecode(token.data);//Decodifica el token
       
@@ -74,17 +76,19 @@ const LoginAdmin = () => {
           }); 
         }
       else{
+        
+        window.localStorage.setItem('loggedFastFoodAdmin',JSON.stringify(token))
         navigate("/Admin")//si tiene rol superadmin va Admin
       }  
 
-    }else{
+    }else if (isSubmitComplete && !token){
       alertify.alert("Mensaje", //si no hay token regresa a Login
-        'No hay token presente, debe loguearse para continuar',()=>{
+        'Credenciales invalidas, debe loguearse para continuar',()=>{
           navigate("/loginAdmin");
         }); 
       
     }
-  },[token,navigate,dispatch]);
+  },[token,isSubmitComplete,navigate,dispatch]);
 
   return (
     <div className="login-admin-container">

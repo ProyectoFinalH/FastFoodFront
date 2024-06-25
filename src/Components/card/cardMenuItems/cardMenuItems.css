@@ -70,6 +70,18 @@
   margin-top: 10px;
 }
 
+.carritoIcon {
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.carritoIcon:hover {
+  transform: scale(1.1);
+}
+
 .iconoOjo {
   margin-left: 40%;
   width: 100px;

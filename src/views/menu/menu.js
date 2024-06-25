@@ -41,7 +41,7 @@ function Menu() {
   const navigate = useNavigate();
 
   const allRestaurants = useSelector((state) => state.allRestaurants);
-  const selctedRestaurant = useSelector((state)=>state.SELCTRESTAURANT)
+  const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
 
@@ -96,7 +96,7 @@ function Menu() {
       dispatch(login_user_localstorag(tem_Users));
       
       if (selectedRestaurantId) {
-       // alertify.alert("Este es el restaurante seleccionado " + selectedRestaurantId)
+        // alertify.alert("Este es el restaurante seleccionado " + selectedRestaurantId)
         navigate(`/menu/${selectedRestaurantId}`);
       } else {
         navigate("/menu");
@@ -126,10 +126,10 @@ function Menu() {
   //   return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   // };
   const applyPriceRangeFilter = (menuItems, range) => {
-    if (!range || typeof range !== 'string') {
+    if (!range || typeof range !== "string") {
       return menuItems;
     }
-  
+
     const [min, max] = range.split("-").map(Number);
     return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   };
@@ -203,7 +203,9 @@ function Menu() {
     removeOrder()
     navigate("/home");
 
+
   };  
+
 
   return (
     <div className="menu-container">
@@ -225,22 +227,13 @@ function Menu() {
             </div>
           </div>
           <div className="cardsContentMenu">
-
-          <div className="cards-menus-container">
-            
-            
-            
-            
-            <CardsMenus
-              AllMenus={allMenus}
-              handleSelectMenu={handleSelectMenu}
+            <div className="cards-menus-container">
+              <CardsMenus
+                AllMenus={allMenus}
+                handleSelectMenu={handleSelectMenu}
               />
-
-
-
-
+            </div>
           </div>
-              </div>
           <div className="search-container">
             <NavbarMenu
               searchString={searchString}
@@ -259,6 +252,7 @@ function Menu() {
         </div>
         <div className="cards-menus">
           <div className="cards-menu-items">
+
             
           {allMenus?.map((menu) => {
   // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
@@ -281,6 +275,33 @@ function Menu() {
   }
 })}
 
+            {allMenus?.map((menu) => {
+              // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
+              const menuItems = filteredMenuItems?.filter(
+                (menuItem) =>
+                  menuItem?.restaurant_id === selctedRestaurant &&
+                  menuItem?.menu_id === menu.id
+              );
+
+
+              if (menuItems?.length > 0) {
+                return (
+                  <div key={menu.id} className="menu-item-container">
+                    <h1 className="menu-title-menu">{menu.name}</h1>
+                    <CardsMenuItem
+                      AllMenuitems={menuItems}
+                      handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
+                    />
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={menu.id} className="menu-item-container">
+                    No hay categorías
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
       </div>
