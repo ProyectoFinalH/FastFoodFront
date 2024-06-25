@@ -22,13 +22,18 @@ import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
 
 import { login_user_localstorag } from "../../Redux/actions";
 
+
+
+import { removeOrder } from "../../Components/localStorage-car/LocalStorageCar";
 import {
   obtenerEstatusUsuario,
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+  getSelctRestaurantapp
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
+//import alertify from "alertifyjs";
 //import alertify from "alertifyjs";
 
 function Menu() {
@@ -45,6 +50,8 @@ function Menu() {
     "selectMenuItem",
     null
   );
+
+  const [selectedRestaurantId, setSelectedRestaurant] = useState();
 
   // const allCategories = useSelector((state)=> state.allCategories)
 
@@ -69,12 +76,16 @@ function Menu() {
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
   };
-  const selectedRestaurantId = selctedRestaurant;
+  
 
   //localstorang del usuario
   useEffect(() => {
     const email = obtenerCorreoUsuario();
+    const rest = getSelctRestaurantapp()
+//alertify.alert("menu", "este es el menu crweo" + rest)
+    setSelectedRestaurant(rest)
     // alert("mail es "+ email)
+
     if (email) {
       const tem_Users = {
         state: obtenerEstatusUsuario(),
@@ -83,6 +94,7 @@ function Menu() {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
+      
       if (selectedRestaurantId) {
         // alertify.alert("Este es el restaurante seleccionado " + selectedRestaurantId)
         navigate(`/menu/${selectedRestaurantId}`);
@@ -105,7 +117,7 @@ function Menu() {
   }, [dispatch]);
 
   const restaurant1 = allRestaurants?.find(
-    (restaurant) => restaurant?.id === selctedRestaurant
+    (restaurant) => restaurant?.id === selectedRestaurantId
   );
 
   //FILTRO POR RANGO
@@ -188,8 +200,12 @@ function Menu() {
 
   //Boton volver Atras
   const handleGoBack = () => {
+    removeOrder()
     navigate("/home");
-  };
+
+
+  };  
+
 
   return (
     <div className="menu-container">
@@ -236,6 +252,29 @@ function Menu() {
         </div>
         <div className="cards-menus">
           <div className="cards-menu-items">
+
+            
+          {allMenus?.map((menu) => {
+  // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
+  const menuItems = filteredMenuItems?.filter(
+    (menuItem) => menuItem?.restaurant_id === selectedRestaurantId && menuItem?.menu_id === menu.id
+  );
+
+  if (menuItems?.length > 0) {
+    return (
+      <div key={menu.id} className="menu-item-container">
+        <h2>{menu.name}</h2>
+        <CardsMenuItem
+          AllMenuitems={menuItems}
+          handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
+        />
+      </div>
+    );
+  } else {
+    return null;
+  }
+})}
+
             {allMenus?.map((menu) => {
               // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
               const menuItems = filteredMenuItems?.filter(
@@ -243,6 +282,7 @@ function Menu() {
                   menuItem?.restaurant_id === selctedRestaurant &&
                   menuItem?.menu_id === menu.id
               );
+
 
               if (menuItems?.length > 0) {
                 return (

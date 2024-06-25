@@ -8,6 +8,13 @@
     width: 50vh;
 }
 
+.commentsCompany h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 150vh;
+  }
+
+
 .styled-table2 {
     width: 100%;
     border-collapse: collapse;

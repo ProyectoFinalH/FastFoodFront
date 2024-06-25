@@ -22,7 +22,10 @@ function DetailCompany() {
 
   useEffect(() => {
     dispatch(Data_Empresa(restaurant.id))
-  },[dispatch]);
+
+  }, [dispatch, restaurant]);
+
+
 
   useEffect(() => {
     console.log("Actualización exitosa");
@@ -84,19 +87,19 @@ function DetailCompany() {
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} disabled={!isEditMode}/>
         </div>
         <div className="labelContainer">
-          <h3>Descripcion:</h3>
+          <h3>Descripción:</h3>
           <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} disabled={!isEditMode} />
         </div>
         <div className="labelContainer">
-          <h3>Email:</h3>
+          <h3>Correo:</h3>
           <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} disabled={!isEditMode} />
         </div>
         <div className="labelContainer">
-          <h3>Telefono:</h3>
+          <h3>Teléfono:</h3>
           <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} disabled={!isEditMode} />
         </div>
         <div className="labelContainer">
-          <h3>Direccion:</h3>
+          <h3>Dirección:</h3>
           <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={!isEditMode}/>
         </div>
         <div className="labelContainer">
@@ -108,7 +111,7 @@ function DetailCompany() {
           </button>
         </div>
         <div className="labelContainerimg">
-          <h3>Imagen de Perfil:</h3>
+          <h3>Imagen de Perfíl:</h3>
           <img src={imageFile} alt="Imagen de Perfil" />
           <label htmlFor="imageUrl" className="customFileButton" >
             Subir Imagen
