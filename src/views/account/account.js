@@ -7,7 +7,7 @@ import {
   updateUser,
   Listado_Orders_Usuario,
   login_user_localstorag,
-  Data_Usuario
+  Data_Usuario,
 } from "../../Redux/actions";
 import Notification from "../../Components/Notification/Notification";
 import NotificationCenter from "./Components/NotificationCenter";
@@ -34,6 +34,20 @@ function Account() {
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
+  const handleUsernameChange = (e) => {
+    const value = e.target.value;
+    if (/^[a-zA-Z]{4,20}$/.test(value) || value === "") {
+      setUsername(value);
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    if (/^[a-zA-Z0-9]{5,20}$/.test(value) || value === "") {
+      setPassword(value);
+    }
+  };
+
   const handleSubmit = async () => {
     if (!email || !username) {
       alert("Por favor, completa todos los campos.");
@@ -51,7 +65,7 @@ function Account() {
       if (changePassword) {
         formData.append("password", password);
       }
-  
+
       dispatch(updateUser(user.id, formData));
       setShowSuccessNotification(true);
       guardarNombreUsuario(username);
@@ -65,7 +79,6 @@ function Account() {
   useEffect(() => {
     const email = obtenerCorreoUsuario();
     const name = obtenerNombreUsuario();
-  
 
     if (email) {
       const tempUser = {
@@ -74,10 +87,10 @@ function Account() {
         email: email,
         username: name,
       };
-      dispatch(Data_Usuario(tempUser.id))
+      dispatch(Data_Usuario(tempUser.id));
       dispatch(login_user_localstorag(tempUser))
         .then(() => {
-          dispatch(Data_Usuario(tempUser.id))
+          dispatch(Data_Usuario(tempUser.id));
           if (tempUser.id) {
             return dispatch(Listado_Orders_Usuario(tempUser.id));
           } else {
@@ -123,7 +136,12 @@ function Account() {
   };
 
   const handleImageChange = (event) => {
-    setImageFile(event.target.files[0]);
+    const file = event.target.files[0];
+    if (file && /\.(jpg|png)$/.test(file.name)) {
+      setImageFile(file);
+    } else {
+      alert("Por favor, selecciona una imagen en formato JPG o PNG.");
+    }
   };
 
   return (
@@ -148,6 +166,7 @@ function Account() {
                 name="image_url"
                 id="profile-image"
                 onChange={handleImageChange}
+                accept=".jpg,.png"
                 style={{ display: "none" }}
               />
             </label>
@@ -191,7 +210,7 @@ function Account() {
                   <input
                     type="text"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={handleUsernameChange}
                   />
                 </div>
                 <div className="input-group1">
@@ -207,7 +226,7 @@ function Account() {
                     <input
                       type="password"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={handlePasswordChange}
                     />
                   )}
                 </div>
