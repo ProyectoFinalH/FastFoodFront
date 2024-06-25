@@ -6,6 +6,7 @@ import "./sidebarCompany.css"
 import LoginPrincipal from '../../../Components/Login/Login_Principal/Login_Principal';
 import MenuesCompany from '../menuesCompany/menuesCompany';
 import CategoriesCompany from '../categoriesCompany/categoriesCompany';
+import CommentsCompany from '../comments/commentsCompany';
 
 function Sidebar({restaurant}) {
 
@@ -38,7 +39,7 @@ function Sidebar({restaurant}) {
         <li tabindex="0" onClick={() => handleOptionClick(2)}>Editar Perfil</li>
 
         <li tabindex="0" onClick={() => handleOptionClick(3)}>Ordenes Realizadas</li>
-        <li tabindex="0" onClick={() => handleOptionClick(7)}>Caificaciones</li>
+        <li tabindex="0" onClick={() => handleOptionClick(7)}>Comentarios/Caificaciones</li>
         <li tabindex="0" onClick={() => handleOptionClick(5)}>Cerrar Sesion</li>
       </ul>
 
@@ -51,6 +52,7 @@ function Sidebar({restaurant}) {
         {selectedOption === 3 && <OrderCompany />}
         {selectedOption === 5 && <LoginPrincipal />}
         {selectedOption === 6 && <CategoriesCompany />}
+        {selectedOption === 7 && <CommentsCompany />}
       </div>
     </div>
   );
