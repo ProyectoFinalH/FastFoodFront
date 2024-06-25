@@ -14,7 +14,7 @@ function RestaurantsAdmin() {
   const allRestaurantsAdmin = useSelector((state) => state.allRestaurantsAdmin);
   const [filterRestaurants, setFilterRestaurants] = useState([]);
   const [selectOrderNameRest, setSelectOrderNameRest] = useState("");
-  const [selectOrderEmailRest, setSelectOrderEmailRest] = useState("");
+ 
   const [noResults, setNoResults] = useState(false);
 
   const dispatch = useDispatch();
@@ -63,41 +63,15 @@ function RestaurantsAdmin() {
 
  
     setFilterRestaurants(filteredRestaurants);
+    setNoResults(filteredRestaurants.length=== 0)
   }, [allRestaurantsAdmin, search, selectOrderNameRest]);
 
-  useEffect(() => {
-    let filteredRestaurants = [...allRestaurantsAdmin];
-
-   
-    if (search.trim() !== "") {
-      filteredRestaurants = filteredRestaurants.filter(
-        (restaurant) =>
-          restaurant.name.toLowerCase().includes(search.toLowerCase()) ||
-          restaurant.email.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-
-   
-    if (selectOrderEmailRest !== "") {
-      filteredRestaurants.sort((a, b) =>
-        selectOrderEmailRest === "asc"
-          ? a.email.localeCompare(b.email)
-          : b.email.localeCompare(a.email)
-      );
-    }
-
-    setFilterRestaurants(filteredRestaurants);
-    setNoResults(filteredRestaurants.length=== 0)
-  }, [allRestaurantsAdmin, search, selectOrderEmailRest]);
 
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleOrderEmailChange = (e) => {
-    setSelectOrderEmailRest(e.target.value);
-  };
 
   const handleOrderNameChange = (e) => {
     setSelectOrderNameRest(e.target.value);
@@ -113,7 +87,7 @@ function RestaurantsAdmin() {
         <div className="inputSearchResAdmin">
           <input
             type="search"
-            placeholder="Nombre o Email..."
+            placeholder="Nombre..."
             value={search}
             onChange={handleSearchChange}
           />
@@ -140,28 +114,10 @@ function RestaurantsAdmin() {
               </option>
             </select>
           </div>
-
-          <div className="SelectsContainerAdmin">
-            <label>Por Email:</label>
-            <select
-              className="selectAdmin"
-              value={selectOrderEmailRest}
-              onChange={handleOrderEmailChange}
-            >
-              <option className="optionAdmin" value="">
-              Selecionar orden...
-              </option>
-              <option className="optionAdmin" value="dec">
-                Descendente
-              </option>
-              <option className="optionAdmin" value="asc">
-                Acendente
-              </option>
-            
-            </select>
-          </div>
         </div>
       </div>
+      <div className="RestauranteContainerAdmin">
+
       {noResults ? (
         <div className="noResultsMessage">
           <p>No se encontraron resultados.</p>
@@ -185,16 +141,8 @@ function RestaurantsAdmin() {
               <p>{restaurant?.email}</p>
             </div>
             <div className="resName">
-              <h3>Direccion: </h3>
-              <p>{restaurant?.address}</p>
-            </div>
-            <div className="resName">
               <h3>Telefono: </h3>
               <p>{restaurant?.phone}</p>
-            </div>
-            <div className="resName">
-              <h3>Descripcion: </h3>
-              <p>{restaurant?.description}</p>
             </div>
           </div>
           <div>
@@ -213,6 +161,7 @@ function RestaurantsAdmin() {
           </div>
         </div>
       )))}
+      </div>
     </div>
   );
 }

@@ -16,10 +16,7 @@
     overflow-x: auto; /* Agrega scroll horizontal si la tabla es demasiado ancha */
 }
 
-.order-table tr:hover {
-    background-color: darkgreen;
-    color: wheat;
-}
+
 
 .order-table table {
     width: 100%;
@@ -44,4 +41,20 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+
+.Clas-order-Registrada {
+    background-color: grey;
+    color: black;
+    font-weight: 700;
+}
+.Clas-order-Aceptado {
+    background-color: rgba(0, 128, 0, 0.397);
+    color: black;
+    font-weight: 700;
+}
+.Clas-order-Reprobado {
+    background-color: rgba(255, 0, 0, 0.404);
+    color: rgb(77, 2, 2);
+    font-weight: 700;
 }

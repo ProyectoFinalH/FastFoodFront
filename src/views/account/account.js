@@ -7,6 +7,7 @@ import {
   updateUser,
   Listado_Orders_Usuario,
   login_user_localstorag,
+  Data_Usuario,
 } from "../../Redux/actions";
 import Notification from "../../Components/Notification/Notification";
 import NotificationCenter from "./Components/NotificationCenter";
@@ -16,45 +17,34 @@ import {
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+  guardarNombreUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 
 function Account() {
-  const user = useSelector((state) => state.USER);
+  const user = useSelector((state) => state.AllDATAUSER);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showAccountSettings, setShowAccountSettings] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
-  const defaultAvatarUrl =
-    "https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg";
+  const handleUsernameChange = (e) => {
+    const value = e.target.value;
+    if (/^[a-zA-Z]{4,20}$/.test(value) || value === "") {
+      setUsername(value);
+    }
+  };
 
-  const handleAvatarChange = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      const data = await response.json();
-      setAvatar(data.imageUrl);
-    } catch (error) {
-      console.error("Error al cargar la imagen:", error);
-      alert("Error al cargar la imagen. Por favor, intenta nuevamente.");
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    if (/^[a-zA-Z0-9]{5,20}$/.test(value) || value === "") {
+      setPassword(value);
     }
   };
 
@@ -65,16 +55,20 @@ function Account() {
     }
 
     try {
-      const userData = {
-        id: user.id,
-        email,
-        username,
-        password: changePassword ? password : undefined,
-        image_url: avatar || user.image_url,
-      };
+      const formData = new FormData();
+      formData.append("id", user.id);
+      formData.append("email", email);
+      formData.append("username", username);
+      if (imageFile) {
+        formData.append("image_url", imageFile);
+      }
+      if (changePassword) {
+        formData.append("password", password);
+      }
 
-      dispatch(updateUser(user.id, userData));
+      dispatch(updateUser(user.id, formData));
       setShowSuccessNotification(true);
+      guardarNombreUsuario(username);
     } catch (error) {
       console.error("Error al actualizar usuario:", error);
       alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
@@ -87,19 +81,20 @@ function Account() {
     const name = obtenerNombreUsuario();
 
     if (email) {
-      const tem_Users = {
+      const tempUser = {
         state: obtenerEstatusUsuario(),
         id: obtenerIdUsuario(),
         email: email,
-        name: name,
+        username: name,
       };
-
-      dispatch(login_user_localstorag(tem_Users))
+      dispatch(Data_Usuario(tempUser.id));
+      dispatch(login_user_localstorag(tempUser))
         .then(() => {
-          if (tem_Users.id) {
-            return dispatch(Listado_Orders_Usuario(tem_Users.id));
+          dispatch(Data_Usuario(tempUser.id));
+          if (tempUser.id) {
+            return dispatch(Listado_Orders_Usuario(tempUser.id));
           } else {
-            console.error("ID de usuario no válido:", tem_Users.id);
+            console.error("ID de usuario no válido:", tempUser.id);
             return Promise.reject("ID de usuario no válido");
           }
         })
@@ -119,18 +114,8 @@ function Account() {
       console.log("Usuario desde Redux:", user);
       setEmail(user.email || "");
       setUsername(user.username || "");
-      setAvatar(user.image_url || defaultAvatarUrl);
     }
   }, [user]);
-
-  useEffect(() => {
-    if (!username) {
-      const localUsername = obtenerNombreUsuario();
-      if (localUsername) {
-        setUsername(localUsername);
-      }
-    }
-  }, [username]);
 
   const handleAccountSettingsClick = () => {
     setShowAccountSettings(true);
@@ -150,23 +135,44 @@ function Account() {
     setShowOrders(true);
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file && /\.(jpg|png)$/.test(file.name)) {
+      setImageFile(file);
+    } else {
+      alert("Por favor, selecciona una imagen en formato JPG o PNG.");
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <div className="account-container">
         <div className="account-sidebar">
           <div className="profile-header">
-            <label htmlFor="avatarInput">
-              <img src={avatar} alt="Avatar" />
+            <p className="welcome-message">Bienvenido {username}</p>
+            <label htmlFor="profile-image" className="profile-image-container">
+              {user && user.image_url ? (
+                <img
+                  src={user.image_url}
+                  alt="Perfil"
+                  className="profile-image"
+                />
+              ) : (
+                <div className="no-image">No hay imagen</div>
+              )}
+              <input
+                type="file"
+                name="image_url"
+                id="profile-image"
+                onChange={handleImageChange}
+                accept=".jpg,.png"
+                style={{ display: "none" }}
+              />
             </label>
-            <input
-              type="file"
-              id="avatarInput"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleAvatarChange}
-            />
-            <p>Bienvenido {username}</p>
+            <label htmlFor="profile-image" className="change-image-label">
+              Cambiar Imagen
+            </label>
           </div>
           <nav className="menu">
             <ul>
@@ -204,7 +210,7 @@ function Account() {
                   <input
                     type="text"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={handleUsernameChange}
                   />
                 </div>
                 <div className="input-group1">
@@ -220,7 +226,7 @@ function Account() {
                     <input
                       type="password"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={handlePasswordChange}
                     />
                   )}
                 </div>

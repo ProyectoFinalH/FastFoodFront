@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import InfoCompany from '../infoCompany/infoCompany';
+import DetailCompany from "../detailCompany/detailCompany";
 import ProductsCompany from '../productsCompany/productsCompany';
 import OrderCompany from '../orderCompany/orderCompany';
 import "./sidebarCompany.css"
@@ -32,10 +32,10 @@ function Sidebar({restaurant}) {
         <h2>{restaurant?.name}</h2>
           </div>  
       </div>
-        <li tabindex="0" onClick={() => handleOptionClick(2)}>Menu Items</li>
+        <li tabindex="0" onClick={() => handleOptionClick(1)}>Menu Items</li>
         <li tabindex="0" onClick={() => handleOptionClick(4)}>Menues</li>
         <li tabindex="0" onClick={() => handleOptionClick(6)}>Categories</li>
-        <li tabindex="0" onClick={() => handleOptionClick(1)}>Editar Perfil</li>
+        <li tabindex="0" onClick={() => handleOptionClick(2)}>Editar Perfil</li>
 
         <li tabindex="0" onClick={() => handleOptionClick(3)}>Ordenes Realizadas</li>
         <li tabindex="0" onClick={() => handleOptionClick(7)}>Caificaciones</li>
@@ -45,9 +45,9 @@ function Sidebar({restaurant}) {
       </div>
       <div className="conent2">
 
-        {selectedOption === 2 && <ProductsCompany />}
+        {selectedOption === 1 && <ProductsCompany />}
         {selectedOption === 4 && <MenuesCompany />}
-        {selectedOption === 1 && <InfoCompany restaurant={restaurant}/>}
+        {selectedOption === 2 && <DetailCompany/>}
         {selectedOption === 3 && <OrderCompany />}
         {selectedOption === 5 && <LoginPrincipal />}
         {selectedOption === 6 && <CategoriesCompany />}

@@ -22,8 +22,6 @@ function OrdersAdmin() {
   }, [dispatch]);
 
 
- console.log("all order",allOrdersAdmin);
-
 
   useEffect(() => {
     let filteredOrders = [...allOrdersAdmin];
@@ -126,10 +124,10 @@ function OrdersAdmin() {
               onChange={handleOrderNameOrderChange}
             >
               <option className="optionAdmin" value="">
-              Selecionar orden...
+              Seleccionar orden...
               </option>
               <option className="optionAdmin" value="asc">
-                Acendente
+                Ascendente
               </option>
               <option className="optionAdmin" value="des">
                 Descendente
@@ -145,13 +143,13 @@ function OrdersAdmin() {
               onChange={handleOrderPriceOrderChange}
             >
               <option className="optionAdmin" value="">
-              Selecionar orden...
+              Seleccionar orden...
               </option>
               <option className="optionAdmin" value="mayor">
                 Descendente
               </option>
               <option className="optionAdmin" value="menor">
-                Acendente
+                Ascendente
               </option>
             
             </select>

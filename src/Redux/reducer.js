@@ -1,8 +1,11 @@
+
+
 import {
   REGISTERUSER,
   REGISTERBUSINESS,
   RECOVERYKEY,
   USERLOGIN,
+  USERTOKEN,
   USERLOGINGOOGLE,
   GET_MENUS,
   GET_MENUS_ADMIN,
@@ -33,10 +36,20 @@ import {
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
+  UPDATE_USER_DATA,//! actualizar la data
+  SELECTRESTAURANTE, //!Seleccionamos es restaurante
+  GET_DETAIL_EMPRESA,
+  SET_TOKEN,
+  CLEAR_TOKEN,
+  PUT_DETAIL_EMPRESA,
+  GET_CATEGORIES_COMPANY,
+  GET_MENUITEMS_COMPANY,
+  GET_MENUS_COMPANY,
 } from "../Redux/action-types";
 
 const initialState = {
   USER: null,
+  AllDATAUSER: null,
   Carrito: null,
   ListaOrderCompany: null, //create lista order company
   ListaOrderUser: null, //create lista order Uduario
@@ -52,13 +65,19 @@ const initialState = {
   getAllMenuitemsAdmin: [],
   allMenus: [],
   allMenusAdmin: [],
-  allCategories: [],  
+  allCategories: [],
   allCategoriesAdmin: [],
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
   User_Actualizado: null,
-  EMPRESAUSER:null,
+  token: null,//estado global que guarda el token obtenido en login
+  EMPRESAUSER: null,
+  SELCTRESTAURANT: null, //!Seleccionamos El restaurante 
+  Detail_Empresa: null,
+  categoriesCompany: [],
+  menusCompany: [],
+  menuItemsCompany: [],
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -80,11 +99,19 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         Registrado: payload,
       };
+
     case USERLOGIN:
       return {
         ...state,
         USER: payload,
       };
+
+    case USERTOKEN:
+      return {
+        ...state,
+        token: payload,
+      };
+
     case USERLOGINGOOGLE:
       return {
         ...state,
@@ -138,11 +165,13 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         User_Actualizado: payload,
+        AllDATAUSER: payload
       };
     case LOGOUT_USER:
       return {
         ...state,
         USER: null,
+        token: null,
       };
     case CREATE_CATEGORIES:
       return {
@@ -200,62 +229,110 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allOrdersAdmin: payload,
       };
-      case PUT_RESTAURANTS:
-        return {
-          ...state,
-          allRestaurantsAdmin:state.allRestaurantsAdmin.map((restaurant) =>
-            restaurant.id === payload.id ? { ...restaurant, active: payload.active } : restaurant
-          ),
-        };
+    case PUT_RESTAURANTS:
+      return {
+        ...state,
+        allRestaurantsAdmin: state.allRestaurantsAdmin.map((restaurant) =>
+          restaurant.id === payload.id ? { ...restaurant, active: payload.active } : restaurant
+        ),
+      };
 
-        case PUT_USERS:
-          return {
-            ...state,
-            allUsersAdmin:state.allUsersAdmin.map((user) =>
-              user.id === payload.id ? { ...user, active: payload.active } : user
-            ),
-          };
-          case PUT_MENUS:
-            return {
-              ...state,
-              allMenusAdmin:state.allMenusAdmin.map((menu) =>
-                menu.id === payload.id ? { ...menu, active: payload.active } : menu
-              ),
-            };
-            case PUT_ITEMMENU:
-              return {
-                ...state,
-                getAllMenuitemsAdmin:state.getAllMenuitemsAdmin.map((itemmenu) =>
-                  itemmenu.id === payload.id ? { ...itemmenu, active: payload.active } : itemmenu
-                ),
-              };
-              case ADMIN_LOGIN:
-                return {
-                  ...state,
-                  USER: payload,
-                };
-              case ADMIN_LOGOUT:
-                return {
-                  ...state,
-                  USER: null,
-                };
+    case PUT_USERS:
+      return {
+        ...state,
+        allUsersAdmin: state.allUsersAdmin.map((user) =>
+          user.id === payload.id ? { ...user, active: payload.active } : user
+        ),
+      };
+    case PUT_MENUS:
+      return {
+        ...state,
+        allMenusAdmin: state.allMenusAdmin.map((menu) =>
+          menu.id === payload.id ? { ...menu, active: payload.active } : menu
+        ),
+      };
+    case PUT_ITEMMENU:
+      return {
+        ...state,
+        getAllMenuitemsAdmin: state.getAllMenuitemsAdmin.map((itemmenu) =>
+          itemmenu.id === payload.id ? { ...itemmenu, active: payload.active } : itemmenu
+        ),
+      };
+    case ADMIN_LOGIN:
+      return {
+        ...state,
+        token: payload,
+      };
 
-              
-        case GET_CATEGORIES_ADMIN:
-        return {
-          ...state,
-          allCategoriesAdmin: payload,
-        }
-        case LISTADOORDERSUSERS:
-          return {
-            ...state,
-            ListaOrderUser: payload,
-          }
-          case EMPRESALOGIN:
-            return{
-              ...state,
-            EMPRESAUSER: payload,
-            }
+    case ADMIN_LOGOUT:
+      return {
+        ...state,
+        token: null,
+      };
+
+
+    case GET_CATEGORIES_ADMIN:
+      return {
+        ...state,
+        allCategoriesAdmin: payload,
+      }
+    case LISTADOORDERSUSERS:
+      return {
+        ...state,
+        ListaOrderUser: payload,
+      }
+    case EMPRESALOGIN:
+      return {
+        ...state,
+        EMPRESAUSER: payload,
+      }
+    case UPDATE_USER_DATA:
+      return {
+        ...state,
+        AllDATAUSER: payload
+      }
+    case SELECTRESTAURANTE:
+      return {
+        ...state,
+        SELCTRESTAURANT: payload
+      }
+    case GET_DETAIL_EMPRESA:
+      return {
+        ...state,
+        Detail_Empresa: payload
+      }
+    
+    case SET_TOKEN:
+      return {
+        ...state,
+        token: payload
+      }  
+
+    case CLEAR_TOKEN:
+      return {
+        ...state,
+        token: null
+    } 
+    case PUT_DETAIL_EMPRESA:
+      return {
+        ...state,
+        Detail_Empresa: payload
+      }
+    case GET_CATEGORIES_COMPANY:
+      return {
+        ...state,
+        categoriesCompany: payload
+      }
+    case GET_MENUITEMS_COMPANY:
+      return {
+        ...state,
+        menuItemsCompany: payload
+      }
+    case GET_MENUS_COMPANY:
+      return {
+        ...state,
+        menusCompany: payload
+      }
 
     default:
       return { ...state };

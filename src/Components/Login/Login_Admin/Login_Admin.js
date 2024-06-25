@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import "./Login_Admin.css";
 import logo from "../../../images/logo.png"
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
@@ -10,21 +10,27 @@ import { loginAdmin} from "../../../Redux/actions";
 import validationIngreso from "./Validar_Login_Admin";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import alertify from "alertifyjs";
+import { jwtDecode } from "jwt-decode";
+import { logoutAdmin } from "../../../Redux/actions";
 
 const LoginAdmin = () => {
   const dispatch = useDispatch();
-  const USER = useSelector((state) => state?.USER);
+
   const [keyVisible, setKeyVisible] = useState(false);
+  const token = useSelector((state)=> state.token)
   
   const navigate = useNavigate();
 
-  console.log("user", USER)
+  
 
   const [formData, setFormData] = useState({
-    emailOrPhone: "",
+    email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
+
+  const [isSubmitComplete, setIsSubmitComplete] = useState(false);
 
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
@@ -44,16 +50,45 @@ const LoginAdmin = () => {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const validationErrors = validationIngreso(formData);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Datos del formulario:", formData);
-      dispatch(loginAdmin(formData, navigate));
+      dispatch(loginAdmin(formData));//Lee y guarda token en variable global=token
+      setIsSubmitComplete(true);
     }
   };
+
   const isButtonDisabled = Object.keys(errors).length !== 0;
+
+  useEffect(()=>{
+    if (isSubmitComplete&&token){
+    
+      const infoAdmin=jwtDecode(token.data);//Decodifica el token
+      
+      if(infoAdmin.role_id!==3){//si el token no tiene rol de superadmin regresa Login
+        alertify.alert("Mensaje", 
+          'Usuario no autorizado',()=>{
+            dispatch(logoutAdmin());
+            navigate("/loginAdmin");
+          }); 
+        }
+      else{
+        
+        window.localStorage.setItem('loggedFastFoodAdmin',JSON.stringify(token))
+        navigate("/Admin")//si tiene rol superadmin va Admin
+      }  
+
+    }else if (isSubmitComplete && !token){
+      alertify.alert("Mensaje", //si no hay token regresa a Login
+        'Credenciales invalidas, debe loguearse para continuar',()=>{
+          navigate("/loginAdmin");
+        }); 
+      
+    }
+  },[token,isSubmitComplete,navigate,dispatch]);
 
   return (
     <div className="login-admin-container">
@@ -64,15 +99,15 @@ const LoginAdmin = () => {
             <img src={icono_usuario} alt="icono ingreso" />
             <input
               type="text"
-              name="emailOrPhone"
-              value={formData?.emailOrPhone}
+              name="email"
+              value={formData?.email}
               onChange={handleChange}
               maxLength={100}
               placeholder="Datos de Administrador"
             />
           </div>
-          {errors.emailOrPhone && (
-            <div className="login-admin-espacioError">{errors?.emailOrPhone}</div>
+          {errors.email && (
+            <div className="login-admin-espacioError">{errors?.email}</div>
           )}
           <div className="login-admin-Grupoinput">
             <img src={icono_key} alt="icono ingreso" />

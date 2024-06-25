@@ -1,83 +1,60 @@
-.sidebarContainerAdmin{
-    display: flex;
-    
-    min-height: 100vh; /* Mínimo alto de la ventana visible */
-    background-color: #f9f9f9;
-    z-index: 1;
-    
-}
-.OptionContainerAdmin{
-    border-radius: 0px 10px 10px 0px;
-   width: 220px;
-   
-    background-color: #ff3239;
-    
-    color: white;
- 
-    
 
-}
-.OptionContainerAdmin ul{
-    list-style-type: none;
-    padding: 0;
+.sidebarContainerAdmin {
+  display: flex;
+  height: calc(100vh - 60px);
 }
 
-
-
-.OptionContainerAdmin ul li{
-    display: grid;
-    height: 50px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0px 20px;
+.OptionContainerAdmin {
+  flex: 0 0 250px;
+  background-color: #f8f8f8;
+  padding: 20px;
+  overflow-y: auto;
 }
 
-.OptionContainerAdmin ul li:hover{
-    border-radius: 5px;
-    background-color: #ff5a5f;
-    border-left: 4px solid white;
-    color: white;
-    padding-left: 12px;
+.OptionContainerAdmin ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.OptionContainerAdmin ul li {
+  font-size: 1rem;
+  color: #333;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .OptionContainerAdmin ul li.selected {
-    border-left: 4px solid white;
-    border-radius: 5px;
-  }
+  background-color: #ff5a5f;
+  color: #fff;
+}
 
-.OptionContainerAdmin ul li:focus{
-    background-color: #ff5a5f;
-    color: white;
+.OptionContainerAdmin ul li:hover {
+  background-color: #e0e0e0;
 }
 
 .OptionContentAdmin {
-    width: 100%;
-    
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .cardRestConainerSidebarAdmin {
-    position: relative;
-    top:-16px;
-display: flex;
-justify-items: center; 
-justify-content: flex-start;
-background-color: #ff5a5f;
-border-radius: 0px 10px 1px 1px;
-
-
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.cardRestConainerSidebarh2Admin h2{
-    color: black;
-    width: 100%;
-    word-break: break-word;
-}
 .cardRestConainerSidebarAdmin img {
-        width: 70px;
-        margin-left: 10px;
-         
+  max-width: 100px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
+.cardRestConainerSidebarAdmin h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #333;
+}

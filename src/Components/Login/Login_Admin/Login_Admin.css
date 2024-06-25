@@ -6,11 +6,13 @@
 }
 
 .login-admin-bodyIngreso {
-  width: 350px;
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 80%;
+  border-radius: 8px;
 }
 
 .login-admin-ver {

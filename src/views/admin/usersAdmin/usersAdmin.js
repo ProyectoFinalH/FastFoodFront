@@ -158,6 +158,7 @@ return (
           </div>
         </div>
       </div>
+      <div className="RestauranteContainerAdmin">
       {noResults ? (
         <div className="noResultsMessage">
           <p>No se encontraron resultados.</p>
@@ -204,6 +205,7 @@ onClick={() => toggleActivation(user?.id, !user?.active) }
           </div>
       </div>
     )))}
+    </div>
   </div>
   )
 }
