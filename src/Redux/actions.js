@@ -31,11 +31,16 @@ import {
   PUT_ITEMMENU,
   ADMIN_LOGIN,
   ADMIN_LOGOUT,
+  GET_COMMENT,
+  CLEAR_COMMENTS,
   GET_CATEGORIES_ADMIN,
   LISTADOORDERSUSERS,//!Obtenemos action-type para lista de ordenes del usuario
   EMPRESALOGIN,
   UPDATE_USER_DATA, //! obtener la data actualizacion 
   SELECTRESTAURANTE, //!seleccionamos el restaurrante
+
+  POST_COMMENT,
+
   GET_DETAIL_EMPRESA,
   SET_TOKEN, // para setear el valor del token 
   CLEAR_TOKEN,
@@ -1103,14 +1108,66 @@ export const Update_Empresa=(formData)=>{
       type: PUT_DETAIL_EMPRESA,
       payload: response.data, 
     })
-
-    } catch (error) {
-      alertify.alert("Mensaje", 'No hay info de restaurante');
-      console.log(error)
+  } catch (error) {
+    console.error("Error al obtener el restaurant:", error);
+  }  
     }
-    
-  };
+  }
+  
+
+
+export const GetComment = (id) => {
+  return async (dispatch) => {
+
+    console.log("id en action", id);
+    try {
+
+      dispatch(clearComments());
+
+      const response  = await axios.get(`http://localhost:5000/comments/${id}`);
+      dispatch ({
+        type: GET_COMMENT,
+        payload: response.data,
+      })
+      
+    } catch (error) {
+  console.error("Error al obtener el comentario:", error);
+      
+    }
+  }
 }
+
+
+export const clearComments = () => ({
+  type: CLEAR_COMMENTS,
+});
+
+
+
+
+export const PostComment = (commentData) => {
+  return async (dispatch) => {
+
+    const token = getToken();
+    configureAxios(token.data);
+    try {
+      
+      dispatch(clearComments());
+
+     
+      const response = await axiosInstance.post('http://localhost:5000/comments', commentData);
+
+     
+      dispatch({
+        type: POST_COMMENT,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error('Error al enviar el comentario:', error);
+      
+    }
+  };
+};
 
 export function getCommentsCompany() {
   return async function (dispatch,getState) {

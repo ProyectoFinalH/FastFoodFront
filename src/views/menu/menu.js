@@ -29,12 +29,18 @@ import {
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
 
+import Rating from "../../Components/rating/rating";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+//import alertify from "alertifyjs";
+
+
 function Menu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const allRestaurants = useSelector((state) => state.allRestaurants);
-  const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
+  // const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
 
@@ -51,6 +57,8 @@ function Menu() {
 
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [ratings, setRatings] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
@@ -172,6 +180,16 @@ function Menu() {
     navigate("/home");
   };
 
+  const handleOpenRating = () => {
+    setRatings(true);
+  };
+
+  const handleCloseRating = () => {
+    setRatings(false);
+  };
+
+  console.log("restau",restaurant1);
+
   return (
     <div className="menu-container">
       {loading ? <Loading /> : null}
@@ -190,7 +208,25 @@ function Menu() {
               />
               <h2 className="restaurant-name">{restaurant1?.name}</h2>
             </div>
+          </div>  
+            <div className="opinionesContainer" onClick={handleOpenRating}>
+              <p>Opiniones</p>
+              <div className="ratingContainerMenu">
+            <p>
+              <FontAwesomeIcon icon={faStar}/>
+            </p>
+            <p>
+              {restaurant1?.rating}
+            </p>
+            </div>
           </div>
+
+          {ratings && (
+            <Rating
+              onClose={handleCloseRating}
+              restaurantId={restaurant1?.id}
+            />
+          )}
           <div className="cardsContentMenu">
             <div className="cards-menus-container">
               <CardsMenus
@@ -219,23 +255,24 @@ function Menu() {
           <div className="cards-menu-items">
             {allMenus?.map((menu) => {
               const menuItems = filteredMenuItems?.filter(
-                (menuItem) =>
-                  menuItem?.restaurant_id === selctedRestaurant &&
-                  menuItem?.menu_id === menu.id
+                (menuItem) => menuItem?.menu_id === menu?.id
               );
 
               if (menuItems?.length > 0) {
                 return (
-                  <div key={menu.id} className="menu-item-container">
-                    <h1 className="menu-title-menu">{menu.name}</h1>
+                  <div key={menu?.id} className="menu-item-container">
+                    <h2>{menu?.name}</h2>
                     <CardsMenuItem
-                      AllMenuitems={menuItems}
+                      AllMenuitems={filteredMenuItems?.filter(
+                        (menuItem) => menuItem?.menu_id === menu?.id
+                      )}
                       handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
                     />
                   </div>
                 );
               } else {
-                return null;
+                return (null
+                );
               }
             })}
           </div>

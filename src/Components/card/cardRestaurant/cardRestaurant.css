@@ -21,9 +21,11 @@
 
 .textContainer {
   padding: 5px;
+  height: 40px;
+  margin: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .restaurantName {
@@ -47,4 +49,8 @@
 .cardResContainer:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ratingContainer h3{
+  color: #ffcc00;
 }

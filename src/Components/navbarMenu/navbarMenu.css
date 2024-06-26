@@ -33,7 +33,10 @@
 }
 
 .navbarMenuSelect {
-  overflow: auto;
+
+  
+  height: 27.5vh;
+
   min-height: 80px;
   display: flex;
   flex-direction: column;
