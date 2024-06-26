@@ -645,7 +645,6 @@ export const Listado_Orders_Usuario = (userId) => {
 
     } catch (error) {
       console.error("Error al obtener las órdenes del usuario:", error);
-      alertify.error("Error al enviar la información. Detalle: " + error.message);
     }
   };
 };
@@ -1051,7 +1050,7 @@ export const Data_Usuario=(id)=>{
       payload: response.data, 
     })
     } catch (error) {
-      alertify.alert("Mensaje", 'No hay categorias');
+      alertify.alert("Mensaje", 'No hay informacion disponible');
     }
     
   };
@@ -1189,7 +1188,7 @@ export function getCommentsCompany() {
       });
       
     } catch (error) {
-      alertify.alert("Mensaje", 'No hay categorias');
+      alertify.alert("Mensaje", 'No hay comentarios');
     }
     
   };

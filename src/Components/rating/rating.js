@@ -6,7 +6,7 @@ import "./rating.css";
 import StarRating from "./starRating/starRating";
 
 function Rating({onClose, restaurantId}) {
-  const comments = useSelector((state) => state.allComments);
+  const comments = useSelector((state) => state.allComments) || [];;
   const dispach = useDispatch();
 
   console.log("id en raiting", restaurantId);
@@ -18,7 +18,7 @@ function Rating({onClose, restaurantId}) {
   console.log("commentsss",comments);
 
   const handleCloseModal = (e) => {
-    // Verificar si el clic ocurrió dentro del modal-content
+    
     if (e.target.classList.contains("ratingsContainer")) {
       onClose();
     }
@@ -34,8 +34,16 @@ function Rating({onClose, restaurantId}) {
           <h2>Comentarios y Opiniones</h2>
           <div className="CommentsContainer">
 
+          {comments.length === 0 ? (
+              <div className="noCommentsMessage">
+                <p>No hay reseñas hechas.</p>
+              </div>
+            ) : (
+
           <ul>
-            {comments?.map((comment) => (
+            {Array.isArray(comments) &&
+            
+            comments?.map((comment) => (
               
               <li key={comment?.id}>
                 <div className="commentUserContainer">
@@ -64,6 +72,7 @@ function Rating({onClose, restaurantId}) {
               </li>
             ))}
           </ul>
+            )}
           </div>
         </div>
       </div>
