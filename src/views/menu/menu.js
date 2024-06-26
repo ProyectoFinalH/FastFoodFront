@@ -218,29 +218,6 @@ function Menu() {
         <div className="cards-menus">
           <div className="cards-menu-items">
             {allMenus?.map((menu) => {
-              // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
-              const menuItems = filteredMenuItems?.filter(
-                (menuItem) =>
-                  menuItem?.restaurant_id === selectedRestaurantId &&
-                  menuItem?.menu_id === menu.id
-              );
-
-              if (menuItems?.length > 0) {
-                return (
-                  <div key={menu.id} className="menu-item-container">
-                    <h2>{menu.name}</h2>
-                    <CardsMenuItem
-                      AllMenuitems={menuItems}
-                      handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
-                    />
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })}
-
-            {allMenus?.map((menu) => {
               const menuItems = filteredMenuItems?.filter(
                 (menuItem) =>
                   menuItem?.restaurant_id === selctedRestaurant &&
