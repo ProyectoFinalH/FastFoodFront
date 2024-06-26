@@ -1,0 +1,78 @@
+.order-container {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    height: 100%;
+    margin: 50px auto 30px; /* Agregado un espacio inferior de 30px */
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.order-table {
+    width: auto;
+    height: 100%;
+    overflow-x: auto; /* Agrega scroll horizontal si la tabla es demasiado ancha */
+}
+
+
+
+.order-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.order-table th {
+    background-color: #f2f2f2;
+}
+
+.order-table th:first-child,
+.order-table td:first-child {
+    text-align: left;
+}
+.Cetrado-textos{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.Clas-order-Registrada {
+    background-color: grey;
+    color: black;
+    font-weight: 700;
+}
+.Clas-order-Aceptado {
+    background-color: rgba(0, 128, 0, 0.397);
+    color: black;
+    font-weight: 700;
+}
+.Clas-order-Reprobado {
+    background-color: rgba(255, 0, 0, 0.404);
+    color: rgb(77, 2, 2);
+    font-weight: 700;
+}
+
+.Botton-Comment-Order{
+    position:static;
+    
+}
+
+.botonOpinion button{
+    background-color: #ff5a5f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.botonOpinion button:hover {
+    background-color: #f86e72;
+  }

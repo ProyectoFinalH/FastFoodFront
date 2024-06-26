@@ -1,0 +1,244 @@
+.bodyRecuperar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.formRecuperar {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.formRecuperar h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+.formRecuperar p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #666666;
+}
+
+.formRecuperar input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.formRecuperar button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.formRecuperar button:hover {
+  background-color: #cc0000;
+}
+
+.bodyIngreso {
+  width: 350px;
+  height: 97%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ver {
+  cursor: pointer;
+}
+
+.bodyIngreso p {
+  text-align: justify;
+  font-weight: 600;
+}
+.imageningreso {
+  width: 250px;
+}
+
+.contenedoringreso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Grupoinput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px groove gainsboro;
+  border-radius: 10px;
+  height: 35px;
+  margin-top: 20px;
+  padding: 5px;
+  width: 350px;
+}
+
+.Grupoinput input {
+  height: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 90%;
+  font-size: 16px;
+}
+
+.Grupoinput img {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+}
+
+.centrarlogogoogle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  width: 350px;
+  height: 35px;
+  margin-top: 20px;
+  padding: 4px;
+  border: 2px gainsboro groove;
+  cursor: pointer;
+}
+
+.centrarlogogoogle img {
+  width: 25px;
+}
+
+.olvidastekey {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  padding: 2px;
+  margin-top: 10px;
+  color: rgb(78, 78, 78);
+  font-weight: bolder;
+}
+
+.olvidastekey::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.olvidastekey:hover::before {
+  transform: scaleX(1);
+}
+
+.Registrate {
+  position: relative;
+  display: block;
+  padding: 2px;
+  margin-top: 10px;
+  color: rgb(78, 78, 78);
+  font-weight: bolder;
+}
+
+.Registrate::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.Registrate:hover {
+  cursor: pointer;
+}
+.Registrate {
+  margin-top: 5px;
+}
+
+.Registrate:hover::before {
+  transform: scaleX(1);
+}
+
+.error-message {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+}
+
+.Grupoinput {
+  position: relative;
+}
+
+.ov-btn-grow-box {
+  margin-top: 20px;
+  height: 20px;
+  background: linear-gradient(283deg, #ff2426, #ff9259);
+  width: 350px;
+  color: white;
+  border: 2px solid black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+}
+.ov-btn-grow-box:hover {
+  color: #fff;
+  cursor: pointer;
+}
+.ov-btn-grow-box::after {
+  content: "";
+  background: #29d884;
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+}
+.ov-btn-grow-box:hover::after {
+  transition: all 0.3s ease-out;
+  transform: scale(1, 1);
+}
+
+.espacioError-recordarkey{
+  color: red;
+  font-size: 0.8em;
+  margin-top: 0.2em;
+  height: 30px;
+}
+.Correo-foot{
+  color:red;
+  font-size: 0.8em;
+  margin-top: 0.2em;
+  height: 30px;
+}

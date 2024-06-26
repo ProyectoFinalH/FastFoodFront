@@ -1,0 +1,72 @@
+.bodyregister {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.formRegister {
+  width: 350px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.formRegister h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.formGroup input {
+  width: calc(100% - 10px);
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px groove gainsboro;
+  border-radius: 10px;
+}
+.pass_display_flex {
+  display: flex;
+  align-items: center;
+}
+.pass_display_flex img {
+  width: 25px;
+  height: 25px;
+}
+.errorMessage {
+  color: red;
+  font-size: 14px;
+}
+
+.registerButton {
+  margin-top: 20px;
+  height: 30px;
+  background: linear-gradient(283deg, #ff2426, #ff9259);
+  width: 350px;
+  color: white;
+  border: 2px solid black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+}
+
+.registerButton:hover {
+  background-color: #45a049;
+}

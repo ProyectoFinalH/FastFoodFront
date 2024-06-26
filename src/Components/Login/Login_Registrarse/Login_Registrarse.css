@@ -1,0 +1,96 @@
+.bodyregister {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.formRegister {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.formRegister h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.formGroup input:focus {
+  border-color: #007bff;
+}
+
+.errorMessage {
+  color: #dc3545;
+  font-size: 0.9em;
+}
+
+.loginLink {
+  color: #248eff;
+  cursor: pointer;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+.buttonSubmit {
+  margin-top: 20px;
+  height: 30px;
+  background: linear-gradient(283deg, #ff2426, #ff9259);
+  width: 350px;
+  color: white;
+  border: 2px solid black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+}
+
+.buttonSubmit:hover {
+  color: #fff;
+  cursor: pointer;
+}
+.buttonSubmit::after {
+  content: "";
+  background: #29d884;
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+}
+.buttonSubmit:hover::after {
+  transition: all 0.3s ease-out;
+  transform: scale(1, 1);
+}

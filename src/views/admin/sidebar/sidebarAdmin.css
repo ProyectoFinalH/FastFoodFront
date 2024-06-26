@@ -1,0 +1,60 @@
+
+.sidebarContainerAdmin {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+.OptionContainerAdmin {
+  flex: 0 0 250px;
+  background-color: #f8f8f8;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.OptionContainerAdmin ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.OptionContainerAdmin ul li {
+  font-size: 1rem;
+  color: #333;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.OptionContainerAdmin ul li.selected {
+  background-color: #ff5a5f;
+  color: #fff;
+}
+
+.OptionContainerAdmin ul li:hover {
+  background-color: #e0e0e0;
+}
+
+.OptionContentAdmin {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.cardRestConainerSidebarAdmin {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cardRestConainerSidebarAdmin img {
+  max-width: 100px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.cardRestConainerSidebarAdmin h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #333;
+}

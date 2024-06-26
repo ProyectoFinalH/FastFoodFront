@@ -1,0 +1,193 @@
+.menu-container {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.navbar {
+  width: 100%;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: auto; 
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #fafafa;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 0.1px;
+  
+}
+
+.button-back {
+  background-color: #ff5a5f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  
+}
+.button-back:hover {
+transform: translateY(-5px);
+}
+
+
+.info-rest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-rest-img-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.restaurant-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.restaurant-name {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 30px;
+}
+
+.cards-menus {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cards-menu-items {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.menu-item-container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-container h2 {
+  font-size: 1.2rem;
+  color: #ff5a5f;
+  margin-bottom: 10px;
+}
+
+.menu-title-menu {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+.cardsContentMenu{
+  height: 100px;
+  overflow-y: auto;
+  margin-top: -20px;
+}
+.cardsContentMenu::-webkit-scrollbar{
+  width: 10px;
+  scroll-margin-top: 200px;
+}
+.cardsContentMenu::-webkit-scrollbar-thumb{
+  background-color: #c90000;
+ border-radius: 5px;
+}
+
+.cardsContentMenu::-webkit-scrollbar-thumb:hover{
+  background-color: #dbba00;
+}
+.menu-item-container.hidden {
+  display: none;
+}
+
+.ratingContainer{
+  color: #000;
+  display: flex;
+    align-items: center;
+    margin: 0px 10px 0px 10px;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-bottom: 30px;
+   
+}
+
+.ratingContainer:hover{
+  
+  color: #949494;
+
+}
+
+.opinionesContainer{
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ratingContainerMenu{
+  color: #000;
+  display: flex;
+    align-items: center;
+    
+    justify-content: space-between;
+    cursor: pointer;
+   
+}
+.ratingContainerMenu:hover{
+  
+  color: #949494;
+
+}
+.opinionesContainer:hover{
+  
+  color: #949494;
+
+}
+.ratingContainerMenu p {
+
+  color: #ffcc00;
+}

@@ -1,0 +1,30 @@
+.cardMenusContainer {
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.cardMenusContainer:hover {
+  transform: translateY(-5px);
+}
+
+.buttonMenus {
+  background-color: #ff5a5f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.buttonMenus:hover {
+  background-color: #d94c51;
+}
+
+.buttonMenus:focus {
+  outline: none;
+}

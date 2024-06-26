@@ -1,0 +1,35 @@
+.infoCompanyContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+   
+}
+
+
+.labelContainer {
+    display: flex;
+    padding: 10px;
+    width: 500px;
+    height: 50px;
+    margin-bottom: 30px;
+    align-items: center;
+    border: 1px solid hsl(0, 0%, 0%, 0.1);
+    justify-content: space-between;
+    
+}
+
+.labelContainer label {
+    display: flex;
+    
+    padding: 10px;
+    margin-left: 10px;
+    
+
+}
+.labelContainer button{
+    margin-left: 10px;
+}
+
+h2{
+    margin-left: 10%;
+}

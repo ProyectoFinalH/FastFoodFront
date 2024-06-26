@@ -1,0 +1,34 @@
+.ReactModal__Content {
+    transform: scale(0);
+    /* Inicialmente, el modal está oculto */
+    transition: transform 0.3s ease;
+    /* Agrega una transición suave */
+}
+
+.ReactModal__Content--after-open {
+    transform: scale(1);
+    /* Cuando el modal se abre, escala al tamaño completo */
+}
+
+.ReactModal__Overlay {
+    padding-top: 15%;
+    background-color: rgba(0, 0, 0, 200.5);
+    /* Fondo semitransparente */
+}
+
+.custom-modal-button3{
+    margin-left: 80%;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: #ff5d5d;
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 50px; 
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.3rem;
+  }
+  .custom-modal-button3:hover{
+    background-color: #ac0000;
+  }

@@ -1,0 +1,161 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  height: 50px;
+  position: relative;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  width: 60px;
+  height: auto;
+}
+
+.logo + span {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.overlay {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 320px;
+  height: 50%;
+  background-color:#f4f3f3;
+  box-shadow: inset;
+  z-index: 3;
+  display: none;
+  border: 1px solid rgb(211, 210, 210);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  min-height: 450px;
+
+}
+
+.logo + span {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.carrito-container {
+  margin-left: auto;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.carrito-img {
+  width: 30px;
+  height: auto;
+}
+
+.menu {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu span {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 3px 0;
+}
+
+.menu-content ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.menu-content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: #fff;
+  z-index: 1000;
+  width: 250px;
+  padding: 20px;
+  transition: transform 0.3s ease;
+  transform: translateX(100%);
+  box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.menu-content.open {
+  transform: translateX(0);
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close-btn-x {
+  background: none;
+  border: none;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.close-btn-x img {
+  width: 20px;
+}
+
+.menu-content ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.menu-content li {
+  margin-bottom: 10px;
+}
+
+.menu-content a {
+  color: #333;
+  text-decoration: none;
+  line-height: 30px;
+}
+
+.menu-content a:hover {
+  text-decoration: underline;
+}
+
+.close-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-end;
+  padding: 5px 10px;
+}
+
+.close-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.close-btn:hover img {
+  filter: brightness(0.8);
+}
