@@ -34,7 +34,7 @@ function Menu() {
   const navigate = useNavigate();
 
   const allRestaurants = useSelector((state) => state.allRestaurants);
-  const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
+  //const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
   const allCategories = useSelector((state) => state.allCategories);

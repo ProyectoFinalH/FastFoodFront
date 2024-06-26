@@ -3,7 +3,7 @@ import cerrarSesion from "../../../images/cerrarSesion.svg";
 import "./navbarAdmin.css"
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { clearTokenAdmin, logoutAdmin } from "../../../Redux/actions";
+import { logoutAdmin } from "../../../Redux/actions";
 
 
 
@@ -13,7 +13,7 @@ function NavbarAdmin() {
 
   const handleLogout = () => {
     dispatch(logoutAdmin())//token a null
-    dispatch(clearTokenAdmin)//localstorage de token a null
+    window.localStorage.removeItem('loggedFastFoodAdmin');//localstorage de token a null
   }
 
 
