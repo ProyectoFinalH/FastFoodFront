@@ -220,7 +220,7 @@ function Menu() {
               <FontAwesomeIcon icon={faStar}/>
             </p>
             <p>
-              {restaurant1.rating}
+              {restaurant1?.rating}
             </p>
             </div>
           </div>
@@ -275,7 +275,9 @@ function Menu() {
                   </div>
                 );
               } else {
-                return null;
+
+                return (null
+                );
               }
             })}
           </div>
