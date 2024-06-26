@@ -29,6 +29,7 @@ function CreateMenuItem() {
       try {
         // Verifica si el nombre del ítem ya existe antes de enviar la solicitud
         const isDuplicate = allMenuss.some((menu) => menu.name === menuItemName);
+        console.log("ver si esta duplicado el nombre", isDuplicate)
         if (isDuplicate) {
           setItemErrorMessage('El nombre del ítem ya está en uso.');
         } else {
@@ -47,7 +48,7 @@ function CreateMenuItem() {
         }
       } catch (error) {
         console.log('Error al crear el ítem del menú:', error.message);
-        setItemErrorMessage('Error al crear el ítem del menú. Inténtalo nuevamente.');
+        setItemErrorMessage('El nombre del ítem ya está en uso.');
       }
     }
   };
