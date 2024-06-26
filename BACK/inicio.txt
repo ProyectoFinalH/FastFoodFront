@@ -1,3 +1,0 @@
-inicio
-base datos ok
-rutas get user
