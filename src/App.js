@@ -37,11 +37,12 @@ import Rating from "./Components/rating/rating";
 function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const URLBACK="https://fastfoodback3-production.up.railway.app";
 
   useEffect(() => {
     const Data = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/restaurants");
+        const response = await axios.get(URLBACK+"/restaurants");
 
         setLoading(false);
       } catch (error) {
