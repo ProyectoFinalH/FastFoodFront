@@ -1,0 +1,19 @@
+.bodyloading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(244, 33, 33, 0.791); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensures it overlays other content */
+}
+.bodyloading img {
+  width: 120px;
+  height: auto;
+  border-radius: 20px;
+  /* border:white 2px groove;
+    opacity: 0.6;*/
+}

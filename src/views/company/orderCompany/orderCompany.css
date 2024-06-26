@@ -1,0 +1,257 @@
+/* orederCompay.css */
+
+.container {
+
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    justify-content: center;
+
+  }
+  
+  .orderCompany h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 150vh;
+  }
+  
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: 'Arial', sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+  
+  .styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+  }
+  
+  .text-edit-order {
+    width: 90%;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+  }
+  
+  .checkbox-edit-order {
+    transform: scale(1.2);
+  }
+  
+  .btn {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .btn-delete img {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .btn-edit, .btn-modify {
+    display: inline-block;
+    margin: 0 5px;
+  }
+  
+  .btn-Guardar img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .btn-cancelar img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .img_List_Order {
+    width: 20px;
+    height: 20px;
+  }
+
+
+  
+  .img_Cancelar-Order {
+    width: 20px;
+    height: 20px;
+  }
+  
+
+  /*! Adicional Luis Buelvas div Flotante */
+  /* Agrega esto a tu archivo orderCompany.css */
+
+.modal {
+  display: none; 
+
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.4); 
+  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(red, red, red, 0.15);
+}
+.Texto-Name{
+  font-weight: 700;
+  margin: 10px;
+  margin-bottom: 10px;
+
+}
+.Texto-Name-title{
+  font-weight: 700;
+  margin: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.items-container {
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item input {
+  width: 100px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group-btn{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+.input-textos{
+width: 80px;
+background-color:  #ff0000;
+text-align: center;
+margin: 20px;
+}
+.input-textos:focus{
+  background-color: green;
+}
+.input-textos:active{
+  background-color: #935252;
+  text-align: center;
+
+  color: white;
+}
+
+
+.input-textos-fecha{
+  width: 200px;
+  background-color:  #ff0000;
+  text-align: center;
+  margin: 20px;
+  }
+  .input-textos-fecha:focus{
+    background-color: green;
+  }
+.input-Numero{
+  width: 20px;
+  background-color: #ff0000;
+  text-align: center;
+  margin: 5px;
+}
+ 
+.input-Numero:focus{
+  background-color: green;
+}
+.input-Numero:active{
+
+  background-color: #935252;
+  text-align: center;
+  margin: 5px;
+  color: white;
+}
+
+.img_List_Order-Guardar {
+  width: 50px;
+  height: 50px;
+  margin-right: 30px;
+  background-color: transparent; /* Establecer el color de fondo transparente */
+  border: none; /* Quitar el borde */
+}
+
+.img_List_Order-Guardar:hover {
+  width: 48px;
+  height: 48px;
+  margin-right: 30px;
+  cursor: pointer;
+  background-color: forestgreen; 
+  border-radius: 100%;
+}
+

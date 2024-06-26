@@ -1,0 +1,127 @@
+.mainContainerMenues {
+    width: 100%;
+}
+.mainContainerMenues button{
+    padding: 5px 0px;
+    width: 200px;
+    font-size: 20px;
+    background-color: #ff4646;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid rgb(196, 196, 196);    
+    border-radius: 5px;
+    margin-left: -2.5%;
+    margin-top: 10px;
+    box-shadow: 0px 2px 5px rgb(126, 126, 126);
+  }
+
+.menusContainer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    width: 90%;
+    height: 70vh;
+    box-shadow: 0px 0px 15px rgb(143, 143, 143);
+    margin: 20px 0px 0px 5%;
+    border-radius: 10px;
+}
+.menusContainer::-webkit-scrollbar{
+    width: 10px;
+    scroll-margin-top: 200px;
+  }
+  
+  .menusContainer::-webkit-scrollbar-thumb{
+    background-color: #c90000;
+   border-radius: 5px;
+  }
+  
+  .menusContainer::-webkit-scrollbar-thumb:hover{
+    background-color: #dbba00;
+  }
+  
+
+.menuCardsCompany {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border: solid 1px rgb(187, 187, 187);
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    border-radius: 20px;
+    box-shadow: 0px 5px 5px rgb(196, 196, 196);
+    background: rgba(233, 233, 233, 0.8);
+    font-size: 1.3rem;
+    height: 80px;
+    cursor: default;
+    transition: all 0.3s ease-in-out;
+}
+
+.menuCardsCompany:hover {
+    transform: translateY(-5px);
+    border: solid 1px rgb(255, 55, 55);
+
+}
+
+@media (max-width: 70vh
+    /* Ancho específico donde quieres que cambie el diseño */
+) {
+    .menusContainer {
+        flex-direction: column;
+        /* Cambia la dirección del flex a columna */
+    }
+}
+
+.button-show {
+    cursor: pointer;
+    background-color: #ff3239;
+    color: #ffffff;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 110px;
+    height: 30px;
+    margin: 5% 20% 0% 20%;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.button-hide {
+    cursor: pointer;
+    background-color: #858585;
+    color: #dadada;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 110px;
+    height: 30px;
+    margin: 5% 20% 0% 20%;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.button-hide:hover,
+.button-show:hover {    
+    background-color: rgb(168, 168, 168);
+    box-shadow: 0px 0px 5px rgb(126, 126, 126);
+}
+.custom-modal-button2{
+    margin-left: 80%;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: #ff5d5d;
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 50px; 
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.3rem;
+  }
+  .custom-modal-button2:hover{
+    background-color: #ac0000;
+  }

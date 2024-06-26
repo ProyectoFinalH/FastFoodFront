@@ -1,0 +1,66 @@
+.loginCarrucel{
+ width: 350px;
+ height: 250px;
+ border: 2px white groove;
+ color: black;
+ background-color: white;
+ border-radius: 10px;
+ border: 2px red groove;
+ /*opacity: 0.80;*/
+}
+.superiorTituloCarrucel{
+    border-bottom: 2px groove red;
+    color: black;
+    font-weight: bolder;
+}
+.grupogeneralcarrucel{
+   /* border-bottom: 2px groove red;*/
+    color: black;
+    font-weight: bolder;
+    height: 220px;
+    display: flex;
+    flex-direction: column; /* Establecer dirección de columna para que los elementos se alineen verticalmente */
+    align-items: center; /* Centrar horizontalmente en el eje X */
+    justify-content: center; /* Centrar verticalmente en el eje Y */
+    
+}
+.grupogeneralcarrucel, h1{
+color: red;
+font-size: 12px;
+text-align: justify;
+padding: 2px;
+margin: 2px;
+width: 100%;
+}
+.carrucelimagen_centro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    /*border-radius: 10%;
+    border: 2px groove red;*/
+    overflow: hidden; /* Esto asegura que la imagen se ajuste dentro del borde redondeado */
+    text-align: center; /* Centrar el texto dentro del contenedor */
+    margin: auto; /* Centrar el contenedor dentro de su padre */
+    
+}
+.imagencarrucelmostrar{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+
+
+.carrucel_Like{
+    width: 25px;
+    padding-left: 20px;
+    margin: 2px;
+}
+.carrucel_Like{
+    cursor: pointer;
+}
+.carrucel_grupo_like{
+    display: flex;
+}

@@ -1,0 +1,163 @@
+.infoCompanyContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow-y: auto;
+    width: 90%;
+    height: 70vh;
+    margin: auto;
+    border-radius:  10px;
+    box-shadow: 0px 0px 15px rgb(136, 136, 136);
+}
+.infoCompanyContainer::-webkit-scrollbar{
+  width: 10px;
+}
+
+.infoCompanyContainer::-webkit-scrollbar-thumb{
+  background-color: #c90000;
+ border-radius: 5px;
+}
+
+.infoCompanyContainer::-webkit-scrollbar-thumb:hover{
+  background-color: #dbba00;
+}
+
+
+.labelContainer {
+    display: flex;
+    padding: 10px;
+    width: 550px;
+    height: 50px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    align-items: center;
+    border: 1px solid hsl(0, 0%, 0%, 0.1);
+    justify-content: space-between;
+    
+}
+
+
+.labelContainerimg {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 600px;
+    height: 300px;
+    margin-bottom: 30px;
+    align-items: center;
+    border: 1px solid hsl(0, 0%, 0%, 0.1);
+    justify-content: space-between;
+}
+
+.labelContainerimg img {
+width: 150px;
+}
+
+
+.labelContainer input {
+   
+    padding: 4px;
+    border: 2px solid #ccc;
+    border-radius: 1px;
+    box-sizing: border-box;
+    margin-left: 5px;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease;
+  }
+  
+ 
+  .labelContainer input:focus {
+    outline: none;
+    border-color: #c90a06;
+  }
+  .labelContainer button {
+    padding: 10px 20px;
+    background-color: #c90a06; 
+    color: white; 
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .labelContainer button:hover {
+    background-color: #f3f3f3;
+    color: #c90a06;
+    border: solid 1px #c90a06 ;
+  }
+  .labelContainerimg button {
+    
+    padding: 10px 20px;
+    background-color: #c90a06;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .labelContainerimg button:hover {
+    background-color: #f3f3f3;
+    color: #c90a06;
+    border: solid 1px #c90a06 ;
+  }
+  .RGDbutton{
+    margin-left: 10%;
+  }
+  .RGDbutton button{    
+    padding: 2px 0px;
+    width: 200px;
+    font-size: 20px;
+    background-color: #ff4646;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid rgb(196, 196, 196);    
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-top: 10px;
+    box-shadow: 0px 2px 5px rgb(126, 126, 126);    
+    transition:  0.3s ease-in-out;
+  }
+  .confirmationMessage{
+    margin-left: 40%;
+    margin-right: 20%;
+    margin-bottom: 10px;
+    color: #2cbb00;
+    filter: drop-shadow(0px 0px 1px rgb(199, 199, 199));
+    font-size: 1.2rem;
+  }
+  button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+input:disabled, select:disabled {
+  background-color: #f0f0f0;
+  color: #999999;
+  cursor: not-allowed;
+}
+button:disabled:hover {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+.customFileButton {
+  padding: 10px 20px;
+  background-color: #c90a06;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.customFileButton:hover{
+  background-color: #f3f3f3;
+  color: #c90a06;
+  border: solid 1px #c90a06 ;
+}
+.customFileButton:disabled {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #888;
+}

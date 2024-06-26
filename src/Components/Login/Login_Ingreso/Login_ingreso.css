@@ -1,0 +1,249 @@
+.login-container {
+  background-color: white;
+  padding: 45px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-body {
+  width: 350px;
+  height: 97%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle {
+  cursor: pointer;
+}
+
+.login-image {
+  width: 250px;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px groove gainsboro;
+  border-radius: 10px;
+  height: 35px;
+  margin-top: 20px;
+  padding: 5px;
+  width: 350px;
+}
+
+.input-group input {
+  height: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 90%;
+  font-size: 16px;
+}
+
+.input-group img {
+  max-width: 20px;
+  height: auto;
+  margin: 5px;
+}
+
+.google-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  width: 350px;
+  height: 25px;
+  margin-top: 20px;
+  border: 2px gainsboro groove;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 5px 10px;
+  z-index: 1;
+  font-weight: bolder;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.google-login img {
+  margin: 5px;
+  width: 15px;
+}
+
+.google-login::after {
+  content: "";
+  background: #29d884;
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+
+}
+.forgot-password {
+  position: relative;
+  display: block;
+  padding: 2px;
+  margin-top: 10px;
+  color: rgb(107, 114, 128);
+  font-weight: bold;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.forgot-password:hover::before {
+  transform: scaleX(1);
+}
+
+.register {
+  position: relative;
+  display: block;
+  padding: 2px;
+  margin-top: 10px;
+  color: rgb(107, 114, 128);
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.register:hover {
+  cursor: pointer;
+}
+
+.register {
+  margin-top: 5px;
+}
+
+.register:hover::before {
+  transform: scaleX(1);
+}
+
+.error-message {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+}
+
+.input-group {
+  position: relative;
+}
+
+.login-button {
+  text-align: center;
+  margin-top: 20px;
+  height: 25px;
+  background: linear-gradient(283deg, #ff2426, #ff9259);
+  width: 350px;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.login-button:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-button::after {
+  content: "";
+  background: #29d884;
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+}
+
+.login-button:hover::after {
+  transition: all 0.3s ease-out;
+  transform: scale(1, 1);
+}
+
+.login-button.disabled {
+  background: linear-gradient(283deg, #616161, #080808);
+  cursor: not-allowed;
+  color: #d4d4d4;
+  font-weight: 500;
+}
+
+.login-button.disabled:hover {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.login-button.disabled::after {
+  display: none;
+}
+
+.error-space {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 0.2em;
+}
+
+.user-type-radio {
+  display: flex;
+  font-size: 16px;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.login-group{
+  text-align: center;
+}

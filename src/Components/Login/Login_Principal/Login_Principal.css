@@ -1,0 +1,48 @@
+.BodyLogin {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+}
+
+.izquierdaGeneral {
+  width: 50%;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: url("../Login_imagenes/mano-guantes-hamburguesa-hamburguesa-carne-fondo-negro_140725-303.jpg")
+    no-repeat center center;
+  background-size: cover;
+}
+
+.carrucel {
+  position: relative;
+  z-index: 3;
+}
+
+.derechaGeneral {
+  width: 50%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 868px) {
+  .BodyLogin {
+    flex-direction: column;
+  }
+
+  .izquierdaGeneral {
+    display: none;
+  }
+
+  .derechaGeneral {
+    width: 100%;
+  }
+}

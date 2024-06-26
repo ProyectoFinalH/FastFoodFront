@@ -1,0 +1,211 @@
+.login-admin-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-admin-bodyIngreso {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  border-radius: 8px;
+}
+
+.login-admin-ver {
+  cursor: pointer;
+}
+
+.login-admin-imageningreso {
+  width: 400px;
+}
+
+.login-admin-contenedoringreso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-admin-Grupoinput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px groove gainsboro;
+  border-radius: 10px;
+  height: 35px;
+  margin-top: 20px;
+  padding: 5px;
+  width: 350px;
+}
+
+.login-admin-Grupoinput input {
+  height: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 90%;
+  font-size: 16px;
+}
+
+.login-admin-Grupoinput img {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+}
+
+.login-admin-centrarlogogoogle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  width: 350px;
+  height: 35px;
+  margin-top: 20px;
+  padding: 4px;
+  border: 2px gainsboro groove;
+  cursor: pointer;
+}
+
+.login-admin-centrarlogogoogle img {
+  width: 25px;
+}
+
+.login-admin-olvidastekey {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  padding: 2px;
+  margin-top: 10px;
+  color: rgb(78, 78, 78);
+  font-weight: bolder;
+}
+
+.login-admin-olvidastekey::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.login-admin-olvidastekey:hover::before {
+  transform: scaleX(1);
+}
+
+.login-admin-Registrate {
+  position: relative;
+  display: block;
+  padding: 2px;
+  margin-top: 10px;
+  color: rgb(78, 78, 78);
+  font-weight: bolder;
+}
+
+.login-admin-Registrate::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #ffc400, #ff0000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.login-admin-Registrate:hover {
+  cursor: pointer;
+}
+
+.login-admin-Registrate {
+  margin-top: 5px;
+}
+
+.login-admin-Registrate:hover::before {
+  transform: scaleX(1);
+}
+
+.login-admin-error-message {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+}
+
+.login-admin-Grupoinput {
+  position: relative;
+}
+
+.login-button {
+  text-align: center;
+  margin-top: 20px;
+  height: 25px;
+  background: linear-gradient(283deg, #ff2426, #ff9259);
+  width: 350px;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+  font-weight: bolder;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.login-button:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-button::after {
+  content: "";
+  background: #29d884;
+  position: absolute;
+  z-index: -1;
+  padding: 5px 10px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+  transition: all 0.3s ease;
+}
+
+.login-button:hover::after {
+  transition: all 0.3s ease-out;
+  transform: scale(1, 1);
+}
+
+.login-button.disabled {
+  background: linear-gradient(283deg, #616161, #080808);
+  cursor: not-allowed;
+  color: #d4d4d4;
+  font-weight: 500;
+}
+
+.login-button.disabled:hover {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.login-button.disabled::after {
+  display: none;
+}
+
+.login-admin-espacioError {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 0.2em;
+}
