@@ -18,7 +18,7 @@ function Rating({onClose, restaurantId}) {
   console.log("commentsss",comments);
 
   const handleCloseModal = (e) => {
-    // Verificar si el clic ocurrió dentro del modal-content
+    
     if (e.target.classList.contains("ratingsContainer")) {
       onClose();
     }
@@ -33,6 +33,12 @@ function Rating({onClose, restaurantId}) {
           </span>
           <h2>Comentarios y Opiniones</h2>
           <div className="CommentsContainer">
+
+          {comments.length === 0 ? (
+              <div className="noCommentsMessage">
+                <p>No hay reseñas hechas.</p>
+              </div>
+            ) : (
 
           <ul>
             {Array.isArray(comments) &&
@@ -66,6 +72,7 @@ function Rating({onClose, restaurantId}) {
               </li>
             ))}
           </ul>
+            )}
           </div>
         </div>
       </div>
