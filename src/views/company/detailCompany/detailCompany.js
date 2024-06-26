@@ -140,7 +140,6 @@ function DetailCompany() {
             name="image_url"
             onChange={handleImageChange}
             id="imageUrl"
-            accept=".jpg,.png"
             style={{ display: "none" }}
             accept=".jpg,.png"
             disabled={!isEditMode}
