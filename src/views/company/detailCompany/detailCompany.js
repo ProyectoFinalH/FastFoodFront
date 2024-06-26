@@ -70,7 +70,7 @@ function DetailCompany() {
     const selectedImage = e.target.files[0];
     if (selectedImage) {
       setImageFile(selectedImage); // Actualiza el estado con la imagen seleccionada
-  
+
       // Crea una URL para la vista previa de la imagen
       const imagePreviewUrl = URL.createObjectURL(selectedImage);
       setSelectedImagePreview(imagePreviewUrl);
@@ -82,7 +82,7 @@ function DetailCompany() {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-    
+
   };
 
   useEffect(() => {
@@ -102,7 +102,7 @@ function DetailCompany() {
       <div className="infoCompanyContainer">
         <div className="labelContainer">
           <h3>Nombre:</h3>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} disabled={!isEditMode}/>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} disabled={!isEditMode} />
         </div>
         <div className="labelContainer">
           <h3>Descripción:</h3>
@@ -118,7 +118,7 @@ function DetailCompany() {
         </div>
         <div className="labelContainer">
           <h3>Dirección:</h3>
-          <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={!isEditMode}/>
+          <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={!isEditMode} />
         </div>
         <div className="labelContainer">
           <h3>Contraseña:</h3>
@@ -140,18 +140,19 @@ function DetailCompany() {
             name="image_url"
             onChange={handleImageChange}
             id="imageUrl"
+            accept=".jpg,.png"
             style={{ display: "none" }}
             disabled={!isEditMode}
           />
         </div>
       </div>
       <div className="RGDbutton">
-      <button onClick={() => setIsEditMode(true)}>Editar</button>
-      {isEditMode ? (
-    <>
-      <button onClick={updateField}>Guardar</button>
-    </>
-  ) : null}
+        <button onClick={() => setIsEditMode(true)}>Editar</button>
+        {isEditMode ? (
+          <>
+            <button onClick={updateField}>Guardar</button>
+          </>
+        ) : null}
       </div>
     </div>
   );
