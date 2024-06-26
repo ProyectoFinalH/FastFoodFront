@@ -16,6 +16,7 @@ function MenuesCompany() {
     const { id } = useParams();    
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
     const token = useSelector((state)=> state.token.data);
+    const URLBACK="https://fastfoodback3-production.up.railway.app";
 
     useEffect(() => {
         dispatch(getAllMenusCompany());
@@ -24,7 +25,7 @@ function MenuesCompany() {
     useEffect(() => {
         const fetchMenuState = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/menuitems/${id}`);
+                const response = await axios.get(URLBACK+`/menuitems/${id}`);
                 setIsRestored(response.data.active);
             } catch (error) {
                 console.error('Error al cargar el estado del menú', error);
@@ -37,8 +38,8 @@ function MenuesCompany() {
     const toggleItemState = async (menu) => {
         try {
             const url = menu.active
-                ? `http://localhost:5000/menus/delete/${menu.id}`
-                : `http://localhost:5000/menus/restore/${menu.id}`;
+                ? URLBACK+`/menus/delete/${menu.id}`
+                : URLBACK+`/menus/restore/${menu.id}`;
 
                 configureAxios(token);
 

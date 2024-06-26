@@ -57,7 +57,7 @@ import { jwtDecode } from "jwt-decode";
 import { setToken, getToken } from "../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 //import { get } from "firebase/database";
 
-const URLBACK="fastfoodback3-production.up.railway.app";
+const URLBACK="https://fastfoodback3-production.up.railway.app";
 
 export const logoutUser = () => {
   return  {
@@ -875,6 +875,7 @@ export const loginAdmin = (formData) => {
    
     try {
       const URL=URLBACK+"/users/login"
+      console.log(URL);
       let response=await axios.post(URL,formData);
 
       return dispatch({
