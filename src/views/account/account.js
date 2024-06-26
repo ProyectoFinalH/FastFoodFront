@@ -1,3 +1,4 @@
+// src/Pages/Account/Account.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -19,6 +20,7 @@ import {
   obtenerIdUsuario,
   guardarNombreUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import { validarUsername, validarPassword } from "./Components/validacionAccount";
 
 function Account() {
   const user = useSelector((state) => state.AllDATAUSER);
@@ -35,23 +37,24 @@ function Account() {
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const handleUsernameChange = (e) => {
     const value = e.target.value;
-    if (/^[a-zA-Z]{4,20}$/.test(value) || value === "") {
-      setUsername(value);
-    }
+    setUsername(value);
+    setUsernameError(validarUsername(value));
   };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
-    if (/^[a-zA-Z0-9]{5,20}$/.test(value) || value === "") {
-      setPassword(value);
-    }
+    setPassword(value);
+    setPasswordError(validarPassword(value));
   };
 
   const handleSubmit = async () => {
-    if (!email || !username) {
-      alert("Por favor, completa todos los campos.");
+    if (!email || !username || usernameError || passwordError) {
+      alert("Por favor, completa todos los campos correctamente.");
       return;
     }
 
@@ -214,12 +217,16 @@ function Account() {
               </div>
               <div className="input-group-container">
                 <div className="input-group1">
-                  <label>Nombre de usuario </label>{" "}
+                  <label>Nombre de usuario</label>
                   <input
                     type="text"
                     value={username}
                     onChange={handleUsernameChange}
+                    onBlur={() => setUsernameError(validarUsername(username))}
                   />
+                  {usernameError && (
+                    <div className="error">{usernameError}</div>
+                  )}
                 </div>
                 <div className="input-group1">
                   <label className="checkbox-label">
@@ -231,11 +238,19 @@ function Account() {
                     />
                   </label>
                   {changePassword && (
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={handlePasswordChange}
-                    />
+                    <>
+                      <input
+                        type="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        onBlur={() =>
+                          setPasswordError(validarPassword(password))
+                        }
+                      />
+                      {passwordError && (
+                        <div className="error">{passwordError}</div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
