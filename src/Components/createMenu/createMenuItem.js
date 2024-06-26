@@ -121,7 +121,7 @@ function CreateMenuItem() {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
-        <label htmlFor="imageUrl">Imagen:</label>
+        <label htmlFor="imageUrl">Imagen (JPG/PNG):</label>
         <label htmlFor="imageUrl" className="customFileButton2" >Subir Imagen</label>
         <input
           type="file"
