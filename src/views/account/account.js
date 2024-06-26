@@ -28,6 +28,7 @@ function Account() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showAccountSettings, setShowAccountSettings] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -139,6 +140,7 @@ function Account() {
     const file = event.target.files[0];
     if (file && /\.(jpg|png)$/.test(file.name)) {
       setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
     } else {
       alert("Por favor, selecciona una imagen en formato JPG o PNG.");
     }
@@ -152,7 +154,13 @@ function Account() {
           <div className="profile-header">
             <p className="welcome-message">Bienvenido {username}</p>
             <label htmlFor="profile-image" className="profile-image-container">
-              {user && user.image_url ? (
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="Perfil"
+                  className="profile-image"
+                />
+              ) : user && user.image_url ? (
                 <img
                   src={user.image_url}
                   alt="Perfil"

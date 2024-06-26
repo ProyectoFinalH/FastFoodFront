@@ -38,9 +38,14 @@ import {
   EMPRESALOGIN,
   UPDATE_USER_DATA,//! actualizar la data
   SELECTRESTAURANTE, //!Seleccionamos es restaurante
+
+  GET_COMMENT,
+  CLEAR_COMMENTS,
+  POST_COMMENT,
+
   GET_DETAIL_EMPRESA,
   SET_TOKEN,
-  CLEAR_TOKEN,
+  
   PUT_DETAIL_EMPRESA,
   GET_CATEGORIES_COMPANY,
   GET_MENUITEMS_COMPANY,
@@ -72,9 +77,12 @@ const initialState = {
   createMenuItems: null,
   createCategories: null,
   User_Actualizado: null,
-  token: null,//estado global que guarda el token obtenido en login
-  EMPRESAUSER: null,
-  SELCTRESTAURANT: null, //!Seleccionamos El restaurante 
+
+  token:null,//estado global que guarda el token obtenido en login
+  EMPRESAUSER:null,
+  SELCTRESTAURANT:null, //!Seleccionamos El restaurante 
+  allComments:[],
+
   Detail_Empresa: null,
   categoriesCompany: [],
   menusCompany: [],
@@ -310,11 +318,7 @@ const reducer = (state = initialState, { type, payload }) => {
         token: payload
       }  
 
-    case CLEAR_TOKEN:
-      return {
-        ...state,
-        token: null
-    } 
+    
     case PUT_DETAIL_EMPRESA:
       return {
         ...state,
@@ -340,6 +344,22 @@ const reducer = (state = initialState, { type, payload }) => {
           ...state,
           commentsCompany: payload
           }
+
+        case GET_COMMENT:
+          return {
+            ...state,
+            allComments: payload
+          }
+          case CLEAR_COMMENTS:
+            return {
+              ...state,
+              allComments: []
+            }
+            case POST_COMMENT:
+              return {
+                ...state,
+                allComments: payload
+              }
     default:
       return { ...state };
   }

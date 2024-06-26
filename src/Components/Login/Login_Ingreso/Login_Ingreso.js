@@ -130,7 +130,8 @@ const LoginIngreso = ({ setView }) => {
 
 
     
-  },[Empresa, navigate])
+  },[Empresa, navigate, dispatch])
+
 
 
 
