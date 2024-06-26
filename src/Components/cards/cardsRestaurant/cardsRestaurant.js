@@ -25,6 +25,7 @@ function CardsRestaurant({ allRestaurants }) {
               name={restaurant?.name}
               description={restaurant?.description}
               image_url={restaurant?.image_url}
+              rating={restaurant?.rating}
             />
           </div>
           </div>

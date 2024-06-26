@@ -58,3 +58,21 @@
     color: rgb(77, 2, 2);
     font-weight: 700;
 }
+
+.Botton-Comment-Order{
+    position:static;
+    
+}
+
+.botonOpinion button{
+    background-color: #ff5a5f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.botonOpinion button:hover {
+    background-color: #f86e72;
+  }

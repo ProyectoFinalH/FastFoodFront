@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
 import { getAllRestaurants, login_user_localstorag } from "../../Redux/actions";
 import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
-import CardOpiniones from "../../Components/card/cardOpiniones/cardOpiniones";
-import CardPagos from "../../Components/card/cardPagos/cardPagos";
+// import CardOpiniones from "../../Components/card/cardOpiniones/cardOpiniones";
+// import CardPagos from "../../Components/card/cardPagos/cardPagos";
 import Slider from "../../Components/slider";
 import Image1 from "../../images/Image1.jpg";
 import Image2 from "../../images/image2.jpg";
@@ -75,11 +75,11 @@ function Home() {
           </Link>
         </div>
       </div>
-      <div className="otherContent">
+      {/* <div className="otherContent">
         <div>
           <h2 className="conoceMasTitle">Conocé más!</h2>
           <div className="cardOtherItems1">
-            <Link to="/opiniones">
+            <Link to="/reviews">
               <CardOpiniones />
             </Link>
             <Link to="/pagos">
@@ -87,7 +87,7 @@ function Home() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
       <Footer />
     </div>
   );

@@ -31,6 +31,12 @@ import {
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
 
+import Rating from "../../Components/rating/rating";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+//import alertify from "alertifyjs";
+
+
 function Menu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,6 +60,8 @@ function Menu() {
 
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [ratings, setRatings] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
@@ -174,9 +182,16 @@ function Menu() {
   const handleGoBack = () => {
     removeOrder()
     navigate("/home");
+  };
 
+  const handleOpenRating = () => {
+    setRatings(true);
+  };
 
-  };  
+  const handleCloseRating = () => {
+    setRatings(false);
+  };
+ev
 
 
   return (
@@ -197,7 +212,25 @@ function Menu() {
               />
               <h2 className="restaurant-name">{restaurant1?.name}</h2>
             </div>
+          </div>  
+            <div className="opinionesContainer" onClick={handleOpenRating}>
+              <p>Opiniones</p>
+              <div className="ratingContainerMenu">
+            <p>
+              <FontAwesomeIcon icon={faStar}/>
+            </p>
+            <span>
+              {parseInt(restaurant1.rating)}
+            </span>
+            </div>
           </div>
+
+          {ratings && (
+            <Rating
+              onClose={handleCloseRating}
+              restaurantId={restaurant1?.id}
+            />
+          )}
           <div className="cardsContentMenu">
             <div className="cards-menus-container">
               <CardsMenus
@@ -224,7 +257,6 @@ function Menu() {
         </div>
         <div className="cards-menus">
           <div className="cards-menu-items">
-
             
           {allMenus?.map((menu) => {
   // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
