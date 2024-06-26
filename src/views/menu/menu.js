@@ -19,15 +19,13 @@ import Detail from "../detail/detail";
 import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
 import { login_user_localstorag } from "../../Redux/actions";
 
-
-
 import { removeOrder } from "../../Components/localStorage-car/LocalStorageCar";
 import {
   obtenerEstatusUsuario,
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
-  getSelctRestaurantapp
+  getSelctRestaurantapp,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
 
@@ -52,7 +50,6 @@ function Menu() {
     null
   );
 
-
   const [selectedRestaurantId, setSelectedRestaurant] = useState();
   const [searchString, setSearchString] = useLocalStorage("searchString", "");
   const [sortBy, setSortBy] = useLocalStorage("sortBy", null);
@@ -76,13 +73,12 @@ function Menu() {
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
   };
-  
 
   useEffect(() => {
     const email = obtenerCorreoUsuario();
-    const rest = getSelctRestaurantapp()
-//alertify.alert("menu", "este es el menu crweo" + rest)
-    setSelectedRestaurant(rest)
+    const rest = getSelctRestaurantapp();
+    //alertify.alert("menu", "este es el menu crweo" + rest)
+    setSelectedRestaurant(rest);
     // alert("mail es "+ email)
 
     if (email) {
@@ -93,7 +89,7 @@ function Menu() {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
-      
+
       if (selectedRestaurantId) {
         navigate(`/menu/${selectedRestaurantId}`);
       } else {
@@ -180,7 +176,7 @@ function Menu() {
   }
 
   const handleGoBack = () => {
-    removeOrder()
+    removeOrder();
     navigate("/home");
   };
 
@@ -275,7 +271,6 @@ function Menu() {
                   </div>
                 );
               } else {
-
                 return (null
                 );
               }
