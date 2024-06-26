@@ -1,7 +1,7 @@
 import "./createMenu.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { CreateMenu, getAllMenus, getAllCategories } from "../../Redux/actions";
+import { CreateMenu, getAllMenusCompany} from "../../Redux/actions";
 
 function CreateMenuForm() {
     const dispatch = useDispatch();
@@ -9,20 +9,22 @@ function CreateMenuForm() {
     const [menuSuccessMessage, setMenuSuccessMessage] = useState("");
     const [menuErrorMessage, setMenuErrorMessage] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (menuName.menuname.trim() === "") {
             setMenuErrorMessage("Debe ingresar un nombre válido para el menú.");
         } else {
-            dispatch(CreateMenu({ name: menuName.menuname, restaurant_id: 2 }));
-            setMenuSuccessMessage("Menú creado con éxito");
-        }
-    };   
-
-    useEffect(() => {
-        dispatch(getAllCategories());
-        dispatch(getAllMenus());
-    }, [dispatch]);
+            try {
+              await dispatch(CreateMenu({ name: menuName.menuname}));
+              setMenuSuccessMessage('Menú creado con éxito');
+              setMenuErrorMessage('');
+              dispatch(getAllMenusCompany())
+            } catch (error) {
+              setMenuErrorMessage('El nombre del menú ya está en uso.');
+              console.log('Error al crear el menú:', error.message);
+            }
+          }
+    };
 
     return (
         <div className="createmenu">
