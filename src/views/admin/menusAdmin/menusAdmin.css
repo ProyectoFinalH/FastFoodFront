@@ -284,3 +284,8 @@ display: flex;
 .h2MenuSelected{
   margin-left: 20px;
 }
+.noResultsMessage{
+  display: flex;
+justify-content: center;
+width: 100%;
+}

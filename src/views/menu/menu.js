@@ -219,9 +219,9 @@ function Menu() {
             <p>
               <FontAwesomeIcon icon={faStar}/>
             </p>
-            <p>
-              {restaurant1?.rating}
-            </p>
+            <span>
+              {parseInt(restaurant1?.rating)}
+            </span>
             </div>
           </div>
 
