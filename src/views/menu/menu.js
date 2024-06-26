@@ -222,7 +222,7 @@ function Menu() {
               if (menuItems?.length > 0) {
                 return (
                   <div key={menu.id} className="menu-item-container">
-                    <h2>{menu.name}</h2>
+                    <h1 className="menu-title-menu">{menu.name}</h1>
                     <CardsMenuItem
                       AllMenuitems={menuItems}
                       handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
