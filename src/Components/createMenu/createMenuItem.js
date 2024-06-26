@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CreateMenuItems,
-  getAllMenus,
-  getAllCategories,
+  getAllMenusCompany,
+  getAllCategoriesCompany,
+  getAllMenuitemsCompany,
 } from "../../Redux/actions";
 
 function CreateMenuItem() {
@@ -14,42 +15,47 @@ function CreateMenuItem() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const allMenuss = useSelector((store) => store.allMenus || []);
+  const allMenuss = useSelector((store) => store.menusCompany || []);
   const [itemSuccessMessage, setItemSuccessMessage] = useState("");
   const [itemErrorMessage, setItemErrorMessage] = useState("");
-  const allCategories = useSelector((store) => store.allCategories || []);
+  const allCategories = useSelector((store) => store.categoriesCompany || []);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
-  const handleMenuItem = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (
-      menuItemName.trim() === "" ||
-      description.trim() === "" ||
-      price.trim() === ""
-    ) {
-      setItemErrorMessage("Todos los campos deben ser llenados");
+    if (menuItemName.trim() === '' || description.trim() === '' || price.trim() === '') {
+      setItemErrorMessage('Todos los campos deben ser llenados');
     } else {
-      const formData = new FormData();
-      formData.append("menu_id", menuName.itemMenu);
-      formData.append("category_id", selectedCategoryId);
-      formData.append("name", menuItemName);
-      formData.append("description", description);
-      formData.append("price", price);
-      formData.append("image_url", imageFile);
-      formData.append("restaurant_id", 2);
-
-      // Para verificar que el FormData contiene los datos correctos
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
+      try {
+        // Verifica si el nombre del ítem ya existe antes de enviar la solicitud
+        const isDuplicate = allMenuss.some((menu) => menu.name === menuItemName);
+        console.log("ver si esta duplicado el nombre", isDuplicate)
+        if (isDuplicate) {
+          setItemErrorMessage('El nombre del ítem ya está en uso.');
+        } else {
+          const formData = new FormData();
+          formData.append('menu_id', menuName.itemMenu);
+          formData.append('category_id', selectedCategoryId);
+          formData.append('name', menuItemName);
+          formData.append('description', description);
+          formData.append('price', price);
+          formData.append('image_url', imageFile);
+          // Lógica para enviar el formulario al servidor
+          await dispatch(CreateMenuItems(formData));
+          setItemSuccessMessage('Ítem del menú creado con éxito');
+          setItemErrorMessage(''); // Limpia el mensaje de error
+          dispatch(getAllMenuitemsCompany())
+        }
+      } catch (error) {
+        console.log('Error al crear el ítem del menú:', error.message);
+        setItemErrorMessage('El nombre del ítem ya está en uso.');
       }
-      dispatch(CreateMenuItems(formData));
-      setItemSuccessMessage("Ítem del menú creado con éxito");
     }
   };
 
   useEffect(() => {
-    dispatch(getAllCategories());
-    dispatch(getAllMenus());
+    dispatch(getAllMenusCompany());
+    dispatch(getAllCategoriesCompany());
   }, [dispatch]);
 
   const handleMenuChange = (event) => {
@@ -115,7 +121,7 @@ function CreateMenuItem() {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
-        <label htmlFor="imageUrl">Imagen:</label>
+        <label htmlFor="imageUrl">Imagen (JPG/PNG):</label>
         <label htmlFor="imageUrl" className="customFileButton2" >Subir Imagen</label>
         <input
           type="file"
@@ -124,7 +130,7 @@ function CreateMenuItem() {
           id="imageUrl"          
           style={{ display: "none" }}
         />
-        <button onClick={handleMenuItem}>Crear Producto</button>
+        <button onClick={handleSubmit}>Crear Producto</button>
         {itemSuccessMessage && (
           <p className="success-message">{itemSuccessMessage}</p>
         )}
