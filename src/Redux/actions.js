@@ -1024,7 +1024,7 @@ export const login_Emrpesa =  (userData)=>{
       });
       
     } catch (error) {
-      alertify.alert("Mensaje", 'No hay categorias');
+      alertify.alert("Error", 'Credenciales invalidas');
     }
     
   };
