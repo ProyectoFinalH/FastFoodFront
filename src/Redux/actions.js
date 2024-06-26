@@ -43,7 +43,7 @@ import {
 
   GET_DETAIL_EMPRESA,
   SET_TOKEN, // para setear el valor del token 
-  CLEAR_TOKEN,
+  
   PUT_DETAIL_EMPRESA,
   GET_CATEGORIES_COMPANY,
   GET_MENUITEMS_COMPANY,
@@ -902,9 +902,7 @@ export const setTokenAdmin =(tokenLocalStorage)=>({
   
 });
 
-export const clearTokenAdmin=()=>({
-  type: CLEAR_TOKEN,
-})
+
 //=============================================================================//
 
 

@@ -26,7 +26,7 @@ function Admin() {
     }
     else{
       alertify.alert("Mensaje", //si no hay token regresa a Login
-        'No hay token presente, debe loguearse para continuar',()=>{
+        'Requiere credenciales, debe loguearse para continuar',()=>{
           navigate("/loginAdmin");
         }); 
     }
