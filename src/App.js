@@ -43,7 +43,6 @@ function App() {
       try {
         const response = await axios.get("http://localhost:5000/restaurants");
 
-       
         setLoading(false);
       } catch (error) {
         console.error("Error de red:", error);

@@ -127,3 +127,32 @@ export const getToken = () => {
     return null;
   }
 };
+
+
+
+
+//!functuion para guardar el  restaurante seleccionado 
+// Función para guardar el token en el Local Storage
+export const setSelctRestaurantapp = (restauran) => {
+  try {
+    localStorage.setItem("restauran-select", JSON.stringify(restauran));
+    console.log("Token almacenado correctamente.");
+  } catch (error) {
+    console.error("Error al almacenar el token:", error);
+  }
+};
+
+// Función para obtener el token del Local Storage
+export const getSelctRestaurantapp = () => {
+  try {
+    const token = localStorage.getItem("restauran-select");
+    if (token === null || token === undefined) {
+      console.error("Error: token es null o undefined");
+      return null;
+    }
+    return JSON.parse(token);
+  } catch (error) {
+    console.error("Error al parsear el token:", error);
+    return null;
+  }
+};

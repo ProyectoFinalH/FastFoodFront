@@ -1,7 +1,7 @@
 
 import {
-  getAllMenuitemsAdmin,
-  getAllMenusAdmin,
+  getAllMenuitemsCompany,
+  getAllMenusCompany,
 } from "../../../Redux/actions";
 import "./productsCompany.css"
 import React from 'react'
@@ -13,13 +13,13 @@ import CreateMenuItem from "../../../Components/createMenu/createMenuItem";
 
 function ProductsCompany() {
   const dispatch = useDispatch();
-  const allMenuitems = useSelector((state) => state.getAllMenuitemsAdmin);
+  const allMenuitems = useSelector((state) => state.menuItemsCompany);
   const [selectMenuItem] = useState(null);
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllMenusAdmin());
-    dispatch(getAllMenuitemsAdmin());
+    dispatch(getAllMenusCompany());
+    dispatch(getAllMenuitemsCompany());
   }, [dispatch]);
 
   let filteredMenuItems = [...allMenuitems];
@@ -37,12 +37,12 @@ function ProductsCompany() {
         <ReactModal
           isOpen={showCreateCategoryModal}
           onRequestClose={() => setShowCreateCategoryModal(false)}
-          className="custom-modal"
+          className="custom-modal2"
         >
           <CreateMenuItem />
           <button className="custom-modal-button" onClick={() => setShowCreateCategoryModal(false)}>X</button>
         </ReactModal>
-        <button onClick={() => setShowCreateCategoryModal(true)}>Crear Item Menu</button>
+        <button onClick={() => setShowCreateCategoryModal(true)}>Crear Producto</button>
       </div>
       <div className="cardMenusContainer2">
         <CardsMenuItems AllMenuitems={filteredMenuItems} selectMenuItem={selectMenuItem} hideCartButtons={true} showEyeIcon={true} />

@@ -38,7 +38,17 @@ import {
   EMPRESALOGIN,
   UPDATE_USER_DATA, //! obtener la data actualizacion 
   SELECTRESTAURANTE, //!seleccionamos el restaurrante
-  POST_COMMENT
+
+  POST_COMMENT,
+
+  GET_DETAIL_EMPRESA,
+  SET_TOKEN, // para setear el valor del token 
+  CLEAR_TOKEN,
+  PUT_DETAIL_EMPRESA,
+  GET_CATEGORIES_COMPANY,
+  GET_MENUITEMS_COMPANY,
+  GET_MENUS_COMPANY,
+  GET_COMMENTS_COMPANY,
  } from "./action-types";
 // import {GET_RESTAURANTS} from "./action-types"
 
@@ -290,9 +300,34 @@ export function getAllMenusAdmin() {
     const token=getState().token.data;
     configureAxios(token);
     
-    const response = await axiosInstance.get("http://localhost:5000/menus/all");
+    const response = await axiosInstance.get(`http://localhost:5000/menus/all`);
     return dispatch({
       type: GET_MENUS_ADMIN,
+      payload: response.data,
+    });
+  };
+}
+export function getAllMenusCompany() {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    
+    const response = await axiosInstance.get(`http://localhost:5000/menus/restaurant/${restaurantId}`);
+    return dispatch({
+      type: GET_MENUS_COMPANY,
+      payload: response.data,
+    });
+  };
+}
+export function getAllMenuitemsCompany() {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    const response = await axiosInstance.get(`http://localhost:5000/menuitems/restaurant/${restaurantId}`);
+    return dispatch({
+      type: GET_MENUITEMS_COMPANY,
       payload: response.data,
     });
   };
@@ -302,8 +337,7 @@ export function getAllMenuitemsAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
     configureAxios(token);
-
-    const response = await axiosInstance.get("http://localhost:5000/menuitems/all");
+    const response = await axiosInstance.get(`http://localhost:5000/menuitems/all`);
     return dispatch({
       type: GET_MENUITEMS_ADMIN,
       payload: response.data,
@@ -455,27 +489,19 @@ export const updateUser = (id, userData) => {
   return async (dispatch, getState) => {
       const token = getState().token;
       configureAxios(token.data);
-    
       if (!token) {
           console.error("Token de autenticación no encontrado.");
           alert("Usuario no autenticado. Inicia sesión nuevamente.");
           throw new Error("Usuario no autenticado.");
       }
-
-
     try {
       console.log('data a modificar del user',userData);
       const endpoint = `http://localhost:5000/users/${id}`;
       const response = await axiosInstance.put(endpoint, userData);
-
-      
-
-
        dispatch({
               type: UPDATE_USER,
               payload: response.data,
           });
-
           dispatch({
             type: UPDATE_USER_DATA,
             payload: response.data, 
@@ -530,6 +556,7 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
         type: CREATECOMPRA,
         payload: compra,
       });
+      return compra;
     } catch (error) {
      // alert("Error al enviar la información: " + error.message);
       console.log("Error al enviar la información: " + error.message);
@@ -542,10 +569,10 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
 export const Create_Lista_Order_Company = () => {
   return async (dispatch,getState) => {
     const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
-
     try {
-      const endpoint = "http://localhost:5000/orders/all";
+      const endpoint = `http://localhost:5000/orders/restaurant/${restaurantId}`;
       const response = await axiosInstance.get(endpoint);
       const compra = response.data;
       //alert("Esta es la lista de compras "+compra)
@@ -590,33 +617,32 @@ export const Eliminar_Registro_Compra = (id)=>{
 
 //!Identificar datos del las ordenes del Usuario 
 
-export const  Listado_Orders_Usuario=(id)=>{
-  return async (dispatch,getState) => {
-    const token=getState().token.data;
+export const Listado_Orders_Usuario = (userId) => {
+  return async (dispatch, getState) => {
+    const token = getState().token.data;
     configureAxios(token);
 
     try {
-      const endpoint = `http://localhost:5000/orders/user/${id}`;
-      const response = await  axiosInstance.get(endpoint);
-      const data = response.data;
-      //alert("Esta es la lista de compras "+compra)
-      console.log("Este si es " + JSON.stringify(data));
+      const endpoint = `http://localhost:5000/orders/user/${userId}`;
+      const response = await axiosInstance.get(endpoint);
+      
+      console.log("Respuesta del servidor:", response);
+
+      if (response.data && response.data.length === 0) {
+        console.log("El usuario no tiene órdenes.");
+      }
+
       dispatch({
         type: LISTADOORDERSUSERS,
-        payload: data,
-      }); 
+        payload: response.data,
+      });
 
-
-
-   
     } catch (error) {
-      console.log(error);
-      alert("Error al enviar la información", error.message);
-      console.log("Error al enviar la información", error.message);
+      console.error("Error al obtener las órdenes del usuario:", error);
+      alertify.error("Error al enviar la información. Detalle: " + error.message);
     }
-  
-  }
-}
+  };
+};
 //!Actualizar la compra de usuario
 
 export const Actualizar_Compra_Usuario = (datauser) => {
@@ -845,7 +871,6 @@ export const loginAdmin = (formData) => {
       const URL="http://localhost:5000/users/login"
       let response=await axios.post(URL,formData);
 
-      console.log("Admin", JSON.stringify(response))
       return dispatch({
         type:ADMIN_LOGIN,
         payload: response
@@ -865,19 +890,51 @@ export const loginAdmin = (formData) => {
 export const logoutAdmin = () => ({
   type: ADMIN_LOGOUT,
 });
+
+export const setTokenAdmin =(tokenLocalStorage)=>({
+  
+    type: SET_TOKEN,
+    payload:tokenLocalStorage,
+  
+});
+
+export const clearTokenAdmin=()=>({
+  type: CLEAR_TOKEN,
+})
 //=============================================================================//
 
 
 export function getAllCategoriesAdmin() {
   return async function (dispatch,getState) {
     const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
     
     try {
-      const response = await axiosInstance("http://localhost:5000/categories/all");
+      const response = await axiosInstance(`http://localhost:5000/categories/restaurant/${restaurantId}`);
       console.log("Categorías obtenidas:", response.data);
       return dispatch({
         type: GET_CATEGORIES_ADMIN,
+        payload: response.data,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}
+export function getAllCategoriesCompany() {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    
+    try {
+      const response = await axiosInstance(`http://localhost:5000/categories/restaurant/${restaurantId}`);
+      console.log("Categorías obtenidas:", response.data);
+      return dispatch({
+        type: GET_CATEGORIES_COMPANY,
         payload: response.data,
       });
       
@@ -1014,6 +1071,43 @@ export const Sellcionar_Restaurante = (id) =>{
     
   };
 }
+export const Data_Empresa=(id)=>{
+  console.log("empresa id",id)
+  return async  (dispatch)=> {
+    try {
+    const endpoint = `http://localhost:5000/restaurants/${id}`;
+    const response = await axios.get(endpoint);
+    console.log("detalle del action empresa",response)
+    dispatch({
+      type: GET_DETAIL_EMPRESA,
+      payload: response.data, 
+    })
+
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay info de restaurante');
+      console.log(error)
+    }
+    
+  };
+}
+export const Update_Empresa=(formData)=>{
+  return async  (dispatch,getState)=> {
+    const token = getToken();
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token.data);
+    console.log("id restaurante",restaurantId);
+    try {
+    const endpoint = `http://localhost:5000/restaurants/${restaurantId}`;
+    const response = await axiosInstance.put(endpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log("detalle del action empresa",response)
+    dispatch({
+      type: PUT_DETAIL_EMPRESA,
+      payload: response.data, 
+    })}}}
 
 
 export const GetComment = (id) => {
@@ -1068,3 +1162,24 @@ export const PostComment = (commentData) => {
     }
   };
 };
+
+export function getCommentsCompany() {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    const restaurantId = getState().EMPRESAUSER.id;
+    configureAxios(token);
+    
+    try {
+      const response = await axiosInstance(`http://localhost:5000/comments/${restaurantId}`);
+      console.log("Categorías obtenidas:", response.data);
+      return dispatch({
+        type: GET_COMMENTS_COMPANY,
+        payload: response.data,
+      });
+      
+    } catch (error) {
+      alertify.alert("Mensaje", 'No hay categorias');
+    }
+    
+  };
+}

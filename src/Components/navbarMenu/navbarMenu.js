@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useEffect} from "react";
+import { useEffect } from "react";
 import "./navbarMenu.css";
-
+import { getSelctRestaurantapp } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 function NavbarMenu({
   searchString,
   setSearchString,
@@ -13,15 +13,11 @@ function NavbarMenu({
   allCategories,
   sortBy,
   applyPriceRangeFilter,
-  priceRange
+  priceRange,
 }) {
- 
-  
-
   const handleCategoryClick = (category) => {
     handleCategoryFilter(category);
   };
-
 
   const handleSortChange = (e) => {
     const selectedSort = e.target.value;
@@ -33,8 +29,7 @@ function NavbarMenu({
     handlePriceRange(range);
     applyPriceRangeFilter(range);
   };
- 
- 
+
   // const Options2 = () => {
   //   setIsOpen2(!isOpen2);
   // };
@@ -56,10 +51,7 @@ function NavbarMenu({
     setSearchString(e.target.value);
   };
 
-
-  useEffect(()=> {
-
-  })
+  useEffect(() => {});
 
   return (
     <div className="navbarMenuContainer">
@@ -76,63 +68,60 @@ function NavbarMenu({
           </button>
         </div>
       </form>
-        <div className="customSection">
-          <button onClick={clearFilter}>Deshacer Filtros</button>
-        </div>
+      <div className="customSection">
+        <button onClick={clearFilter}>Deshacer Filtros</button>
+      </div>
       <div className="navbarMenuSelect">
         <div className="customSection">
-
           <div className="menuSelectNavbarMenu">
-          <div >
-          <label>Por precio:</label>
-            <select
-              className=""
-              value={sortBy}
-              onChange={handleSortChange}
-            >
-              <option className="optionAdmin" value="">
-              Ordenar por...
-              </option>
-              <option className="optionAdmin" value="menorPrecio">
-                Menor precio
-              </option>
-              <option className="optionAdmin" value="mayorPrecio">
-                Mayor precio
-              </option>
-            </select>
+            <div>
+              <label>Por precio:</label>
+              <select className="" value={sortBy} onChange={handleSortChange}>
+                <option className="optionAdmin" value="">
+                  Ordenar por...
+                </option>
+                <option className="optionAdmin" value="menorPrecio">
+                  Menor precio
+                </option>
+                <option className="optionAdmin" value="mayorPrecio">
+                  Mayor precio
+                </option>
+              </select>
+            </div>
           </div>
-          </div>
-         
         </div>
         <div>
-            <label>Por Rango:</label>
-            <select
-              className="menuSelectNavbarMenu"
-              value={priceRange} 
-              onChange={handlePriceRangeChange}
-            >
-              <option value="">Seleccionar rango...</option>
-              <option value="1-5">1 - 5</option>
-              <option value="6-15">6 - 15</option>
-              <option value="16-30">16 - 30</option>
-              <option value="31-50">31 - 50</option>
-            </select>
-          </div>
+          <label>Por Rango:</label>
+          <select
+            className="menuSelectNavbarMenu"
+            value={priceRange}
+            onChange={handlePriceRangeChange}
+          >
+            <option value="">Seleccionar rango...</option>
+            <option value="1-5">1 - 5</option>
+            <option value="6-15">6 - 15</option>
+            <option value="16-30">16 - 30</option>
+            <option value="31-50">31 - 50</option>
+          </select>
+        </div>
 
         <div className="customSection">
           <div>
             <div className="spancategoires">Categorías</div>
           </div>
           <select
-          className="menuSelectNavbarMenu"
+            className="menuSelectNavbarMenu"
             id="category-select"
             onChange={(e) => handleCategoryClick(e.target.value)}
           >
             <option value="">Todas</option>
             {allCategories?.map((category) => (
-              <option key={category?.id} value={category?.id}>
-                {category?.name}
-              </option>
+              category.restaurant_id === getSelctRestaurantapp()
+              ?<><option key={category?.id } value={category?.id}>
+              {category?.name}
+            </option></>
+            :null
+              
             ))}
           </select>
         </div>

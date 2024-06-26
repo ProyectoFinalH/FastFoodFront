@@ -1,14 +1,16 @@
-import alertify from 'alertifyjs';
-import 'alertifyjs/build/css/alertify.min.css';
-import 'alertifyjs/build/css/themes/default.min.css';
-
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./detail.css";
 import axios from "axios";
-
-import carrito from '../../images/carrito.png';
+import carrito from "../../images/carrito.png";
 import Carrito from "../../Components/Carrito/Carrito";
-import { obtenerContCarrito, handleSumar, handleDisminuir } from '../../Components/localStorage-car/LocalStorageCar';
+import {
+  obtenerContCarrito,
+  handleSumar,
+  handleDisminuir,
+} from "../../Components/localStorage-car/LocalStorageCar";
+import alertify from "alertifyjs";
+import "alertifyjs/build/css/alertify.min.css";
+import "alertifyjs/build/css/themes/default.min.css";
 
 function Detail({ isOpen, handleCloseModal, menuItemId }) {
   const [viewCard, setViewCard] = useState(false);
@@ -20,7 +22,9 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   useEffect(() => {
     const fetchMenuItem = async () => {
       try {
-        const { data } = await axios(`http://localhost:5000/menuitems/${menuItemId}`);
+        const { data } = await axios(
+          `http://localhost:5000/menuitems/${menuItemId}`
+        );
         if (data?.id) {
           setMenuItem(data);
           const storedCant = obtenerContCarrito(data.id);
@@ -45,15 +49,15 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
 
   useEffect(() => {
     const handleStorageChange = (event) => {
-      if (event.key && event.key.startsWith('card-')) {
+      if (event.key && event.key.startsWith("card-")) {
         const storedCant = obtenerContCarrito(menuItemId);
         setCant(storedCant || 0);
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, [menuItemId]);
 
@@ -78,46 +82,50 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   if (!isOpen || !menuItem) return null;
 
   return (
-    <div>
-      <div className="detailContainer">
-        <div ref={detailRef} className="detailCardContainer">
-          <div className="buttonClose">
-            <button onClick={handleCloseModal}>X</button>
-          </div>
-          <div className="imageDetail">
-            <img src={menuItem?.image_url} alt={menuItem.name} />
-          </div>
-          <div className="cardDetail">
-            <div className="titleDetail">
-              <h2>{menuItem?.name}</h2>
-            </div>
-            <p className="description-detal">{menuItem?.description}</p>
-          </div>
-          <div className="cantContainer">
-            <h2>Unidades</h2>
-            <div className="botones-flex">
-              <div className="buttonDecInc-Menu">
-                <label className="aumentardisminuir" onClick={() => handleDisminuirItem(menuItem.id)}>
-                  -
-                </label>
-                <input
-                  className="inputcard"
-                  type="text"
-                  value={obtenerContCarrito(menuItem.id)} 
-                  disabled
-                />
-                <label className="aumentardisminuir" onClick={() => handleAumentarItem(menuItem.id)}>
-                  +
-                </label>
-              </div>
-              <img
-                src={carrito}
-                title="Ve Al Carrito"
-                alt="Carrito"
+    <div className="detailContainer">
+      <div className="detailCardContainer" ref={detailRef}>
+        <div className="buttonClose">
+          <button onClick={handleCloseModal}>X</button>
+        </div>
+        <div className="title-detail">
+          <h2>{menuItem?.name}</h2>
+        </div>
+        <div className="imageDetail">
+          <img src={menuItem?.image_url} alt={menuItem.name} />
+        </div>
+        <div className="cardDetail">
+          <p className="description-detail">{menuItem?.description}</p>
+        </div>
+        <div className="cantContainer">
+          <h2>Unidades</h2>
+          <div className="botones-flex-detail">
+            <div className="buttonDecInc-Menu">
+              <label
                 className="aumentardisminuir"
-                onClick={handleMenuCarrito}
+                onClick={() => handleDisminuirItem(menuItem.id)}
+              >
+                -
+              </label>
+              <input
+                className="inputcard"
+                type="text"
+                value={obtenerContCarrito(menuItem.id)}
+                disabled
               />
+              <label
+                className="aumentardisminuir"
+                onClick={() => handleAumentarItem(menuItem.id)}
+              >
+                +
+              </label>
             </div>
+            <img
+              src={carrito}
+              title="Ve Al Carrito"
+              alt="Carrito"
+              className="car-aumentardisminuir"
+              onClick={handleMenuCarrito}
+            />
           </div>
         </div>
       </div>

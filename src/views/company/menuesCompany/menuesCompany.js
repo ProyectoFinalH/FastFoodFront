@@ -1,5 +1,5 @@
 import {
-    getAllMenusAdmin
+    getAllMenusCompany
 } from "../../../Redux/actions";
 import "./menuesCompany.css";
 import React, { useState, useEffect } from "react";
@@ -8,15 +8,17 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import CreateMenuForm from "../../../Components/createMenu/createMenu";
+import { axiosInstance, configureAxios } from "../../../AuthContext/axiosInstance";
 function MenuesCompany() {
     const dispatch = useDispatch();
-    const allMenus = useSelector((state) => state.allMenusAdmin);
+    const allMenus = useSelector((state) => state.menusCompany);
     const [, setIsRestored] = useState(false);
     const { id } = useParams();    
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
+    const token = useSelector((state)=> state.token.data);
 
     useEffect(() => {
-        dispatch(getAllMenusAdmin());
+        dispatch(getAllMenusCompany());
     }, [dispatch]);
 
     useEffect(() => {
@@ -38,14 +40,16 @@ function MenuesCompany() {
                 ? `http://localhost:5000/menus/delete/${menu.id}`
                 : `http://localhost:5000/menus/restore/${menu.id}`;
 
-            await axios.put(url);
+                configureAxios(token);
+
+            await axiosInstance.put(url);
             const updatedMenus = allMenus.map((item) => {
                 if (item.id === menu.id) {
                     return { ...item, active: !item.active };
                 }
                 return item;
             });
-            dispatch(getAllMenusAdmin(updatedMenus));
+            dispatch(getAllMenusCompany(updatedMenus));
         } catch (error) {
             console.error('Hubo un error al realizar la solicitud', error);
         }
@@ -69,7 +73,7 @@ function MenuesCompany() {
             <div className="menusContainer">
                 {allMenus.map((menu) => (
                     <div className="menuCardsCompany" key={menu.id}>
-                        {menu.name}
+                        {menu.name.charAt(0).toUpperCase() + menu.name.slice(1)}
                         <div className={menu.active ? 'button-show' : 'button-hide'} onClick={() => toggleItemState(menu)}>
                             {menu.active ? '👁 Ocultar' : '👁 Mostrar'}
                         </div>

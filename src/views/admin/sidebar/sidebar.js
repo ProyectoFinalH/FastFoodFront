@@ -56,7 +56,7 @@ function Sidebar() {
             tabIndex="0"
             onClick={() => handleOptionClick(5)}
           >
-            Caificaciones
+            Calificaciones
           </li>
         </ul>
       </div>

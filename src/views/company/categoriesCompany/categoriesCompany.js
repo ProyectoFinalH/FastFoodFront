@@ -1,5 +1,5 @@
 import {
-    getAllCategoriesAdmin
+    getAllCategoriesCompany
 } from "../../../Redux/actions";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,18 +8,20 @@ import { useParams } from 'react-router-dom';
 import CreateCategories from "../../../Components/createMenu/createCategories";
 import ReactModal from 'react-modal';
 import "./categoriesCompany.css"
+import { axiosInstance, configureAxios } from "../../../AuthContext/axiosInstance";
 
 function CategoriesCompany() {
     const dispatch = useDispatch();
-    const allCategories = useSelector((state) => state.allCategoriesAdmin);
+    const allCategories = useSelector((state) => state.categoriesCompany);
     const [, setIsRestored] = useState(false);
     const { id } = useParams();
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
     ReactModal.setAppElement('#root');
+    const token = useSelector((state) => state.token.data)
 
 
     useEffect(() => {
-        dispatch(getAllCategoriesAdmin());
+        dispatch(getAllCategoriesCompany());
     }, [dispatch]);
 
     useEffect(() => {
@@ -41,14 +43,15 @@ function CategoriesCompany() {
                 ? `http://localhost:5000/categories/delete/${categories.id}`
                 : `http://localhost:5000/categories/restore/${categories.id}`;
 
-            await axios.put(url);
+    configureAxios(token);
+            await axiosInstance.put(url);
             const updatedMenus = allCategories.map((item) => {
                 if (item.id === categories.id) {
                     return { ...item, active: !item.active };
                 }
                 return item;
             });
-            dispatch(getAllCategoriesAdmin(updatedMenus));
+            dispatch(getAllCategoriesCompany(updatedMenus));
         } catch (error) {
             console.error('Hubo un error al realizar la solicitud', error);
         }
@@ -72,7 +75,7 @@ function CategoriesCompany() {
             <div className="menusContainer">
                 {allCategories.map((menu) => (
                     <div className="menuCardsCompany" key={menu.id}>
-                        {menu.name}
+                        {menu.name.charAt(0).toUpperCase() + menu.name.slice(1)}
                         <div className={menu.active ? 'button-show' : 'button-hide'} onClick={() => toggleItemState(menu)}>
                             {menu.active ? '👁 Ocultar' : '👁 Mostrar'}
                         </div>

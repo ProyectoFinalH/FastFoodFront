@@ -1,0 +1,54 @@
+.tableContainer{
+    display: flex;
+    justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.table-header-comment{
+    width: 50vh;
+}
+
+.commentsCompany h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 150vh;
+  }
+
+
+.styled-table2 {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .styled-table2 thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  .styled-table2 th,
+  .styled-table2 td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  .styled-table2 tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table2 tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .styled-table2 tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+  
+  .styled-table2 tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+  }
