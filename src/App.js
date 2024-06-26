@@ -28,6 +28,8 @@ import Maintenance from "./views/maintenance/maintenance";
 import axios from "axios";
 import Loading from "./Components/loading/Loading";
 
+import Rating from "./Components/rating/rating";
+
 
 
 
@@ -41,7 +43,6 @@ function App() {
       try {
         const response = await axios.get("http://localhost:5000/restaurants");
 
-        console.log(response.data); 
         setLoading(false);
       } catch (error) {
         console.error("Error de red:", error);
@@ -69,7 +70,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/company" element={<Company />} />
           <Route path="/restaurants/:id" element={<DetailCompany />} />
-
+          <Route path="/reviews" element={<Rating/>}/>
           <Route path="/" element={<LoginPrincipal />} />
           <Route path="/home" element={<Home />} />
           <Route path="/menu" element={<Menu />} />

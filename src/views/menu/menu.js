@@ -5,7 +5,6 @@ import {
   getAllCategories,
   getAllRestaurants,
 } from "../../Redux/actions";
-// import { getAllRestaurants, getAllCategories, } from "../../redux/actions"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,30 +12,35 @@ import { useNavigate } from "react-router-dom";
 import CardsMenuItem from "../../Components/cards/cardsMenuItems/cardsMenuItems";
 import NavbarMenu from "../../Components/navbarMenu/navbarMenu";
 import "./menu.css";
-// import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaurant";
 import CardsMenus from "../../Components/cards/cardsMenus/cardsMenus";
 import Navbar from "../../Components/navbar/navbar";
 import Detail from "../detail/detail";
 
 import { useLocalStorage } from "../../Components/localStorage/useLocalStorage";
-
 import { login_user_localstorag } from "../../Redux/actions";
 
+import { removeOrder } from "../../Components/localStorage-car/LocalStorageCar";
 import {
   obtenerEstatusUsuario,
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
+  getSelctRestaurantapp,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
+
+import Rating from "../../Components/rating/rating";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 //import alertify from "alertifyjs";
+
 
 function Menu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const allRestaurants = useSelector((state) => state.allRestaurants);
-  const selctedRestaurant = useSelector((state)=>state.SELCTRESTAURANT)
+  // const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
 
@@ -46,15 +50,15 @@ function Menu() {
     null
   );
 
-  // const allCategories = useSelector((state)=> state.allCategories)
-
+  const [selectedRestaurantId, setSelectedRestaurant] = useState();
   const [searchString, setSearchString] = useLocalStorage("searchString", "");
   const [sortBy, setSortBy] = useLocalStorage("sortBy", null);
   const [priceRange, setPriceRange] = useLocalStorage("priceRange", "");
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [ratings, setRatings] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
@@ -69,12 +73,14 @@ function Menu() {
   const handleCategoryFilter = (category) => {
     setSelectedCategory(Number(category));
   };
-  const selectedRestaurantId = selctedRestaurant;
 
-  //localstorang del usuario
   useEffect(() => {
     const email = obtenerCorreoUsuario();
+    const rest = getSelctRestaurantapp();
+    //alertify.alert("menu", "este es el menu crweo" + rest)
+    setSelectedRestaurant(rest);
     // alert("mail es "+ email)
+
     if (email) {
       const tem_Users = {
         state: obtenerEstatusUsuario(),
@@ -83,8 +89,8 @@ function Menu() {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
+
       if (selectedRestaurantId) {
-       // alertify.alert("Este es el restaurante seleccionado " + selectedRestaurantId)
         navigate(`/menu/${selectedRestaurantId}`);
       } else {
         navigate("/menu");
@@ -94,10 +100,7 @@ function Menu() {
     }
   }, [dispatch, navigate, selectedRestaurantId]);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
   useEffect(() => {
-    // dispatch(getAllRestaurants())
     dispatch(getAllMenus());
     dispatch(getAllMenuitems());
     dispatch(getAllCategories());
@@ -105,28 +108,23 @@ function Menu() {
   }, [dispatch]);
 
   const restaurant1 = allRestaurants?.find(
-    (restaurant) => restaurant?.id === selctedRestaurant
+    (restaurant) => restaurant?.id === selectedRestaurantId
   );
 
-  //FILTRO POR RANGO
-  // const applyPriceRangeFilter = (menuItems, range) => {
-  //   const [min, max] = range?.split("-").map(Number);
-  //   return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
-  // };
   const applyPriceRangeFilter = (menuItems, range) => {
-    if (!range || typeof range !== 'string') {
+    if (!range || typeof range !== "string") {
       return menuItems;
     }
-  
+
     const [min, max] = range.split("-").map(Number);
     return menuItems?.filter((menu) => menu.price >= min && menu?.price <= max);
   };
+
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getMenuItemsByName(searchString));
   }
 
-  // FUNCION PARA DESHACER FILTROS
   const clearFilters = () => {
     setSearchString("");
     setSortBy("");
@@ -135,18 +133,13 @@ function Menu() {
     setSelectedCategory("");
   };
 
-  //Copia del Estado allMenuItems
   let filteredMenuItems = [...allMenuitems];
-  // FILTRADO DE ITEMMENU EN BASE AL MENU
+
   const handleSelectMenu = (menuItem) => {
-    console.log("menuItem", menuItem);
     try {
       setSelectMenuItem((prevId) => {
-        console.log("prevId", prevId);
         const newId = prevId === menuItem ? null : menuItem;
         window.localStorage.setItem("selectMenuItem", JSON.stringify(newId));
-        console.log("newId", newId);
-        console.log("selectMenuItem", newId);
         return newId;
       });
     } catch (error) {
@@ -165,9 +158,6 @@ function Menu() {
       (menuItem) => menuItem?.category_id === selectedCategory
     );
   }
-  //!console.log(selectedCategory);
-
-  // ORDENAMIENTO DE ITEMSMENU
 
   if (sortBy === "menorPrecio") {
     filteredMenuItems = filteredMenuItems?.sort((a, b) => a.price - b.price);
@@ -179,17 +169,26 @@ function Menu() {
     filteredMenuItems = applyPriceRangeFilter(filteredMenuItems, priceRange);
   }
 
-  //SEARCH POR NOMBRE
   if (searchString.trim() !== "") {
     filteredMenuItems = filteredMenuItems?.filter((menuItem) =>
       menuItem?.name?.toLowerCase().includes(searchString.toLowerCase())
     );
   }
 
-  //Boton volver Atras
   const handleGoBack = () => {
+    removeOrder();
     navigate("/home");
-  };  
+  };
+
+  const handleOpenRating = () => {
+    setRatings(true);
+  };
+
+  const handleCloseRating = () => {
+    setRatings(false);
+  };
+
+  console.log("restau",restaurant1);
 
   return (
     <div className="menu-container">
@@ -209,24 +208,33 @@ function Menu() {
               />
               <h2 className="restaurant-name">{restaurant1?.name}</h2>
             </div>
+          </div>  
+            <div className="opinionesContainer" onClick={handleOpenRating}>
+              <p>Opiniones</p>
+              <div className="ratingContainerMenu">
+            <p>
+              <FontAwesomeIcon icon={faStar}/>
+            </p>
+            <p>
+              {restaurant1?.rating}
+            </p>
+            </div>
           </div>
+
+          {ratings && (
+            <Rating
+              onClose={handleCloseRating}
+              restaurantId={restaurant1?.id}
+            />
+          )}
           <div className="cardsContentMenu">
-
-          <div className="cards-menus-container">
-            
-            
-            
-            
-            <CardsMenus
-              AllMenus={allMenus}
-              handleSelectMenu={handleSelectMenu}
+            <div className="cards-menus-container">
+              <CardsMenus
+                AllMenus={allMenus}
+                handleSelectMenu={handleSelectMenu}
               />
-
-
-
-
+            </div>
           </div>
-              </div>
           <div className="search-container">
             <NavbarMenu
               searchString={searchString}
@@ -245,32 +253,28 @@ function Menu() {
         </div>
         <div className="cards-menus">
           <div className="cards-menu-items">
-            
-          {allMenus?.map((menu) => {
-  // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
-  const menuItems = filteredMenuItems?.filter(
-    (menuItem) => menuItem?.restaurant_id === selctedRestaurant && menuItem?.menu_id === menu.id
-  );
+            {allMenus?.map((menu) => {
+              const menuItems = filteredMenuItems?.filter(
+                (menuItem) => menuItem?.menu_id === menu?.id
+              );
 
-  if (menuItems?.length > 0) {
-    return (
-      <div key={menu.id} className="menu-item-container">
-        <h2>{menu.name}</h2>
-        <CardsMenuItem
-          AllMenuitems={menuItems}
-          handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
-        />
-      </div>
-    );
-  } else {
-    return (
-      <div key={menu.id} className="menu-item-container">
-        No hay categorías
-      </div>
-    );
-  }
-})}
-
+              if (menuItems?.length > 0) {
+                return (
+                  <div key={menu?.id} className="menu-item-container">
+                    <h2>{menu?.name}</h2>
+                    <CardsMenuItem
+                      AllMenuitems={filteredMenuItems?.filter(
+                        (menuItem) => menuItem?.menu_id === menu?.id
+                      )}
+                      handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
+                    />
+                  </div>
+                );
+              } else {
+                return (null
+                );
+              }
+            })}
           </div>
         </div>
       </div>

@@ -18,11 +18,11 @@ export const GET_USERS_ALL ="GET_USERS_ALL"
 export const GET_ORDERS_ADMIN ="GET_ORDERS_ADMIN"
 export const PUT_ITEMMENU ="PUT_ITEMMENU"
 export const PUT_MENUS ="PUT_MENUS"
-
+export const GET_COMMENT ="GET_COMMENT"
 export const ADMIN_LOGIN = 'ADMIN_LOGIN';
 export const ADMIN_LOGIN_FAIL = 'ADMIN_LOGIN_FAIL';
 export const ADMIN_LOGOUT = 'ADMIN_LOGOUT';
-
+export const CLEAR_COMMENTS = 'CLEAR_COMMENTS';
 export const GET_MENUITEMS_BYNAME = "GET_MENUITEMS_BYNAME";
 export const SORTER_ASC = "SORTER_ASC";
 export const CREATE_MENU = "CREATE_MENU";
@@ -30,6 +30,8 @@ export const CREATE_MENU_ITEMS = "CREATE_MENU_ITEMS"
 export const LOGOUT_USER = "LOGOUT_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const CREATE_CATEGORIES = "CREATE_CATEGORIES";
+export const POST_COMMENT = "POST_COMMENT"
+
 
 
 //Carrito
@@ -54,3 +56,6 @@ export const GET_MENUS_COMPANY = "GET_MENUS_COMPANY"
 export const GET_MENUITEMS_COMPANY = "GET_MENUITEMS_COMPANY"
 export const GET_COMMENTS_COMPANY = "GET_COMMENTS_COMPANY"
 
+//Admin
+export const SET_TOKEN = "SET_TOKEN"
+export const CLEAR_TOKEN = "CLEAR_TOKEN"

@@ -8,52 +8,57 @@
     }
     .cardRestaurant{
         display: flex;
+        flex-direction: column;
+        width: 300px;
+        height: 340px;
         margin: 40px 20px;
-        background-color: white;
+        background-color: #f9f9f9;
         padding: 5px;
         /* padding: 15px; */
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
-        transition: box-shadow 0.3s ease, border-color 0.3s ease; 
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
     
     .cardRestaurant:hover{
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        border: solid 1px #ff3239;
+      transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
     
     .resImage{
-      border: solid 1px rgb(0, 0, 0, 0.2);
+      
       margin: 10px;
-      min-width: 150px;
-      max-width: 200px;
+    
       /* width: 10%; */
       /* height: 200px; */
-      overflow: hidden;
+      
     
     }
     
     .resImage img {
-        border-radius: 10px 0px 0px 10px;
-        width: 100%;
-        height: 100%;
-        object-fit:contain;
+        
+      object-fit: cover;
+      width: 100%;
+      height: 150px;
+      border-radius: 10px 10px 0 0;
     }
     
     .infoContainer{
         display: flex;
-        margin-left: 50px;
+        justify-content: center;
         flex-wrap: wrap;
        
     }
     
     .resName {
         display: flex;
+        justify-content: flex-start;
         width: 250px;
+        height: 40px;
         align-items: center;
     
     }
@@ -170,4 +175,8 @@ color: white;
   margin-bottom: 10px;
   align-items: center;
 
+}
+.RestauranteContainerAdmin{
+  display: flex;
+  flex-wrap: wrap;
 }

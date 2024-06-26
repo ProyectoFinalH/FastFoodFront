@@ -3,16 +3,17 @@ import cerrarSesion from "../../../images/cerrarSesion.svg";
 import "./navbarAdmin.css"
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logoutAdmin } from "../../../Redux/actions";
+import { clearTokenAdmin, logoutAdmin } from "../../../Redux/actions";
 
 
 
 function NavbarAdmin() {
 
-  const dispach = useDispatch();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispach(logoutAdmin())
+    dispatch(logoutAdmin())//token a null
+    dispatch(clearTokenAdmin)//localstorage de token a null
   }
 
 

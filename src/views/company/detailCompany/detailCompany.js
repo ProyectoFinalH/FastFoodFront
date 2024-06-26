@@ -22,7 +22,10 @@ function DetailCompany() {
 
   useEffect(() => {
     dispatch(Data_Empresa(restaurant.id))
-  }, [dispatch]);
+
+  }, [dispatch, restaurant]);
+
+
 
   useEffect(() => {
     console.log("Actualización exitosa");

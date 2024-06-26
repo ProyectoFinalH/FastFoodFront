@@ -20,8 +20,10 @@
 }
 
 .profile-image-container {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   cursor: pointer;
 }
 
@@ -30,6 +32,7 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
+  margin-bottom: 10px;
 }
 
 .no-image {
@@ -162,8 +165,24 @@
   margin-right: 10px;
 }
 .welcome-message {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.no-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  color: #666;
 }

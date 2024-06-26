@@ -164,6 +164,7 @@ function MenusRestAdmin({ restaurant }) {
                 </div>
               </div>
             </div>
+            
             {noResults ? (
         <div className="noResultsMessage">
           <p>No se encontraron resultados.</p>
@@ -209,7 +210,7 @@ function MenusRestAdmin({ restaurant }) {
           <div className="MenuItemsContainer">
             {selectedMenuIds[restaurant.id] && (
               <div className="MenuItemList">
-                <div>
+                <div className="h2MenuSelected">
                   <h2>{selectedMenuName[restaurant.id]}</h2>
                 </div>
                 <div className="SearchRestAdmin">
@@ -265,6 +266,7 @@ function MenusRestAdmin({ restaurant }) {
                     </div>
                   </div>
                 </div>
+                <div className="menuItemContainer">
                 {noResults ? (
         <div className="noResultsMessage">
           <p>No se encontraron resultados.</p>
@@ -281,6 +283,7 @@ function MenusRestAdmin({ restaurant }) {
                       <div className="imageItem">
                         <img src={menuItem.image_url} alt="imgItem" />
                       </div>
+                      <div className="infoCardItemMenu">
                       <div className="nameItem">
                         <div>
                           <h2>{menuItem.name}</h2>
@@ -290,8 +293,8 @@ function MenusRestAdmin({ restaurant }) {
                             {menuItem.description?.substring(0, 25)}...
                           </p>
                         </div>
-                      </div>
                       <div className="priceItem">${menuItem.price}</div>
+                      </div>
 
                    
                       <button
@@ -306,8 +309,10 @@ function MenusRestAdmin({ restaurant }) {
                           <img src={desactivar} alt="desactivar" />
                         )}
                       </button>
+                      </div>
                     </div>
                   )))}
+                  </div>
               </div>
             )}
           </div>
