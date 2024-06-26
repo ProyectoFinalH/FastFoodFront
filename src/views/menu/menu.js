@@ -266,10 +266,7 @@ function Menu() {
                   </div>
                 );
               } else {
-                return (
-                  <div key={menu.id} className="menu-item-container">
-                    No hay categorías
-                  </div>
+                return (null
                 );
               }
             })}
