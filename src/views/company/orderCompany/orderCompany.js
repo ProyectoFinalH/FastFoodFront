@@ -8,7 +8,6 @@ import cancelar from './image/cancelar.png';
 import guardar from './image/actualizar.png';
 
 import { Actualizar_Compra_Usuario, Create_Lista_Order_Company } from '../../../Redux/actions';
-import axios from 'axios';
 import alertify from 'alertifyjs';
 import { axiosInstance, configureAxios } from '../../../AuthContext/axiosInstance';
 
