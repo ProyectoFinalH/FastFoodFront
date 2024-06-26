@@ -87,7 +87,7 @@ function OrderCompany() {
       [name]: type === 'checkbox' ? checked : value
     }));
   };
-
+/*
   const handleItemChange = (index, field, value) => {
     const updatedItems = formData.items.map((item, i) =>
       i === index ? { ...item, [field]: value } : item
@@ -97,6 +97,33 @@ function OrderCompany() {
       items: updatedItems
     }));
   };
+
+*/
+
+  //!costos totales 
+  // Función para calcular el precio total
+const calculateTotalPrice = (items) => {
+  let total = 0;
+  items.forEach(item => {
+    const quantity = parseFloat(item.quantity || item.cont) || 0;
+    const price = parseFloat(item.partial_price || item.price) || 0;
+    total += quantity * price;
+  });
+  return total.toFixed(2); // Formato de dos decimales
+};
+
+
+const handleItemChange = (index, field, value) => {
+  const newItems = [...formData.items];
+  newItems[index] = { ...newItems[index], [field]: value };
+
+  // Actualizar formData con los nuevos items
+  setFormData({
+    ...formData,
+    items: newItems,
+    total_price: calculateTotalPrice(newItems) // Recalcular el precio total
+  });
+};
 
   return (
     <div className='orderCompany'>
@@ -153,71 +180,71 @@ function OrderCompany() {
       {
         //!desde aqui en adelante se desarrolla la tajeta de modificaicon 
       }
-      {activeOrder && (
-        <div className="modal" style={{ display: 'block' }}>
-          <div className="modal-content">
-            <span className="close" onClick={handleCancelar}>&times;</span>
-            <h2 className='Texto-Name-title'>Modificar Orden</h2>
+     {activeOrder && (
+  <div className="modal" style={{ display: 'block' }}>
+    <div className="modal-content">
+      <span className="close" onClick={handleCancelar}>&times;</span>
+      <h2 className='Texto-Name-title'>Modificar Orden</h2>
+      <div className="form-group">
+        <label className='Texto-Name'>Nombre de Usuario:</label>
+        <span>{formData.user_name}</span>
+      </div>
+      <div className="form-group">
+        <label className='Texto-Name'>Fecha:</label>
+        <span>{formData.order_date}</span>
+      </div>
+      
+      <div className="form-group">
+        <label className='Texto-Name'>Costo Total:</label>
+        <input
+          type="text"
+          name="total_price"
+          value={formData.total_price}
+          onChange={handleChange}
+          className='input-textos'
+        />
+      </div>
+      <div className="items-container">
+        <h3>Items</h3>
+        {formData.items.map((item, index) => (
+          <div className="item" key={index}>
             <div className="form-group">
-              <label className='Texto-Name'>Nombre de Usuario:</label>
-              <span>{formData.user_name}</span>
-            </div>
-            <div className="form-group">
-              <label className='Texto-Name'>Fecha:</label>
-              <span>{formData.order_date}</span>
-            </div>
-            
-            <div className="form-group">
-              <label className='Texto-Name'>Costo Total:</label>
+              <label>Cantidad:</label>
               <input
-                type="text"
-                name="total_price"
-                value={formData.total_price}
-                onChange={handleChange}
-                className='input-textos'
+                type="number"
+                value={item.quantity || item.cont}
+                onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+                className='input-Numero'
               />
             </div>
-            <div className="items-container">
-              <h3>Items</h3>
-              {formData.items.map((item, index) => (
-                <div className="item" key={index}>
-                  <div className="form-group">
-                    <label>Cantidad:</label>
-                    <input
-                      type="number"
-                      value={item.quantity || item.cont}
-                      onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
-                      className='input-Numero'
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Nombre:</label>
-                    <input
-                      type="text"
-                      value={item.name_item || item.name}
-                      onChange={(e) => handleItemChange(index, 'name_item', e.target.value)}
-                      className='input-Numero'
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Precio:</label>
-                    <input
-                      type="number"
-                      value={item.partial_price || item.price}
-                      onChange={(e) => handleItemChange(index, 'partial_price', e.target.value)}
-                      className='input-Numero'
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="form-group">
+              <label>Nombre:</label>
+              <input
+                type="text"
+                value={item.name_item || item.name}
+                onChange={(e) => handleItemChange(index, 'name_item', e.target.value)}
+                className='input-Numero'
+              />
             </div>
-            <div className="form-group-btn">
-              <img src={guardar} alt="Guardar Cambios" onClick={handleGuardar} className='img_List_Order-Guardar' />
-              <img src={cancelar} alt="Cancelar" onClick={handleCancelar} className='img_List_Order-Guardar' />
+            <div className="form-group">
+              <label>Precio:</label>
+              <input
+                type="number"
+                value={item.partial_price || item.price}
+                onChange={(e) => handleItemChange(index, 'partial_price', e.target.value)}
+                className='input-Numero'
+              />
             </div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
+      <div className="form-group-btn">
+        <img src={guardar} alt="Guardar Cambios" onClick={handleGuardar} className='img_List_Order-Guardar' />
+        <img src={cancelar} alt="Cancelar" onClick={handleCancelar} className='img_List_Order-Guardar' />
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
