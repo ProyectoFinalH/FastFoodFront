@@ -643,7 +643,6 @@ export const Listado_Orders_Usuario = (userId) => {
 
     } catch (error) {
       console.error("Error al obtener las órdenes del usuario:", error);
-      alertify.error("Error al enviar la información. Detalle: " + error.message);
     }
   };
 };
