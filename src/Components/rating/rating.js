@@ -6,7 +6,7 @@ import "./rating.css";
 import StarRating from "./starRating/starRating";
 
 function Rating({onClose, restaurantId}) {
-  const comments = useSelector((state) => state.allComments);
+  const comments = useSelector((state) => state.allComments) || [];;
   const dispach = useDispatch();
 
   console.log("id en raiting", restaurantId);
@@ -35,7 +35,9 @@ function Rating({onClose, restaurantId}) {
           <div className="CommentsContainer">
 
           <ul>
-            {comments?.map((comment) => (
+            {Array.isArray(comments) &&
+            
+            comments?.map((comment) => (
               
               <li key={comment?.id}>
                 <div className="commentUserContainer">
