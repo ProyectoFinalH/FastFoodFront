@@ -167,8 +167,7 @@ function OrdersAdmin() {
             <th>Nombre Usuario</th>
             <th>Restaurante</th>
             <th>Productos</th>
-            <th>Cantidad</th>
-            <th>Precio parcia</th>
+           
             <th>Fecha</th>
             <th>Estado Compra</th>
             <th>Costo Total</th>
@@ -186,26 +185,13 @@ function OrdersAdmin() {
               <td>{order?.user_name}</td>
               <td>{order?.restaurant_name}</td>
               <td>
-                {order?.items?.map((item, index) => (
-                  <div key={index}>
-                    <p>{item?.name_item}</p>
-                  </div>
-                ))}
+              {Array.isArray(order.items) ? order.items.map((item, index) => (
+                    <div key={index}>
+                      {item.quantity || item.cont} x {item.name_item || item.name} (${item.partial_price || item.price})
+                    </div>
+                  )) : 'No items'}
               </td>
-              <td>
-                {order?.items?.map((item, index) => (
-                  <div key={index}>
-                    <p>{item?.quantity}</p>
-                  </div>
-                ))}
-              </td>
-              <td>
-                {order?.items?.map((item, index) => (
-                  <div key={index}>
-                    <p>{item?.partial_price}</p>
-                  </div>
-                ))}
-              </td>
+           
               <td>Dia: {order?.order_date?.slice(0, 19).replace("T"," Hora: ")}</td>
               <td>{order?.status_order}</td>
               <td>{order?.total_price}</td>

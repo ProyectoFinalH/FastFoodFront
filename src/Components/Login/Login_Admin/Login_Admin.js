@@ -30,7 +30,8 @@ const LoginAdmin = () => {
   });
   const [errors, setErrors] = useState({});
 
-  const [isSubmitComplete, setIsSubmitComplete] = useState(false);
+  const [submitComplete, setSubmitComplete] = useState({});
+  const [isLoginComplete, setIsLoginComplete] = useState(false);
 
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
@@ -56,15 +57,35 @@ const LoginAdmin = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      dispatch(loginAdmin(formData));//Lee y guarda token en variable global=token
-      setIsSubmitComplete(true);
+      setSubmitComplete(formData);
     }
   };
 
   const isButtonDisabled = Object.keys(errors).length !== 0;
 
   useEffect(()=>{
-    if (isSubmitComplete&&token){
+    dispatch(logoutAdmin());//borrar token variable global
+    window.localStorage.removeItem('loggedFastFoodAdmin');//borrar token localstorage
+  },[dispatch]);
+
+
+  useEffect(()=>{
+    console.log("entre para hacer post",submitComplete);
+    if(submitComplete.email){
+
+      dispatch(loginAdmin(submitComplete))
+      .then()
+      .catch()
+      .finally(()=>{setIsLoginComplete(true);});//Lee y guarda token en variable global
+      
+    }
+    
+  },[submitComplete,dispatch]);
+
+
+  useEffect(()=>{
+    console.log("entre porque cambio el token");
+    if (isLoginComplete&&token){
     
       const infoAdmin=jwtDecode(token.data);//Decodifica el token
       
@@ -72,6 +93,7 @@ const LoginAdmin = () => {
         alertify.alert("Mensaje", 
           'Usuario no autorizado',()=>{
             dispatch(logoutAdmin());
+            window.localStorage.removeItem('loggedFastFoodAdmin');;
             navigate("/loginAdmin");
           }); 
         }
@@ -81,14 +103,16 @@ const LoginAdmin = () => {
         navigate("/Admin")//si tiene rol superadmin va Admin
       }  
 
-    }else if (isSubmitComplete && !token){
+    }else if(isLoginComplete&&!token){
       alertify.alert("Mensaje", //si no hay token regresa a Login
         'Credenciales invalidas, debe loguearse para continuar',()=>{
           navigate("/loginAdmin");
         }); 
       
     }
-  },[token,isSubmitComplete,navigate,dispatch]);
+  },[token,isLoginComplete,navigate,dispatch]);
+
+  
 
   return (
     <div className="login-admin-container">

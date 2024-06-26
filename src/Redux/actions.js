@@ -43,7 +43,7 @@ import {
 
   GET_DETAIL_EMPRESA,
   SET_TOKEN, // para setear el valor del token 
-  CLEAR_TOKEN,
+  
   PUT_DETAIL_EMPRESA,
   GET_CATEGORIES_COMPANY,
   GET_MENUITEMS_COMPANY,
@@ -399,14 +399,15 @@ export function sortedMenuItemsAsc(sortedMenuItems) {
   };
 }
 
-export function CreateMenu(dataquery) {
+export function CreateMenu(dataquery) {  
   return async (dispatch,getState) => {
     const token=getState().token.data;
     configureAxios(token);
+    const restaurantId = getState().EMPRESAUSER.id;
 
     try {
       const endpoint = "http://localhost:5000/menus/create";
-      const response = await axiosInstance.post(endpoint, dataquery);
+      const response = await axiosInstance.post(endpoint, { ...dataquery, restaurant_id: restaurantId });
       const menuData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuData));
@@ -425,11 +426,13 @@ export function CreateMenuItems(formData) {
   return async (dispatch,getState) => {
     const token=getState().token.data;
     configureAxios(token);
+    const restaurantId = getState().EMPRESAUSER.id;
 
     try {
       const endpoint = "http://localhost:5000/menuitems/create";
 
       // Verifica el contenido de FormData antes de enviarlo
+      formData.append("restaurant_id", restaurantId);
       console.log("FormData contenido:", Array.from(formData.entries()));
 
       const response = await axiosInstance.post(endpoint, formData, {
@@ -457,10 +460,11 @@ export function CreateCategory(dataquery) {
   return async (dispatch,getState) => {
     const token=getState().token.data;
     configureAxios(token);
+    const restaurantId = getState().EMPRESAUSER.id;
 
     try {
       const endpoint = "http://localhost:5000/categories/create";
-      const response = await axiosInstance.post(endpoint, dataquery);
+      const response = await axiosInstance.post(endpoint, { ...dataquery, restaurant_id: restaurantId });
       const categoriesData = response.data;
       console.log("Datos encontrados", JSON.stringify(categoriesData));
       dispatch({
@@ -898,9 +902,7 @@ export const setTokenAdmin =(tokenLocalStorage)=>({
   
 });
 
-export const clearTokenAdmin=()=>({
-  type: CLEAR_TOKEN,
-})
+
 //=============================================================================//
 
 
@@ -1024,7 +1026,7 @@ export const login_Emrpesa =  (userData)=>{
       });
       
     } catch (error) {
-      alertify.alert("Mensaje", 'No hay categorias');
+      alertify.alert("Error", 'Credenciales invalidas');
     }
     
   };

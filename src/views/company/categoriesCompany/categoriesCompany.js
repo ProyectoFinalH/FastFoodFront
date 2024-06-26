@@ -43,7 +43,7 @@ function CategoriesCompany() {
                 ? `http://localhost:5000/categories/delete/${categories.id}`
                 : `http://localhost:5000/categories/restore/${categories.id}`;
 
-    configureAxios(token);
+            configureAxios(token);
             await axiosInstance.put(url);
             const updatedMenus = allCategories.map((item) => {
                 if (item.id === categories.id) {

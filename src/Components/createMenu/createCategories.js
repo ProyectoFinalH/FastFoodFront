@@ -1,7 +1,10 @@
 import "./createMenu.css";
-import React, { useState, useEffect } from "react";
+import {
+    getAllCategoriesCompany
+} from "../../Redux/actions";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllMenus, CreateCategory, getAllCategories } from "../../Redux/actions";
+import {  CreateCategory } from "../../Redux/actions";
 
 function CreateCategories() {
     const dispatch = useDispatch();
@@ -9,20 +12,16 @@ function CreateCategories() {
     const [categorySuccessMessage, setCategorySuccessMessage] = useState("");
     const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
 
-    useEffect(() => {
-        dispatch(getAllCategories());
-        dispatch(getAllMenus());
-    }, [dispatch]);
-
-    const handleCategorySubmit = (event) => {
+    const handleCategorySubmit = async (event) => {
         event.preventDefault();
         if (categoryName.trim() === "") {
             setCategoryErrorMessage("Debe ingresar un nombre válido.");
         } else {
-            dispatch(CreateCategory({ name: categoryName, restaurant_id: 2 }))
+            dispatch(CreateCategory({ name: categoryName}))
                 .then(() => {
                     setCategorySuccessMessage("Categoría creada con éxito.");
                     setCategoryErrorMessage("");
+                    dispatch(getAllCategoriesCompany())
                 })
                 .catch((error) => {
                     if (error.response && error.response.data === "Duplicate category") {

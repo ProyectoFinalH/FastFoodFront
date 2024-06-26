@@ -58,4 +58,3 @@ export const GET_COMMENTS_COMPANY = "GET_COMMENTS_COMPANY"
 
 //Admin
 export const SET_TOKEN = "SET_TOKEN"
-export const CLEAR_TOKEN = "CLEAR_TOKEN"

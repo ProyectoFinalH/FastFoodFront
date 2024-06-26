@@ -1,6 +1,7 @@
 import { getCommentsCompany } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+
 import "./commentsCompany.css"
 
 

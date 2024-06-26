@@ -45,7 +45,7 @@ import {
 
   GET_DETAIL_EMPRESA,
   SET_TOKEN,
-  CLEAR_TOKEN,
+  
   PUT_DETAIL_EMPRESA,
   GET_CATEGORIES_COMPANY,
   GET_MENUITEMS_COMPANY,
@@ -318,11 +318,7 @@ const reducer = (state = initialState, { type, payload }) => {
         token: payload
       }  
 
-    case CLEAR_TOKEN:
-      return {
-        ...state,
-        token: null
-    } 
+    
     case PUT_DETAIL_EMPRESA:
       return {
         ...state,
