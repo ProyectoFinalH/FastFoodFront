@@ -42,7 +42,7 @@ function Menu() {
   const navigate = useNavigate();
 
   const allRestaurants = useSelector((state) => state.allRestaurants);
-  const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
+  // const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
 
@@ -191,8 +191,8 @@ function Menu() {
   const handleCloseRating = () => {
     setRatings(false);
   };
-ev
 
+  console.log("restau",restaurant1);
 
   return (
     <div className="menu-container">
@@ -219,9 +219,9 @@ ev
             <p>
               <FontAwesomeIcon icon={faStar}/>
             </p>
-            <span>
-              {parseInt(restaurant1.rating)}
-            </span>
+            <p>
+              {restaurant1?.rating}
+            </p>
             </div>
           </div>
 
@@ -257,47 +257,25 @@ ev
         </div>
         <div className="cards-menus">
           <div className="cards-menu-items">
-            
-          {allMenus?.map((menu) => {
-  // Filtra los elementos que pertenecen al restaurante seleccionado y al menú actual
-  const menuItems = filteredMenuItems?.filter(
-    (menuItem) => menuItem?.restaurant_id === selectedRestaurantId && menuItem?.menu_id === menu.id
-  );
-
-  if (menuItems?.length > 0) {
-    return (
-      <div key={menu.id} className="menu-item-container">
-        <h2>{menu.name}</h2>
-        <CardsMenuItem
-          AllMenuitems={menuItems}
-          handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
-        />
-      </div>
-    );
-  } else {
-    return null;
-  }
-})}
-
             {allMenus?.map((menu) => {
               const menuItems = filteredMenuItems?.filter(
-                (menuItem) =>
-                  menuItem?.restaurant_id === selctedRestaurant &&
-                  menuItem?.menu_id === menu.id
+                (menuItem) => menuItem?.menu_id === menu?.id
               );
-
 
               if (menuItems?.length > 0) {
                 return (
-                  <div key={menu.id} className="menu-item-container">
-                    <h1 className="menu-title-menu">{menu.name}</h1>
+                  <div key={menu?.id} className="menu-item-container">
+                    <h2>{menu?.name}</h2>
                     <CardsMenuItem
-                      AllMenuitems={menuItems}
+                      AllMenuitems={filteredMenuItems?.filter(
+                        (menuItem) => menuItem?.menu_id === menu?.id
+                      )}
                       handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
                     />
                   </div>
                 );
               } else {
+
                 return (null
                 );
               }

@@ -1107,7 +1107,13 @@ export const Update_Empresa=(formData)=>{
     dispatch({
       type: PUT_DETAIL_EMPRESA,
       payload: response.data, 
-    })}}}
+    })
+  } catch (error) {
+    console.error("Error al obtener el restaurant:", error);
+  }  
+    }
+  }
+  
 
 
 export const GetComment = (id) => {
