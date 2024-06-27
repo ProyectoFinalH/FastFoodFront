@@ -4,6 +4,7 @@ import "./ordenesAdmin.css"
 import NavbarAdmin from "../navbarAdmin/navbarAdmin";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrdersAdmin } from "../../../Redux/actions";
+import deshacer from "../../../images/deshacer.png"
 
 function OrdersAdmin() {
  
@@ -15,6 +16,8 @@ function OrdersAdmin() {
   const [selectOrderPriceOrder, setSelectOrderPriceOrder] = useState("");
   const [noResults, setNoResults] = useState(false)
   const [selectOrderNameOrder, setSelectOrderNameOrder] = useState("");
+  const [selectOrderNameResOrder, setSelectOrderNameResOrder] = useState("");
+  
   
   
   useEffect(() => {
@@ -49,6 +52,34 @@ function OrdersAdmin() {
     selectOrderNameOrder,
     searchOrder
   ]);
+
+  useEffect(() => {
+    let filteredOrders = [...allOrdersAdmin];
+    if (searchOrder.trim() !== "") {
+      filteredOrders = filteredOrders.filter(
+        (order) =>
+          order.restaurant_name.toLowerCase().includes(searchOrder.toLowerCase())||
+        order.user_name.toLowerCase().includes(searchOrder.toLowerCase())
+          
+      );
+    }
+
+    if (selectOrderNameResOrder !== "") {
+      filteredOrders.sort((a, b) =>
+        selectOrderNameResOrder  === "asc"
+          ? a.user_name.localeCompare(b.user_name)
+          : b.user_name.localeCompare(a.user_name)
+      );
+    }
+  
+    setFilterOrder (filteredOrders);
+    setNoResults(filteredOrders?.length===0)
+  }, [
+    allOrdersAdmin,
+    selectOrderNameResOrder,
+    searchOrder
+  ]);
+
 
 
 
@@ -92,7 +123,17 @@ function OrdersAdmin() {
     setSelectOrderPriceOrder(e.target.value);
   
   }
-
+  const handleOrderNameOrderResChange = (e) => {
+    setSelectOrderNameResOrder(e.target.value);
+  
+  }
+  
+  const handleClearFilter = (e) => {
+    setSearchOrder("")
+    setSelectOrderNameOrder("")
+    setSelectOrderPriceOrder("")
+    setSelectOrderNameResOrder("")
+  }
 
   
   return (
@@ -117,7 +158,7 @@ function OrdersAdmin() {
         </div>
         <div className="selectsAdmin">
           <div className="SelectsContainerAdmin">
-          <label>Por Nombre:</label>
+          <label>Por Restaurante:</label>
             <select
               className="selectAdmin"
               value={selectOrderNameOrder}
@@ -134,7 +175,24 @@ function OrdersAdmin() {
               </option>
             </select>
           </div>
-
+          <div className="SelectsContainerAdmin">
+          <label>Por Usuario:</label>
+            <select
+              className="selectAdmin"
+              value={selectOrderNameResOrder}
+              onChange={handleOrderNameOrderResChange}
+            >
+              <option className="optionAdmin" value="">
+              Seleccionar orden...
+              </option>
+              <option className="optionAdmin" value="asc">
+                Ascendente
+              </option>
+              <option className="optionAdmin" value="des">
+                Descendente
+              </option>
+            </select>
+          </div>
           <div className="SelectsContainerAdmin">
             <label>Por Precio:</label>
             <select
@@ -154,6 +212,9 @@ function OrdersAdmin() {
             
             </select>
           </div>
+            <div>
+            <button title="Deshacer filtros" className="buttonDesOrder"><img src={deshacer} alt="deshacer" onClick={handleClearFilter}/></button>
+              </div>
         </div>
       </div>
       
