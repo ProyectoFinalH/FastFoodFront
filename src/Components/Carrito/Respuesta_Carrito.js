@@ -41,6 +41,8 @@ const RespuestaCarrito = () => {
     return total + parseFloat(item.price) * item.cont;
   }, 0);
 
+  const URLFRONT="https://fast-food-front-deploy.vercel.app";
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -83,12 +85,12 @@ const RespuestaCarrito = () => {
     removeOrder() 
     resetearCarrito(); 
    
-    window.location.replace('http://localhost:3000/home')
+    window.location.replace(URLFRONT+'/home')
   }
 
   
   const handeRegresar=()=>{
-    window.location.replace('http://localhost:3000/home')
+    window.location.replace(URLFRONT+'/home')
   }
 
   
