@@ -34,14 +34,13 @@
   left: 0;
   width: 320px;
   height: 50%;
-  background-color:#f4f3f3;
+  background-color: #f4f3f3;
   box-shadow: inset;
   z-index: 3;
   display: none;
   border: 1px solid rgb(211, 210, 210);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   min-height: 450px;
-
 }
 
 .logo + span {
@@ -158,4 +157,11 @@
 
 .close-btn:hover img {
   filter: brightness(0.8);
+}
+
+.fastfood-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fc2d09;
+  margin-left: 10px;
 }
