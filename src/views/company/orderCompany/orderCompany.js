@@ -7,6 +7,8 @@ import modificar from './image/escribir.png';
 import cancelar from './image/cancelar.png';
 import guardar from './image/actualizar.png';
 
+import aproved from './image/aprobado.png'
+
 import { Actualizar_Compra_Usuario, Create_Lista_Order_Company } from '../../../Redux/actions';
 import alertify from 'alertifyjs';
 import { axiosInstance, configureAxios } from '../../../AuthContext/axiosInstance';
@@ -125,6 +127,10 @@ const handleItemChange = (index, field, value) => {
   });
 };
 
+const handleAproved = ()=>{
+  alertify.alert("Mensaje", "No se puede modificar pagos aprobados")
+}
+
   return (
     <div className='orderCompany'>
       <h1>OrderCompany</h1>
@@ -165,11 +171,20 @@ const handleItemChange = (index, field, value) => {
                   <div className="btn btn-delete" onClick={() => handleEliminar(order.id, order.active)}>
                     <img src={order.active ? eliminar : rechasado} alt='Eliminar order' className='img_List_Order' />
                   </div>
+                 
                 </td>
                 <td>
-                  <div className="btn btn-modify" onClick={() => handleModificar(order)}>
-                    <img src={modificar} alt='Modificar order' className='img_List_Order' />
-                  </div>
+                  
+                  {
+                  order.status_order === "Pago aceptado"
+                  ?<div className="btn btn-modify" onClick={() => handleAproved(order)}>
+                  <img src={aproved} alt='Modificar order' className='img_List_Order' />
+                </div>
+                  :<div className="btn btn-modify" onClick={() => handleModificar(order)}>
+                  <img src={modificar} alt='Modificar order' className='img_List_Order' />
+                </div>
+                  }
+                  
                 </td>
               </tr>
             ))}
