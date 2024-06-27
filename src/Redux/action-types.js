@@ -31,6 +31,8 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const CREATE_CATEGORIES = "CREATE_CATEGORIES";
 export const POST_COMMENT = "POST_COMMENT"
+export const GET_COMMENTS_ADMIN = "GET_COMMENTS_ADMIN"
+export const PUT_COMENTS = "PUT_COMENTS"
 
 
 

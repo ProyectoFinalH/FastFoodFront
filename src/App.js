@@ -37,17 +37,27 @@ import Rating from "./Components/rating/rating";
 function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [showApp, setShowApp] = useState(false);
+
 
   useEffect(() => {
     const Data = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/restaurants");
-
-        setLoading(false);
+        const response = await axios.get("http://localhost:5000/menuitems");
+        if (response.data.length === 0) {
+          console.log("La tabla de restaurantes está vacía");
+        }
+        setDataLoaded(true);
+       
       } catch (error) {
         console.error("Error de red:", error);
         setError(true);
+
+      }finally{
         setLoading(false);
+        setShowApp(true);
+
       }
     };
 
@@ -64,6 +74,7 @@ function App() {
 
   return (
     <div className="App">
+       {showApp && (
       <AuthProvider>
         <Routes>
           <Route path="/LoginAdmin" element={<LoginAdmin />} />
@@ -89,6 +100,7 @@ function App() {
         </Routes>
       <ScrollToTopButton/>
       </AuthProvider>
+       )}
     </div>
   );
 }

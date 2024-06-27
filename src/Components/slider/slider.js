@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import "./slider.css";
 
 function Slider({ images }) {
@@ -31,9 +32,9 @@ function Slider({ images }) {
       <div className="dotContainer">
         {images.map((_, index) => (
           <span
-            key={index}
-            className={index === imageActual ? "dot active" : "dot"}
-            onClick={() => changeImage(index)}
+          key={index}
+          className={index === imageActual ? "dot active" : "dot"}
+          onClick={() => changeImage(index)}
           ></span>
         ))}
       </div>
