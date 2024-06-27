@@ -7,6 +7,8 @@ import modificar from './image/escribir.png';
 import cancelar from './image/cancelar.png';
 import guardar from './image/actualizar.png';
 
+import aproved from './img/aprobado.png'
+
 import { Actualizar_Compra_Usuario, Create_Lista_Order_Company } from '../../../Redux/actions';
 import alertify from 'alertifyjs';
 import { axiosInstance, configureAxios } from '../../../AuthContext/axiosInstance';
@@ -124,7 +126,10 @@ const handleItemChange = (index, field, value) => {
     total_price: calculateTotalPrice(newItems) // Recalcular el precio total
   });
 };
-
+const hadleAproved = ()=>{
+  alertify.alert("Aproved", "Las ordenes aprobadas no se pueden modificar")
+  alertify.error('accion negada')
+}
   return (
     <div className='orderCompany'>
       <h1>OrderCompany</h1>
@@ -167,9 +172,17 @@ const handleItemChange = (index, field, value) => {
                   </div>
                 </td>
                 <td>
-                  <div className="btn btn-modify" onClick={() => handleModificar(order)}>
-                    <img src={modificar} alt='Modificar order' className='img_List_Order' />
+                {
+                
+                order.status_order === "Registrada"
+                ?<div className="btn btn-modify" onClick={() => handleModificar(order)}>
+                  <img src={modificar} alt='Modificar order' className='img_List_Order' />
                   </div>
+                :<div className="btn btn-modify">
+                      <img src={aproved} alt='Modificar order' onClick={hadleAproved} className='img_List_Order' />
+                      </div>
+                     }
+                    
                 </td>
               </tr>
             ))}
