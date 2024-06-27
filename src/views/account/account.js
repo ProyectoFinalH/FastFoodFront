@@ -127,11 +127,11 @@ function Account() {
     setShowOrders(false);
   };
 
-  const handleNotificationsClick = () => {
-    setShowAccountSettings(false);
-    setShowNotifications(true);
-    setShowOrders(false);
-  };
+  // const handleNotificationsClick = () => {
+  //   setShowAccountSettings(false);
+  //   setShowNotifications(true);
+  //   setShowOrders(false);
+  // };
 
   const handleOrdersClick = () => {
     setShowAccountSettings(false);
@@ -192,11 +192,11 @@ function Account() {
                   Ajustes de cuenta
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="#" onClick={handleNotificationsClick}>
                   Centro de notificaciones
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="#" onClick={handleOrdersClick}>
                   Últimas órdenes
