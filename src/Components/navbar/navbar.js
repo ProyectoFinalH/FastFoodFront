@@ -45,10 +45,10 @@ function Navbar() {
   return (
     <div className="navbar-container">
       <div className="left-section">
-        <div className="logo-container">
+        <NavLink to="/home" className="logo-container">
           <img src={logo} alt="logo" className="logo" />
-        </div>
-        <div className="logo-container">
+        </NavLink>
+        <div className="logo-container fastfood-text">
           <span>FastFood</span>
         </div>
       </div>
