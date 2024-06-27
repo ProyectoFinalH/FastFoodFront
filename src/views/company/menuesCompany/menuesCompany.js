@@ -1,5 +1,5 @@
 import {
-    getAllMenusCompany
+    getAllMenusCompany,
 } from "../../../Redux/actions";
 import "./menuesCompany.css";
 import React, { useState, useEffect } from "react";
@@ -13,9 +13,10 @@ function MenuesCompany() {
     const dispatch = useDispatch();
     const allMenus = useSelector((state) => state.menusCompany);
     const [, setIsRestored] = useState(false);
-    const { id } = useParams();    
+    const { id } = useParams();
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
-    const token = useSelector((state)=> state.token.data);
+    const token = useSelector((state) => state.token.data);
+    const allMenuItems = useSelector((state) => state.menuItemsCompany);
 
     useEffect(() => {
         dispatch(getAllMenusCompany());
@@ -40,9 +41,17 @@ function MenuesCompany() {
                 ? `http://localhost:5000/menus/delete/${menu.id}`
                 : `http://localhost:5000/menus/restore/${menu.id}`;
 
-                configureAxios(token);
+            configureAxios(token);
+
 
             await axiosInstance.put(url);
+            const menuItemsToUpdate = allMenuItems.filter(item => item.menu_id === menu.id);
+            for (const menuItem of menuItemsToUpdate) {
+                const menuItemUrl = menu.active
+                    ? `http://localhost:5000/menuitems/delete/${menuItem.id}`
+                    : `http://localhost:5000/menuitems/restore/${menuItem.id}`;
+                await axiosInstance.put(menuItemUrl);
+            }
             const updatedMenus = allMenus.map((item) => {
                 if (item.id === menu.id) {
                     return { ...item, active: !item.active };

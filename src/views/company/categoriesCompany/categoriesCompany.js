@@ -18,6 +18,8 @@ function CategoriesCompany() {
     const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
     ReactModal.setAppElement('#root');
     const token = useSelector((state) => state.token.data)
+    const allMenuItems = useSelector((state) => state.menuItemsCompany);
+
 
 
     useEffect(() => {
@@ -45,6 +47,13 @@ function CategoriesCompany() {
 
             configureAxios(token);
             await axiosInstance.put(url);
+            const menuItemsToUpdate = allMenuItems.filter(item => item.category_id === categories.id);
+            for (const menuItem of menuItemsToUpdate) {
+                const menuItemUrl = categories.active
+                    ? `http://localhost:5000/menuitems/delete/${menuItem.id}`
+                    : `http://localhost:5000/menuitems/restore/${menuItem.id}`;
+                await axiosInstance.put(menuItemUrl);
+            }
             const updatedMenus = allCategories.map((item) => {
                 if (item.id === categories.id) {
                     return { ...item, active: !item.active };
