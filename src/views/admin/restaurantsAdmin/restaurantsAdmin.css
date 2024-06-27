@@ -104,6 +104,7 @@
 }
 .inputSearchResAdmin{
   display: flex;
+  align-items: center;
 }
 .SearchRestAdmin input[type="search"] {
   flex: 1;
@@ -114,6 +115,7 @@
 }
 
 .buttonSearchAdmin button {
+  margin-left: 5px;
   background-color: #ff5a5f;
   color: white;
   border: none;

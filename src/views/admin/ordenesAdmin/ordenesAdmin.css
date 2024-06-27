@@ -18,7 +18,7 @@
  
  .OrderAdminContainer thead {
      color: white;
-     background-color: #ff3a3a;
+     background-color: #ff5a5f;
  }
  
  .OrderAdminContainer th, .OrderAdminContainer td {
@@ -43,4 +43,24 @@
 
  .OrderAdminContainer td:hover {
     transform: translateY(-5px);
+ }
+
+ .buttonDesOrder{
+    background-color: #ff5a5f;
+    border-style: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
+    cursor: pointer;
+ }
+
+ .buttonDesOrder img{
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(0deg);
+    width: 100%;
+    object-fit: contain;
+ }
+
+ .buttonDesOrder:hover{
+    background-color: #ff5a5f;
  }
