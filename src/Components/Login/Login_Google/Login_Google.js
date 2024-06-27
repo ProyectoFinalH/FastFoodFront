@@ -9,7 +9,8 @@ const LoginGoogle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.stopPropagation();
     try {
       const result = await auth?.signInWithPopup(googleProvider);
       const token = await result?.user?.getIdToken();
@@ -23,7 +24,7 @@ const LoginGoogle = () => {
   };
 
   return (
-    <button className="google-login-button" onClick={handleLogin}>
+    <button type="button" className="google-login-button" onClick={handleLogin}>
       <img
         className="google-icon"
         src="https://www.pngall.com/wp-content/uploads/5/Google-G-Logo-PNG-Image.png"

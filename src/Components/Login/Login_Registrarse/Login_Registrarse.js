@@ -11,6 +11,7 @@ const Registrarse = ({ setView }) => {
   const dispatch = useDispatch();
   const Register = useSelector((state) => state.RegisterUserData);
   const [keyVisible, setKeyVisible] = useState(false);
+  const [confirmKeyVisible, setConfirmKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -18,9 +19,15 @@ const Registrarse = ({ setView }) => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
   };
+
+  const toggleConfirmVisibility = () => {
+    setConfirmKeyVisible(!confirmKeyVisible);
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserData({
@@ -37,7 +44,6 @@ const Registrarse = ({ setView }) => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
-      // lógica para enviar los datos del formulario al servidor
       dispatch(register_user(userData));
     }
   };
@@ -45,11 +51,11 @@ const Registrarse = ({ setView }) => {
   const validateForm = (data) => {
     let errors = {};
 
-    if (!data?.username.trim()) {
+    if (!data.username.trim()) {
       errors.username = "El nombre de usuario es requerido";
     } else if (
-      data?.username.trim().length < 4 ||
-      data?.username.trim().length > 60
+      data.username.trim().length < 4 ||
+      data.username.trim().length > 60
     ) {
       errors.username =
         "El nombre de usuario debe tener entre 4 y 20 caracteres";
@@ -57,20 +63,20 @@ const Registrarse = ({ setView }) => {
 
     if (!data.email.trim()) {
       errors.email = "El correo electrónico es requerido";
-    } else if (!/\S+@\S+\.\S+/.test(data?.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
       errors.email = "El correo electrónico ingresado no es válido";
     }
 
     if (!data.password.trim()) {
       errors.password = "La contraseña es requerida";
-    } else if (!/^[a-zA-Z0-9]{5,20}$/.test(data?.password)) {
+    } else if (!/^[a-zA-Z0-9]{5,20}$/.test(data.password)) {
       errors.password =
         "La contraseña debe contener solo letras y números, y tener entre 5 y 20 caracteres";
     }
 
     if (!data.confirmPassword.trim()) {
       errors.confirmPassword = "Por favor confirma tu contraseña";
-    } else if (data?.password !== data?.confirmPassword) {
+    } else if (data.password !== data.confirmPassword) {
       errors.confirmPassword = "Las contraseñas no coinciden";
     }
 
@@ -84,7 +90,7 @@ const Registrarse = ({ setView }) => {
       case "username":
         if (!value.trim()) {
           fieldErrors.username = "El nombre de usuario es requerido";
-        } else if (value?.trim().length < 4 || value?.trim().length > 600) {
+        } else if (value.trim().length < 4 || value.trim().length > 60) {
           fieldErrors.username =
             "El nombre de usuario debe tener entre 4 y 20 caracteres";
         }
@@ -97,7 +103,7 @@ const Registrarse = ({ setView }) => {
         }
         break;
       case "password":
-        if (!value?.trim()) {
+        if (!value.trim()) {
           fieldErrors.password = "La contraseña es requerida";
         } else if (!/^[a-zA-Z0-9]{5,20}$/.test(value)) {
           fieldErrors.password =
@@ -107,7 +113,7 @@ const Registrarse = ({ setView }) => {
       case "confirmPassword":
         if (!value.trim()) {
           fieldErrors.confirmPassword = "Por favor confirma tu contraseña";
-        } else if (userData?.password !== value) {
+        } else if (userData.password !== value) {
           fieldErrors.confirmPassword = "Las contraseñas no coinciden";
         }
         break;
@@ -124,7 +130,7 @@ const Registrarse = ({ setView }) => {
 
   useEffect(() => {
     if (Register) {
-      alert("Bienvenido " + Register?.username + " ahora puedes continuar");
+      alert("Bienvenido " + Register.username + " ahora puedes continuar");
       setView("login");
     }
   }, [Register, setView]);
@@ -141,11 +147,11 @@ const Registrarse = ({ setView }) => {
             name="username"
             value={userData.username}
             maxLength={45}
-            title="Solo se adminten 45 caractres"
+            title="Solo se admiten 45 caracteres"
             onChange={handleChange}
           />
           {errors.username && (
-            <span className="errorMessage">{errors?.username}</span>
+            <span className="errorMessage">{errors.username}</span>
           )}
         </div>
         <div className="formGroup">
@@ -154,51 +160,56 @@ const Registrarse = ({ setView }) => {
             type="email"
             id="email"
             name="email"
-            value={userData?.email}
+            value={userData.email}
             maxLength={60}
-            title="Solo se adminten 60 caractres"
+            title="Solo se admiten 60 caracteres"
             onChange={handleChange}
           />
-          {errors?.email && <span className="errorMessage">{errors?.email}</span>}
+          {errors.email && <span className="errorMessage">{errors.email}</span>}
         </div>
         <div className="formGroup">
           <label htmlFor="password">Contraseña</label>
           <div className="pass_display_flex">
-
-          <input
-            type={keyVisible ? "text" : "password" }
-            id="password"
-            name="password"
-            maxLength={15}
-            value={userData?.password}
-            onChange={handleChange}
-            title="Solo se adminten 15 caractres"
-          />
-        <img
-            src={keyVisible ? icono_ocultar : icono_ver}
-            alt="Mostrar/Ocultar"
-            onClick={toggleVisibility}
-            className="ver"
-          />
-
-</div>
-
+            <input
+              type={keyVisible ? "text" : "password"}
+              id="password"
+              name="password"
+              maxLength={15}
+              value={userData.password}
+              onChange={handleChange}
+              title="Solo se admiten 15 caracteres"
+            />
+            <img
+              src={keyVisible ? icono_ocultar : icono_ver}
+              alt="Mostrar/Ocultar"
+              onClick={toggleVisibility}
+              className="ver"
+            />
+          </div>
           {errors.password && (
-            <span className="errorMessage">{errors?.password}</span>
+            <span className="errorMessage">{errors.password}</span>
           )}
         </div>
         <div className="formGroup">
           <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-          <input
-            type={keyVisible ? "text" : "password"}
-            id="confirmPassword"
-            name="confirmPassword"
-            value={userData?.confirmPassword}
-            maxLength={15}
-            onChange={handleChange}
-          />
+          <div className="pass_display_flex">
+            <input
+              type={confirmKeyVisible ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
+              maxLength={15}
+              value={userData.confirmPassword}
+              onChange={handleChange}
+            />
+            <img
+              src={confirmKeyVisible ? icono_ocultar : icono_ver}
+              alt="Mostrar/Ocultar"
+              onClick={toggleConfirmVisibility}
+              className="ver"
+            />
+          </div>
           {errors.confirmPassword && (
-            <span className="errorMessage">{errors?.confirmPassword}</span>
+            <span className="errorMessage">{errors.confirmPassword}</span>
           )}
         </div>
         <button type="submit" className="buttonSubmit">
