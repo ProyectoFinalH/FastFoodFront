@@ -77,3 +77,15 @@ box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     padding: 0;
 }
 
+.RatingRestContainerCompany.inactive {
+  background-color: #d6d6d6; /* Cambia el color de fondo a gris */
+}
+
+.RatingRestContainerCompany.inactive img {
+  filter: grayscale(100%); /* Aplica el filtro de escala de grises al 100% */
+}
+
+.buttonComentariosCompany {
+  position: relative;
+ left: 95%;
+}

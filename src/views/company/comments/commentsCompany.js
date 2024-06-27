@@ -1,8 +1,8 @@
-import { getCommentsCompany } from "../../../Redux/actions";
+import { PutComents, getCommentsCompany } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-// import activar from "../../../images/activar.png";
-// import desactivar from "../../../images/desactivar.png";
+import activar from "../../../images/activar.png";
+import desactivar from "../../../images/desactivar.png";
 
 import "./commentsCompany.css"
 import StarRating from "../../../Components/rating/starRating/starRating";
@@ -17,21 +17,26 @@ function CommentsCompany() {
         dispatch(getCommentsCompany());
     }, [dispatch]);
 
-    // const toggleActivation = async (id) => {
-    //     try {
-    //       if (!id) {
-    //         console.error("El id del restaurante es incorrecto");
-    //         return;
-    //       }
-    //       await dispatch(PutComents(id));
-    //     } catch (error) {
-    //       console.error("Error al cambiar el estado del comentario:", error);
-    //     }
-    //   };
-
+    
+  const toggleActivation = async (id, isActive) => {
+    try {
+      if (!id) {
+        console.error("El id del comentario es incorrecto");
+        return;
+      }
+      await dispatch(PutComents(id, isActive));
+      dispatch(getCommentsCompany());
+    } catch (error) {
+      console.error("Error al cambiar el estado del comentario:", error);
+    }
+  };
     function truncate(text, maxLength) {
         return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     }
+
+    if (!allComents) {
+        return <div>Cargando comentarios...</div>; // Manejo de carga inicial si es necesario
+      }
 
     return (
         <div className="commentsCompany">
@@ -43,7 +48,7 @@ function CommentsCompany() {
             {allComents
             .map((comment) => (
               <li key={comment?.id}>
-                <div className="RatingRestContainerCompany">
+                <div className={`RatingRestContainerCompany ${comment?.active ? "" : "inactive"}`}>
                   <div className="commentUser">
                     <div className="commentUserName">
                       <div className="commentImage">
@@ -57,14 +62,13 @@ function CommentsCompany() {
                     </div>
                   </div>
                   <div className="commentUserComment">
-                    <p title={comment.comment}>{truncate(comment.comment, 60)}</p>
+                    <p title={comment?.comment}>{truncate(comment?.comment, 60)}</p>
                   </div>
-                </div>
-                <div>
-            {/* <button
+                <div className="buttonComentariosCompany">
+            <button
               className="buttonactdesMenus"
               onClick={() =>
-                toggleActivation(comment?.id)
+                toggleActivation(comment?.id , !comment.active)
               }
             >
               {comment?.active ? (
@@ -72,8 +76,9 @@ function CommentsCompany() {
               ) : (
                 <img src={desactivar} alt="desactivar" />
               )}
-            </button> */}
+            </button>
           </div>
+                </div>
               </li>
               
             ))}
