@@ -9,7 +9,7 @@ import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaur
 import Slider from "../../Components/slider";
 import Image1 from "../../images/Image1.jpg";
 import Image2 from "../../images/image2.jpg";
-import Image4 from "../../images/image4.jpg";
+import Image3 from "../../images/image4.jpg";
 import "./home.css";
 import Footer from "../../Components/Footer/Footer";
 
@@ -22,7 +22,7 @@ import {
 import Loading from "../../Components/loading/Loading";
 import Maintenance from "../maintenance/maintenance";
 
-const mockImages = [Image1, Image2, Image4];
+const mockImages = [Image1, Image2, Image3];
 
 function Home() {
   const allRestaurants = useSelector((state) => state.allRestaurants) || [];
