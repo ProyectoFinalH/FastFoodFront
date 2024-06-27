@@ -27,7 +27,7 @@
 }
 
 .carCarritoHeader {
-  background-color:rgb(224, 200, 200);
+  background-color: rgb(224, 200, 200);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -226,7 +226,7 @@
   margin-top: 10px;
 }
 
-.Pagarproductos button:hover{
+.Pagarproductos button:hover {
   background-color: #2ef193;
 }
 

@@ -6,6 +6,8 @@ import NavbarAdmin from "../navbarAdmin/navbarAdmin";
 import { useDispatch, useSelector } from "react-redux";
 import { PutRestaurants, getAllRestaurantsAdmin } from "../../../Redux/actions";
 import { useEffect, useState } from "react";
+import deshacer from "../../../images/deshacer.png"
+
 
 // import { useLocalStorage } from "../../../Components/localStorage/useLocalStorage";
 
@@ -77,6 +79,11 @@ function RestaurantsAdmin() {
     setSelectOrderNameRest(e.target.value);
   };
 
+  const handleClearFilter = (e) => {
+    setSearch("")
+    setSelectOrderNameRest("")
+  }
+
   return (
     <div className="restaurantAdminContainer">
       <NavbarAdmin />
@@ -87,7 +94,7 @@ function RestaurantsAdmin() {
         <div className="inputSearchResAdmin">
           <input
             type="search"
-            placeholder="Nombre..."
+            placeholder="Nombre o Email..."
             value={search}
             onChange={handleSearchChange}
           />
@@ -114,6 +121,9 @@ function RestaurantsAdmin() {
               </option>
             </select>
           </div>
+          <div>
+            <button title="Deshacer filtros" className="buttonDesOrder"><img src={deshacer} alt="deshacer" onClick={handleClearFilter}/></button>
+              </div>
         </div>
       </div>
       <div className="RestauranteContainerAdmin">
@@ -138,7 +148,7 @@ function RestaurantsAdmin() {
             </div>
             <div className="resName">
               <h3>Email: </h3>
-              <p>{restaurant?.email}</p>
+              <p title={restaurant?.email}>{restaurant?.email.substring(0, 20)}</p>
             </div>
             <div className="resName">
               <h3>Telefono: </h3>

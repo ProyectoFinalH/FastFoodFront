@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MisCompras.css";
 import Eliminarproducto from "../../images/eliminar.png";
-import sindatos from '../../images/pizzeria-SINDATOS.png';
+import sindatos from "../../images/pizzeria-SINDATOS.png";
 
 import {
   obtenerContCarrito,
@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const MisCompras = ({ onClose }) => {
   const [selectedCards, setSelectedCards] = useState([]);
- 
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,12 +59,14 @@ const MisCompras = ({ onClose }) => {
 
   const handleDeleteItem = (id) => {
     eliminarItemCarrito(id);
-    setSelectedCards((prevCards) => prevCards?.filter((card) => card?.id !== id));
+    setSelectedCards((prevCards) =>
+      prevCards?.filter((card) => card?.id !== id)
+    );
   };
 
   const handleSalirCarrito = () => {
     onClose();
-    navigate('/menu');
+    navigate("/menu");
   };
 
   return (
@@ -72,7 +74,9 @@ const MisCompras = ({ onClose }) => {
       <div className="carCarrito">
         <div className="carCarritoHeader">
           <h1>Pagos</h1>
-          <div className="closeButton" onClick={handleSalirCarrito}>X</div>
+          <div className="closeButton" onClick={handleSalirCarrito}>
+            X
+          </div>
         </div>
         <div className="carCarritoContent">
           {selectedCards?.length === 0 ? (
@@ -80,7 +84,12 @@ const MisCompras = ({ onClose }) => {
               <img src={sindatos} alt="Eliminar producto" />
               <p>¡Comienza tu carrito con tus comidas favoritas!</p>
               <label>Agrega productos y disfruta del delicioso sabor.</label>
-              <div className="login-button-regresar" onClick={handleSalirCarrito}>Regresar al Menú</div>
+              <div
+                className="login-button-regresar"
+                onClick={handleSalirCarrito}
+              >
+                Regresar al Menú
+              </div>
             </div>
           ) : (
             selectedCards?.map((card) => (
@@ -92,13 +101,30 @@ const MisCompras = ({ onClose }) => {
                 </div>
                 <div className="CarritoBotones">
                   <div className="signos">
-                    <img src={Eliminarproducto} onClick={() => handleDeleteItem(card?.id)} alt="Eliminar comida" />
+                    <img
+                      src={Eliminarproducto}
+                      onClick={() => handleDeleteItem(card?.id)}
+                      alt="Eliminar comida"
+                    />
                   </div>
-                  <div className="signos" onClick={() => handleDisminuir(card?.id)}>-</div>
+                  <div
+                    className="signos"
+                    onClick={() => handleDisminuir(card?.id)}
+                  >
+                    -
+                  </div>
                   <div>
-                    <input name="contador" type="text" maxLength={100} value={obtenerContCarrito(card?.id)} disabled />
+                    <input
+                      name="contador"
+                      type="text"
+                      maxLength={100}
+                      value={obtenerContCarrito(card?.id)}
+                      disabled
+                    />
                   </div>
-                  <div className="signos" onClick={() => handleSumar(card?.id)}>+</div>
+                  <div className="signos" onClick={() => handleSumar(card?.id)}>
+                    +
+                  </div>
                 </div>
                 <div className="costoTotal">
                   <label>Costo Total</label>
@@ -112,14 +138,18 @@ const MisCompras = ({ onClose }) => {
           <div className="Pagarproductos">
             <label className="pagolabel">Costo Total</label>
             <label className="pagolabel">
-              ${selectedCards?.reduce((acc, card) => acc + card?.price * card?.cont, 0)}
+              $
+              {selectedCards?.reduce(
+                (acc, card) => acc + card?.price * card?.cont,
+                0
+              )}
             </label>
-            <buttonpagarButton  onClick={handlePagar}>Pagar</buttonpagarButton>
+            <buttonpagarButton onClick={handlePagar}>Pagar</buttonpagarButton>
           </div>
         )}
       </div>
     </div>
   );
-}
+};
 
 export default MisCompras;

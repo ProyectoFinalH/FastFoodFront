@@ -6,6 +6,8 @@ import desactivar from "../../../images/desactivar.png";
 import NavbarAdmin from "../navbarAdmin/navbarAdmin";
 import { useDispatch, useSelector } from "react-redux";
 import { PutUsers, getAllUsersAdmin } from "../../../Redux/actions";
+import deshacer from "../../../images/deshacer.png"
+
 
 function UsersAdmin() {
 
@@ -15,7 +17,7 @@ function UsersAdmin() {
   const [search, setSearch] = useState("");
   const [filterUsers, setFilterUsers] = useState([]);
   const [selectOrderNameUsers, setSelectOrderNameUsers] = useState("");
-  const [selectOrderEmailUsers, setSelectOrderEmailUsers] = useState("");
+  
   const [noResults, setNoResults] = useState(false);
   useEffect(()=>{
     dispatch(getAllUsersAdmin())
@@ -61,42 +63,22 @@ function UsersAdmin() {
     setNoResults(filteredUsers.length === 0)
   }, [allUsersAdmin, search, selectOrderNameUsers]);
 
-  useEffect(() => {
-    let filteredUsers = [...allUsersAdmin];
-
-   
-    if (search.trim() !== "") {
-      filteredUsers = filteredUsers.filter(
-        (user) =>
-          user.username.toLowerCase().includes(search.toLowerCase()) ||
-          user.email.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-
-   
-    if (selectOrderEmailUsers !== "") {
-      filteredUsers.sort((a, b) =>
-        selectOrderEmailUsers === "asc"
-          ? a.email.localeCompare(b.email)
-          : b.email.localeCompare(a.email)
-      );
-    }
-
-    setFilterUsers(filteredUsers);
-  }, [allUsersAdmin, search, selectOrderEmailUsers]);
 
 
 const handleSearchChange = (e) => {
   setSearch(e.target.value);
 };
 
-const handleOrderEmailChange = (e) => {
-  setSelectOrderEmailUsers(e.target.value);
-};
 
 const handleOrderNameChange = (e) => {
   setSelectOrderNameUsers(e.target.value);
 };
+
+const handleClearFilter = (e) => {
+  setSearch("")
+  setSelectOrderNameUsers("")
+}
+
 
 const filteredUsers = filterUsers.filter((user)=> user.role_id === 1)
 return (
@@ -136,26 +118,9 @@ return (
               </option>
             </select>
           </div>
-
-          <div className="SelectsContainerAdmin">
-            <label>Por Email:</label>
-            <select
-              className="selectAdmin"
-              value={selectOrderEmailUsers}
-              onChange={handleOrderEmailChange}
-            >
-              <option className="optionAdmin" value="">
-              Selecionar orden...
-              </option>
-              <option className="optionAdmin" value="dec">
-                Descendente
-              </option>
-              <option className="optionAdmin" value="asc">
-                Acendente
-              </option>
-            
-            </select>
-          </div>
+          <div>
+            <button title="Deshacer filtros" className="buttonDesOrder"><img src={deshacer} alt="deshacer" onClick={handleClearFilter}/></button>
+              </div>
         </div>
       </div>
       <div className="RestauranteContainerAdmin">
@@ -179,7 +144,7 @@ return (
           </div>
           <div className="resName">
             <h3>Email: </h3>
-            <p>{user?.email}</p>
+            <p title={user?.email}>{user?.email.substring(0, 20)}</p>
           </div>
           <div className="resName">
             <h3>Telefono: </h3>
