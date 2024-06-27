@@ -42,6 +42,7 @@ import {
   GET_COMMENT,
   CLEAR_COMMENTS,
   POST_COMMENT,
+  GET_COMMENTS_ADMIN,
 
   GET_DETAIL_EMPRESA,
   SET_TOKEN,
@@ -51,6 +52,7 @@ import {
   GET_MENUITEMS_COMPANY,
   GET_MENUS_COMPANY,
   GET_COMMENTS_COMPANY,
+  PUT_COMENTS,
 } from "../Redux/action-types";
 
 const initialState = {
@@ -73,6 +75,7 @@ const initialState = {
   allMenusAdmin: [],
   allCategories: [],
   allCategoriesAdmin: [],
+  allCommentsAdmin:[],
   createMenu: null,
   createMenuItems: null,
   createCategories: null,
@@ -360,6 +363,19 @@ const reducer = (state = initialState, { type, payload }) => {
                 ...state,
                 allComments: payload
               }
+              case 
+              GET_COMMENTS_ADMIN:
+                return {
+                  ...state,
+                  allCommentsAdmin: payload
+                }
+                case PUT_COMENTS:
+                  return {
+                    ...state,
+                    allComments: payload
+                  }
+                
+
     default:
       return { ...state };
   }

@@ -40,6 +40,8 @@ import {
   SELECTRESTAURANTE, //!seleccionamos el restaurrante
 
   POST_COMMENT,
+  GET_COMMENTS_ADMIN,
+  PUT_COMENTS,
 
   GET_DETAIL_EMPRESA,
   SET_TOKEN, // para setear el valor del token 
@@ -1190,3 +1192,43 @@ export function getCommentsCompany() {
     
   };
 }
+
+
+export const GetCommentAdmin = () => {
+  return async (dispatch) => {
+    try {
+
+      const response  = await axios.get(`http://localhost:5000/comments/all`);
+      dispatch ({
+        type: GET_COMMENTS_ADMIN,
+        payload: response.data,
+      })
+      
+    } catch (error) {
+  console.error("Error al obtener el comentario:", error);
+      
+    }
+  }
+}
+
+
+export const PutComents = (id) => {
+  return async function (dispatch,getState) {
+    const token=getState().token.data;
+    configureAxios(token);
+
+    try {
+
+      const response = await axiosInstance.put(`http://localhost:5000/comments/${id}/status`);
+
+      dispatch({
+        type: PUT_COMENTS,
+        payload: response.data, // Ajusta según la respuesta de tu API
+      });
+
+      console.log("Solicitud PUT enviada correctamente.");
+    } catch (error) {
+      console.error("Error al cambiar el estado del Comentario:", error);
+    }
+  };
+};

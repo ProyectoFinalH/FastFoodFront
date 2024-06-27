@@ -24,6 +24,10 @@ function Rating({onClose, restaurantId}) {
     }
   };
 
+  function truncate(text, maxLength) {
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+}
+
   return (
     <div className="ratingsContainer" onClick={handleCloseModal}>
       <div className="ratingModal">
@@ -64,7 +68,7 @@ function Rating({onClose, restaurantId}) {
                 </div>
                   <div className="commentUserComment">
 
-                <p>{comment?.comment}</p>
+                <p title={comment.comment}>{truncate(comment.comment, 60)}</p>
                   </div>
 
               

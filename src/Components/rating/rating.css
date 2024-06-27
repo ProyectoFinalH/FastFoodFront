@@ -80,13 +80,14 @@
     display: flex;
     flex-direction: column;
     border-bottom: solid 1px #d8d8d8;
-    margin-bottom: 20px;
+    margin: 20px;
   }
   
   .commentUser {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 10px;
   }
   
   .commentUserName {
@@ -97,7 +98,7 @@
   
   .commentUserComment {
     margin-top: -20px;
-    margin-left: 100px;
+    margin-left: 110px;
     font-size: 17px;
   }
 
@@ -107,4 +108,8 @@
     height: 80px;
     border-radius: 100px;
     margin-right: 20px;
+  }
+
+  .commentUserDate{
+    color: #615f5f;
   }
