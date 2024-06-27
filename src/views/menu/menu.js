@@ -28,6 +28,9 @@ import {
   getSelctRestaurantapp,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import Loading from "../../Components/loading/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import Rating from "../../Components/rating/rating";
 
 function Menu() {
   const dispatch = useDispatch();
@@ -50,6 +53,7 @@ function Menu() {
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(true);
+  const [ratings, setRatings] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -167,6 +171,14 @@ function Menu() {
     navigate("/home");
   };
 
+  const handleOpenRating = () => {
+    setRatings(true);
+  };
+
+  const handleCloseRating = () => {
+    setRatings(false);
+  };
+
   return (
     <div className="menu-container">
       {loading ? <Loading /> : null}
@@ -185,7 +197,24 @@ function Menu() {
               />
               <h2 className="restaurant-name">{restaurant1?.name}</h2>
             </div>
+          </div>  
+            <div className="opinionesContainer" onClick={handleOpenRating}>
+              <p>Opiniones</p>
+              <div className="ratingContainerMenu">
+            <p>
+              <FontAwesomeIcon icon={faStar}/>
+            </p>
+            <span>
+              {parseInt(restaurant1?.rating)}
+            </span>
+            </div>
           </div>
+          {ratings && (
+            <Rating
+              onClose={handleCloseRating}
+              restaurantId={restaurant1?.id}
+            />
+          )}
           <div className="cardsContentMenu">
             <div className="cards-menus-container">
               <CardsMenus
@@ -222,7 +251,7 @@ function Menu() {
               if (menuItems?.length > 0) {
                 return (
                   <div key={menu.id} className="menu-item-container">
-                    <h2>{menu.name}</h2>
+                    <h1 className="menu-title-menu">{menu.name}</h1>
                     <CardsMenuItem
                       AllMenuitems={menuItems}
                       handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
