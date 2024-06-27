@@ -1,82 +1,61 @@
-.sidebarContainer{
+.sidebarContainer {
     display: flex;
-}
-.OptionContainer{
-    width: 200%;
-    max-width: 280px;
-    
-    height: 100%;
-    background-color: #ff5a5f;
-    
-    min-width: 200px;
-    /* min-width: 250px; */
-    color: white;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    box-shadow: 0px 5px 15px rgb(71, 71, 71);
-}
-.OptionContainer ul{
+    height: calc(100vh - 60px);
+  }
+  
+  .OptionContainer {
+    flex: 0 0 250px;
+    background-color: #f8f8f8;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .OptionContainer ul {
     list-style-type: none;
     padding: 0;
-}
-
-
-
-.OptionContainer ul li{
-    display: grid;
-    height: 40px;
-    cursor: pointer;
-    margin-top: 10px;
+  }
+  
+  .OptionContainer ul li {
+    font-size: 1rem;
+    color: #333;
+    padding: 12px 20px;
     margin-bottom: 10px;
-    justify-content: flex-start;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .OptionContainer ul li:hover {
+    background-color: #ff5a5f;
+    color: #fff;
+  }
+  
+  .conent2 {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .cardRestConainerSidebar {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 0px 20px;
-}
-
-.OptionContainer ul li:hover{
-
-    background-color: rgb(255, 255, 255);
-    color: #c90a06;
-
-}
-
-.OptionContainer ul li:focus{
-    background-color: rgb(255, 255, 255);
-    color: #c90a06;
-}
-
-.content2 {
-    width: 75%;
-    padding-right: 800px;
-}
-
-.cardRestConainerSidebar {
-    display: grid;
-    
-width:70%;
-
-
-padding: 0px 20px;
-background-color: aliceblue;
-margin-left: 10px;
-justify-items: center;
-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-border-radius: 30px;
-
-}
-
-.cardRestConainerSidebar h2{
-    color: black;
-    width: 100%;
-    word-break: break-word;
-}
-.cardRestConainerSidebar img {
-    margin-top: 10px;
-        width: 100%;
-        
-         
-
-}
-.linktocreate2{
-    margin: 0% 0% 0% 10%;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .cardRestConainerSidebar img {
+    max-width: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .cardRestConainerSidebarh2 {
+    flex: 1;
+    font-size: 1.4rem;
+  }
+  
+  .cardRestConainerSidebarh2 h2 {
+    margin: 0;
+    color: #333;
   }

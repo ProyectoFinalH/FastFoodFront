@@ -10,7 +10,7 @@ import {
   setOrder,
   actualizarItemCarrito,
 } from "../localStorage-car/LocalStorageCar";
-import { setSelctRestaurantapp, getSelctRestaurantapp } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import {  getSelctRestaurantapp } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import { useDispatch, useSelector } from "react-redux";
 import { Wallet, initMercadoPago } from '@mercadopago/sdk-react';
 import alertify from "alertifyjs";

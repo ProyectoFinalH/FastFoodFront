@@ -28,7 +28,7 @@
 }
 
 .formGroup input {
-  width: calc(100% - 10px);
+  width: calc(97% - 10px);
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -69,4 +69,20 @@
 
 .registerButton:hover {
   background-color: #45a049;
+}
+
+.pass_display_flex {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.pass_display_flex input {
+  flex-grow: 1;
+}
+
+.pass_display_flex img.ver {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 }
