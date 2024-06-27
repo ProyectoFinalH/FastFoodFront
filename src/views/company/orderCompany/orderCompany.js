@@ -145,7 +145,7 @@ const handleAproved = ()=>{
               <th>Estado Compra</th>
               <th>Costo Total</th>
               <th>Eliminar</th>
-              <th>Modificar</th>
+              <th className="ocultar-btn">Modificar</th>
             </tr>
           </thead>
           <tbody>
@@ -173,8 +173,8 @@ const handleAproved = ()=>{
                   </div>
                  
                 </td>
-                <td>
-                  
+                <td className="ocultar-btn">
+                  <div >
                   {
                   order.status_order === "Pago aceptado"
                   ?<div className="btn btn-modify" onClick={() => handleAproved(order)}>
@@ -184,7 +184,7 @@ const handleAproved = ()=>{
                   <img src={modificar} alt='Modificar order' className='img_List_Order' />
                 </div>
                   }
-                  
+                  </div>
                 </td>
               </tr>
             ))}
@@ -253,7 +253,8 @@ const handleAproved = ()=>{
           </div>
         ))}
       </div>
-      <div className="form-group-btn">
+      
+      <div className="ocultar-btn">
         <img src={guardar} alt="Guardar Cambios" onClick={handleGuardar} className='img_List_Order-Guardar' />
         <img src={cancelar} alt="Cancelar" onClick={handleCancelar} className='img_List_Order-Guardar' />
       </div>
