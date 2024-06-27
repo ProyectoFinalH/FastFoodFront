@@ -145,7 +145,7 @@ export const recovery_key_user = (dataquery) => {
           payload: userData,
         });
       } else {
-        alert("Error al registrar el usuario");
+        alertify.alert("Error al registrar el usuario");
       }
     } catch (error) {
       console.log("Error al enviar la información", error.message);
@@ -497,7 +497,7 @@ export const updateUser = (id, userData) => {
       configureAxios(token.data);
       if (!token) {
           console.error("Token de autenticación no encontrado.");
-          alert("Usuario no autenticado. Inicia sesión nuevamente.");
+          alertify.alert("Usuario no autenticado. Inicia sesión nuevamente.");
           throw new Error("Usuario no autenticado.");
       }
     try {
@@ -514,7 +514,7 @@ export const updateUser = (id, userData) => {
           })
       } catch (error) {
           console.error("Error al actualizar usuario:", error.message);
-          alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+          //alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
           throw error;
       }
   };
@@ -589,7 +589,7 @@ export const Create_Lista_Order_Company = () => {
         payload: compra,
       });
     } catch (error) {
-      alert("Error al enviar la información", error.message);
+      //alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -612,7 +612,7 @@ export const Eliminar_Registro_Compra = (id)=>{
 
     return data; 
     } catch (error) {
-      alert("Error al enviar la información", error.message);
+      //alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -673,7 +673,7 @@ export const Actualizar_Compra_Usuario = (datauser) => {
         payload: compra,
       }); */
     } catch (error) {
-      alert(`Error al enviar la información del carrito: ${error.message}`);
+      //alert(`Error al enviar la información del carrito: ${error.message}`);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -695,7 +695,7 @@ export const Deshabilito_Compra_User = (id) => {
         payload: compra,
       });
     } catch (error) {
-      alert("Error al enviar la del deshacer carrito", error.message);
+      //alert("Error al enviar la del deshacer carrito", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -745,7 +745,7 @@ export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
  
 */
     } catch (error) {
-      alert("Error al enviar compra del carrito", error.message);
+      //alert("Error al enviar compra del carrito", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -923,7 +923,7 @@ export function getAllCategoriesAdmin() {
       });
       
     } catch (error) {
-      alertify.alert("Mensaje", 'No hay categorias');
+      //alertify.alert("Mensaje", 'No hay categorias');
     }
     
   };
@@ -943,7 +943,7 @@ export function getAllCategoriesCompany() {
       });
       
     } catch (error) {
-      alertify.alert("Mensaje", 'No hay categorias');
+      //alertify.alert("Mensaje", 'No hay categorias');
     }
     
   };
@@ -1188,7 +1188,7 @@ export function getCommentsCompany() {
       });
       
     } catch (error) {
-      alertify.alert("Mensaje", 'No hay comentarios');
+      //alertify.alert("Mensaje", 'No hay comentarios');
     }
     
   };
