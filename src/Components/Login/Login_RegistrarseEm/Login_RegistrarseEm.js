@@ -4,14 +4,15 @@ import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
 import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
 import { register_business } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import alertify from 'alertifyjs';
-import 'alertifyjs/build/css/alertify.css';
-import 'alertifyjs/build/css/themes/default.css'; 
+import alertify from "alertifyjs";
+import "alertifyjs/build/css/alertify.css";
+import "alertifyjs/build/css/themes/default.css";
 
 const RegistrarseEmpresa = ({ setView }) => {
   const dispatch = useDispatch();
   const Register = useSelector((state) => state.RegisterUserData);
   const [keyVisible, setKeyVisible] = useState(false);
+  const [confirmKeyVisible, setConfirmKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -22,6 +23,10 @@ const RegistrarseEmpresa = ({ setView }) => {
 
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
+  };
+
+  const toggleConfirmVisibility = () => {
+    setConfirmKeyVisible(!confirmKeyVisible);
   };
 
   const handleChange = (event) => {
@@ -40,14 +45,18 @@ const RegistrarseEmpresa = ({ setView }) => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
-     const result = dispatch(register_business(userData));
-     if(result){
-      alertify.alert("Creado", "<div>Usuario Creado Correctamente</div><br/><div>Ahora ingresa con tu usuario y contraseña</div>", function() {
-        window.location.href = '/';
-      });
-    }else{
-      alertify.waring("Error", "No se pude registrar la Empresa")
-     }
+      const result = dispatch(register_business(userData));
+      if (result) {
+        alertify.alert(
+          "Creado",
+          "<div>Usuario Creado Correctamente</div><br/><div>Ahora ingresa con tu usuario y contraseña</div>",
+          function () {
+            window.location.href = "/";
+          }
+        );
+      } else {
+        alertify.warning("Error", "No se pudo registrar la Empresa");
+      }
     }
   };
 
@@ -150,7 +159,7 @@ const RegistrarseEmpresa = ({ setView }) => {
             name="username"
             value={userData.username}
             maxLength={45}
-            title="Solo se adminten 45 caractres"
+            title="Solo se admiten 45 caracteres"
             onChange={handleChange}
           />
           {errors.username && (
@@ -165,7 +174,7 @@ const RegistrarseEmpresa = ({ setView }) => {
             name="email"
             value={userData.email}
             maxLength={60}
-            title="Solo se adminten 60 caractres"
+            title="Solo se admiten 60 caracteres"
             onChange={handleChange}
           />
           {errors.email && <span className="errorMessage">{errors.email}</span>}
@@ -180,7 +189,7 @@ const RegistrarseEmpresa = ({ setView }) => {
               maxLength={15}
               value={userData.password}
               onChange={handleChange}
-              title="Solo se adminten 15 caractres"
+              title="Solo se admiten 15 caracteres"
             />
             <img
               src={keyVisible ? icono_ocultar : icono_ver}
@@ -189,26 +198,33 @@ const RegistrarseEmpresa = ({ setView }) => {
               className="ver"
             />
           </div>
-
           {errors.password && (
             <span className="errorMessage">{errors.password}</span>
           )}
         </div>
         <div className="formGroup">
           <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-          <input
-            type={keyVisible ? "text" : "password"}
-            id="confirmPassword"
-            name="confirmPassword"
-            value={userData.confirmPassword}
-            maxLength={15}
-            onChange={handleChange}
-          />
+          <div className="pass_display_flex">
+            <input
+              type={confirmKeyVisible ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
+              value={userData.confirmPassword}
+              maxLength={15}
+              onChange={handleChange}
+            />
+            <img
+              src={confirmKeyVisible ? icono_ocultar : icono_ver}
+              alt="Mostrar/Ocultar"
+              onClick={toggleConfirmVisibility}
+              className="ver"
+            />
+          </div>
           {errors.confirmPassword && (
             <span className="errorMessage">{errors.confirmPassword}</span>
           )}
         </div>
-        <button type="submit" className="buttonSubmit" >
+        <button type="submit" className="buttonSubmit">
           Registrarse con empresa
         </button>
         <div className="loginLink" onClick={handleLoginLinkClick}>
