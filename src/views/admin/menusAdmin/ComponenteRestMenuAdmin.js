@@ -9,6 +9,7 @@ import {
   getAllMenusAdmin,
 } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import deshacer from "../../../images/deshacer.png"
 
 function MenusRestAdmin({ restaurant }) {
   const [selectedMenuIds, setSelectedMenuIds] = useState({});
@@ -134,6 +135,12 @@ function MenusRestAdmin({ restaurant }) {
   const handleOrderPriceItemMenuChange = (e) => {
     setSelectOrderPriceItemMenu(e.target.value);
   };
+
+  const handleClearFilterMenuItem = (e) => {
+    setSearchItemMenu("")
+    setSelectOrderNameItemMenu("")
+    setSelectOrderPriceItemMenu("")
+  }
 
   return (
     <div className="menusAdminContainerPrincipal">
@@ -263,7 +270,11 @@ function MenusRestAdmin({ restaurant }) {
                           Menor
                         </option>
                       </select>
+                      <div>
+            <button title="Deshacer filtros" className="buttonDesOrder"><img src={deshacer} alt="deshacer" onClick={handleClearFilterMenuItem}/></button>
+              </div>
                     </div>
+                    
                   </div>
                 </div>
                 <div className="menuItemContainer">

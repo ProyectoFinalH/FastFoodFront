@@ -35,36 +35,42 @@ import Rating from "./Components/rating/rating";
 
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const URLBACK="https://fastfoodback3-production.up.railway.app";
 
-  useEffect(() => {
-    const Data = async () => {
-      try {
-        const response = await axios.get(URLBACK+"/restaurants");
 
-        setLoading(false);
-      } catch (error) {
-        console.error("Error de red:", error);
-        setError(true);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const Data = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:5000/menuitems");
+  //       if (response.data.length === 0) {
+  //         console.log("La tabla de restaurantes está vacía");
+  //       }
+  //       setDataLoaded(true);
+       
+  //     } catch (error) {
+  //       console.error("Error de red:", error);
+  //       setError(true);
 
-    Data();
-  }, []);
+  //     }finally{
+  //       setLoading(false);
+  //       setShowApp(true);
 
-  if (loading) {
-    return <Loading/> 
-  }
+  //     }
+  //   };
 
-  if (error) {
-    return <Maintenance />
-  }
+  //   Data();
+  // }, []);
+
+  // if (loading) {
+  //   return <Loading/> 
+  // }
+
+  // if (error) {
+  //   return <Maintenance />
+  // }
 
   return (
     <div className="App">
+       
       <AuthProvider>
         <Routes>
           <Route path="/LoginAdmin" element={<LoginAdmin />} />
@@ -90,6 +96,7 @@ function App() {
         </Routes>
       <ScrollToTopButton/>
       </AuthProvider>
+    
     </div>
   );
 }
