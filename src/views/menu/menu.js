@@ -179,6 +179,8 @@ function Menu() {
     setRatings(false);
   };
 
+ console.log("allmenu",allMenus);
+
   return (
     <div className="menu-container">
       {loading ? <Loading /> : null}

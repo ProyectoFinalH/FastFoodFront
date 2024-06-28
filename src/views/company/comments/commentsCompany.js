@@ -1,8 +1,11 @@
-import { getCommentsCompany } from "../../../Redux/actions";
+import { PutComents, getCommentsCompany } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import activar from "../../../images/activar.png";
+import desactivar from "../../../images/desactivar.png";
 
 import "./commentsCompany.css"
+import StarRating from "../../../Components/rating/starRating/starRating";
 
 
 function CommentsCompany() {
@@ -14,42 +17,74 @@ function CommentsCompany() {
         dispatch(getCommentsCompany());
     }, [dispatch]);
 
+    
+  const toggleActivation = async (id, isActive) => {
+    try {
+      if (!id) {
+        console.error("El id del comentario es incorrecto");
+        return;
+      }
+      await dispatch(PutComents(id, isActive));
+      dispatch(getCommentsCompany());
+    } catch (error) {
+      console.error("Error al cambiar el estado del comentario:", error);
+    }
+  };
     function truncate(text, maxLength) {
         return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     }
 
+    if (!allComents) {
+        return <div>Cargando comentarios...</div>; // Manejo de carga inicial si es necesario
+      }
+
     return (
         <div className="commentsCompany">
 
-            <h1>Comentarios & Reviews</h1>
+        <h1>Comentarios & Reviews</h1>
+        <div className="">
 
-            <div className="tableContainer">
-                <table className="styled-table2">
-                    <thead>
-                        <tr>
-
-                            <th className="table-header">Comentario No.</th>
-
-                            <th className="table-header">Usuario</th>
-                            <th className="table-header-comment"> Comentario</th>
-                            <th className="table-header">Calificación</th>
-                            <th className="table-header">Fecha de creación</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {allComents.map((comment) => (
-                            <tr key={comment.id}>
-                                <td>{comment.id}</td>
-                                <td>{comment.user_name}</td>
-                                <td title={comment.comment}>{truncate(comment.comment, 60)}</td>
-                                <td>{comment.rating}/5</td>
-                                <td>{comment.created_at.substr(0, 19)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+        <ul>
+            {allComents
+            .map((comment) => (
+              <li key={comment?.id}>
+                <div className={`RatingRestContainerCompany ${comment?.active ? "" : "inactive"}`}>
+                  <div className="commentUser">
+                    <div className="commentUserName">
+                      <div className="commentImage">
+                        <img src={comment?.user_image_url} alt="imageUser" />
+                      </div>
+                      <h2>{comment?.user_name}</h2>
+                      <StarRating rating={comment?.rating} />
+                    </div>
+                    <div className="commentUserDate">
+                      <p>{comment?.created_at.slice(0, 10)}</p>
+                    </div>
+                  </div>
+                  <div className="commentUserComment">
+                    <p title={comment?.comment}>{truncate(comment?.comment, 60)}</p>
+                  </div>
+                <div className="buttonComentariosCompany">
+            <button
+              className="buttonactdesMenus"
+              onClick={() =>
+                toggleActivation(comment?.id , !comment.active)
+              }
+            >
+              {comment?.active ? (
+                <img src={activar} alt="activar" />
+              ) : (
+                <img src={desactivar} alt="desactivar" />
+              )}
+            </button>
+          </div>
+                </div>
+              </li>
+              
+            ))}
+        </ul>
         </div>
+    </div>
     );
 }
 

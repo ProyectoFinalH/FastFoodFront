@@ -24,6 +24,12 @@ function Rating({onClose, restaurantId}) {
     }
   };
 
+  function truncate(text, maxLength) {
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+}
+
+const activeComments = comments.filter(comment => comment.active);
+
   return (
     <div className="ratingsContainer" onClick={handleCloseModal}>
       <div className="ratingModal">
@@ -34,16 +40,16 @@ function Rating({onClose, restaurantId}) {
           <h2>Comentarios y Opiniones</h2>
           <div className="CommentsContainer">
 
-          {comments.length === 0 ? (
+          {activeComments.length === 0 ? (
               <div className="noCommentsMessage">
-                <p>No hay reseñas hechas.</p>
+                <p>No hay reseñas activas.</p>
               </div>
             ) : (
 
           <ul>
             {Array.isArray(comments) &&
             
-            comments?.map((comment) => (
+            activeComments?.map((comment) => (
               
               <li key={comment?.id}>
                 <div className="commentUserContainer">
@@ -64,7 +70,7 @@ function Rating({onClose, restaurantId}) {
                 </div>
                   <div className="commentUserComment">
 
-                <p>{comment?.comment}</p>
+                <p title={comment.comment}>{truncate(comment.comment, 60)}</p>
                   </div>
 
               

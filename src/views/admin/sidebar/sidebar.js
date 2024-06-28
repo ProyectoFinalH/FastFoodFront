@@ -7,6 +7,7 @@ import MenusAdmin from "../menusAdmin/menusAdmin";
 import UsersAdmin from "../usersAdmin/usersAdmin";
 
 import OrdersAdmin from "../ordenesAdmin/ordenesAdmin";
+import RatingAdmin from "../ratingAdmin/ratingAdmin";
 
 function Sidebar() {
   const [selectedOption, setSelectedOption] = useState(1);
@@ -38,16 +39,16 @@ function Sidebar() {
             Menues
           </li>
           <li
-            className={selectedOption === 4 ? "selected" : ""}
+            className={selectedOption === 3 ? "selected" : ""}
             tabIndex="0"
-            onClick={() => handleOptionClick(4)}
+            onClick={() => handleOptionClick(3)}
           >
             Usuarios
           </li>
           <li
             className={selectedOption === 7 ? "selected" : ""}
             tabIndex="0"
-            onClick={() => handleOptionClick(7)}
+            onClick={() => handleOptionClick(4)}
           >
             Ordenes
           </li>
@@ -64,8 +65,9 @@ function Sidebar() {
       <div className="OptionContentAdmin">
         {selectedOption === 1 && <RestaurantsAdmin />}
         {selectedOption === 2 && <MenusAdmin />}
-        {selectedOption === 4 && <UsersAdmin />}
-        {selectedOption === 7 && <OrdersAdmin />}
+        {selectedOption === 3 && <UsersAdmin />}
+        {selectedOption === 4 && <OrdersAdmin />}
+        {selectedOption === 5 && <RatingAdmin />}
       </div>
     </div>
   );
