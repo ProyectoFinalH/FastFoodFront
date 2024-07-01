@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
-import "./account.css";
 import {
   updateUser,
   Listado_Orders_Usuario,
@@ -19,7 +18,10 @@ import {
   obtenerIdUsuario,
   guardarNombreUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
-import { validarUsername, validarPassword } from "./Components/validacionAccount";
+import {
+  validarUsername,
+  validarPassword,
+} from "./Components/validacionAccount";
 
 function Account() {
   const user = useSelector((state) => state.AllDATAUSER);
@@ -126,12 +128,6 @@ function Account() {
     setShowOrders(false);
   };
 
-  // const handleNotificationsClick = () => {
-  //   setShowAccountSettings(false);
-  //   setShowNotifications(true);
-  //   setShowOrders(false);
-  // };
-
   const handleOrdersClick = () => {
     setShowAccountSettings(false);
     setShowNotifications(false);
@@ -151,25 +147,29 @@ function Account() {
   return (
     <div>
       <Navbar />
-      <div className="account-container">
-        <div className="account-sidebar">
-          <div className="profile-header">
-            <p className="welcome-message">Bienvenido {username}</p>
-            <label htmlFor="profile-image" className="profile-image-container">
+      <div className="flex justify-center items-start p-4 max-w-7xl mx-auto bg-white shadow-md rounded-lg my-10">
+        <div className="w-64 p-4 border-r border-gray-300 flex flex-col items-center">
+          <div className="text-center">
+            <p className="text-xl font-bold text-gray-800 mb-2">
+              Bienvenido {username}
+            </p>
+            <label htmlFor="profile-image" className="relative cursor-pointer">
               {imagePreview ? (
                 <img
                   src={imagePreview}
                   alt="Perfil"
-                  className="profile-image"
+                  className="w-24 h-24 rounded-full object-cover mb-2"
                 />
               ) : user && user.image_url ? (
                 <img
                   src={user.image_url}
                   alt="Perfil"
-                  className="profile-image"
+                  className="w-24 h-24 rounded-full object-cover mb-2"
                 />
               ) : (
-                <div className="no-image">No hay imagen</div>
+                <div className="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center mb-2">
+                  No hay imagen
+                </div>
               )}
               <input
                 type="file"
@@ -177,67 +177,94 @@ function Account() {
                 id="profile-image"
                 onChange={handleImageChange}
                 accept=".jpg,.png"
-                style={{ display: "none" }}
+                className="hidden"
               />
-            </label>
-            <label htmlFor="profile-image" className="change-image-label">
-              Cambiar Imagen
+              <span className="text-sm text-gray-600">
+                Cambiar Imagen de Perfil
+              </span>
             </label>
           </div>
-          <nav className="menu">
-            <ul>
+          <nav className="w-full mt-4">
+            <ul className="space-y-2">
               <li>
-                <Link to="#" onClick={handleAccountSettingsClick}>
+                <Link
+                  to="#"
+                  onClick={handleAccountSettingsClick}
+                  className="block text-gray-600 hover:bg-gray-100 py-2 px-4 rounded"
+                >
                   Ajustes de cuenta
                 </Link>
               </li>
-              {/* <li>
-                <Link to="#" onClick={handleNotificationsClick}>
-                  Centro de notificaciones
-                </Link>
-              </li> */}
               <li>
-                <Link to="#" onClick={handleOrdersClick}>
+                <Link
+                  to="#"
+                  onClick={handleOrdersClick}
+                  className="block text-gray-600 hover:bg-gray-100 py-2 px-4 rounded"
+                >
                   Últimas órdenes
                 </Link>
               </li>
             </ul>
           </nav>
         </div>
-        <div className="account-info">
+        <div className="flex-1 p-4">
           {showAccountSettings && (
             <>
-              <h2>Información de tu cuenta</h2>
-              <div className="input-group-container">
-                <div className="input-group1">
-                  <label>Correo Electrónico</label>
-                  <input type="email" value={email} readOnly />
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                Información de tu cuenta
+              </h2>
+              <div className="space-y-4">
+                <div className="flex space-x-4">
+                  <div className="w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Correo Electrónico
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      readOnly
+                      className="w-full bg-gray-100 text-gray-800 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="input-group-container">
-                <div className="input-group1">
-                  <label>Nombre de usuario</label>
-                  <input
-                    type="text"
-                    value={username}
-                    onChange={handleUsernameChange}
-                    onBlur={() => setUsernameError(validarUsername(username))}
-                  />
-                  {usernameError && (
-                    <div className="error">{usernameError}</div>
-                  )}
+                <div className="flex space-x-4">
+                  <div className="w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Nombre de usuario
+                    </label>
+                    <input
+                      type="text"
+                      value={username}
+                      onChange={handleUsernameChange}
+                      onBlur={() => setUsernameError(validarUsername(username))}
+                      className={`w-full bg-gray-100 text-gray-800 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ${
+                        usernameError ? "border-red-500" : ""
+                      }`}
+                    />
+                    {usernameError && (
+                      <div className="text-red-500 text-xs mt-1">
+                        {usernameError}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="input-group1">
-                  <label className="checkbox-label">
-                    <span>Cambiar Contraseña</span>
+                <div className="flex space-x-4 items-center">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Cambiar Contraseña
                     <input
                       type="checkbox"
                       checked={changePassword}
                       onChange={() => setChangePassword(!changePassword)}
+                      className="ml-2"
                     />
                   </label>
-                  {changePassword && (
-                    <>
+                </div>
+                {changePassword && (
+                  <div className="flex space-x-4">
+                    <div className="w-1/2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Nueva Contraseña
+                      </label>
                       <input
                         type="password"
                         value={password}
@@ -245,31 +272,39 @@ function Account() {
                         onBlur={() =>
                           setPasswordError(validarPassword(password))
                         }
+                        className={`w-full bg-gray-100 text-gray-800 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ${
+                          passwordError ? "border-red-500" : ""
+                        }`}
                       />
                       {passwordError && (
-                        <div className="error">{passwordError}</div>
+                        <div className="text-red-500 text-xs mt-1">
+                          {passwordError}
+                        </div>
                       )}
-                    </>
-                  )}
-                </div>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="button-group">
-                <button onClick={handleSubmit} className="update-button">
-                  Actualizar datos
+              <div className="mt-4">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                >
+                  Guardar Cambios
                 </button>
                 {showSuccessNotification && (
-                  <Notification message="Datos actualizados correctamente" />
+                  <Notification
+                    message="Cambios guardados exitosamente."
+                    onClose={() => setShowSuccessNotification(false)}
+                  />
                 )}
-                <Link to="/" className="home-button">
-                  Volver al inicio
-                </Link>
               </div>
             </>
           )}
-          {showNotifications && <NotificationCenter />}
           {showOrders && <OrderUsers />}
         </div>
       </div>
+      {showNotifications && <NotificationCenter />}
     </div>
   );
 }
