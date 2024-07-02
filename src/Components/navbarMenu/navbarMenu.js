@@ -46,7 +46,7 @@ function NavbarMenu({
             type="search"
             value={searchString}
             onChange={handleChange}
-            className="w-40 p-2.5 border border-gray-300 rounded-l-lg text-base"
+            className="w-75 p-2.5 border border-gray-300 rounded-l-lg text-base"
           />
           <button
             type="submit"
