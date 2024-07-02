@@ -186,27 +186,31 @@ function Carrito({ onClose }) {
   const renderTiqueteCompra = () => {
     if (!ordenCompra) return null;
     return (
-      <div className="ticketCompra">
-        <h2>************ Tiquete de Compra ************</h2>
-        <p>ID de Orden: {Carrito.id}</p>
-        <p>Fecha: {ordenCompra.Carritos.order_date}</p>
-        <p>Usuario: {ordenCompra.Carritos.user_id}</p>
-        <p>Restaurante: {ordenCompra.Carritos.restaurant_id}</p>
-        <h3>Productos:</h3>
-        <ul>
+      <div className="ticketCompra p-4 bg-white shadow-md rounded-lg">
+        <h2 className="text-2xl font-bold mb-4">
+          ************ Tiquete de Compra ************
+        </h2>
+        <p className="mb-2">ID de Orden: {Carrito.id}</p>
+        <p className="mb-2">Fecha: {ordenCompra.Carritos.order_date}</p>
+        <p className="mb-2">Usuario: {ordenCompra.Carritos.user_id}</p>
+        <p className="mb-2">
+          Restaurante: {ordenCompra.Carritos.restaurant_id}
+        </p>
+        <h3 className="text-lg font-bold mt-4 mb-2">Productos:</h3>
+        <ul className="list-disc list-inside mb-4">
           {ordenCompra.Carritos.items.map((item, index) => (
             <li key={index}>
-              - {item.name} x {item.cont} = $
-              {(item.price * item.cont).toFixed(2)}
+              - {item.name} x {item.cont} = ${item.price * item.cont.toFixed(2)}
             </li>
           ))}
         </ul>
-        <p>Total: ${ordenCompra.Carritos.total_price}</p>
-        <h2>********************************************</h2>
-        <div className="boton_flex">
-          <div className="login-button-regresar" onClick={handleSalirCarrito}>
-            Salir
-          </div>
+        <p className="font-bold text-xl mb-4">
+          Total: ${ordenCompra.Carritos.total_price}
+        </p>
+        <h2 className="text-2xl font-bold">
+          ********************************************
+        </h2>
+        <div className="flex justify-between mt-4">
           {preferenceId && (
             <Wallet
               initialization={{ preferenceId }}
@@ -270,9 +274,9 @@ function Carrito({ onClose }) {
                 <div className="flex items-center">
                   <div className="flex items-center">
                     <RiDeleteBin6Line
-                      onClick={() => handleDeleteItem(card.id)} 
+                      onClick={() => handleDeleteItem(card.id)}
                       className="text-gray-500 cursor-pointer"
-                      size={24} 
+                      size={24}
                     />
                     <div className="flex items-center ml-4">
                       <div
