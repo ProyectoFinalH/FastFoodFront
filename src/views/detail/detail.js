@@ -86,15 +86,14 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
         className="bg-white p-4 rounded-lg max-w-md w-full overflow-hidden"
         ref={detailRef}
       >
-        <div className="flex justify-between items-center pb-4">
+        <div className="flex items-center justify-between pb-4">
           <button onClick={handleCloseModal} className="text-2xl font-bold">
             &times;
           </button>
           <h1 className="text-2xl font-bold">{menuItem?.name}</h1>
-          <div className="carritoIcon w-10 h-10 flex items-center justify-center cursor-pointer transition-transform duration-300 transform hover:scale-110 bg-red-500 text-white rounded-full">
-            <RiShoppingCart2Line size={24} onClick={handleMenuCarrito} />
-          </div>
+          <div className="w-8"></div>
         </div>
+
         <hr className="my-4 border-gray-300" />
         <div className="flex justify-center">
           <img
@@ -128,6 +127,12 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
             >
               +
             </button>
+            <div
+              className="carritoIcon w-10 h-10 flex items-center justify-center cursor-pointer transition-transform duration-300 transform hover:scale-110 bg-red-500 text-white rounded-full"
+              onClick={handleMenuCarrito}
+            >
+              <RiShoppingCart2Line size={24} />
+            </div>
           </div>
         </div>
       </div>
