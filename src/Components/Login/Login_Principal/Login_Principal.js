@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Login_Principal.css";
-//import Carrucel from "../Carrucel/Carrucel";
 import LoginIngreso from "../Login_Ingreso/Login_Ingreso";
 import Recuperarkey from "../Login_Recuperar/Login_Recuperar_key";
 import Registrarse from "../Login_Registrarse/Login_Registrarse";
@@ -15,9 +13,9 @@ import {
   obtenerCorreoUsuario,
   obtenerNombreUsuario,
   obtenerIdUsuario,
-
-  
 } from "../Login_Ingreso/LocalStorange_user/LocalStorange_user";
+
+import backgroundImage from "../Login_imagenes/mano-guantes-hamburguesa-hamburguesa-carne-fondo-negro_140725-303.jpg";
 
 const LoginPrincipal = () => {
   const [logueo, setLogueo] = useState("login");
@@ -43,27 +41,32 @@ const LoginPrincipal = () => {
         name: obtenerNombreUsuario(),
       };
       dispatch(login_user_localstorag(tem_Users));
-      navigate('/home');
-    }else{
-      navigate('/')
+      navigate("/home");
+    } else {
+      navigate("/");
     }
   }, [dispatch, navigate]);
 
   return (
     <div>
       {loading && <Loading />}
-      <div className="BodyLogin">
-        <div className="izquierdaGeneral">
-          {
-            // <Carrucel className="carrucel" />
-          }
+      <div className="flex">
+        <div
+          className="w-1/2 h-screen relative bg-black flex justify-center items-center bg-cover bg-center"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        >
+          {/* <Carrucel className="carrucel" /> */}
         </div>
-        <div className="derechaGeneral">
-          {logueo === "login" && <LoginIngreso setView={setLogueo} />}
-          {logueo === "recuperarkey" && <Recuperarkey setView={setLogueo} />}
-          {logueo === "registro" && <Registrarse setView={setLogueo} />}
-          {logueo === "registroEmpresa" && <RegistrarseEmpresa setView={setLogueo} />}
-          {logueo === "null" && <LoginInvitado setView={setLogueo} />}
+        <div className="w-1/2 h-screen flex justify-center items-center">
+          <div className="w-full max-w-md p-8 bg-white bg-opacity-25 rounded-lg">
+            {logueo === "login" && <LoginIngreso setView={setLogueo} />}
+            {logueo === "recuperarkey" && <Recuperarkey setView={setLogueo} />}
+            {logueo === "registro" && <Registrarse setView={setLogueo} />}
+            {logueo === "registroEmpresa" && (
+              <RegistrarseEmpresa setView={setLogueo} />
+            )}
+            {logueo === "null" && <LoginInvitado setView={setLogueo} />}
+          </div>
         </div>
       </div>
     </div>
