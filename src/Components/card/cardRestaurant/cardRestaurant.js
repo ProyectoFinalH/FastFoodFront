@@ -3,12 +3,12 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function CardRestaurant({ id, name, description, image_url, rating }) {
   return (
-    <div className="bg-white text-left shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-transform duration-200 w-96 h-96 m-4">
+    <div className="bg-white text-left shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-transform duration-200 w-96 h-96 m-4 rounded-xl">
       <div>
         <img
           src={image_url}
           alt={name}
-          className="object-cover w-full h-48 rounded-t-lg"
+          className="object-cover w-full h-48 rounded-t-xl"
         />
       </div>
       <div className="p-4 flex justify-between items-start">

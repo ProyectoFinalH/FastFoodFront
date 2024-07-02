@@ -179,7 +179,7 @@ const LoginIngreso = ({ setView }) => {
               </label>
             </div>
           </div>
-          <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+          <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2  rounded-xl">
             <input
               type="text"
               name="emailOrPhone"
@@ -194,7 +194,7 @@ const LoginIngreso = ({ setView }) => {
           {errors.emailOrPhone && (
             <div className="text-red-500 text-sm">{errors?.emailOrPhone}</div>
           )}
-          <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+          <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
             <input
               type={keyVisible ? "text" : "password"}
               name="password"
@@ -228,9 +228,9 @@ const LoginIngreso = ({ setView }) => {
           >
             ¿Olvidaste tu Contraseña?
           </div>
-          <div className="button-container my-4 mb-0 rounded py-2 rounded-md">
+          <div className="button-container my-4 mb-0 rounded py-2 rounded-xl">
             <button
-              className={`login-button w-full text-white py-2 px-4 rounded transition-colors duration-300 ${
+              className={`login-button w-full text-white py-2 px-4 rounded-xl transition-colors duration-300 ${
                 isButtonEnabled &&
                 (userType === "user" || userType === "business")
                   ? "bg-gradient-to-br from-red-500 to-yellow-500 hover:from-green-500 hover:to-yellow-500"
