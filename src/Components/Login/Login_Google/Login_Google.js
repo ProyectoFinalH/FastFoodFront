@@ -25,15 +25,17 @@ const LoginGoogle = () => {
   return (
     <button
       type="button"
-      className="bg-white border border-gray-500 py-2 px-3 rounded-md flex items-center space-x-2 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+      className="bg-white border border-gray-500 py-2 px-10 rounded-md flex items-center text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
       onClick={handleLogin}
     >
       <img
-        className="h-6"
+        className="h-6 w-6 mr-2"
         src="https://www.pngall.com/wp-content/uploads/5/Google-G-Logo-PNG-Image.png"
         alt="Google Icon"
       />
-      <span>Registrarse e iniciar sesión con Google</span>
+      <span className="whitespace-nowrap">
+        Registrarse/iniciar sesión con Google
+      </span>
     </button>
   );
 };

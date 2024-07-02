@@ -145,9 +145,13 @@ const LoginIngreso = ({ setView }) => {
   };
 
   return (
-    <div className="login-container flex justify-center items-center">
+    <div className="login-container flex justify-center items-center h-screen">
       <div className="login-body bg-white rounded-lg shadow-lg overflow-hidden w-96">
-        <img src={imagen} alt="Logo Fast Food" className="login-image" />
+        <img
+          src={imagen}
+          alt="Logo Fast Food"
+          className="login-image mx-auto mt-4"
+        />
         <div className="login-content p-6">
           <div className="mb-4 flex justify-center">
             <div className="user-type-radio flex space-x-4">
@@ -183,9 +187,9 @@ const LoginIngreso = ({ setView }) => {
               onChange={handleChange}
               maxLength={100}
               placeholder="Celular/Correo"
-              className="form-input pl-10 w-full"
+              className="form-input pl-7 pr-10 w-full"
             />
-            <RiUserLine className="input-icon absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           {errors.emailOrPhone && (
             <div className="error-space text-red-500">
@@ -200,15 +204,15 @@ const LoginIngreso = ({ setView }) => {
               onChange={handleChange}
               maxLength={15}
               placeholder="Contraseña"
-              className="form-input pl-10 w-full"
+              className="form-input pl-7 pr-10 w-full"
             />
-            <RiLockPasswordLine className="input-icon absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <RiLockPasswordLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <div
-              className="password-toggle cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2"
+              className="password-toggle cursor-pointer absolute right-5 top-1/2 transform -translate-y-1/2"
               onClick={toggleVisibility}
             >
               {keyVisible ? (
-                <RiEyeCloseLine className="input-icon text-gray-400" />
+                <RiEyeCloseLine className="input-icon text-gray-400 " />
               ) : (
                 <RiEyeLine className="input-icon text-gray-400" />
               )}
@@ -221,37 +225,41 @@ const LoginIngreso = ({ setView }) => {
             <div className="error-space text-red-500">{loginError}</div>
           )}
           <div
-            className="forgot-password text-sm text-gray-600 cursor-pointer mb-4 hover:border-b-2 border-red-600"
+            className="forgot-password text-sm text-gray-600 cursor-pointer mb-4 hover:border-b-2 border-red-600 text-left pl-4"
             onClick={() => setView("recuperarkey")}
           >
             ¿Olvidaste tu Contraseña?
           </div>
-          <div className="button-container mb-4">
-            <div
-              className={`login-button bg-indigo-500 text-white px-4 py-2 rounded px-5 py-2 ${
-                isButtonEnabled ? "" : "opacity-50 cursor-not-allowed"
+          <div className="button-container mb-4 rounded py-2 rounded-md">
+            <button
+              className={`login-button w-full text-white py-1 px-4 rounded transition-colors duration-300 ${
+                isButtonEnabled
+                  ? "bg-gradient-to-br from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600"
+                  : "bg-gray-800 opacity-50 cursor-not-allowed"
               }`}
               onClick={isButtonEnabled ? handleSubmit : null}
+              disabled={!isButtonEnabled}
             >
               Ingresar
-            </div>
+            </button>
           </div>
+
           <LoginGoogle />
           <div className="login-group flex flex-col items-center mt-4 space-y-2">
             <div
-              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600"
+              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600 text-left pl-4"
               onClick={() => setView("registro")}
             >
               ¿No tienes una cuenta? Regístrate aquí
             </div>
             <div
-              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600"
+              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600 text-left pl-4"
               onClick={() => setView("registroEmpresa")}
             >
               ¿Eres una empresa? Regístrate aquí
             </div>
             <div
-              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600"
+              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600 text-left pl-4"
               onClick={handleInvitado}
             >
               Ingresa como Invitado
