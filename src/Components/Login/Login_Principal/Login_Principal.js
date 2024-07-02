@@ -50,10 +50,13 @@ const LoginPrincipal = () => {
   return (
     <div>
       {loading && <Loading />}
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col md:flex-row overflow-hidden">
         <div
-          className="w-full md:w-1/2 h-screen relative bg-black flex justify-center items-center bg-cover bg-center hidden md:block"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
+          className="w-full md:w-1/2 h-screen relative bg-black bg-cover bg-center hidden md:block"
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundPosition: "center",
+          }}
         >
           {/* Contenido del lado izquierdo */}
         </div>
