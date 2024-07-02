@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Eliminarproducto from "../../images/eliminar.png";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import sindatos from "../../images/pizzeria-SINDATOS.png";
 import {
   Desarrollode_Compra,
@@ -221,10 +221,10 @@ function Carrito({ onClose }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-4 rounded-lg max-w-4xl w-full overflow-hidden">
-        <div className="flex justify-between items-center pb-4">
+        <div className="flex justify-between items-center pb-4 bg-red-400 text-white p-2 rounded-t-lg">
           <h1 className="text-2xl font-bold">Pagos</h1>
           <div
-            className="cursor-pointer text-xl font-bold text-black"
+            className="cursor-pointer text-xl font-bold text-white"
             onClick={handleSalirCarrito}
           >
             X
@@ -267,13 +267,12 @@ function Carrito({ onClose }) {
                     <p className="text-gray-500">${card.price}</p>
                   </div>
                 </div>
-                <div className="flex items-center ">
-                  <div className="flex items-cente ">
-                    <img
-                      src={Eliminarproducto}
-                      onClick={() => handleDeleteItem(card.id)}
-                      alt="Eliminar comida"
-                      className="w-6 h-6 cursor-pointer mr-2"
+                <div className="flex items-center">
+                  <div className="flex items-center">
+                    <RiDeleteBin6Line
+                      onClick={() => handleDeleteItem(card.id)} 
+                      className="text-gray-500 cursor-pointer"
+                      size={24} 
                     />
                     <div className="flex items-center ml-4">
                       <div

@@ -233,7 +233,7 @@ const LoginIngreso = ({ setView }) => {
               className={`login-button w-full text-white py-2 px-4 rounded-xl transition-colors duration-300 ${
                 isButtonEnabled &&
                 (userType === "user" || userType === "business")
-                  ? "bg-gradient-to-br from-red-500 to-yellow-500 hover:from-green-500 hover:to-yellow-500"
+                  ? "bg-gradient-to-br from-red-500 to-yellow-500 hover:from-green-500 hover:to-yellow-200"
                   : "bg-gray-800 opacity-50 cursor-not-allowed"
               }`}
               onClick={
