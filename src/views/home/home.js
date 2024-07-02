@@ -67,7 +67,7 @@ function Home() {
       <div className="sliderContainer">
         <Slider images={mockImages} />
       </div>
-      <h2 className="text-4xl font-bold text-gray-800 mt-8 ml-8">
+      <h2 className="text-5xl font-bold text-gray-800 mt-8 ml-8">
         Restaurantes
       </h2>
       <div className="flex justify-center mt-8">
