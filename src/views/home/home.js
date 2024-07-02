@@ -70,7 +70,7 @@ function Home() {
       <h2 className="text-4xl font-bold text-gray-800 mt-8 ml-8">
         Restaurantes
       </h2>
-      <div className="flex flex-wrap justify-center mt-8">
+      <div className="flex justify-center mt-8">
         <Link to={`/menu/${selectedRestaurantId}`}>
           <CardsRestaurant allRestaurants={allRestaurants} />
         </Link>
