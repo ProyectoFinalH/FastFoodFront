@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-
 import CardMenuItems from "../../card/cardMenuItems/cardMenuItems";
-import "./cardsMenuItems.css";
 
 function CardsMenuItems({
   AllMenuitems,
@@ -10,7 +8,7 @@ function CardsMenuItems({
   showEyeIcon,
 }) {
   return (
-    <div className="cardsContainer">
+    <div className="flex flex-wrap mt-0 mb-5 ">
       {AllMenuitems &&
         AllMenuitems.map((menu) => (
           <CardMenuItems

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./Login_ingreso.css";
 import imagen from "../Login_imagenes/logo.png";
-import icono_usuario from "../Login_imagenes/iconos/usuario.png";
-import icono_key from "../Login_imagenes/iconos/contrasena.png";
-import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
-import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
+import {
+  RiUserLine,
+  RiLockPasswordLine,
+  RiEyeLine,
+  RiEyeCloseLine,
+} from "react-icons/ri";
 import {
   login_User,
   login_user_localstorag,
@@ -68,7 +69,7 @@ const LoginIngreso = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         if (userType === "user") {
-          const responseData = await dispatch(login_User(formData)); //se guarda el token para luego decodificarlo con jwtDecode
+          const responseData = await dispatch(login_User(formData));
           console.log(responseData);
 
           if (responseData) {
@@ -144,34 +145,41 @@ const LoginIngreso = ({ setView }) => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-body">
-        <img src={imagen} alt="Logo Fast Food" className="login-image" />
-        <div className="login-content">
-          <div className="user-type-radio">
-            <label>
-              <input
-                type="radio"
-                name="userType"
-                value="user"
-                checked={userType === "user"}
-                onChange={handleUserTypeChange}
-              />{" "}
-              Usuario
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="userType"
-                value="business"
-                checked={userType === "business"}
-                onChange={handleUserTypeChange}
-              />{" "}
-              Empresa
-            </label>
+    <div className="login-container flex justify-center items-center h-screen">
+      <div className="login-body bg-white rounded-lg shadow-lg overflow-hidden w-96">
+        <img
+          src={imagen}
+          alt="Logo Fast Food"
+          className="login-image mx-auto mt-4"
+        />
+        <div className="login-content p-6">
+          <div className="flex justify-center mb-4">
+            <div className="user-type-radio flex space-x-4">
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="userType"
+                  value="user"
+                  checked={userType === "user"}
+                  onChange={handleUserTypeChange}
+                  className="form-radio h-4 w-4 text-indigo-600"
+                />
+                <span className="ml-1 text-gray-700">Usuario</span>
+              </label>
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="userType"
+                  value="business"
+                  checked={userType === "business"}
+                  onChange={handleUserTypeChange}
+                  className="form-radio h-4 w-4 text-indigo-600"
+                />
+                <span className="ml-1 text-gray-700">Empresa</span>
+              </label>
+            </div>
           </div>
-          <div className="input-group">
-            <img src={icono_usuario} alt="icono ingreso" />
+          <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2  rounded-xl">
             <input
               type="text"
               name="emailOrPhone"
@@ -179,13 +187,14 @@ const LoginIngreso = ({ setView }) => {
               onChange={handleChange}
               maxLength={100}
               placeholder="Celular/Correo"
+              className="form-input pl-7 pr-10 w-full"
             />
+            <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           {errors.emailOrPhone && (
-            <div className="error-space">{errors?.emailOrPhone}</div>
+            <div className="text-red-500 text-sm">{errors?.emailOrPhone}</div>
           )}
-          <div className="input-group">
-            <img src={icono_key} alt="icono ingreso" />
+          <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
             <input
               type={keyVisible ? "text" : "password"}
               name="password"
@@ -193,45 +202,72 @@ const LoginIngreso = ({ setView }) => {
               onChange={handleChange}
               maxLength={15}
               placeholder="Contraseña"
+              className="form-input pl-7 pr-10 w-full"
             />
-            <img
-              src={keyVisible ? icono_ocultar : icono_ver}
-              alt="Mostrar/Ocultar"
+            <RiLockPasswordLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <div
+              className="password-toggle cursor-pointer absolute right-5 top-1/2 transform -translate-y-1/2"
               onClick={toggleVisibility}
-              className="password-toggle"
-            />
+            >
+              {keyVisible ? (
+                <RiEyeCloseLine className="input-icon text-gray-400" />
+              ) : (
+                <RiEyeLine className="input-icon text-gray-400" />
+              )}
+            </div>
           </div>
           {errors.password && (
-            <div className="error-space">{errors?.password}</div>
+            <div className="text-red-500 text-sm">{errors?.password}</div>
           )}
-          {loginError && <div className="error-space">{loginError}</div>}
+          {loginError && (
+            <div className="text-red-500 text-sm">{loginError}</div>
+          )}
           <div
-            className="forgot-password"
+            className="forgot-password text-sm text-gray-600 cursor-pointer my-4 mb-0 hover:border-b-2 border-red-600 "
             onClick={() => setView("recuperarkey")}
           >
             ¿Olvidaste tu Contraseña?
           </div>
-          <div className="button-container">
-            <div
-              className={`login-button ${isButtonEnabled ? "" : "disabled"}`}
-              onClick={isButtonEnabled ? handleSubmit : null}
-              style={{ cursor: isButtonEnabled ? "pointer" : "not-allowed" }}
+          <div className="button-container my-4 mb-0 rounded py-2 rounded-xl">
+            <button
+              className={`login-button w-full text-white py-2 px-4 rounded-xl transition-colors duration-300 ${
+                isButtonEnabled &&
+                (userType === "user" || userType === "business")
+                  ? "bg-gradient-to-br from-red-500 to-yellow-500 hover:from-green-500 hover:to-yellow-200"
+                  : "bg-gray-800 opacity-50 cursor-not-allowed"
+              }`}
+              onClick={
+                isButtonEnabled &&
+                (userType === "user" || userType === "business")
+                  ? handleSubmit
+                  : null
+              }
+              disabled={
+                !isButtonEnabled ||
+                !(userType === "user" || userType === "business")
+              }
             >
               Ingresar
-            </div>
+            </button>
           </div>
-          <div className="login-group">
-            <LoginGoogle />
-            <div className="register" onClick={() => setView("registro")}>
+          <LoginGoogle />
+          <div className="login-group flex flex-col items-center mt-4 space-y-2">
+            <div
+              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600 text-left pl-4"
+              onClick={() => setView("registro")}
+            >
               ¿No tienes una cuenta? Regístrate aquí
             </div>
             <div
-              className="register"
+              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600 text-left pl-4"
               onClick={() => setView("registroEmpresa")}
             >
               ¿Eres una empresa? Regístrate aquí
             </div>
-            <div className="register" onClick={handleInvitado}>
+            <div
+              className="register text-sm text-gray-600 cursor-pointer hover:border-b-2 border-red-600 text-left pl-4"
+              onClick={handleInvitado}
+            >
               Ingresa como Invitado
             </div>
           </div>

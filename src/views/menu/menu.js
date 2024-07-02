@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 
 import CardsMenuItem from "../../Components/cards/cardsMenuItems/cardsMenuItems";
 import NavbarMenu from "../../Components/navbarMenu/navbarMenu";
-import "./menu.css";
 import CardsMenus from "../../Components/cards/cardsMenus/cardsMenus";
 import Navbar from "../../Components/navbar/navbar";
 import Detail from "../detail/detail";
@@ -37,7 +36,6 @@ function Menu() {
   const navigate = useNavigate();
 
   const allRestaurants = useSelector((state) => state.allRestaurants);
-  //const selctedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
   const allMenus = useSelector((state) => state.allMenus);
   const allMenuitems = useSelector((state) => state.allMenuItems);
   const allCategories = useSelector((state) => state.allCategories);
@@ -179,92 +177,105 @@ function Menu() {
     setRatings(false);
   };
 
- console.log("allmenu",allMenus);
+  console.log("allmenu", allMenus);
 
   return (
-    <div className="menu-container">
-      {loading ? <Loading /> : null}
+    <div className="flex flex-col h-screen bg-gray-100 relative">
+      {loading && <Loading />}
       <Navbar />
-      <div className="content">
-        <div className="sidebar">
-          <button className="button-back" onClick={handleGoBack}>
+      <div className="flex flex-1 overflow-auto">
+        <div className="w-72 bg-white bg-opacity-95 p-4 flex flex-col gap-4 sticky top-0">
+          <button
+            className="bg-red-500 text-white border-none py-2 px-4 rounded-md shadow-md hover:shadow-lg transform hover:translate-y-0.5 transition-transform"
+            onClick={handleGoBack}
+          >
             Volver
           </button>
-          <div className="info-rest">
-            <div className="info-rest-img-name">
-              <img
-                src={restaurant1?.image_url}
-                alt="logoRest"
-                className="restaurant-img"
-              />
-              <h2 className="restaurant-name">{restaurant1?.name}</h2>
-            </div>
-          </div>  
-            <div className="opinionesContainer" onClick={handleOpenRating}>
-              <p>Opiniones</p>
-              <div className="ratingContainerMenu">
-            <p>
-              <FontAwesomeIcon icon={faStar}/>
-            </p>
-            <span>
-              {parseInt(restaurant1?.rating)}
-            </span>
+          <div className="flex flex-col items-center gap-2">
+            <img
+              src={restaurant1?.image_url}
+              alt="logoRest"
+              className="w-40 h-40 rounded-full"
+            />
+            <h2 className="text-xl font-bold text-gray-700">
+              {restaurant1?.name}
+            </h2>
+          </div>
+          <div
+            className="flex items-center justify-between cursor-pointer relative z-10"
+            onClick={handleOpenRating}
+          >
+            <p className="text-gray-700">Opiniones</p>
+            <div className="flex items-center gap-2">
+              <FontAwesomeIcon icon={faStar} className="text-yellow-500" />
+              <span className="text-gray-700">
+                {parseInt(restaurant1?.rating)}
+              </span>
             </div>
           </div>
           {ratings && (
-            <Rating
-              onClose={handleCloseRating}
-              restaurantId={restaurant1?.id}
-            />
+            <div className="absolute top-0 left-0 right-0 bottom-0 bg-white z-50">
+              <Rating
+                onClose={handleCloseRating}
+                restaurantId={restaurant1?.id}
+              />
+            </div>
           )}
-          <div className="cardsContentMenu">
-            <div className="cards-menus-container">
+          <div className="flex flex-col gap-4">
+            <div className="overflow-y-auto max-h-80">
               <CardsMenus
-                AllMenus={allMenus.filter(menu => menu.restaurant_id === selectedRestaurantId)}
+                AllMenus={allMenus.filter(
+                  (menu) => menu.restaurant_id === selectedRestaurantId
+                )}
                 handleSelectMenu={handleSelectMenu}
               />
             </div>
-          </div>
-          <div className="search-container">
-            <NavbarMenu
-              searchString={searchString}
-              setSearchString={setSearchString}
-              handleSubmit={handleSubmit}
-              handleSort={setSortBy}
-              handlePriceRange={setPriceRange}
-              clearFilter={clearFilters}
-              handleCategoryFilter={handleCategoryFilter}
-              allCategories={allCategories.filter(category => category.restaurant_id === selectedRestaurantId)}
-              sortBy={sortBy}
-              applyPriceRangeFilter={applyPriceRangeFilter}
-              priceRange={priceRange}
-            />
+            <div className="flex flex-col gap-4">
+              <NavbarMenu
+                searchString={searchString}
+                setSearchString={setSearchString}
+                handleSubmit={handleSubmit}
+                handleSort={setSortBy}
+                handlePriceRange={setPriceRange}
+                clearFilter={clearFilters}
+                handleCategoryFilter={handleCategoryFilter}
+                allCategories={allCategories.filter(
+                  (category) => category.restaurant_id === selectedRestaurantId
+                )}
+                sortBy={sortBy}
+                applyPriceRangeFilter={applyPriceRangeFilter}
+                priceRange={priceRange}
+              />
+            </div>
           </div>
         </div>
-        <div className="cards-menus">
-          <div className="cards-menu-items">
-            {allMenus?.map((menu) => {
-              const menuItems = filteredMenuItems?.filter(
-                (menuItem) =>
-                  menuItem?.restaurant_id === selectedRestaurantId &&
-                  menuItem?.menu_id === menu.id
-              );
+        <div className="flex-1 p-4 flex flex-col gap-4">
+          {allMenus?.map((menu) => {
+            const menuItems = filteredMenuItems?.filter(
+              (menuItem) =>
+                menuItem?.restaurant_id === selectedRestaurantId &&
+                menuItem?.menu_id === menu.id
+            );
 
-              if (menuItems?.length > 0) {
-                return (
-                  <div key={menu.id} className="menu-item-container">
-                    <h1 className="menu-title-menu">{menu.name}</h1>
-                    <CardsMenuItem
-                      AllMenuitems={menuItems}
-                      handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
-                    />
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </div>
+            if (menuItems?.length > 0) {
+              return (
+                <div
+                  key={menu.id}
+                  className="bg-white rounded-lg shadow-md p-4"
+                >
+                  <h1 className="text-3xl font-bold text-gray-800 mb-4">
+                    {menu.name}
+                  </h1>
+                  <CardsMenuItem
+                    AllMenuitems={menuItems}
+                    handleSelectMenuItem={(id) => setSelectedMenuItemId(id)}
+                  />
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
         </div>
       </div>
       {selectedMenuItemId && (
