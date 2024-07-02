@@ -166,7 +166,7 @@ const RegistrarseEmpresa = ({ setView }) => {
             <h2 className="text-center text-2xl font-bold mb-4">
               Registrarse con empresa
             </h2>
-            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
               <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
@@ -184,7 +184,7 @@ const RegistrarseEmpresa = ({ setView }) => {
               <span className="text-red-500 text-sm">{errors.username}</span>
             )}
 
-            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
               <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="email"
@@ -202,7 +202,7 @@ const RegistrarseEmpresa = ({ setView }) => {
               <span className="text-red-500 text-sm">{errors.email}</span>
             )}
 
-            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
               <RiLockPasswordLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type={keyVisible ? "text" : "password"}
@@ -229,7 +229,7 @@ const RegistrarseEmpresa = ({ setView }) => {
               <span className="text-red-500 text-sm">{errors.password}</span>
             )}
 
-            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
               <RiLockPasswordLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type={confirmKeyVisible ? "text" : "password"}
@@ -261,7 +261,7 @@ const RegistrarseEmpresa = ({ setView }) => {
             <div className="button-wrapper mt-6">
               <button
                 type="submit"
-                className="w-full py-2 px-4 bg-green-400 text-white rounded-md hover:bg-green-500 transition-colors duration-300"
+                className="w-full py-2 px-4 bg-green-400 text-white rounded-xl hover:bg-green-500 transition-colors duration-300"
               >
                 Registrarse
               </button>
