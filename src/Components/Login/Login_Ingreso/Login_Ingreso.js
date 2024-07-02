@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Login_ingreso.css";
 import imagen from "../Login_imagenes/logo.png";
-import icono_usuario from "../Login_imagenes/iconos/usuario.png";
-import icono_key from "../Login_imagenes/iconos/contrasena.png";
-import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
-import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
+import {
+  RiUserLine,
+  RiLockPasswordLine,
+  RiEyeLine,
+  RiEyeCloseLine,
+} from "react-icons/ri";
 import {
   login_User,
   login_user_localstorag,
@@ -68,7 +70,7 @@ const LoginIngreso = ({ setView }) => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         if (userType === "user") {
-          const responseData = await dispatch(login_User(formData)); //se guarda el token para luego decodificarlo con jwtDecode
+          const responseData = await dispatch(login_User(formData));
           console.log(responseData);
 
           if (responseData) {
@@ -171,7 +173,7 @@ const LoginIngreso = ({ setView }) => {
             </label>
           </div>
           <div className="input-group">
-            <img src={icono_usuario} alt="icono ingreso" />
+            <RiUserLine className="input-icon" />
             <input
               type="text"
               name="emailOrPhone"
@@ -185,7 +187,7 @@ const LoginIngreso = ({ setView }) => {
             <div className="error-space">{errors?.emailOrPhone}</div>
           )}
           <div className="input-group">
-            <img src={icono_key} alt="icono ingreso" />
+            <RiLockPasswordLine className="input-icon" />
             <input
               type={keyVisible ? "text" : "password"}
               name="password"
@@ -194,12 +196,13 @@ const LoginIngreso = ({ setView }) => {
               maxLength={15}
               placeholder="Contraseña"
             />
-            <img
-              src={keyVisible ? icono_ocultar : icono_ver}
-              alt="Mostrar/Ocultar"
-              onClick={toggleVisibility}
-              className="password-toggle"
-            />
+            <div className="password-toggle" onClick={toggleVisibility}>
+              {keyVisible ? (
+                <RiEyeCloseLine className="input-icon" />
+              ) : (
+                <RiEyeLine className="input-icon" />
+              )}
+            </div>
           </div>
           {errors.password && (
             <div className="error-space">{errors?.password}</div>
