@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./Login_Registrarse.css";
-
-import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
-import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
-
+import {
+  RiUserLine,
+  RiLockPasswordLine,
+  RiEyeLine,
+  RiEyeCloseLine,
+} from "react-icons/ri";
 import { register_user } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import imagen from "../Login_imagenes/logo.png";
 
 const Registrarse = ({ setView }) => {
   const dispatch = useDispatch();
@@ -136,89 +138,129 @@ const Registrarse = ({ setView }) => {
   }, [Register, setView]);
 
   return (
-    <div className="bodyregister">
-      <form className="formRegister" onSubmit={handleSubmit}>
-        <h2>Registrarse</h2>
-        <div className="formGroup">
-          <label htmlFor="username">Nombre de usuario</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={userData.username}
-            maxLength={45}
-            title="Solo se admiten 45 caracteres"
-            onChange={handleChange}
-          />
-          {errors.username && (
-            <span className="errorMessage">{errors.username}</span>
-          )}
+    <div className="login-container flex justify-center items-center h-screen">
+      <div className="login-body bg-white rounded-lg shadow-lg overflow-hidden w-96">
+        <img
+          src={imagen}
+          alt="Logo Fast Food"
+          className="login-image mx-auto mt-4 h-30"
+        />
+        <div className="login-content p-6">
+          <form className="formRegister" onSubmit={handleSubmit}>
+          <h2 className="text-center text-2xl font-bold mb-4">
+              Registrarse
+            </h2>
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+              <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={userData.username}
+                maxLength={45}
+                title="Solo se admiten 45 caracteres"
+                onChange={handleChange}
+                placeholder="Nombre de usuario"
+                className="form-input pl-7 pr-10 w-full"
+              />
+            </div>
+            {errors.username && (
+              <span className="text-red-500 text-sm">{errors.username}</span>
+            )}
+
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+              <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={userData.email}
+                maxLength={60}
+                title="Solo se admiten 60 caracteres"
+                onChange={handleChange}
+                placeholder="Correo electrónico"
+                className="form-input pl-7 pr-10 w-full"
+              />
+            </div>
+            {errors.email && (
+              <span className="text-red-500 text-sm">{errors.email}</span>
+            )}
+
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+              <RiLockPasswordLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type={keyVisible ? "text" : "password"}
+                id="password"
+                name="password"
+                value={userData.password}
+                maxLength={15}
+                onChange={handleChange}
+                placeholder="Contraseña"
+                className="form-input pl-7 pr-10 w-full"
+              />
+              <div
+                className="password-toggle cursor-pointer absolute right-5 top-1/2 transform -translate-y-1/2"
+                onClick={toggleVisibility}
+              >
+                {keyVisible ? (
+                  <RiEyeCloseLine className="input-icon text-gray-400" />
+                ) : (
+                  <RiEyeLine className="input-icon text-gray-400" />
+                )}
+              </div>
+            </div>
+            {errors.password && (
+              <span className="text-red-500 text-sm">{errors.password}</span>
+            )}
+
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
+              <RiLockPasswordLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type={confirmKeyVisible ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={userData.confirmPassword}
+                maxLength={15}
+                onChange={handleChange}
+                placeholder="Confirmar Contraseña"
+                className="form-input pl-7 pr-10 w-full"
+              />
+              <div
+                className="password-toggle cursor-pointer absolute right-5 top-1/2 transform -translate-y-1/2"
+                onClick={toggleConfirmVisibility}
+              >
+                {confirmKeyVisible ? (
+                  <RiEyeCloseLine className="input-icon text-gray-400" />
+                ) : (
+                  <RiEyeLine className="input-icon text-gray-400" />
+                )}
+              </div>
+            </div>
+            {errors.confirmPassword && (
+              <span className="text-red-500 text-sm">
+                {errors.confirmPassword}
+              </span>
+            )}
+            <div className="button-wrapper mt-6">
+              <button
+                type="submit"
+                className="w-full py-2 px-4 bg-green-400 text-white rounded-md hover:bg-green-500 transition-colors duration-300"
+              >
+                Registrarse
+              </button>
+            </div>
+          </form>
+          <p className="mt-4 text-center text-sm">
+            ¿Ya tienes una cuenta?{" "}
+            <button
+              className="text-blue-500 underline"
+              onClick={handleLoginLinkClick}
+            >
+              Inicia sesión aquí
+            </button>
+          </p>
         </div>
-        <div className="formGroup">
-          <label htmlFor="email">Correo electrónico</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={userData.email}
-            maxLength={60}
-            title="Solo se admiten 60 caracteres"
-            onChange={handleChange}
-          />
-          {errors.email && <span className="errorMessage">{errors.email}</span>}
-        </div>
-        <div className="formGroup">
-          <label htmlFor="password">Contraseña</label>
-          <div className="pass_display_flex">
-            <input
-              type={keyVisible ? "text" : "password"}
-              id="password"
-              name="password"
-              maxLength={15}
-              value={userData.password}
-              onChange={handleChange}
-              title="Solo se admiten 15 caracteres"
-            />
-            <img
-              src={keyVisible ? icono_ocultar : icono_ver}
-              alt="Mostrar/Ocultar"
-              onClick={toggleVisibility}
-              className="ver"
-            />
-          </div>
-          {errors.password && (
-            <span className="errorMessage">{errors.password}</span>
-          )}
-        </div>
-        <div className="formGroup">
-          <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-          <div className="pass_display_flex">
-            <input
-              type={confirmKeyVisible ? "text" : "password"}
-              id="confirmPassword"
-              name="confirmPassword"
-              maxLength={15}
-              value={userData.confirmPassword}
-              onChange={handleChange}
-            />
-            <img
-              src={confirmKeyVisible ? icono_ocultar : icono_ver}
-              alt="Mostrar/Ocultar"
-              onClick={toggleConfirmVisibility}
-              className="ver"
-            />
-          </div>
-          {errors.confirmPassword && (
-            <span className="errorMessage">{errors.confirmPassword}</span>
-          )}
-        </div>
-        <button type="submit" className="buttonSubmit">
-          Registrarse
-        </button>
-        <div className="loginLink" onClick={handleLoginLinkClick}>
-          ¿Ya tienes una cuenta? Inicia sesión aquí
-        </div>
-      </form>
+      </div>
     </div>
   );
 };
