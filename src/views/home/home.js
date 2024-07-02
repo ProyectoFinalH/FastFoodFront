@@ -61,7 +61,7 @@ function Home() {
   }, [dispatch, navigate]);
 
   return (
-    <div className="homeContainer">
+    <div className="homeContainer bg-white min-h-screen">
       {loading && <Loading />}
       <Navbar />
       <div className="sliderContainer">
