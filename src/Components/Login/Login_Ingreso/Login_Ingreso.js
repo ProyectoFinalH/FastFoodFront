@@ -232,18 +232,26 @@ const LoginIngreso = ({ setView }) => {
           </div>
           <div className="button-container mb-4 rounded py-2 rounded-md">
             <button
-              className={`login-button w-full text-white py-1 px-4 rounded transition-colors duration-300 ${
-                isButtonEnabled
-                  ? "bg-gradient-to-br from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600"
+              className={`login-button w-full text-white py-2 px-4 rounded transition-colors duration-300 ${
+                isButtonEnabled &&
+                (userType === "user" || userType === "business")
+                  ? "bg-gradient-to-br from-red-500 to-yellow-500 hover:from-green-500 hover:to-yellow-500"
                   : "bg-gray-800 opacity-50 cursor-not-allowed"
               }`}
-              onClick={isButtonEnabled ? handleSubmit : null}
-              disabled={!isButtonEnabled}
+              onClick={
+                isButtonEnabled &&
+                (userType === "user" || userType === "business")
+                  ? handleSubmit
+                  : null
+              }
+              disabled={
+                !isButtonEnabled ||
+                !(userType === "user" || userType === "business")
+              }
             >
               Ingresar
             </button>
           </div>
-
           <LoginGoogle />
           <div className="login-group flex flex-col items-center mt-4 space-y-2">
             <div
