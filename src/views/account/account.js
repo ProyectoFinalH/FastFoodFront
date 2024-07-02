@@ -149,13 +149,13 @@ function Account() {
       <Navbar />
       <div className="flex justify-center items-start p-4 max-w-7xl mx-auto bg-white shadow-md rounded-lg my-10">
         <div className="flex justify-center items-center">
-          <div className="w-64 p-4 border-r border-gray-300 flex flex-col items-center">
+          <div className="w-72 p-6 border-r border-gray-300 flex flex-col items-center">
             <div className="text-center">
-              <p className="text-xl font-bold text-gray-800 mb-2">
+              <p className="text-2xl font-bold text-gray-800 mb-4">
                 Bienvenido {username}
               </p>
             </div>
-            <div className="text-center mb-4">
+            <div className="text-center mb-6">
               <label
                 htmlFor="profile-image"
                 className="relative cursor-pointer"
@@ -164,16 +164,16 @@ function Account() {
                   <img
                     src={imagePreview}
                     alt="Perfil"
-                    className="w-24 h-24 rounded-full object-cover mb-2"
+                    className="w-32 h-32 rounded-full object-cover mb-4"
                   />
                 ) : user && user.image_url ? (
                   <img
                     src={user.image_url}
                     alt="Perfil"
-                    className="w-24 h-24 rounded-full object-cover mb-2"
+                    className="w-32 h-32 rounded-full object-cover mb-4"
                   />
                 ) : (
-                  <div className="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center mb-2">
+                  <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center mb-4">
                     No hay imagen
                   </div>
                 )}
@@ -188,7 +188,7 @@ function Account() {
               </label>
             </div>
             <nav className="w-full">
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 <li>
                   <Link
                     to="#"
@@ -211,29 +211,29 @@ function Account() {
             </nav>
           </div>
         </div>
-        <div className="flex-1 p-4">
+        <div className="flex-1 p-6">
           {showAccountSettings && (
             <>
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+              <h2 className="text-3xl font-bold text-gray-800 mb-6">
                 Información de tu cuenta
               </h2>
-              <div className="space-y-4">
-                <div className="flex space-x-4">
+              <div className="space-y-6">
+                <div className="flex space-x-6">
                   <div className="w-full">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-lg font-medium text-gray-700">
                       Correo Electrónico
                     </label>
                     <input
                       type="email"
                       value={email}
                       readOnly
-                      className="w-full bg-gray-100 text-gray-800 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                      className="w-full bg-gray-100 text-lg text-gray-800 border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:border-blue-500"
                     />
                   </div>
                 </div>
-                <div className="flex space-x-4">
+                <div className="flex space-x-6">
                   <div className="w-1/2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-lg font-medium text-gray-700">
                       Nombre de usuario
                     </label>
                     <input
@@ -241,18 +241,18 @@ function Account() {
                       value={username}
                       onChange={handleUsernameChange}
                       onBlur={() => setUsernameError(validarUsername(username))}
-                      className={`w-full bg-gray-100 text-gray-800 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ${
+                      className={`w-full bg-gray-100 text-lg text-gray-800 border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:border-blue-500 ${
                         usernameError ? "border-red-500" : ""
                       }`}
                     />
                     {usernameError && (
-                      <div className="text-red-500 text-xs mt-1">
+                      <div className="text-red-500 text-sm mt-2">
                         {usernameError}
                       </div>
                     )}
                   </div>
                   <div className="w-1/2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-lg font-medium text-gray-700">
                       Cambiar Contraseña
                       <input
                         type="checkbox"
@@ -270,12 +270,12 @@ function Account() {
                           onBlur={() =>
                             setPasswordError(validarPassword(password))
                           }
-                          className={`w-full bg-gray-100 text-gray-800 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ${
+                          className={`w-full bg-gray-100 text-lg text-gray-800 border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:border-blue-500 ${
                             passwordError ? "border-red-500" : ""
                           }`}
                         />
                         {passwordError && (
-                          <div className="text-red-500 text-xs mt-1">
+                          <div className="text-red-500 text-sm mt-2">
                             {passwordError}
                           </div>
                         )}
@@ -284,10 +284,10 @@ function Account() {
                   </div>
                 </div>
               </div>
-              <div className="mt-4">
+              <div className="mt-6 flex items-center space-x-6">
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                  className="bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                 >
                   Guardar Cambios
                 </button>
