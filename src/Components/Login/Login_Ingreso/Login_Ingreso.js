@@ -223,7 +223,7 @@ const LoginIngreso = ({ setView }) => {
             <div className="text-red-500 text-sm">{loginError}</div>
           )}
           <div
-            className="forgot-password text-sm text-gray-600 cursor-pointer my-4 mb-0 hover:border-b-2 border-red-600 text-left pl-4"
+            className="forgot-password text-sm text-gray-600 cursor-pointer my-4 mb-0 hover:border-b-2 border-red-600 "
             onClick={() => setView("recuperarkey")}
           >
             ¿Olvidaste tu Contraseña?
