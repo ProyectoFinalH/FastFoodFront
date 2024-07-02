@@ -287,7 +287,7 @@ function Account() {
               <div className="mt-6 flex items-center space-x-6">
                 <button
                   onClick={handleSubmit}
-                  className="bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                  className="bg-red-500 hover:bg-green-500 text-white py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                 >
                   Guardar Cambios
                 </button>

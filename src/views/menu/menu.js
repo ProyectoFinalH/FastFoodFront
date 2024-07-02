@@ -180,7 +180,7 @@ function Menu() {
   console.log("allmenu", allMenus);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col h-screen bg-gray-100 relative">
       {loading && <Loading />}
       <Navbar />
       <div className="flex flex-1 overflow-auto">
@@ -202,7 +202,7 @@ function Menu() {
             </h2>
           </div>
           <div
-            className="flex items-center justify-between cursor-pointer"
+            className="flex items-center justify-between cursor-pointer relative z-10"
             onClick={handleOpenRating}
           >
             <p className="text-gray-700">Opiniones</p>
@@ -214,10 +214,12 @@ function Menu() {
             </div>
           </div>
           {ratings && (
-            <Rating
-              onClose={handleCloseRating}
-              restaurantId={restaurant1?.id}
-            />
+            <div className="absolute top-0 left-0 right-0 bottom-0 bg-white z-20">
+              <Rating
+                onClose={handleCloseRating}
+                restaurantId={restaurant1?.id}
+              />
+            </div>
           )}
           <div className="flex flex-col gap-4">
             <div className="overflow-y-auto max-h-80">
@@ -261,7 +263,7 @@ function Menu() {
                   key={menu.id}
                   className="bg-white rounded-lg shadow-md p-4"
                 >
-                  <h1 className="text-3xl font-bold text-gray-800 mb-4">
+                  <h1 className="text-3xl font-bold text-gray-800 mb-4 ">
                     {menu.name}
                   </h1>
                   <CardsMenuItem
