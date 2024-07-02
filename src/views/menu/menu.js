@@ -214,7 +214,7 @@ function Menu() {
             </div>
           </div>
           {ratings && (
-            <div className="absolute top-0 left-0 right-0 bottom-0 bg-white z-20">
+            <div className="absolute top-0 left-0 right-0 bottom-0 bg-white z-50">
               <Rating
                 onClose={handleCloseRating}
                 restaurantId={restaurant1?.id}
@@ -263,7 +263,7 @@ function Menu() {
                   key={menu.id}
                   className="bg-white rounded-lg shadow-md p-4"
                 >
-                  <h1 className="text-3xl font-bold text-gray-800 mb-4 ">
+                  <h1 className="text-3xl font-bold text-gray-800 mb-4">
                     {menu.name}
                   </h1>
                   <CardsMenuItem

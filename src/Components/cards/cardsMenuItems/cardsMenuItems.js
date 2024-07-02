@@ -8,7 +8,7 @@ function CardsMenuItems({
   showEyeIcon,
 }) {
   return (
-    <div className="flex flex-wrap mt-0 mb-5">
+    <div className="flex flex-wrap mt-0 mb-5 ">
       {AllMenuitems &&
         AllMenuitems.map((menu) => (
           <CardMenuItems
