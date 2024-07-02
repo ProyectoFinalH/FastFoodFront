@@ -219,7 +219,7 @@ function Account() {
               </h2>
               <div className="space-y-4">
                 <div className="flex space-x-4">
-                  <div className="w-1/2">
+                  <div className="w-full">
                     <label className="block text-sm font-medium text-gray-700">
                       Correo Electrónico
                     </label>
@@ -251,43 +251,38 @@ function Account() {
                       </div>
                     )}
                   </div>
-                </div>
-                <div className="flex space-x-4 items-center">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Cambiar Contraseña
-                    <input
-                      type="checkbox"
-                      checked={changePassword}
-                      onChange={() => setChangePassword(!changePassword)}
-                      className="ml-2"
-                    />
-                  </label>
-                </div>
-                {changePassword && (
-                  <div className="flex space-x-4">
-                    <div className="w-1/2">
-                      <label className="block text-sm font-medium text-gray-700">
-                        Nueva Contraseña
-                      </label>
+                  <div className="w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Cambiar Contraseña
                       <input
-                        type="password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        onBlur={() =>
-                          setPasswordError(validarPassword(password))
-                        }
-                        className={`w-full bg-gray-100 text-gray-800 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ${
-                          passwordError ? "border-red-500" : ""
-                        }`}
+                        type="checkbox"
+                        checked={changePassword}
+                        onChange={() => setChangePassword(!changePassword)}
+                        className="ml-2"
                       />
-                      {passwordError && (
-                        <div className="text-red-500 text-xs mt-1">
-                          {passwordError}
-                        </div>
-                      )}
-                    </div>
+                    </label>
+                    {changePassword && (
+                      <div className="">
+                        <input
+                          type="password"
+                          value={password}
+                          onChange={handlePasswordChange}
+                          onBlur={() =>
+                            setPasswordError(validarPassword(password))
+                          }
+                          className={`w-full bg-gray-100 text-gray-800 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ${
+                            passwordError ? "border-red-500" : ""
+                          }`}
+                        />
+                        {passwordError && (
+                          <div className="text-red-500 text-xs mt-1">
+                            {passwordError}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
               <div className="mt-4">
                 <button
