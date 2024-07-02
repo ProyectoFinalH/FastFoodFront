@@ -148,61 +148,68 @@ function Account() {
     <div>
       <Navbar />
       <div className="flex justify-center items-start p-4 max-w-7xl mx-auto bg-white shadow-md rounded-lg my-10">
-        <div className="w-64 p-4 border-r border-gray-300 flex flex-col items-center">
-          <div className="text-center">
-            <p className="text-xl font-bold text-gray-800 mb-2">
-              Bienvenido {username}
-            </p>
-            <label htmlFor="profile-image" className="relative cursor-pointer">
-              {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="Perfil"
-                  className="w-24 h-24 rounded-full object-cover mb-2"
+        <div className="flex justify-center items-center">
+          <div className="w-64 p-4 border-r border-gray-300 flex flex-col items-center">
+            <div className="text-center">
+              <p className="text-xl font-bold text-gray-800 mb-2">
+                Bienvenido {username}
+              </p>
+            </div>
+            <div className="text-center mb-4">
+              <label
+                htmlFor="profile-image"
+                className="relative cursor-pointer"
+              >
+                {imagePreview ? (
+                  <img
+                    src={imagePreview}
+                    alt="Perfil"
+                    className="w-24 h-24 rounded-full object-cover mb-2"
+                  />
+                ) : user && user.image_url ? (
+                  <img
+                    src={user.image_url}
+                    alt="Perfil"
+                    className="w-24 h-24 rounded-full object-cover mb-2"
+                  />
+                ) : (
+                  <div className="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center mb-2">
+                    No hay imagen
+                  </div>
+                )}
+                <input
+                  type="file"
+                  name="image_url"
+                  id="profile-image"
+                  onChange={handleImageChange}
+                  accept=".jpg,.png"
+                  className="hidden"
                 />
-              ) : user && user.image_url ? (
-                <img
-                  src={user.image_url}
-                  alt="Perfil"
-                  className="w-24 h-24 rounded-full object-cover mb-2"
-                />
-              ) : (
-                <div className="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center mb-2">
-                  No hay imagen
-                </div>
-              )}
-              <input
-                type="file"
-                name="image_url"
-                id="profile-image"
-                onChange={handleImageChange}
-                accept=".jpg,.png"
-                className="hidden"
-              />
-            </label>
+              </label>
+            </div>
+            <nav className="w-full">
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    to="#"
+                    onClick={handleAccountSettingsClick}
+                    className="block text-gray-600 hover:bg-gray-100 py-2 px-4 rounded"
+                  >
+                    Ajustes de cuenta
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="#"
+                    onClick={handleOrdersClick}
+                    className="block text-gray-600 hover:bg-gray-100 py-2 px-4 rounded"
+                  >
+                    Últimas órdenes
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
-          <nav className="w-full mt-4">
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  to="#"
-                  onClick={handleAccountSettingsClick}
-                  className="block text-gray-600 hover:bg-gray-100 py-2 px-4 rounded"
-                >
-                  Ajustes de cuenta
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="#"
-                  onClick={handleOrdersClick}
-                  className="block text-gray-600 hover:bg-gray-100 py-2 px-4 rounded"
-                >
-                  Últimas órdenes
-                </Link>
-              </li>
-            </ul>
-          </nav>
         </div>
         <div className="flex-1 p-4">
           {showAccountSettings && (
