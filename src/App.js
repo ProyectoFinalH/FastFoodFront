@@ -27,7 +27,7 @@ import Rating from "./Components/rating/rating";
 
 function App() {
   return (
-    <div className="App">
+    <div className="bg-darkWhite min-h-screen">
       <AuthProvider>
         <Routes>
           <Route path="/LoginAdmin" element={<LoginAdmin />} />
