@@ -50,14 +50,14 @@ const LoginPrincipal = () => {
   return (
     <div>
       {loading && <Loading />}
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <div
-          className="w-1/2 h-screen relative bg-black flex justify-center items-center bg-cover bg-center"
+          className="w-full md:w-1/2 h-screen relative bg-black flex justify-center items-center bg-cover bg-center hidden md:block"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-          {/* <Carrucel className="carrucel" /> */}
+          {/* Contenido del lado izquierdo */}
         </div>
-        <div className="w-1/2 h-screen flex justify-center items-center">
+        <div className="w-full md:w-1/2 h-screen flex justify-center items-center">
           <div className="w-full max-w-md p-8 bg-white bg-opacity-25 rounded-lg">
             {logueo === "login" && <LoginIngreso setView={setLogueo} />}
             {logueo === "recuperarkey" && <Recuperarkey setView={setLogueo} />}
