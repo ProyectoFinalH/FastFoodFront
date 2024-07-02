@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-  darkMode: false,
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -29,7 +29,11 @@ module.exports = {
       },
       colors: {
         primary: "#f7e1e1",
-        darkWhite: "#f0f0f0",
+        darkWhite: "#e0e0e0", 
+        // posible modo oscuro
+        darkBackground: "#333333",
+        darkText: "#f0f0f0",
+        // posible modo oscuro
       },
     },
   },

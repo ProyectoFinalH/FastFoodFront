@@ -179,7 +179,7 @@ function Menu() {
     setRatings(false);
   };
 
- console.log("allmenu",allMenus);
+  console.log("allmenu", allMenus);
 
   return (
     <div className="menu-container">
@@ -199,16 +199,14 @@ function Menu() {
               />
               <h2 className="restaurant-name">{restaurant1?.name}</h2>
             </div>
-          </div>  
-            <div className="opinionesContainer" onClick={handleOpenRating}>
-              <p>Opiniones</p>
-              <div className="ratingContainerMenu">
-            <p>
-              <FontAwesomeIcon icon={faStar}/>
-            </p>
-            <span>
-              {parseInt(restaurant1?.rating)}
-            </span>
+          </div>
+          <div className="opinionesContainer" onClick={handleOpenRating}>
+            <p>Opiniones</p>
+            <div className="ratingContainerMenu">
+              <p>
+                <FontAwesomeIcon icon={faStar} />
+              </p>
+              <span>{parseInt(restaurant1?.rating)}</span>
             </div>
           </div>
           {ratings && (
@@ -220,7 +218,9 @@ function Menu() {
           <div className="cardsContentMenu">
             <div className="cards-menus-container">
               <CardsMenus
-                AllMenus={allMenus.filter(menu => menu.restaurant_id === selectedRestaurantId)}
+                AllMenus={allMenus.filter(
+                  (menu) => menu.restaurant_id === selectedRestaurantId
+                )}
                 handleSelectMenu={handleSelectMenu}
               />
             </div>
@@ -234,7 +234,9 @@ function Menu() {
               handlePriceRange={setPriceRange}
               clearFilter={clearFilters}
               handleCategoryFilter={handleCategoryFilter}
-              allCategories={allCategories.filter(category => category.restaurant_id === selectedRestaurantId)}
+              allCategories={allCategories.filter(
+                (category) => category.restaurant_id === selectedRestaurantId
+              )}
               sortBy={sortBy}
               applyPriceRangeFilter={applyPriceRangeFilter}
               priceRange={priceRange}
