@@ -1,5 +1,4 @@
 import React, {useEffect, useState } from "react";
-import "./Login_Admin.css";
 import logo from "../../../images/logo.png"
 import icono_usuario from "../Login_imagenes/iconos/usuario.png";
 import icono_key from "../Login_imagenes/iconos/contrasena.png";
