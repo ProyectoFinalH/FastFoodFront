@@ -98,7 +98,7 @@ function Navbar() {
             {!User || User.name !== "invitado" ? (
               <li>
                 <button
-                  className="close-btn border border-gray-300 rounded px-4 py-2 mt-8 text-base text-gray-700 hover:bg-gray-200"
+                  className="close-btn border border-gray-300 rounded px-2 py-2 mt-2 text-base text-gray-700 hover:bg-gray-200"
                   onClick={handleLogout}
                 >
                   Cerrar sesión

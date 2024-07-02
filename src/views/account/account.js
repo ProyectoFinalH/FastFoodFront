@@ -179,9 +179,6 @@ function Account() {
                 accept=".jpg,.png"
                 className="hidden"
               />
-              <span className="text-sm text-gray-600">
-                Cambiar Imagen de Perfil
-              </span>
             </label>
           </div>
           <nav className="w-full mt-4">
