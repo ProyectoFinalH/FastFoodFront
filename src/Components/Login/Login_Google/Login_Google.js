@@ -25,7 +25,7 @@ const LoginGoogle = () => {
   return (
     <button
       type="button"
-      className="bg-white border border-gray-500 py-2 px-10 rounded-md flex items-center text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+      className="bg-white border border-gray-500 my-4 mb-0 py-2 px-10 rounded-md flex items-center text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
       onClick={handleLogin}
     >
       <img

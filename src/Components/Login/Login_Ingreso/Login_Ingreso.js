@@ -153,7 +153,7 @@ const LoginIngreso = ({ setView }) => {
           className="login-image mx-auto mt-4"
         />
         <div className="login-content p-6">
-          <div className="mb-4 flex justify-center">
+          <div className="flex justify-center mb-4">
             <div className="user-type-radio flex space-x-4">
               <label className="inline-flex items-center">
                 <input
@@ -179,7 +179,7 @@ const LoginIngreso = ({ setView }) => {
               </label>
             </div>
           </div>
-          <div className="input-group mb-4 relative border border-gray-500 rounded px-4 py-2 rounded-md">
+          <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
             <input
               type="text"
               name="emailOrPhone"
@@ -192,11 +192,9 @@ const LoginIngreso = ({ setView }) => {
             <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           {errors.emailOrPhone && (
-            <div className="error-space text-red-500">
-              {errors?.emailOrPhone}
-            </div>
+            <div className="text-red-500 text-sm">{errors?.emailOrPhone}</div>
           )}
-          <div className="input-group mb-4 relative border border-gray-500 rounded px-4 py-2 rounded-md">
+          <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-md">
             <input
               type={keyVisible ? "text" : "password"}
               name="password"
@@ -212,25 +210,25 @@ const LoginIngreso = ({ setView }) => {
               onClick={toggleVisibility}
             >
               {keyVisible ? (
-                <RiEyeCloseLine className="input-icon text-gray-400 " />
+                <RiEyeCloseLine className="input-icon text-gray-400" />
               ) : (
                 <RiEyeLine className="input-icon text-gray-400" />
               )}
             </div>
           </div>
           {errors.password && (
-            <div className="error-space text-red-500">{errors?.password}</div>
+            <div className="text-red-500 text-sm">{errors?.password}</div>
           )}
           {loginError && (
-            <div className="error-space text-red-500">{loginError}</div>
+            <div className="text-red-500 text-sm">{loginError}</div>
           )}
           <div
-            className="forgot-password text-sm text-gray-600 cursor-pointer mb-4 hover:border-b-2 border-red-600 text-left pl-4"
+            className="forgot-password text-sm text-gray-600 cursor-pointer my-4 mb-0 hover:border-b-2 border-red-600 text-left pl-4"
             onClick={() => setView("recuperarkey")}
           >
             ¿Olvidaste tu Contraseña?
           </div>
-          <div className="button-container mb-4 rounded py-2 rounded-md">
+          <div className="button-container my-4 mb-0 rounded py-2 rounded-md">
             <button
               className={`login-button w-full text-white py-2 px-4 rounded transition-colors duration-300 ${
                 isButtonEnabled &&
