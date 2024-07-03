@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { RiShoppingCart2Line, RiCloseLine, RiMenu3Line } from "react-icons/ri";
 import logo from "../../images/logo.png";
-import carrito from "../../images/carrito.svg";
-import closeIcon from "../../images/GgCloseR.png";
-import "./navbar.css";
-import { logoutUser } from "../../Redux/actions";
 import Carrito from "../Carrito/Carrito";
-
+import { logoutUser } from "../../Redux/actions";
 import { eliminarDatosUsuario } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import {
   eliminarItemCarrito,
@@ -43,62 +40,78 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar-container">
-      <div className="left-section">
-        <NavLink to="/home" className="logo-container">
-          <img src={logo} alt="logo" className="logo" />
+    <div className="navbar-container bg-white shadow-md px-6 py-1 flex justify-between items-center">
+      <div className="left-section flex items-center">
+        <NavLink to="/home" className="logo-container flex items-center">
+          <img src={logo} alt="logo" className="logo w-16 h-auto" />
+          <span className="fastfood-text text-2xl font-bold ml-4">
+            FastFood
+          </span>
         </NavLink>
-        <div className="logo-container fastfood-text">
-          <span>FastFood</span>
-        </div>
       </div>
-      <div className="right-section">
+      <div className="right-section flex items-center">
         {!User || User.name !== "invitado" ? (
           <div
-            className="carrito-container"
+            className="carrito-container ml-auto mr-6 cursor-pointer"
             onClick={handleMenuCarrito}
-            role="button"
             aria-label="Open cart"
           >
-            <img src={carrito} alt="Carrito" className="carrito-img" />
+            <RiShoppingCart2Line className="text-black text-2xl" />
           </div>
         ) : null}
         <div
-          className="menu"
+          className="menu cursor-pointer"
           onClick={toggleMenu}
-          role="button"
           aria-label="Toggle menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <RiMenu3Line className="text-black text-2xl" />
         </div>
-        <div className={`menu-content ${menuOpen ? "open" : ""}`}>
-          <div className="close-btn-x" onClick={toggleMenu}>
-            <img src={closeIcon} alt="Close" />
+        <div
+          className={`menu-content fixed top-0 right-0 h-full bg-white z-50 w-60 px-6 py-10 transform transition-transform duration-300 ${
+            menuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="close-btn-x absolute top-0 right-0 mr-10 mt-4 cursor-pointer">
+            <RiCloseLine className="text-black text-2xl" onClick={toggleMenu} />
           </div>
-          <ul>
-            <li>
-              <NavLink to="/home" onClick={toggleMenu}>
+          <ul className="mt-10">
+            <li className="mb-6">
+              <NavLink
+                to="/home"
+                onClick={toggleMenu}
+                className="text-black text-lg hover:underline"
+              >
                 Inicio
               </NavLink>
             </li>
             {!User || User.name !== "invitado" ? (
-              <li>
-                <NavLink to="/account" onClick={toggleMenu}>
+              <li className="mb-6">
+                <NavLink
+                  to="/account"
+                  onClick={toggleMenu}
+                  className="text-black text-lg hover:underline"
+                >
                   Mi cuenta
                 </NavLink>
               </li>
             ) : null}
             {!User || User.name !== "invitado" ? (
               <li>
-                <button className="close-btn" onClick={handleLogout}>
+                <button
+                  className="close-btn border border-gray-300 rounded px-2 py-2 mt-2 text-base text-gray-700 hover:bg-gray-200"
+                  onClick={handleLogout}
+                >
                   Cerrar sesión
                 </button>
               </li>
             ) : (
               <li>
-                <NavLink onClick={handleIniciarSesion}>Iniciar sesión</NavLink>
+                <NavLink
+                  onClick={handleIniciarSesion}
+                  className="text-black text-lg hover:underline"
+                >
+                  Iniciar sesión
+                </NavLink>
               </li>
             )}
           </ul>

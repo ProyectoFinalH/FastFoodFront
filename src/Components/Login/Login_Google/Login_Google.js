@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../../../firebase";
 import { login_User_Google } from "../../../Redux/actions";
-import "./Login_Google.css";
 
 const LoginGoogle = () => {
   const dispatch = useDispatch();
@@ -24,14 +23,22 @@ const LoginGoogle = () => {
   };
 
   return (
-    <button type="button" className="google-login-button" onClick={handleLogin}>
-      <img
-        className="google-icon"
-        src="https://www.pngall.com/wp-content/uploads/5/Google-G-Logo-PNG-Image.png"
-        alt="Google Icon"
-      />
-      Registrarse e iniciar sesión con Google
-    </button>
+    <div className="button-container rounded py-2 rounded-xl">
+      <button
+        type="button"
+        className="bg-white border border-gray-500 my-4 mb-0 py-2 px-10 rounded-xl flex items-center text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+        onClick={handleLogin}
+      >
+        <img
+          className="h-6 w-6 mr-2"
+          src="https://www.pngall.com/wp-content/uploads/5/Google-G-Logo-PNG-Image.png"
+          alt="Google Icon"
+        />
+        <span className="whitespace-nowrap">
+          Registrarse/iniciar sesión con Google
+        </span>
+      </button>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./scrollTop.css";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,8 +27,16 @@ const ScrollToTopButton = () => {
   };
 
   return (
-    <div className={`scroll-to-top ${isVisible ? "show" : ""}`}>
-      <button onClick={scrollToTop} title="Ir arriba">
+    <div
+      className={`fixed bottom-4 right-4 z-50 transition-opacity duration-300 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <button
+        onClick={scrollToTop}
+        title="Ir arriba"
+        className="bg-red-500 text-white p-4 rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+      >
         ↑
       </button>
     </div>
