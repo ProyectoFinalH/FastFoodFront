@@ -154,18 +154,16 @@ function MenusRestAdmin({ restaurant }) {
         
           <div className="MenuList">
             <div>
-              <h2>Menú</h2>
-            </div>
-            <div>
               <div className="SearchMenuAdmin">
                 <div className="inputSearchMenuAdmin">
                   <input
                     type="search"
-                    placeholder="Menu..."
+                    title={"Menús " + restaurant.name}
+                    placeholder={"Menues " + restaurant.name}
                     value={searchMenu}
                     onChange={handleSearchMenuChange}
                   />
-                  <div className="buttonSearchMenuAdmin">
+                  <div className="buttonSearchAdmin">
                     <button>🔍︎</button>
                   </div>
                 </div>
@@ -270,12 +268,12 @@ function MenusRestAdmin({ restaurant }) {
                           Menor
                         </option>
                       </select>
-                      <div>
+                    </div>
+                      
             <button title="Deshacer filtros" className="buttonDesOrder"><img src={deshacer} alt="deshacer" onClick={handleClearFilterMenuItem}/></button>
               </div>
-                    </div>
                     
-                  </div>
+                  
                 </div>
                 <div className="menuItemContainer">
                 {noResults ? (

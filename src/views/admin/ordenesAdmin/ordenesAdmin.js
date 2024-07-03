@@ -1,7 +1,7 @@
 import { useEffect, useState} from "react";
 import "./ordenesAdmin.css"
 
-import NavbarAdmin from "../navbarAdmin/navbarAdmin";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getOrdersAdmin } from "../../../Redux/actions";
 import deshacer from "../../../images/deshacer.png"
@@ -137,8 +137,7 @@ function OrdersAdmin() {
 
   
   return (
-    <div>
-         <NavbarAdmin/>
+    <div className="OrdersAdminContainerPrincipal">
          <div className="restaurantH2">
           <h2>Ordenes</h2>
          </div>

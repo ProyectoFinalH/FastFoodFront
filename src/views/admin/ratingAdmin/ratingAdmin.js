@@ -4,6 +4,7 @@ import StarRating from '../../../Components/rating/starRating/starRating';
 import { GetCommentAdmin } from '../../../Redux/actions';
 import "./ratingAdmin.css"
 
+
 function RatingAdmin() {
   const restaurants = useSelector((state) => state.allRestaurantsAdmin) || [];
   const comments = useSelector((state) => state.allCommentsAdmin) || [];
@@ -21,16 +22,19 @@ function RatingAdmin() {
 
 
   return (
-    <div>
+    <div className='RatingContainer'>
+      <div className="restaurantH2">
+        <h2>Ordenes</h2>
+      </div>
       {restaurants?.map((restaurant) => (
         <div className='RatingRestContainer' key={restaurant?.key}>
-            <div className='RatingRestContainerTitle'>
-
-          <h2>{restaurant?.name}</h2>
-            </div>
+             <div className="perfilRestMenusAdmin">
+          <img src={restaurant.image_url} alt="resLogo" />
+          <h2>{restaurant.name}</h2>
+        </div>
           {comments.filter((comment) => comment?.restaurant_name === restaurant?.name).length === 0 ? (
             <div className="noCommentsMessage">
-              <p>No hay reseñas hechas.</p>
+              <p>No hay calificaciones hechas.</p>
             </div>
           ) : (
             <ul>

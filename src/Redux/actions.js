@@ -1094,6 +1094,7 @@ export const Update_Empresa = (formData) => {
         type: PUT_DETAIL_EMPRESA,
         payload: response.data,
       });
+      alertify.alert("Mensaje", "¡Información actualizada correctamente!")
     } catch (error) {
       console.error("Error al obtener el restaurant:", error);
     }
