@@ -18,14 +18,14 @@
   }
 
 .menusContainer {
-    display: flex;
-    margin: 3% 0% 0% 5%;
+  margin: 3% 0% 0% 5%;
+  /* display: flex; */
     /* overflow-y: scroll; */
     
     /* box-shadow: 0px 0px 15px rgb(143, 143, 143); */
     /* margin: 20px 0px 0px 5%; */
     /* border-radius: 10px; */
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 .menusContainer::-webkit-scrollbar{
     width: 10px;
