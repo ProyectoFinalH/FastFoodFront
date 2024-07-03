@@ -8,6 +8,7 @@ import LoginPrincipal from "../../../Components/Login/Login_Principal/Login_Prin
 import MenuesCompany from "../menuesCompany/menuesCompany";
 import CategoriesCompany from "../categoriesCompany/categoriesCompany";
 import CommentsCompany from "../comments/commentsCompany";
+import logo from "../../../images/logo.png"
 
 
 function Sidebar({ restaurant }) {
@@ -19,51 +20,56 @@ function Sidebar({ restaurant }) {
 
   return (
     <div className="sidebarContainer">
-     
       <div className="OptionContainer">
+      
+        <div className="cardRestConainerSidebarAdmin">
+          <img src={logo} alt="logo" className="logo" />
+        </div>
+        
+  
           <div className="cardRestConainerSidebar">
             <img src={restaurant?.image_url} alt="imglogRes" />
 
             <div className="cardRestConainerSidebarh2">
-              <h2>{restaurant?.name}</h2>
+              <h2 title={restaurant?.name}>{restaurant?.name.slice(0,13)}</h2>
             </div>
           </div>
         <ul>
 
           <li 
           className={selectedOption === 1 ? "selected" : ""}
-          tabindex="0" onClick={() => handleOptionClick(1)}>
+          tabiIndex="0" onClick={() => handleOptionClick(1)}>
             Productos
           </li>
           <li 
           className={selectedOption === 4 ? "selected" : ""}
-          tabindex="0" onClick={() => handleOptionClick(4)}>
+          tabiIndex="0" onClick={() => handleOptionClick(4)}>
             Menús
           </li>
           <li 
           className={selectedOption === 6 ? "selected" : ""} 
-          tabindex="0" onClick={() => handleOptionClick(6)}>
+          tabiIndex="0" onClick={() => handleOptionClick(6)}>
             Categorías
           </li>
           <li 
           className={selectedOption === 2 ? "selected" : ""}
-          tabindex="0" onClick={() => handleOptionClick(2)}>
+          tabiIndex="0" onClick={() => handleOptionClick(2)}>
             Editar Perfíl
           </li>
 
           <li 
           className={selectedOption === 3 ? "selected" : ""}
-          tabindex="0" onClick={() => handleOptionClick(3)}>
+          tabiIndex="0" onClick={() => handleOptionClick(3)}>
             Órdenes Realizadas
           </li>
           <li 
           className={selectedOption === 7 ? "selected" : ""}
-          tabindex="0" onClick={() => handleOptionClick(7)}>
+          tabiIndex="0" onClick={() => handleOptionClick(7)}>
             Caificaciones
           </li>
           <li 
           className={selectedOption === 5 ? "selected" : ""}
-          tabindex="0" onClick={() => handleOptionClick(5)}>
+          tabiIndex="0" onClick={() => handleOptionClick(5)}>
             Cerrar Sesión
           </li>
         </ul>

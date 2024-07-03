@@ -25,7 +25,7 @@ function DetailCompany() {
   useEffect(() => {
     if (!dataLoaded) {
       // Cargar los datos solo si aún no se han cargado
-      dispatch(Data_Empresa(restaurant.id));
+      dispatch(Data_Empresa(restaurant?.id));
       setDataLoaded(true); // Marcar los datos como cargados
     }
 
@@ -35,12 +35,12 @@ function DetailCompany() {
 
   useEffect(() => {
     console.log("Actualización exitosa");
-    setName(restaurant.name);
-    setDescription(restaurant.description);
-    setEmail(restaurant.email);
-    setPhone(restaurant.phone);
-    setAddress(restaurant.address);
-    setImageFile(restaurant.image_url);
+    setName(restaurant?.name);
+    setDescription(restaurant?.description);
+    setEmail(restaurant?.email);
+    setPhone(restaurant?.phone);
+    setAddress(restaurant?.address);
+    setImageFile(restaurant?.image_url);
     setPassword("");
     setShowPassword(false);
     console.log("update useeffect", restaurant)
@@ -49,7 +49,7 @@ function DetailCompany() {
   const updateField = async () => {
     try {
       const formData = new FormData();
-      formData.append("id", restaurant.id);
+      formData.append("id", restaurant?.id);
       formData.append("email", email);
       formData.append("description", description);
       formData.append("phone", phone);
@@ -58,7 +58,7 @@ function DetailCompany() {
       formData.append("image_url", imageFile);
       dispatch(Update_Empresa(formData));
       // setConfirmationMessage("¡Información actualizada correctamente!");
-      console.log("id del restaurante", restaurant.id)
+      console.log("id del restaurante", restaurant?.id)
       setIsEditMode(false);
       setSelectedImagePreview(null);
     } catch (error) {

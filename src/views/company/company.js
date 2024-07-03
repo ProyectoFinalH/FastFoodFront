@@ -1,5 +1,5 @@
 import Sidebar from "./sidebar/sidebar"
-import logo from "../../images/logo.png"
+
 import "./company.css"
 
 
@@ -32,12 +32,7 @@ useEffect(()=>{
 
   return (
     <div className="companyContainer">
-       <div className="left-section">
-        <div className="logo-container">
-          <img src={logo} alt="logo" className="logo" />
-        </div>
-        
-      </div>
+      
 
 <div>
   <Sidebar restaurant={restaurant}/>
