@@ -1067,7 +1067,7 @@ export const Data_Empresa = (id) => {
     })
 
     } catch (error) {
-      alertify.alert("Mensaje", "No hay info de restaurante");
+      
       console.log(error);
     }
   };
