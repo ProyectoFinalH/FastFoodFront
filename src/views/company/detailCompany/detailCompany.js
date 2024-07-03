@@ -14,7 +14,7 @@ function DetailCompany() {
   const [password, setPassword] = useState(restaurant?.password || "");
   const [imageFile, setImageFile] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [confirmationMessage, setConfirmationMessage] = useState("");
+  // const [confirmationMessage, setConfirmationMessage] = useState("");
   const dispatch = useDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
   console.log("detalle del restaurante", restaurant)
@@ -57,7 +57,7 @@ function DetailCompany() {
       formData.append("name", name);
       formData.append("image_url", imageFile);
       dispatch(Update_Empresa(formData));
-      setConfirmationMessage("¡Información actualizada correctamente!");
+      // setConfirmationMessage("¡Información actualizada correctamente!");
       console.log("id del restaurante", restaurant.id)
       setIsEditMode(false);
       setSelectedImagePreview(null);
@@ -98,7 +98,18 @@ function DetailCompany() {
 
   return (
     <div>
-      <div className="confirmationMessage">{confirmationMessage}</div>
+           <div className="restaurantH2">
+        <h2>Perfil</h2>
+      </div>
+      <div className="RGDbutton">
+        <button onClick={() => setIsEditMode(true)}>Editar</button>
+        {isEditMode ? (
+          <>
+            <button onClick={updateField}>Guardar</button>
+          </>
+        ) : null}
+      </div>
+      {/* <div className="confirmationMessage">{confirmationMessage}</div> */}
       <div className="infoCompanyContainer">
         <div className="labelContainer">
           <h3>Nombre:</h3>
@@ -145,14 +156,6 @@ function DetailCompany() {
             disabled={!isEditMode}
           />
         </div>
-      </div>
-      <div className="RGDbutton">
-        <button onClick={() => setIsEditMode(true)}>Editar</button>
-        {isEditMode ? (
-          <>
-            <button onClick={updateField}>Guardar</button>
-          </>
-        ) : null}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import DetailCompany from "../detailCompany/detailCompany";
 import ProductsCompany from "../productsCompany/productsCompany";
 import OrderCompany from "../orderCompany/orderCompany";
@@ -8,8 +9,9 @@ import MenuesCompany from "../menuesCompany/menuesCompany";
 import CategoriesCompany from "../categoriesCompany/categoriesCompany";
 import CommentsCompany from "../comments/commentsCompany";
 
+
 function Sidebar({ restaurant }) {
-  const [selectedOption, setSelectedOption] = useState(1);
+  const [selectedOption, setSelectedOption] = useState(2);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -17,8 +19,8 @@ function Sidebar({ restaurant }) {
 
   return (
     <div className="sidebarContainer">
+     
       <div className="OptionContainer">
-        <ul>
           <div className="cardRestConainerSidebar">
             <img src={restaurant?.image_url} alt="imglogRes" />
 
@@ -26,35 +28,51 @@ function Sidebar({ restaurant }) {
               <h2>{restaurant?.name}</h2>
             </div>
           </div>
+        <ul>
 
-          <li tabindex="0" onClick={() => handleOptionClick(1)}>
+          <li 
+          className={selectedOption === 1 ? "selected" : ""}
+          tabindex="0" onClick={() => handleOptionClick(1)}>
             Productos
           </li>
-          <li tabindex="0" onClick={() => handleOptionClick(4)}>
+          <li 
+          className={selectedOption === 4 ? "selected" : ""}
+          tabindex="0" onClick={() => handleOptionClick(4)}>
             Menús
           </li>
-          <li tabindex="0" onClick={() => handleOptionClick(6)}>
+          <li 
+          className={selectedOption === 6 ? "selected" : ""} 
+          tabindex="0" onClick={() => handleOptionClick(6)}>
             Categorías
           </li>
-          <li tabindex="0" onClick={() => handleOptionClick(2)}>
+          <li 
+          className={selectedOption === 2 ? "selected" : ""}
+          tabindex="0" onClick={() => handleOptionClick(2)}>
             Editar Perfíl
           </li>
 
-          <li tabindex="0" onClick={() => handleOptionClick(3)}>
+          <li 
+          className={selectedOption === 3 ? "selected" : ""}
+          tabindex="0" onClick={() => handleOptionClick(3)}>
             Órdenes Realizadas
           </li>
-          <li tabindex="0" onClick={() => handleOptionClick(7)}>
-            Comentarios/Caificaciones
+          <li 
+          className={selectedOption === 7 ? "selected" : ""}
+          tabindex="0" onClick={() => handleOptionClick(7)}>
+            Caificaciones
           </li>
-          <li tabindex="0" onClick={() => handleOptionClick(5)}>
+          <li 
+          className={selectedOption === 5 ? "selected" : ""}
+          tabindex="0" onClick={() => handleOptionClick(5)}>
             Cerrar Sesión
           </li>
         </ul>
       </div>
       <div className="conent2">
+      {selectedOption === 2 && <DetailCompany />}
         {selectedOption === 1 && <ProductsCompany />}
         {selectedOption === 4 && <MenuesCompany />}
-        {selectedOption === 2 && <DetailCompany />}
+        
         {selectedOption === 3 && <OrderCompany />}
         {selectedOption === 5 && <LoginPrincipal />}
         {selectedOption === 6 && <CategoriesCompany />}

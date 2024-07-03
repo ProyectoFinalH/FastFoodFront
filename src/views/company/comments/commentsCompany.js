@@ -40,9 +40,10 @@ function CommentsCompany() {
 
     return (
         <div className="commentsCompany">
-
-        <h1>Comentarios & Reviews</h1>
-        <div className="">
+<div className="restaurantH2">
+        <h2>Comentarios</h2>
+      </div>
+        <div className="RatingContainer">
 
         <ul>
             {allComents

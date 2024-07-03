@@ -1,13 +1,14 @@
 .sidebarContainer {
     display: flex;
     height: calc(100vh - 60px);
+    
   }
   
   .OptionContainer {
     flex: 0 0 250px;
     background-color: #f8f8f8;
     padding: 20px;
-    overflow-y: auto;
+    
   }
   
   .OptionContainer ul {
@@ -25,15 +26,20 @@
     transition: background-color 0.3s ease;
   }
   
-  .OptionContainer ul li:hover {
+  .OptionContainer ul li.selected {
     background-color: #ff5a5f;
     color: #fff;
+  }
+
+  .OptionContainer ul li:hover {
+    background-color: #e0e0e0;
+    
   }
   
   .conent2 {
     flex: 1;
     padding: 20px;
-    overflow-y: auto;
+   
   }
   
   .cardRestConainerSidebar {

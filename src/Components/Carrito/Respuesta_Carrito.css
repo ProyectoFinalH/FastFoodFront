@@ -48,11 +48,11 @@
     background-color: #f9f9f9;
   }
   
-  h1, h2 {
+  .div-general h1, h2 {
     text-align: center;
   }
   
-  h2 {
+  .div-general h2 {
     margin-bottom: 20px;
   }
   

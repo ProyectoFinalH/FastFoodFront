@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 
+
 function Company() {
   const Restaurant = useSelector((state)=> state.Detail_Empresa)
   
@@ -31,9 +32,13 @@ useEffect(()=>{
 
   return (
     <div className="companyContainer">
-<div className="navbarCompany">
-  <img src={logo} alt="logo"/>
-</div>
+       <div className="left-section">
+        <div className="logo-container">
+          <img src={logo} alt="logo" className="logo" />
+        </div>
+        
+      </div>
+
 <div>
   <Sidebar restaurant={restaurant}/>
 
