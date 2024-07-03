@@ -1,20 +1,21 @@
 .infoCompanyContainer{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    overflow-y: auto;
-    width: 90%;
-    height: 70vh;
-    margin: auto;
-    border-radius:  10px;
-    box-shadow: 0px 0px 15px rgb(136, 136, 136);
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* overflow-y: auto; */
+  width: 100%;
+  height: 70vh;
+  /* margin: auto; */
+  border-radius: 10px;
+  /* box-shadow: 0px 0px 15px rgb(136, 136, 136); */
 }
 .infoCompanyContainer::-webkit-scrollbar{
   width: 10px;
 }
 
 .infoCompanyContainer::-webkit-scrollbar-thumb{
-  background-color: #c90000;
+  background-color: ff5d5d;
  border-radius: 5px;
 }
 
@@ -69,11 +70,11 @@ width: 150px;
  
   .labelContainer input:focus {
     outline: none;
-    border-color: #c90a06;
+    border-color: #ff5d5d;
   }
   .labelContainer button {
     padding: 10px 20px;
-    background-color: #c90a06; 
+    background-color: #ff5d5d; 
     color: white; 
     border: none;
     border-radius: 2px;
@@ -82,14 +83,14 @@ width: 150px;
   }
 
   .labelContainer button:hover {
-    background-color: #f3f3f3;
-    color: #c90a06;
-    border: solid 1px #c90a06 ;
+    background-color: #fa8c8c;
+    color: #ff5d5d;
+    border: solid 1px #ff5d5d ;
   }
   .labelContainerimg button {
     
     padding: 10px 20px;
-    background-color: #c90a06;
+    background-color: #ff5d5d;
     color: white;
     border: none;
     border-radius: 2px;
@@ -97,25 +98,24 @@ width: 150px;
     transition: background-color 0.3s ease;
   }
 
-  .labelContainerimg button:hover {
+  /* .labelContainerimg button:hover {
     background-color: #f3f3f3;
     color: #c90a06;
-    border: solid 1px #c90a06 ;
-  }
+    border: solid 1px #ff5d5d ;
+  } */
   .RGDbutton{
-    margin-left: 10%;
+    margin: 3% 0% 0% 5%;
   }
   .RGDbutton button{    
     padding: 2px 0px;
     width: 200px;
     font-size: 20px;
-    background-color: #ff4646;
+    background-color: #ff5d5d;
     color: #fff;
     cursor: pointer;
     border: 1px solid rgb(196, 196, 196);    
     border-radius: 5px;
-    margin-left: 15px;
-    margin-top: 10px;
+  
     box-shadow: 0px 2px 5px rgb(126, 126, 126);    
     transition:  0.3s ease-in-out;
   }
@@ -144,7 +144,7 @@ button:disabled:hover {
 }
 .customFileButton {
   padding: 10px 20px;
-  background-color: #c90a06;
+  background-color: #ff5d5d;
   color: white;
   border: none;
   border-radius: 2px;
@@ -152,9 +152,8 @@ button:disabled:hover {
   transition: background-color 0.3s ease;
 }
 .customFileButton:hover{
-  background-color: #f3f3f3;
-  color: #c90a06;
-  border: solid 1px #c90a06 ;
+  background-color: #fa8c8c;
+ 
 }
 .customFileButton:disabled {
   background-color: #f0f0f0;

@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import "./Login_Recuperar_key.css";
 import imagen from "../Login_imagenes/logo.png";
 //import icono_usuario from "../Login_imagenes/iconos/usuario.png";
@@ -8,39 +8,22 @@ import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.css";
 
 const Recuperarkey = ({ setView }) => {
-
-
-
-/*
-  useEffect(() => {
-    const validationErrors = validationRigistro(userData);
-    setErrors(validationErrors);
-    setIsButtonEnabled(Object.keys(validationErrors).length === 0);
-  }, [userData]);
-*/
   return (
     <div className="bodyIngreso">
-      <img src={imagen} alt="Logo Fast Foot" className="imageningreso" />
-      <p>
-        hola, si tienes inconvenientes con el acceso a tu cuenta, comunicate con nosotros en el siguieten correo electronico:
-        
-        <br/><label className="Correo-foot">fastfoodapp2024@gmail.com</label>
+      <img src={imagen} alt="Logo Fast Foot" className="imageningreso mx-auto mt-4" />
+      <p className="text-center">
+        Hola, si tienes inconvenientes con el acceso a tu cuenta, comunícate con nosotros en el siguiente correo electrónico:
+        <br />
+        <span className="Correo-foot text-blue-500">fastfoodapp2024@gmail.com</span>
       </p>
       <div className="contenedoringreso">
-        
-        
-
         <div className="Grupoingreso">
           <div
-            className="Registrate"
+            className="Registrate text-center text-blue-500 cursor-pointer mt-4"
             onClick={() => {
               setView("login");
             }}
           >
-
-
-
-            
             Regresa al inicio
           </div>
         </div>

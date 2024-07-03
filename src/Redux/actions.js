@@ -1067,7 +1067,7 @@ export const Data_Empresa = (id) => {
     })
 
     } catch (error) {
-      alertify.alert("Mensaje", "No hay info de restaurante");
+      
       console.log(error);
     }
   };
@@ -1079,6 +1079,7 @@ export const Update_Empresa = (formData) => {
     configureAxios(token.data);
     console.log("id restaurante", restaurantId);
     try {
+
     const endpoint = URLBACK+`/restaurants/${restaurantId}`;
     const response = await axiosInstance.put(endpoint, formData, {
       headers: {
@@ -1089,10 +1090,12 @@ export const Update_Empresa = (formData) => {
     dispatch({
       type: PUT_DETAIL_EMPRESA,
       payload: response.data, 
-    })
+    });
+    alertify.alert("Mensaje", "¡Información actualizada correctamente!")
   } catch (error) {
     console.error("Error al obtener el restaurant:", error);
   }  
+
     }
   };
 

@@ -14,7 +14,7 @@ function DetailCompany() {
   const [password, setPassword] = useState(restaurant?.password || "");
   const [imageFile, setImageFile] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [confirmationMessage, setConfirmationMessage] = useState("");
+  // const [confirmationMessage, setConfirmationMessage] = useState("");
   const dispatch = useDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
   console.log("detalle del restaurante", restaurant)
@@ -25,7 +25,7 @@ function DetailCompany() {
   useEffect(() => {
     if (!dataLoaded) {
       // Cargar los datos solo si aún no se han cargado
-      dispatch(Data_Empresa(restaurant.id));
+      dispatch(Data_Empresa(restaurant?.id));
       setDataLoaded(true); // Marcar los datos como cargados
     }
 
@@ -35,12 +35,12 @@ function DetailCompany() {
 
   useEffect(() => {
     console.log("Actualización exitosa");
-    setName(restaurant.name);
-    setDescription(restaurant.description);
-    setEmail(restaurant.email);
-    setPhone(restaurant.phone);
-    setAddress(restaurant.address);
-    setImageFile(restaurant.image_url);
+    setName(restaurant?.name);
+    setDescription(restaurant?.description);
+    setEmail(restaurant?.email);
+    setPhone(restaurant?.phone);
+    setAddress(restaurant?.address);
+    setImageFile(restaurant?.image_url);
     setPassword("");
     setShowPassword(false);
     console.log("update useeffect", restaurant)
@@ -49,7 +49,7 @@ function DetailCompany() {
   const updateField = async () => {
     try {
       const formData = new FormData();
-      formData.append("id", restaurant.id);
+      formData.append("id", restaurant?.id);
       formData.append("email", email);
       formData.append("description", description);
       formData.append("phone", phone);
@@ -57,8 +57,8 @@ function DetailCompany() {
       formData.append("name", name);
       formData.append("image_url", imageFile);
       dispatch(Update_Empresa(formData));
-      setConfirmationMessage("¡Información actualizada correctamente!");
-      console.log("id del restaurante", restaurant.id)
+      // setConfirmationMessage("¡Información actualizada correctamente!");
+      console.log("id del restaurante", restaurant?.id)
       setIsEditMode(false);
       setSelectedImagePreview(null);
     } catch (error) {
@@ -98,7 +98,18 @@ function DetailCompany() {
 
   return (
     <div>
-      <div className="confirmationMessage">{confirmationMessage}</div>
+           <div className="restaurantH2">
+        <h2>Perfil</h2>
+      </div>
+      <div className="RGDbutton">
+        <button onClick={() => setIsEditMode(true)}>Editar</button>
+        {isEditMode ? (
+          <>
+            <button onClick={updateField}>Guardar</button>
+          </>
+        ) : null}
+      </div>
+      {/* <div className="confirmationMessage">{confirmationMessage}</div> */}
       <div className="infoCompanyContainer">
         <div className="labelContainer">
           <h3>Nombre:</h3>
@@ -145,14 +156,6 @@ function DetailCompany() {
             disabled={!isEditMode}
           />
         </div>
-      </div>
-      <div className="RGDbutton">
-        <button onClick={() => setIsEditMode(true)}>Editar</button>
-        {isEditMode ? (
-          <>
-            <button onClick={updateField}>Guardar</button>
-          </>
-        ) : null}
       </div>
     </div>
   );

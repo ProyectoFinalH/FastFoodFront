@@ -15,7 +15,7 @@
     width: 150vh;
   }
   
-  .styled-table {
+  .container {
     width: 100%;
     border-collapse: collapse;
     margin: 25px 0;
@@ -25,33 +25,35 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
   
-  .styled-table thead tr {
+  .container thead tr {
     background-color: #ff5a5f;
     color: #ffffff;
     text-align: left;
   }
   
-  .styled-table th,
-  .styled-table td {
+  .container th,
+  .container td {
     padding: 12px 15px;
     text-align: center;
   }
   
-  .styled-table tbody tr {
+  .container tbody tr {
     border-bottom: 1px solid #dddddd;
   }
-  
-  .styled-table tbody tr:nth-of-type(even) {
+  .container tbody tr:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .container tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
   }
   
-  .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #ff5a5f;
-  }
+ 
   
-  .styled-table tbody tr.active-row {
+  .container tbody tr.active-row {
     font-weight: bold;
-    color: #009879;
+    
   }
   
   .text-edit-order {
@@ -111,6 +113,17 @@
     height: 20px;
   }
   
+
+  .container table{
+    width: 100%; 
+    table-layout: fixed; 
+    border-collapse: collapse;
+  }
+
+  .container thead {
+    color: white;
+    background-color: #ff5a5f;
+}
 
   /*! Adicional Luis Buelvas div Flotante */
   /* Agrega esto a tu archivo orderCompany.css */

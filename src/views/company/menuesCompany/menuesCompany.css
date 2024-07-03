@@ -5,25 +5,27 @@
     padding: 5px 0px;
     width: 200px;
     font-size: 20px;
-    background-color: #ff4646;
+    background-color: #ff5d5d;
     color: #fff;
     cursor: pointer;
-    border: 1px solid rgb(196, 196, 196);    
+    border: 1px solid rgb(196, 196, 196);
     border-radius: 5px;
-    margin-left: 90px;
+
+    margin-left: 15px;
+
     margin-top: 10px;
     box-shadow: 0px 2px 5px rgb(126, 126, 126);
   }
 
 .menusContainer {
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: scroll;
-    width: 90%;
-    height: 70vh;
-    box-shadow: 0px 0px 15px rgb(143, 143, 143);
-    margin: 20px 0px 0px 5%;
-    border-radius: 10px;
+  margin: 3% 0% 0% 5%;
+  /* display: flex; */
+    /* overflow-y: scroll; */
+    
+    /* box-shadow: 0px 0px 15px rgb(143, 143, 143); */
+    /* margin: 20px 0px 0px 5%; */
+    /* border-radius: 10px; */
+    /* flex-wrap: wrap; */
 }
 .menusContainer::-webkit-scrollbar{
     width: 10px;
@@ -45,23 +47,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex: 1;
+    flex: 1 1;
     border: solid 1px rgb(187, 187, 187);
     padding: 20px;
     margin: 20px;
-    width: 300px;
+    width: 200px;
     border-radius: 20px;
     box-shadow: 0px 5px 5px rgb(196, 196, 196);
     background: rgba(233, 233, 233, 0.8);
     font-size: 1.3rem;
-    height: 80px;
+    height: 120px;
     cursor: default;
     transition: all 0.3s ease-in-out;
 }
 
 .menuCardsCompany:hover {
     transform: translateY(-5px);
-    border: solid 1px rgb(255, 55, 55);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    
 
 }
 
@@ -76,7 +79,7 @@
 
 .button-show {
     cursor: pointer;
-    background-color: #ff3239;
+    background-color: #ff5d5d;
     color: #ffffff;
     align-items: center;
     display: flex;

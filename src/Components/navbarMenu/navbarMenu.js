@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
-import "./navbarMenu.css";
 import { getSelctRestaurantapp } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import { FaSearch } from "react-icons/fa";
+
 function NavbarMenu({
   searchString,
   setSearchString,
@@ -30,23 +31,6 @@ function NavbarMenu({
     applyPriceRangeFilter(range);
   };
 
-  // const Options2 = () => {
-  //   setIsOpen2(!isOpen2);
-  // };
-
-  // const handleLiClick = (e, options) => {
-  //   e.stopPropagation();
-  //   if (options.sortBy) {
-  //     handleSort(options.sortBy);
-  //   }
-  //   if (options.range) {
-  //     handlePriceRange(options.range);
-  //   }
-  //   if (options.category) {
-  //     handleCategoryFilter(options.category);
-  //   }
-  // };
-
   const handleChange = (e) => {
     setSearchString(e.target.value);
   };
@@ -54,48 +38,52 @@ function NavbarMenu({
   useEffect(() => {});
 
   return (
-    <div className="navbarMenuContainer">
-      <form onChange={handleChange}>
-        <div className="searchContainer">
+    <div className="rounded-lg mb-5 h-auto">
+      <form onChange={handleChange} className="flex items-center">
+        <div className="flex items-center justify-between mb-2.5">
           <input
             placeholder="Buscar producto..."
             type="search"
             value={searchString}
             onChange={handleChange}
+            className="w-75 p-2.5 border border-gray-300 rounded-l-lg text-base"
           />
-          <button type="submit" onClick={handleSubmit} className="searchButton">
-            <p>🔍︎</p>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="bg-red-500 text-white border-none p-2.5 rounded-r-lg cursor-pointer flex items-center justify-center h-full"
+          >
+            <FaSearch className="text-2xl" />
           </button>
         </div>
       </form>
-      <div className="customSection">
-        <button onClick={clearFilter}>Deshacer Filtros</button>
+      <div className="mb-5">
+        <button
+          onClick={clearFilter}
+          className="bg-red-500 text-white border-none p-2 rounded-lg cursor-pointer w-full text-left text-lg mb-3.75"
+        >
+          Deshacer Filtros
+        </button>
       </div>
-      <div className="navbarMenuSelect">
-        <div className="customSection">
-          <div className="menuSelectNavbarMenu">
-            <div>
-              <label>Por precio:</label>
-              <select className="" value={sortBy} onChange={handleSortChange}>
-                <option className="optionAdmin" value="">
-                  Ordenar por...
-                </option>
-                <option className="optionAdmin" value="menorPrecio">
-                  Menor precio
-                </option>
-                <option className="optionAdmin" value="mayorPrecio">
-                  Mayor precio
-                </option>
-              </select>
-            </div>
-          </div>
+      <div className="h-[27.5vh] min-h-[80px] flex flex-col overflow-auto">
+        <div className="mb-2.5">
+          <label>Por precio:</label>
+          <select
+            value={sortBy}
+            onChange={handleSortChange}
+            className="bg-red-500 text-white border-none p-2.5 rounded-lg cursor-pointer w-full text-left text-lg mb-3.75"
+          >
+            <option value="">Ordenar por...</option>
+            <option value="menorPrecio">Menor precio</option>
+            <option value="mayorPrecio">Mayor precio</option>
+          </select>
         </div>
-        <div>
+        <div className="mb-2.5">
           <label>Por Rango:</label>
           <select
-            className="menuSelectNavbarMenu"
             value={priceRange}
             onChange={handlePriceRangeChange}
+            className="bg-red-500 text-white border-none p-2.5 rounded-lg cursor-pointer w-full text-left text-lg mb-3.75"
           >
             <option value="">Seleccionar rango...</option>
             <option value="1-5">1 - 5</option>
@@ -104,25 +92,21 @@ function NavbarMenu({
             <option value="31-50">31 - 50</option>
           </select>
         </div>
-
-        <div className="customSection">
-          <div>
-            <div className="spancategoires">Categorías</div>
-          </div>
+        <div className="mb-5">
+          <div className="spancategoires">Categorías</div>
           <select
-            className="menuSelectNavbarMenu"
             id="category-select"
             onChange={(e) => handleCategoryClick(e.target.value)}
+            className="bg-red-500 text-white border-none p-2.5 rounded-lg cursor-pointer w-full text-left text-lg mb-3.75"
           >
             <option value="">Todas</option>
-            {allCategories?.map((category) => (
-              category.restaurant_id === getSelctRestaurantapp()
-              ?<><option key={category?.id } value={category?.id}>
-              {category?.name}
-            </option></>
-            :null
-              
-            ))}
+            {allCategories?.map((category) =>
+              category.restaurant_id === getSelctRestaurantapp() ? (
+                <option key={category?.id} value={category?.id}>
+                  {category?.name}
+                </option>
+              ) : null
+            )}
           </select>
         </div>
       </div>

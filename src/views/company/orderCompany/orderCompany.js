@@ -134,9 +134,13 @@ const handleAproved = ()=>{
 
   return (
     <div className='orderCompany'>
-      <h1>OrderCompany</h1>
+     <div className="restaurantH2">
+          <h2>Ordenes</h2>
+         </div>
       <div className="container">
-        <table className="styled-table">
+        <table 
+        // className="styled-table"
+        >
           <thead>
             <tr>
               <th>Order</th>
@@ -151,11 +155,13 @@ const handleAproved = ()=>{
           </thead>
           <tbody>
             {Order_List_Company.map((order) => (
-              <tr key={order.id}     className={ order.status_order === "Registrada"
-                ? "Clas-order-Registrada"
-                : order.status_order === "Pago aceptado"
-                ? "Clas-order-Aceptado"
-                : "Clas-order-Reprobado"}   >
+              <tr key={order.id}    
+              //  className={ order.status_order === "Registrada"
+              //   ? "Clas-order-Registrada"
+              //   : order.status_order === "Pago aceptado"
+              //   ? "Clas-order-Aceptado"
+              //   : "Clas-order-Reprobado"}  
+                 >
                 <td>{order.id}</td>
                 <td>{order.user_name || 'Sin nombre'}</td>
                 <td>
