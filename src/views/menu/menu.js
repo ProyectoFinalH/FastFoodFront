@@ -184,7 +184,7 @@ function Menu() {
       {loading && <Loading />}
       <Navbar />
       <div className="flex flex-1 overflow-auto">
-        <div className="w-72 bg-white bg-opacity-95 p-4 flex flex-col gap-4 sticky top-0">
+        <div className="w-72 bg-white bg-opacity-95 p-4 flex flex-col gap-4 sticky top-0 z-50">
           <button
             className="bg-red-500 text-white border-none py-2 px-4 rounded-md shadow-md hover:shadow-lg transform hover:translate-y-0.5 transition-transform"
             onClick={handleGoBack}
