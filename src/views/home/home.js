@@ -7,7 +7,7 @@ import CardsRestaurant from "../../Components/cards/cardsRestaurant/cardsRestaur
 import Slider from "../../Components/slider";
 import Image1 from "../../images/Image1.jpg";
 import Image2 from "../../images/image2.jpg";
-import Image3 from "../../images/image4.jpg";
+import Image3 from "../../images/image3.jpg";
 import Footer from "../../Components/Footer/Footer";
 
 import {

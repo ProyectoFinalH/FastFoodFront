@@ -21,16 +21,18 @@
     justify-content: space-around;
     font-size: 10px;
     cursor: pointer;
+    font-size: 20px;
    
 }
 
 .buttonDashboard img {
     object-fit: contain;
     width: 100%;
-    height: 20px;
+    height: 18px;
 }
 
 .tittleDash{
-    margin-left: 20px;
+    font-size: 20px;
+    margin: 20px;
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./menusAdmin.css";
-import NavbarAdmin from "../navbarAdmin/navbarAdmin";
+
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,8 +23,10 @@ function MenusAdmin() {
 
 
   return (
-    <div className="">
-      <NavbarAdmin />
+    <div className="CardsAdminContainer">
+     <div className="restaurantH2">
+        <h2>Menues</h2>
+       </div>
       {allRestaurantsAdmin.map((restaurant) => (
         <MenusRestAdmin key={restaurant.id} restaurant={restaurant} />
       ))}

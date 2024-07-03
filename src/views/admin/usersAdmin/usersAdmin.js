@@ -3,7 +3,7 @@ import { useEffect, useState} from "react";
 import "./usersAdmin.css";
 import activar from "../../../images/activar.png";
 import desactivar from "../../../images/desactivar.png";
-import NavbarAdmin from "../navbarAdmin/navbarAdmin";
+
 import { useDispatch, useSelector } from "react-redux";
 import { PutUsers, getAllUsersAdmin } from "../../../Redux/actions";
 import deshacer from "../../../images/deshacer.png"
@@ -83,7 +83,6 @@ const handleClearFilter = (e) => {
 const filteredUsers = filterUsers.filter((user)=> user.role_id === 1)
 return (
   <div className="restaurantAdminContainer">
-       <NavbarAdmin/>
        <div className="restaurantH2">
         <h2>Usuarios</h2>
        </div>

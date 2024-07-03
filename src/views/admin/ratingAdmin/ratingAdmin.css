@@ -1,3 +1,8 @@
+.RatingContainer{
+    display: block;
+    margin-left: 20px;
+}
+
 .RatingRestContainer{
     margin: 30px;
     background-color: #fafafa;

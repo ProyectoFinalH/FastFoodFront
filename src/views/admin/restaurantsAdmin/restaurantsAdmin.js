@@ -2,7 +2,7 @@ import "./restaurantsAdmin.css";
 
 import activar from "../../../images/activar.png";
 import desactivar from "../../../images/desactivar.png";
-import NavbarAdmin from "../navbarAdmin/navbarAdmin";
+
 import { useDispatch, useSelector } from "react-redux";
 import { PutRestaurants, getAllRestaurantsAdmin } from "../../../Redux/actions";
 import { useEffect, useState } from "react";
@@ -86,7 +86,7 @@ function RestaurantsAdmin() {
 
   return (
     <div className="restaurantAdminContainer">
-      <NavbarAdmin />
+
       <div className="restaurantH2">
         <h2>Restaurantes</h2>
       </div>
