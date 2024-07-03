@@ -214,7 +214,7 @@ function Menu() {
             </div>
           </div>
           {ratings && (
-            <div className="absolute top-0 left-0 right-0 bottom-0 bg-white z-50">
+            <div className="absolute top-0 left-0 right-0 bottom-0 z-50">
               <Rating
                 onClose={handleCloseRating}
                 restaurantId={restaurant1?.id}
@@ -249,7 +249,7 @@ function Menu() {
             </div>
           </div>
         </div>
-        <div className="flex-1 p-4 flex flex-col gap-4">
+        <div className="flex-1 p-4 flex flex-col gap-4 z-10">
           {allMenus?.map((menu) => {
             const menuItems = filteredMenuItems?.filter(
               (menuItem) =>
