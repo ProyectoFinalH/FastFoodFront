@@ -21,9 +21,9 @@ function RatingAdmin() {
   }
 
   return (
-    <div className="RatingContainer">
+    <div className="OrdersAdminContainerPrincipal">
       <div className="restaurantH2">
-        <h2>Ordenes</h2>
+        <h2>Calificaciones</h2>
       </div>
       {restaurants?.map((restaurant) => (
         <div className="RatingRestContainer" key={restaurant?.key}>

@@ -21,12 +21,12 @@ function Company() {
     dispatch(Create_Lista_Order_Company());
   }, [dispatch]);
   
-  const restaurant = Restaurant;
+  // const restaurant = Restaurant;
 
-useEffect(()=>{
-  dispatch(getAllRestaurants())
-  dispatch(Create_Lista_Order_Company())
-},[dispatch])
+// useEffect(()=>{
+//   dispatch(getAllRestaurants())
+//   dispatch(Create_Lista_Order_Company())
+// },[dispatch])
 
 
 
@@ -35,7 +35,7 @@ useEffect(()=>{
       
 
 <div>
-  <Sidebar restaurant={restaurant}/>
+  <Sidebar restaurant={Restaurant}/>
 
 </div>
     </div>
