@@ -35,7 +35,7 @@ const Footer = () => {
       name: "Luis Buelvas",
       icon: "icon4",
       image: LuisImage,
-      linkedin: "https://www.linkedin.com/in/luis-buelvas/",
+      linkedin: "https://github.com/CunGemcrak",
     },
     {
       id: 5,
