@@ -1,11 +1,12 @@
 import Sidebar from "./sidebar/sidebar"
-import logo from "../../images/logo.png"
+
 import "./company.css"
 
 
 import { getAllRestaurants, Create_Lista_Order_Company} from "../../Redux/actions"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+
 
 
 function Company() {
@@ -31,9 +32,8 @@ useEffect(()=>{
 
   return (
     <div className="companyContainer">
-<div className="navbarCompany">
-  <img src={logo} alt="logo"/>
-</div>
+      
+
 <div>
   <Sidebar restaurant={restaurant}/>
 

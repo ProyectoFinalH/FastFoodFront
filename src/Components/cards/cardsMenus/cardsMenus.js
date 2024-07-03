@@ -34,8 +34,10 @@ import { getSelctRestaurantapp } from "../../Login/Login_Ingreso/LocalStorange_u
 import { useEffect, useState } from "react";
 
 function CardsMenus({ AllMenus, handleSelectMenu }) {
+  const selectedRestaurant = useSelector((state) => state.SELCTRESTAURANT);
 
-  const selectedRestaurant = useSelector((state)=>state.SELCTRESTAURANT)
+
+  
   
   
   const [restaurant, seletRestaurant] = useState()
@@ -46,21 +48,26 @@ function CardsMenus({ AllMenus, handleSelectMenu }) {
       seletRestaurant(selectedRestaurant)
     }
   },[selectedRestaurant])
+
+
+ 
+
   return (
-    <div className="cardsMenusContainer">
-  {AllMenus &&
-    AllMenus.map((menu) =>
-      restaurant === menu.restaurant_id ? (
-        <CardMenus
-          key={menu.id}
-          id={menu.id}
-          name={menu.name}
-          restaurant_id={menu.restaurant_id}
-          handleSelectMenu={handleSelectMenu}
-        />
-      ) : null
-    )}
-</div>
+    <div className="flex w-full flex-wrap justify-start">
+      {AllMenus &&
+        AllMenus.map((menu) =>
+          selectedRestaurant === menu.restaurant_id ? (
+            <CardMenus
+              key={menu.id}
+              id={menu.id}
+              name={menu.name}
+              restaurant_id={menu.restaurant_id}
+              handleSelectMenu={handleSelectMenu}
+            />
+          ) : null
+        )}
+    </div>
+
   );
 }
 

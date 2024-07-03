@@ -36,14 +36,16 @@ function Rating({ onClose, restaurantId }) {
     >
       <div className="bg-white p-4 border border-gray-300 rounded-lg shadow-md w-[120vh] animate-modal ">
         <div className="relative overflow-x-hidden h-[70vh] scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-200">
-          <span
-            className="absolute top-2 right-4 text-gray-600 cursor-pointer"
+          <button
+            className="absolute top-2 right-4 text-gray-600 hover:text-primary"
             onClick={onClose}
           >
-            &times;
-          </span>
-          <h2 className="text-xl font-bold">Comentarios y Opiniones</h2>
-          <div className="p-4">
+            <span className="text-2xl">&times;</span>
+          </button>
+          <h2 className="text-xl font-bold absolute top-2 left-4">
+            Comentarios y Opiniones
+          </h2>
+          <div className="p-4 mt-12">
             {activeComments.length === 0 ? (
               <div className="py-4">
                 <p className="text-gray-600">No hay reseñas activas.</p>
@@ -65,21 +67,21 @@ function Rating({ onClose, restaurantId }) {
                           />
                         </div>
                         <div>
-                          <h2 className="text-lg font-semibold text-gray-800">
-                            {comment.user_name}
-                          </h2>
-                          <div className="flex items-center space-x-1">
-                            <StarRating rating={comment.rating} />
+                          <div className="flex items-center space-x-2">
+                            <h2 className="text-lg font-semibold text-gray-800">
+                              {comment.user_name}
+                            </h2>
                             <p className="text-gray-600 text-sm">
                               {comment.created_at.slice(0, 10)}
                             </p>
                           </div>
+                          <p className="text-gray-700 mt-2">
+                            {truncate(comment.comment, 60)}
+                          </p>
+                          <div className="flex items-center mt-2">
+                            <StarRating rating={comment.rating} />
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex-1 ml-4">
-                        <p className="text-gray-700">
-                          {truncate(comment.comment, 60)}
-                        </p>
                       </div>
                     </div>
                   </li>

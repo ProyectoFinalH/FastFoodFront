@@ -1,9 +1,15 @@
 .restaurantAdminContainer {
   display: block;
+  margin-left: 20px;
 }
 
 .restaurantH2 {
-  margin-left: 20px;
+  display: flex;
+  font-size: 20px;
+  background-color: #ff5a5f;
+  padding: 10px;
+  color: white;
+  
 }
 .cardRestaurant {
   display: flex;
@@ -84,9 +90,9 @@
 .SearchRestAdmin {
   width: 100%;
   display: flex;
+
+  margin-left: 5px;
   align-items: center;
-  justify-content: space-between;
-  margin-left: 20px;
 }
 .inputSearchResAdmin {
   display: flex;
@@ -119,7 +125,8 @@
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
-  margin-right: 30px;
+
+  align-items: center;
 }
 
 .selectAdmin {
@@ -150,13 +157,50 @@
   color: white;
 }
 
-.SelectsContainerAdmin {
+/* .SelectsContainerAdmin {
   display: flex;
   margin-left: 20px;
   margin-bottom: 10px;
   align-items: center;
-}
+} */
 .RestauranteContainerAdmin {
   display: flex;
   flex-wrap: wrap;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  .selectsAdmin{
+    width: 400px;
+  }
+  .selectsAdmin {
+    font-size: 15px;
+    width: 300px;
+  }
+
+  .SearchRestAdmin {
+    margin-top: 15px;
+    flex-direction: column;
+  }
+
+  .inputSearchResAdmin {
+    margin-bottom: 10px;
+  }
+
+  .selectAdmin {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .buttonDesOrder {
+    margin-top: 10px;
+  }
+
+  .cardRestaurant {
+    grid-template-columns: 1fr; /* Ajusta el diseño de la tarjeta del restaurante para una columna en dispositivos móviles */
+  }
+ /* .SelectsContainerAdmin{
+
+ } */
 }

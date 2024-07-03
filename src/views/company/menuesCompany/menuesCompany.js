@@ -60,7 +60,10 @@ function MenuesCompany() {
 
     return (
         <div className="mainContainerMenues">
-            <div className="linktocreate2">
+             <div className="restaurantH2">
+        <h2>Menús</h2>
+      </div>
+            <div className="linktocreate">
                 <ReactModal
                     isOpen={showCreateCategoryModal}
                     onRequestClose={() => setShowCreateCategoryModal(false)}
