@@ -113,43 +113,42 @@ function CardMenuItems({
             {description.substring(0, 30)}...
           </p>
           
-          {/* <div className="flex items-center justify-between mt-auto"> */}
           {!hideCartButtons && (
-            <div className="flex items-center">
-              <h2 className="cardPrice text-xl font-bold text-red-500">${price}</h2>
-              <div className="buttonDecInc-Menu flex items-center space-x-2">
-                <button
-                  className="aumentardisminuir w-8 h-8 flex items-center justify-center bg-gray-200 border border-gray-300 rounded"
-                  onClick={handleRestar}
+            <div className="flex items-center justify-between mt-auto">
+              <div className="flex items-center">
+                <h2 className="cardPrice text-xl font-bold text-red-500">${price}</h2>
+              </div>
+              <div className="flex items-center space-x-10">
+                <div className="buttonDecInc-Menu flex items-center space-x-2">
+                  <button
+                    className="aumentardisminuir w-8 h-8 flex items-center justify-center bg-gray-200 border border-gray-300 rounded"
+                    onClick={handleRestar}
+                  >
+                    -
+                  </button>
+                  <input
+                    className="inputcard w-12 text-center text-lg font-semibold"
+                    type="text"
+                    value={obtenerContCarrito(id_Card.id)}
+                    disabled
+                  />
+                  <button
+                    className="aumentardisminuir w-8 h-8 flex items-center justify-center bg-gray-200 border border-gray-300 rounded"
+                    onClick={handleSumar}
+                  >
+                    +
+                  </button>
+                </div>
+                <div
+                  onClick={handleMenuCarrito}
+                  className="carritoIcon w-10 h-10 flex items-center justify-center cursor-pointer transition-transform duration-300 transform hover:scale-110 bg-red-500 text-white rounded-full"
+                  title="Ve Al Carrito"
                 >
-                  -
-                </button>
-                <input
-                  className="inputcard w-12 text-center text-lg font-semibold"
-                  type="text"
-                  value={obtenerContCarrito(id_Card.id)}
-                  disabled
-                />
-                <button
-                  className="aumentardisminuir w-8 h-8 flex items-center justify-center bg-gray-200 border border-gray-300 rounded"
-                  onClick={handleSumar}
-                >
-                  +
-                </button>
+                  <RiShoppingCart2Line className="text-white" />
+                </div>
               </div>
             </div>
           )}
- {!hideCartButtons && (
-            <div
-              onClick={handleMenuCarrito}
-              className="carritoIcon w-10 h-10 flex items-center justify-center cursor-pointer transition-transform duration-300 transform hover:scale-110 bg-red-500 text-white rounded-full"
-              title="Ve Al Carrito"
-            >
-              <RiShoppingCart2Line className="text-white" />
-            </div>
-          )}
-    
-          
           {showEyeIcon && (
             <div
               onClick={toggleItemState}
