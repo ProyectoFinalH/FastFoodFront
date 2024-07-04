@@ -17,12 +17,13 @@ function Detail({ isOpen, handleCloseModal, menuItemId }) {
   const [cant, setCant] = useState(1);
 
   const detailRef = useRef(null);
+  const URLBACK="https://fastfoodback3-production.up.railway.app";
 
   useEffect(() => {
     const fetchMenuItem = async () => {
       try {
         const { data } = await axios(
-          `http://localhost:5000/menuitems/${menuItemId}`
+          URLBACK+`/menuitems/${menuItemId}`
         );
         if (data?.id) {
           setMenuItem(data);

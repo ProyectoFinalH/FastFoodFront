@@ -47,6 +47,9 @@ const RespuestaCarrito = () => {
     return total + parseFloat(item.price) * item.cont;
   }, 0);
 
+  const URLFRONT="https://fast-food-front-deploy.vercel.app";
+
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -80,16 +83,17 @@ const RespuestaCarrito = () => {
     }
   }, [collectionStatus, dispatch]);
 
-  const handeComprar = () => {
-    removeOrder();
-    resetearCarrito();
+  const handeComprar = ()=>{
+    removeOrder() 
+    resetearCarrito(); 
+   
+    window.location.replace(URLFRONT+'/home')
+  }
 
-    window.location.replace("http://localhost:3000/home");
-  };
-
-  const handeRegresar = () => {
-    window.location.replace("http://localhost:3000/home");
-  };
+  
+  const handeRegresar=()=>{
+    window.location.replace(URLFRONT+'/home')
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">

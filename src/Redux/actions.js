@@ -59,6 +59,8 @@ import {
 } from "../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 //import { get } from "firebase/database";
 
+const URLBACK="https://fastfoodback3-production.up.railway.app";
+
 export const logoutUser = () => {
   return {
     type: LOGOUT_USER,
@@ -76,7 +78,7 @@ export const register_user = (dataquery) => {
         role_id: 1,
       };
       // alert ("usuario "+userData.username)
-      const endpoint = "http://localhost:5000/users/create";
+      const endpoint = URLBACK+"/users/create";
 
       const response = await axios.post(endpoint, userData);
       const { id, username, email, password, google_id, role_id } =
@@ -115,8 +117,10 @@ export const register_business = (dataquery) => {
         phone: "",
         description: "",
       };
-      console.log(JSON.stringify(userData));
-      const endpoint = "http://localhost:5000/restaurants/create";
+
+      console.log(JSON.stringify(userData))
+      const endpoint = URLBACK+"/restaurants/create";
+
       const response = await axios.post(endpoint, userData);
       if (response) {
         return true;
@@ -133,7 +137,7 @@ export const register_business = (dataquery) => {
 export const recovery_key_user = (dataquery) => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:5000/atleticos/register";
+      const endpoint = URLBACK+"/atleticos/register";
       const response = await axios.post(endpoint, dataquery);
       const userData = response.data;
 
@@ -145,7 +149,7 @@ export const recovery_key_user = (dataquery) => {
           payload: userData,
         });
       } else {
-        alert("Error al registrar el usuario");
+        alertify.alert("Error al registrar el usuario");
       }
     } catch (error) {
       console.log("Error al enviar la información", error.message);
@@ -173,7 +177,7 @@ export const login_User = (dataquery) => {
           email: dataquery.emailOrPhone,
           password: dataquery.password,
         };
-        const endpoint = "http://localhost:5000/users/login";
+        const endpoint = URLBACK+"/users/login";
         const responseToken = await axios.post(endpoint, userData);
         console.log(responseToken.data);
         const response = jwtDecode(responseToken.data); //decodificando el token que manda el back
@@ -208,10 +212,10 @@ export const login_User = (dataquery) => {
 export const login_User_Google = (dataquery) => {
   return async (dispatch) => {
     try {
-      const endpoint = "http://localhost:5000/users/auth/google";
-      const responseToken = await axios.post(endpoint, {
-        token: dataquery.token,
-      });
+
+      const endpoint = URLBACK+"/users/auth/google";
+      const responseToken = await axios.post(endpoint, { token: dataquery.token });
+
 
       const response = jwtDecode(responseToken.data); //decodificando el token que manda el back
 
@@ -265,13 +269,15 @@ export const login_Busnnes = (dataUser) => {
         password: dataUser.password,
       };
 
-      const endpoint = "http://localhost:5000/restaurants/login";
-      const response = await axios.post(endpoint, userData);
-      const empresa = response.data;
-      console.log("Encontrado " + JSON.stringify(empresa));
-      // Assuming the backend returns a JWT token upon successful login,
-      // store the token in localStorage for persistent session management
-      localStorage.setItem("token", empresa.token);
+
+        const endpoint = URLBACK+"/restaurants/login";
+        const response = await axios.post(endpoint, userData);
+        const empresa = response.data;
+        console.log("Encontrado " + JSON.stringify(empresa))
+        // Assuming the backend returns a JWT token upon successful login,
+        // store the token in localStorage for persistent session management
+        localStorage.setItem("token", empresa.token);
+
 
       // Update Redux state with the authenticated user data
       dispatch({
@@ -287,7 +293,7 @@ export const login_Busnnes = (dataUser) => {
 
 export function getAllMenus() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:5000/menus");
+    const response = await axios(URLBACK+"/menus");
     return dispatch({
       type: GET_MENUS,
       payload: response.data,
@@ -300,7 +306,9 @@ export function getAllMenusAdmin() {
     const token = getState().token.data;
     configureAxios(token);
 
-    const response = await axiosInstance.get(`http://localhost:5000/menus/all`);
+    
+    const response = await axiosInstance.get(URLBACK+`/menus/all`);
+
     return dispatch({
       type: GET_MENUS_ADMIN,
       payload: response.data,
@@ -313,9 +321,9 @@ export function getAllMenusCompany() {
     const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
 
-    const response = await axiosInstance.get(
-      `http://localhost:5000/menus/restaurant/${restaurantId}`
-    );
+    
+    const response = await axiosInstance.get(URLBACK+`/menus/restaurant/${restaurantId}`);
+
     return dispatch({
       type: GET_MENUS_COMPANY,
       payload: response.data,
@@ -327,9 +335,9 @@ export function getAllMenuitemsCompany() {
     const token = getState().token.data;
     const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
-    const response = await axiosInstance.get(
-      `http://localhost:5000/menuitems/restaurant/${restaurantId}`
-    );
+
+    const response = await axiosInstance.get(URLBACK+`/menuitems/restaurant/${restaurantId}`);
+
     return dispatch({
       type: GET_MENUITEMS_COMPANY,
       payload: response.data,
@@ -341,9 +349,9 @@ export function getAllMenuitemsAdmin() {
   return async function (dispatch, getState) {
     const token = getState().token.data;
     configureAxios(token);
-    const response = await axiosInstance.get(
-      `http://localhost:5000/menuitems/all`
-    );
+
+    const response = await axiosInstance.get(URLBACK+`/menuitems/all`);
+
     return dispatch({
       type: GET_MENUITEMS_ADMIN,
       payload: response.data,
@@ -352,7 +360,7 @@ export function getAllMenuitemsAdmin() {
 }
 export function getAllMenuitems() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:5000/menuitems");
+    const response = await axios(URLBACK+"/menuitems");
     return dispatch({
       type: GET_MENUITEMS,
       payload: response.data,
@@ -363,7 +371,7 @@ export function getAllMenuitems() {
 export function getMenuItemsByName(name) {
   return async function (dispatch) {
     const response = await axios(
-      `http://localhost:5000/menuitems/search?name=${name}`
+      URLBACK+`/menuitems/search?name=${name}`
     );
     return dispatch({
       type: GET_MENUITEMS_BYNAME,
@@ -374,7 +382,7 @@ export function getMenuItemsByName(name) {
 
 export function getAllRestaurants() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:5000/restaurants");
+    const response = await axios(URLBACK+"/restaurants");
     return dispatch({
       type: GET_RESTAURANTS,
       payload: response.data,
@@ -387,9 +395,7 @@ export function getAllRestaurantsAdmin() {
     configureAxios(token);
 
     try {
-      const response = await axiosInstance(
-        "http://localhost:5000/restaurants/all"
-      );
+      const response = await axiosInstance(URLBACK+"/restaurants/all");
       dispatch({
         type: GET_RESTAURANTS_ALL,
         payload: response.data,
@@ -414,11 +420,8 @@ export function CreateMenu(dataquery) {
     const restaurantId = getState().EMPRESAUSER.id;
 
     try {
-      const endpoint = "http://localhost:5000/menus/create";
-      const response = await axiosInstance.post(endpoint, {
-        ...dataquery,
-        restaurant_id: restaurantId,
-      });
+      const endpoint = URLBACK+"/menus/create";
+      const response = await axiosInstance.post(endpoint, { ...dataquery, restaurant_id: restaurantId });
       const menuData = response.data;
 
       console.log("Datos encontrados", JSON.stringify(menuData));
@@ -440,7 +443,7 @@ export function CreateMenuItems(formData) {
     const restaurantId = getState().EMPRESAUSER.id;
 
     try {
-      const endpoint = "http://localhost:5000/menuitems/create";
+      const endpoint = URLBACK+"/menuitems/create";
 
       // Verifica el contenido de FormData antes de enviarlo
       formData.append("restaurant_id", restaurantId);
@@ -474,11 +477,8 @@ export function CreateCategory(dataquery) {
     const restaurantId = getState().EMPRESAUSER.id;
 
     try {
-      const endpoint = "http://localhost:5000/categories/create";
-      const response = await axiosInstance.post(endpoint, {
-        ...dataquery,
-        restaurant_id: restaurantId,
-      });
+      const endpoint = URLBACK+"/categories/create";
+      const response = await axiosInstance.post(endpoint, { ...dataquery, restaurant_id: restaurantId });
       const categoriesData = response.data;
       console.log("Datos encontrados", JSON.stringify(categoriesData));
       dispatch({
@@ -494,7 +494,7 @@ export function CreateCategory(dataquery) {
 
 export function getAllCategories() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:5000/categories");
+    const response = await axios(URLBACK+"/categories");
     console.log("Categorías obtenidas:", response.data);
     return dispatch({
       type: GET_CATEGORIES,
@@ -505,30 +505,30 @@ export function getAllCategories() {
 
 export const updateUser = (id, userData) => {
   return async (dispatch, getState) => {
-    const token = getState().token;
-    configureAxios(token.data);
-    if (!token) {
-      console.error("Token de autenticación no encontrado.");
-      alert("Usuario no autenticado. Inicia sesión nuevamente.");
-      throw new Error("Usuario no autenticado.");
-    }
+      const token = getState().token;
+      configureAxios(token.data);
+      if (!token) {
+          console.error("Token de autenticación no encontrado.");
+          alertify.alert("Usuario no autenticado. Inicia sesión nuevamente.");
+          throw new Error("Usuario no autenticado.");
+      }
     try {
-      console.log("data a modificar del user", userData);
-      const endpoint = `http://localhost:5000/users/${id}`;
+      console.log('data a modificar del user',userData);
+      const endpoint = URLBACK+`/users/${id}`;
       const response = await axiosInstance.put(endpoint, userData);
-      dispatch({
-        type: UPDATE_USER,
-        payload: response.data,
-      });
-      dispatch({
-        type: UPDATE_USER_DATA,
-        payload: response.data,
-      });
-    } catch (error) {
-      console.error("Error al actualizar usuario:", error.message);
-      alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
-      throw error;
-    }
+       dispatch({
+              type: UPDATE_USER,
+              payload: response.data,
+          });
+          dispatch({
+            type: UPDATE_USER_DATA,
+            payload: response.data, 
+          })
+      } catch (error) {
+          console.error("Error al actualizar usuario:", error.message);
+          //alert("Error al actualizar usuario. Por favor, intenta nuevamente.");
+          throw error;
+      }
   };
 };
 
@@ -563,7 +563,7 @@ export const Desarrollode_Compra = (cards, id, res_id) => {
       console.log("Dataquery:", dataquery); // Verificar el formato de dataquery
 
       console.log("Datos enviados: " + JSON.stringify(dataquery));
-      const endpoint = "http://localhost:5000/orders/create";
+      const endpoint = URLBACK+"/orders/create";
       const response = await axiosInstance.post(endpoint, dataquery);
       const compra = response.data;
 
@@ -589,7 +589,7 @@ export const Create_Lista_Order_Company = () => {
     const restaurantId = getState().EMPRESAUSER.id;
     configureAxios(token);
     try {
-      const endpoint = `http://localhost:5000/orders/restaurant/${restaurantId}`;
+      const endpoint = URLBACK+`/orders/restaurant/${restaurantId}`;
       const response = await axiosInstance.get(endpoint);
       const compra = response.data;
       //alert("Esta es la lista de compras "+compra)
@@ -600,7 +600,7 @@ export const Create_Lista_Order_Company = () => {
         payload: compra,
       });
     } catch (error) {
-      alert("Error al enviar la información", error.message);
+      //alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -613,8 +613,8 @@ export const Eliminar_Registro_Compra = (id) => {
     configureAxios(token);
 
     try {
-      console.log(id);
-      const endpoint = `http://localhost:5000/orders/delete/${id}`;
+      console.log(id)
+      const endpoint = URLBACK+`/orders/delete/${id}`;
       const response = await axiosInstance.put(endpoint);
       const data = response;
       //alert("Esta es la lista de compras "+compra)
@@ -622,7 +622,7 @@ export const Eliminar_Registro_Compra = (id) => {
 
       return data;
     } catch (error) {
-      alert("Error al enviar la información", error.message);
+      //alert("Error al enviar la información", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -636,7 +636,7 @@ export const Listado_Orders_Usuario = (userId) => {
     configureAxios(token);
 
     try {
-      const endpoint = `http://localhost:5000/orders/user/${userId}`;
+      const endpoint = URLBACK+`/orders/user/${userId}`;
       const response = await axiosInstance.get(endpoint);
 
       console.log("Respuesta del servidor:", response);
@@ -663,8 +663,8 @@ export const Actualizar_Compra_Usuario = (datauser) => {
 
     try {
       console.log("Estos son los datos a enviar: " + JSON.stringify(datauser));
-
-      const endpoint = `http://localhost:5000/orders/${datauser.id}`;
+     
+      const endpoint = URLBACK+`/orders/${datauser.id}`;
       const response = await axiosInstance.put(endpoint, {
         total_price: datauser.total_price,
         items: datauser.items,
@@ -679,7 +679,7 @@ export const Actualizar_Compra_Usuario = (datauser) => {
         payload: compra,
       }); */
     } catch (error) {
-      alert(`Error al enviar la información del carrito: ${error.message}`);
+      //alert(`Error al enviar la información del carrito: ${error.message}`);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -692,7 +692,7 @@ export const Deshabilito_Compra_User = (id) => {
     configureAxios(token);
 
     try {
-      const endpoint = `http://localhost:5000/orders/delete/${id}`;
+      const endpoint = URLBACK+`/orders/delete/${id}`;
       const response = await axiosInstance.put(endpoint);
       const compra = response.data;
 
@@ -701,7 +701,7 @@ export const Deshabilito_Compra_User = (id) => {
         payload: compra,
       });
     } catch (error) {
-      alert("Error al enviar la del deshacer carrito", error.message);
+      //alert("Error al enviar la del deshacer carrito", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -713,7 +713,7 @@ export function getAllUsersAdmin() {
     configureAxios(token);
 
     try {
-      const response = await axiosInstance("http://localhost:5000/users/all");
+      const response = await axiosInstance(URLBACK+"/users/all");
       dispatch({
         type: GET_USERS_ALL,
         payload: response.data,
@@ -737,7 +737,7 @@ export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
     };
 
     try {
-      const endpoint = "http://localhost:5000/mercadopago/create";
+      const endpoint = URLBACK+"/mercadopago/create";
       const response = await axiosInstance.post(endpoint, mercadopago);
       const compra = response.data;
 
@@ -750,7 +750,7 @@ export const ID_Registro_Mercado_Pago = (DAtosMercadoPAgo) => {
  
 */
     } catch (error) {
-      alert("Error al enviar compra del carrito", error.message);
+      //alert("Error al enviar compra del carrito", error.message);
       console.log("Error al enviar la información", error.message);
     }
   };
@@ -762,7 +762,7 @@ export function getOrdersAdmin() {
     configureAxios(token);
 
     try {
-      const response = await axiosInstance("http://localhost:5000/orders/all");
+      const response = await axiosInstance(URLBACK+"/orders/all");
       dispatch({
         type: GET_ORDERS_ADMIN,
         payload: response.data,
@@ -780,7 +780,7 @@ export const PutRestaurants = (id, isActive) => {
 
     try {
       const response = await axiosInstance.put(
-        `http://localhost:5000/restaurants/${
+        URLBACK+`/restaurants/${
           isActive ? "restore" : "delete"
         }/${id}`
       );
@@ -805,7 +805,7 @@ export const PutUsers = (id, isActive) => {
 
     try {
       const response = await axiosInstance.put(
-        `http://localhost:5000/users/${isActive ? "restore" : "delete"}/${id}`
+        URLBACK+`/users/${isActive ? "restore" : "delete"}/${id}`
       );
 
       // Suponiendo que la API devuelve el restaurante actualizado con `id` y `active`
@@ -828,7 +828,7 @@ export const PutMenus = (id, isActive) => {
 
     try {
       const response = await axiosInstance.put(
-        `http://localhost:5000/menus/${isActive ? "restore" : "delete"}/${id}`
+        URLBACK+`/menus/${isActive ? "restore" : "delete"}/${id}`
       );
 
       // Suponiendo que la API devuelve el restaurante actualizado con `id` y `active`
@@ -850,7 +850,8 @@ export const PutItemMenu = (id, isActive) => {
 
     try {
       const response = await axiosInstance.put(
-        `http://localhost:5000/menuitems/${
+
+        URLBACK+`/menuitems/${
           isActive ? "restore" : "delete"
         }/${id}`
       );
@@ -872,8 +873,9 @@ export const PutItemMenu = (id, isActive) => {
 export const loginAdmin = (formData) => {
   return async (dispatch) => {
     try {
-      const URL = "http://localhost:5000/users/login";
-      let response = await axios.post(URL, formData);
+      const URL=URLBACK+"/users/login"
+      console.log(URL);
+      let response=await axios.post(URL,formData);
 
       return dispatch({
         type: ADMIN_LOGIN,
@@ -903,16 +905,14 @@ export function getAllCategoriesAdmin() {
     configureAxios(token);
 
     try {
-      const response = await axiosInstance(
-        `http://localhost:5000/categories/restaurant/${restaurantId}`
-      );
+      const response = await axiosInstance(URLBACK+`/categories/restaurant/${restaurantId}`);
       console.log("Categorías obtenidas:", response.data);
       return dispatch({
         type: GET_CATEGORIES_ADMIN,
         payload: response.data,
       });
     } catch (error) {
-      alertify.alert("Mensaje", "No hay categorias");
+      //alertify.alert("Mensaje", 'No hay categorias');
     }
   };
 }
@@ -923,16 +923,14 @@ export function getAllCategoriesCompany() {
     configureAxios(token);
 
     try {
-      const response = await axiosInstance(
-        `http://localhost:5000/categories/restaurant/${restaurantId}`
-      );
+      const response = await axiosInstance(URLBACK+`/categories/restaurant/${restaurantId}`);
       console.log("Categorías obtenidas:", response.data);
       return dispatch({
         type: GET_CATEGORIES_COMPANY,
         payload: response.data,
       });
     } catch (error) {
-      alertify.alert("Mensaje", "No hay categorias");
+      //alertify.alert("Mensaje", 'No hay categorias');
     }
   };
 }
@@ -947,16 +945,10 @@ export const Actualizar_Orden_Compra_MP = (ordenid, orderData) => {
 
     try {
       // Asegúrate de utilizar el método HTTP correcto (PUT o PATCH)
-      const response = await axios.put(
-        `http://localhost:5000/orders/status/${ordenid}`,
-        {
-          statusorder_id: orderData, // Enviar orderData en el cuerpo de la solicitud
-        }
-      );
-      console.log(
-        "Orden actualizada orden completo:",
-        JSON.stringify(response)
-      );
+      const response = await axios.put(URLBACK+`/orders/status/${ordenid}`, {
+        statusorder_id: orderData // Enviar orderData en el cuerpo de la solicitud
+      });
+     console.log("Orden actualizada orden completo:", JSON.stringify(response));
       return true;
     } catch (error) {
       console.error("Orden actualizada orden completo Otro error:", error);
@@ -1008,10 +1000,11 @@ export const login_Emrpesa = (userData) => {
       password: userData.password,
     };
     try {
-      const endpoint = "http://localhost:5000/restaurants/login";
-      const responseToken = await axios.post(endpoint, user);
-      const response = jwtDecode(responseToken.data);
 
+      const endpoint = URLBACK+"/restaurants/login";
+      const responseToken= await axios.post(endpoint, user);
+      const response=jwtDecode(responseToken.data);
+      
       console.log("Empresa desarrollada es :", JSON.stringify(response));
 
       dispatch({
@@ -1034,13 +1027,15 @@ export const Data_Usuario = (id) => {
     const token = getToken();
     configureAxios(token.data);
     try {
-      console.log("data a modificar del user", id);
-      const endpoint = `http://localhost:5000/users/${id}`;
-      const response = await axiosInstance.get(endpoint);
-      dispatch({
-        type: UPDATE_USER_DATA,
-        payload: response.data,
-      });
+
+
+    console.log('data a modificar del user',id);
+    const endpoint = URLBACK+`/users/${id}`;
+    const response = await axiosInstance.get(endpoint);
+    dispatch({
+      type: UPDATE_USER_DATA,
+      payload: response.data, 
+    })
     } catch (error) {
       alertify.alert("Mensaje", "No hay informacion disponible");
     }
@@ -1063,13 +1058,14 @@ export const Data_Empresa = (id) => {
   console.log("empresa id", id);
   return async (dispatch) => {
     try {
-      const endpoint = `http://localhost:5000/restaurants/${id}`;
-      const response = await axios.get(endpoint);
-      console.log("detalle del action empresa", response);
-      dispatch({
-        type: GET_DETAIL_EMPRESA,
-        payload: response.data,
-      });
+    const endpoint = URLBACK+`/restaurants/${id}`;
+    const response = await axios.get(endpoint);
+    console.log("detalle del action empresa",response)
+    dispatch({
+      type: GET_DETAIL_EMPRESA,
+      payload: response.data, 
+    })
+
     } catch (error) {
       
       console.log(error);
@@ -1083,23 +1079,26 @@ export const Update_Empresa = (formData) => {
     configureAxios(token.data);
     console.log("id restaurante", restaurantId);
     try {
-      const endpoint = `http://localhost:5000/restaurants/${restaurantId}`;
-      const response = await axiosInstance.put(endpoint, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log("detalle del action empresa", response);
-      dispatch({
-        type: PUT_DETAIL_EMPRESA,
-        payload: response.data,
-      });
-      alertify.alert("Mensaje", "¡Información actualizada correctamente!")
-    } catch (error) {
-      console.error("Error al obtener el restaurant:", error);
+
+    const endpoint = URLBACK+`/restaurants/${restaurantId}`;
+    const response = await axiosInstance.put(endpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log("detalle del action empresa",response)
+    dispatch({
+      type: PUT_DETAIL_EMPRESA,
+      payload: response.data, 
+    });
+    alertify.alert("Mensaje", "¡Información actualizada correctamente!")
+  } catch (error) {
+    console.error("Error al obtener el restaurant:", error);
+  }  
+
     }
   };
-};
+
 
 export const GetComment = (id) => {
   return async (dispatch) => {
@@ -1107,8 +1106,8 @@ export const GetComment = (id) => {
     try {
       dispatch(clearComments());
 
-      const response = await axios.get(`http://localhost:5000/comments/${id}`);
-      dispatch({
+      const response  = await axios.get(URLBACK+`/comments/${id}`);
+      dispatch ({
         type: GET_COMMENT,
         payload: response.data,
       });
@@ -1129,10 +1128,8 @@ export const PostComment = (commentData) => {
     try {
       dispatch(clearComments());
 
-      const response = await axiosInstance.post(
-        "http://localhost:5000/comments",
-        commentData
-      );
+     
+      const response = await axiosInstance.post(URLBACK+'/comments', commentData);
 
       dispatch({
         type: POST_COMMENT,
@@ -1152,16 +1149,14 @@ export function getCommentsCompany() {
     configureAxios(token);
 
     try {
-      const response = await axiosInstance(
-        `http://localhost:5000/comments/${restaurantId}`
-      );
+      const response = await axiosInstance(URLBACK+`/comments/${restaurantId}`);
       console.log("Categorías obtenidas:", response.data);
       return dispatch({
         type: GET_COMMENTS_COMPANY,
         payload: response.data,
       });
     } catch (error) {
-      alertify.alert("Mensaje", "No hay comentarios");
+      //alertify.alert("Mensaje", 'No hay comentarios');
     }
   };
 }
@@ -1169,7 +1164,7 @@ export function getCommentsCompany() {
 export const GetCommentAdmin = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:5000/comments/all`);
+      const response = await axios.get(URLBACK+`/comments/all`);
       dispatch({
         type: GET_COMMENTS_ADMIN,
         payload: response.data,
@@ -1187,7 +1182,7 @@ export const PutComents = (id, isActive) => {
 
     try {
       const response = await axiosInstance.put(
-        `http://localhost:5000/comments/${id}/status`,
+        URLBACK+`/comments/${id}/status`,
         {
           active: isActive,
         }

@@ -35,6 +35,7 @@ function CardMenuItems({
   });
   const [isRestored, setIsRestored] = useState(false);
   const token = useSelector((state) => state.token.data);
+  const URLBACK="https://fastfoodback3-production.up.railway.app";
 
   useEffect(() => {
     const cont = obtenerContCarrito(id);
@@ -47,7 +48,7 @@ function CardMenuItems({
     const fetchMenuState = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/menuitems/${id}`
+          URLBACK+`/menuitems/${id}`
         );
         setIsRestored(response.data.active);
       } catch (error) {
@@ -86,8 +87,8 @@ function CardMenuItems({
   const toggleItemState = async () => {
     try {
       const url = isRestored
-        ? `http://localhost:5000/menuitems/delete/${id}`
-        : `http://localhost:5000/menuitems/restore/${id}`;
+        ? URLBACK+`/menuitems/delete/${id}`
+        : URLBACK+`/menuitems/restore/${id}`;
       configureAxios(token);
       const response = await axiosInstance.put(url);
       setIsRestored(!isRestored);

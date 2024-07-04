@@ -26,13 +26,14 @@ function OrderCompany() {
     total_price: '',
     items: []
   });
+  const URLBACK="https://fastfoodback3-production.up.railway.app";
 
   const handleEliminar = async (id, active) => {
  
     try {
       if(active === true){
       console.log(id);
-      const endpoint = `http://localhost:5000/orders/delete/${id}`;
+      const endpoint = URLBACK+`/orders/delete/${id}`;
       //const response = 
       configureAxios(token)
       await axiosInstance.put(endpoint);
@@ -42,7 +43,7 @@ function OrderCompany() {
     }else
     if(active === false){
       console.log(id);
-      const endpoint = `http://localhost:5000/orders/restore/${id}`;
+      const endpoint = URLBACK+`/orders/restore/${id}`;
       //const response = 
       configureAxios(token)
       await axiosInstance.put(endpoint);
