@@ -7,22 +7,51 @@ import MenusAdmin from "../menusAdmin/menusAdmin";
 import UsersAdmin from "../usersAdmin/usersAdmin";
 
 import OrdersAdmin from "../ordenesAdmin/ordenesAdmin";
+import RatingAdmin from "../ratingAdmin/ratingAdmin";
+import { logoutAdmin } from "../../../Redux/actions";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const [selectedOption, setSelectedOption] = useState(1);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
+    // Cerrar el sidebar después de seleccionar una opción en dispositivos móviles
+    if (window.innerWidth <= 768) {
+      setSidebarOpen(false);
+    }
   };
 
+  // const handleOptionClick = (option) => {
+  //   setSelectedOption(option);
+  // };
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutAdmin())//token a null
+    window.localStorage.removeItem('loggedFastFoodAdmin');//localstorage de token a null
+    navigate('/loginAdmin');
+  }
+
+
   return (
-    <div className="sidebarContainerAdmin">
+    <div className={`sidebarContainerAdmin ${sidebarOpen ? "open" : ""}`}>
+      <button className="toggleSidebarButton" onClick={toggleSidebar}>
+          ☰
+        </button>
       <div className="OptionContainerAdmin">
-        <ul>
           <div className="cardRestConainerSidebarAdmin">
             <img src={logo} alt="imglogResAdmin" />
-            <h2>FastFood</h2>
+            
           </div>
+        <ul>
           <li
             className={selectedOption === 1 ? "selected" : ""}
             tabIndex="0"
@@ -35,19 +64,19 @@ function Sidebar() {
             tabIndex="0"
             onClick={() => handleOptionClick(2)}
           >
-            Menues
+            Menús
           </li>
           <li
-            className={selectedOption === 4 ? "selected" : ""}
+            className={selectedOption === 3 ? "selected" : ""}
             tabIndex="0"
-            onClick={() => handleOptionClick(4)}
+            onClick={() => handleOptionClick(3)}
           >
             Usuarios
           </li>
           <li
             className={selectedOption === 7 ? "selected" : ""}
             tabIndex="0"
-            onClick={() => handleOptionClick(7)}
+            onClick={() => handleOptionClick(4)}
           >
             Ordenes
           </li>
@@ -58,14 +87,22 @@ function Sidebar() {
           >
             Calificaciones
           </li>
+          <li
+            className={selectedOption === 6 ? "selected" : ""}
+            tabIndex="0"
+            onClick={() => handleLogout()} 
+          >
+            Cerrar Sesion
+          </li>
         </ul>
       </div>
 
       <div className="OptionContentAdmin">
         {selectedOption === 1 && <RestaurantsAdmin />}
         {selectedOption === 2 && <MenusAdmin />}
-        {selectedOption === 4 && <UsersAdmin />}
-        {selectedOption === 7 && <OrdersAdmin />}
+        {selectedOption === 3 && <UsersAdmin />}
+        {selectedOption === 4 && <OrdersAdmin />}
+        {selectedOption === 5 && <RatingAdmin />}
       </div>
     </div>
   );

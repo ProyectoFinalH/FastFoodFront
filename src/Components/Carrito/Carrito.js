@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./Carrito.css";
-import Eliminarproducto from "../../images/eliminar.png";
-import sindatos from '../../images/pizzeria-SINDATOS.png';
-import { Desarrollode_Compra, ID_Registro_Mercado_Pago, Sellcionar_Restaurante } from '../../Redux/actions';
+import { RiDeleteBin6Line } from "react-icons/ri";
+import sindatos from "../../images/pizzeria-SINDATOS.png";
+import {
+  Desarrollode_Compra,
+  ID_Registro_Mercado_Pago,
+  Sellcionar_Restaurante,
+} from "../../Redux/actions";
 import {
   obtenerContCarrito,
   obtenerItemsCarrito,
@@ -10,9 +13,9 @@ import {
   setOrder,
   actualizarItemCarrito,
 } from "../localStorage-car/LocalStorageCar";
-import { setSelctRestaurantapp, getSelctRestaurantapp } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import { getSelctRestaurantapp } from "../Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
 import { useDispatch, useSelector } from "react-redux";
-import { Wallet, initMercadoPago } from '@mercadopago/sdk-react';
+import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
 import alertify from "alertifyjs";
 
 function Carrito({ onClose }) {
@@ -25,20 +28,22 @@ function Carrito({ onClose }) {
   const [ordenCompra, setOrdenCompra] = useState(null);
   const [preferenceId, setPreferenceId] = useState(null);
   const [pagarstado, setPagarestado] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false); // Estado para controlar el procesamiento
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const dispatch = useDispatch();
 
-  initMercadoPago('APP_USR-2bf331dc-c934-490b-b87a-76fe4f965b37');
+  initMercadoPago("APP_USR-2bf331dc-c934-490b-b87a-76fe4f965b37");
 
   const createPreference = async () => {
     try {
       const cards = obtenerItemsCarrito();
-      const total_price = cards.reduce((acc, card) => acc + card.price * card.cont, 0).toFixed(2);
+      const total_price = cards
+        .reduce((acc, card) => acc + card.price * card.cont, 0)
+        .toFixed(2);
       const compramercadopago = {
         descriptions: "App Fast Food",
         price: total_price,
-        quantity: "1"
+        quantity: "1",
       };
       const datos = await dispatch(ID_Registro_Mercado_Pago(compramercadopago));
       return datos.id;
@@ -47,16 +52,17 @@ function Carrito({ onClose }) {
       alertify.alert("Error", "No se pudo crear la preferencia de pago.");
       return null;
     }
-  }
+  };
 
   const handleBuy = async () => {
-    if (isProcessing) return; // Evitar múltiples ejecuciones
+    if (isProcessing) return;
     setIsProcessing(true);
     try {
       await handlePagar();
       const id = await createPreference();
       if (id) {
-        const baseUrl = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=";
+        const baseUrl =
+          "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=";
         const prefere = id.replace(baseUrl, "");
         if (prefere) {
           setPreferenceId(prefere);
@@ -69,18 +75,18 @@ function Carrito({ onClose }) {
     } finally {
       setIsProcessing(false);
     }
-  }
+  };
 
   const handelIniciarsesion = () => {
     alertify.alert("Mensaje", "Para hacer la compra debes iniciar sesion");
-  }
+  };
 
   useEffect(() => {
     const cards = obtenerItemsCarrito() || [];
     setSelectedCards(cards);
-   // alertify.alert("error", "este es el carrito"+ getSelctRestaurantapp())
+    // alertify.alert("error", "este es el carrito"+ getSelctRestaurantapp())
     if (!restaurante) {
-      dispatch(Sellcionar_Restaurante(getSelctRestaurantapp()))
+      dispatch(Sellcionar_Restaurante(getSelctRestaurantapp()));
       setSelectRestid(getSelctRestaurantapp());
     } else {
       setSelectRestid(restaurante);
@@ -89,7 +95,10 @@ function Carrito({ onClose }) {
 
   useEffect(() => {
     if (compraRealizada && ordenCompra) {
-      console.log("Compra realizada. Mostrando tiquete de compra:", ordenCompra);
+      console.log(
+        "Compra realizada. Mostrando tiquete de compra:",
+        ordenCompra
+      );
     }
   }, [compraRealizada, ordenCompra]);
 
@@ -129,10 +138,14 @@ function Carrito({ onClose }) {
       return;
     }
     const cards = obtenerItemsCarrito();
-    const total_price = cards.reduce((acc, card) => acc + card.price * card.cont, 0).toFixed(2);
+    const total_price = cards
+      .reduce((acc, card) => acc + card.price * card.cont, 0)
+      .toFixed(2);
     const order_date = new Date().toISOString();
     try {
-      const carr = await dispatch(Desarrollode_Compra(cards, User.id, slectedResid));
+      const carr = await dispatch(
+        Desarrollode_Compra(cards, User.id, slectedResid)
+      );
       const compraData = {
         Carritos: {
           id: carr.id,
@@ -142,8 +155,8 @@ function Carrito({ onClose }) {
           total_price,
           order_date,
           active: true,
-          statusorder_id: 1
-        }
+          statusorder_id: 1,
+        },
       };
       setOrder(carr.id);
       setSelectedCards([]);
@@ -165,7 +178,7 @@ function Carrito({ onClose }) {
 
   const handleSalirCarrito = () => {
     if (pagarstado) {
-      window.location.replace('http://localhost:3000/menu/' + slectedResid);
+      window.location.replace("http://localhost:3000/menu/" + slectedResid);
     }
     onClose();
   };
@@ -173,24 +186,36 @@ function Carrito({ onClose }) {
   const renderTiqueteCompra = () => {
     if (!ordenCompra) return null;
     return (
-      <div className="ticketCompra">
-        <h2>************ Tiquete de Compra ************</h2>
-        <p>ID de Orden: {Carrito.id}</p>
-        <p>Fecha: {ordenCompra.Carritos.order_date}</p>
-        <p>Usuario: {ordenCompra.Carritos.user_id}</p>
-        <p>Restaurante: {ordenCompra.Carritos.restaurant_id}</p>
-        <h3>Productos:</h3>
-        <ul>
+      <div className="ticketCompra p-4 bg-white shadow-md rounded-lg">
+        <h2 className="text-2xl font-bold mb-4">
+          ************ Tiquete de Compra ************
+        </h2>
+        <p className="mb-2">ID de Orden: {Carrito.id}</p>
+        <p className="mb-2">Fecha: {ordenCompra.Carritos.order_date}</p>
+        <p className="mb-2">Usuario: {ordenCompra.Carritos.user_id}</p>
+        <p className="mb-2">
+          Restaurante: {ordenCompra.Carritos.restaurant_id}
+        </p>
+        <h3 className="text-lg font-bold mt-4 mb-2">Productos:</h3>
+        <ul className="list-disc list-inside mb-4">
           {ordenCompra.Carritos.items.map((item, index) => (
-            <li key={index}>- {item.name} x {item.cont} = ${(item.price * item.cont).toFixed(2)}</li>
+            <li key={index}>
+              - {item.name} x {item.cont} = ${item.price * item.cont.toFixed(2)}
+            </li>
           ))}
         </ul>
-        <p>Total: ${ordenCompra.Carritos.total_price}</p>
-        <h2>********************************************</h2>
-        <div className="boton_flex">
-          <div className="login-button-regresar" onClick={handleSalirCarrito}>Salir</div>
+        <p className="font-bold text-xl mb-4">
+          Total: ${ordenCompra.Carritos.total_price}
+        </p>
+        <h2 className="text-2xl font-bold">
+          ********************************************
+        </h2>
+        <div className="flex justify-between mt-4">
           {preferenceId && (
-            <Wallet initialization={{ preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />
+            <Wallet
+              initialization={{ preferenceId }}
+              customization={{ texts: { valueProp: "smart_option" } }}
+            />
           )}
         </div>
       </div>
@@ -198,65 +223,120 @@ function Carrito({ onClose }) {
   };
 
   return (
-    <div className="CarritoBody">
-      <div className="carCarrito">
-        <div className="carCarritoHeader">
-          <h1>Pagos</h1>
-          <div className="closeButton" onClick={handleSalirCarrito}>X</div>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white p-4 rounded-lg max-w-4xl w-full overflow-hidden">
+        <div className="flex justify-between items-center pb-4 bg-red-400 text-white p-2 rounded-t-lg">
+          <h1 className="text-2xl font-bold">Pagos</h1>
+          <div
+            className="cursor-pointer text-xl font-bold text-white"
+            onClick={handleSalirCarrito}
+          >
+            X
+          </div>
         </div>
-        <div className="carCarritoContent">
+        <div className="overflow-y-auto max-h-96">
           {compraRealizada ? (
-            <>
-              {renderTiqueteCompra()}
-            </>
+            renderTiqueteCompra()
+          ) : selectedCards.length === 0 ? (
+            <div className="flex flex-col items-center py-12">
+              <img
+                src={sindatos}
+                alt="Eliminar producto"
+                className="w-20 h-20 mb-4"
+              />
+              <p className="mb-4">
+                ¡Comienza tu carrito con tus comidas favoritas!
+              </p>
+              <div
+                className="w-full max-w-md text-center rounded-md py-2 px-4 bg-gradient-to-r from-red-500 to-orange-500 text-white cursor-pointer"
+                onClick={handleSalirCarrito}
+              >
+                Regresar al Menú
+              </div>
+            </div>
           ) : (
-            <>
-              {selectedCards.length === 0 ? (
-                <div className="emptyCarrito">
-                  <img src={sindatos} alt="Eliminar producto" />
-                  <p>¡Comienza tu carrito con tus comidas favoritas!</p>
-                  <div className="login-button-regresar" onClick={handleSalirCarrito}>Regresar al Menú</div>
+            selectedCards.map((card) => (
+              <div
+                key={card.id}
+                className="flex items-center justify-between border-b py-4"
+              >
+                <div className="flex items-center">
+                  <img
+                    src={card.image}
+                    alt="imgproducto"
+                    className="w-32 h-32 object-cover mr-4 rounded-lg"
+                  />
+                  <div>
+                    <p className="font-semibold text-lg">{card.name}</p>
+                    <p className="text-gray-500">${card.price}</p>
+                  </div>
                 </div>
-              ) : (
-                selectedCards.map((card) => (
-                  <div className="cardProducto" key={card.id}>
-                    <img src={card.image} alt="imgproducto" />
-                    <div className="card-nombre-costo">
-                      <label>{card.name}</label>
-                      <label>${card.price}</label>
-                    </div>
-                    <div>
-                      <div className="card-eliminar">
-                        <img src={Eliminarproducto} onClick={() => handleDeleteItem(card.id)} alt="Eliminar comida" style={{ width: '30px', height: '30px' }} />
+                <div className="flex items-center">
+                  <div className="flex items-center">
+                    <RiDeleteBin6Line
+                      onClick={() => handleDeleteItem(card.id)}
+                      className="text-gray-500 cursor-pointer"
+                      size={24}
+                    />
+                    <div className="flex items-center ml-4">
+                      <div
+                        className="text-2xl cursor-pointer mr-2"
+                        onClick={() => handleDisminuir(card.id)}
+                      >
+                        -
                       </div>
-                      <div className="car-aumentardisminuir" onClick={() => handleDisminuir(card.id)}>-</div>
-                      <div>
-                        <input className="card-inputcard" name="contador" type="text" maxLength={100} value={obtenerContCarrito(card.id)} disabled />
+                      <input
+                        className="w-12 text-center border border-gray-300"
+                        name="contador"
+                        type="text"
+                        maxLength="100"
+                        value={obtenerContCarrito(card.id)}
+                        disabled
+                      />
+                      <div
+                        className="text-2xl cursor-pointer ml-2 "
+                        onClick={() => handleSumar(card.id)}
+                      >
+                        +
                       </div>
-                      <div className="car-aumentardisminuir" onClick={() => handleSumar(card.id)}>+</div>
-                    </div>
-                    <div className="costoTotal">
-                      <label>Costo Total</label>
-                      <label>${(card.price * card.cont).toFixed(2)}</label>
                     </div>
                   </div>
-                ))
-              )}
-            </>
+                  <div className="ml-10">
+                    <p className="font-semibold ">Costo Total</p>
+                    <p>${(card.price * card.cont).toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+            ))
           )}
         </div>
         {selectedCards.length > 0 && !compraRealizada && (
-          <div className="Pagarproductos">
-            <label className="pagolabel">Costo Total</label>
-            <label className="pagolabel">
-              ${selectedCards.reduce((acc, card) => acc + card.price * card.cont, 0).toFixed(2)}
-            </label>
-            {preferenceId ? null : (
-              User.name === "invitado" ?
-                <button onClick={handelIniciarsesion} style={{ 'background-color': 'red' }}>Pagar</button> :
-                <button onClick={handleBuy} disabled={isProcessing}>{isProcessing ? 'Procesando...' : 'Pagar'}</button>
+          <div className="flex justify-between items-center py-4">
+            <div>
+              <p className="font-semibold">Costo Total</p>
+              <p className="font-semibold">
+                $
+                {selectedCards
+                  .reduce((acc, card) => acc + card.price * card.cont, 0)
+                  .toFixed(2)}
+              </p>
+            </div>
+            {preferenceId ? null : User.name === "invitado" ? (
+              <button
+                className="w-32 bg-red-500 text-white font-semibold rounded-md py-2"
+                onClick={handelIniciarsesion}
+              >
+                Pagar
+              </button>
+            ) : (
+              <button
+                className="w-32 bg-green-500 text-white font-semibold rounded-md py-2"
+                onClick={handleBuy}
+                disabled={isProcessing}
+              >
+                {isProcessing ? "Procesando..." : "Pagar"}
+              </button>
             )}
-            <div></div>
           </div>
         )}
       </div>

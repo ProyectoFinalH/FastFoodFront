@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./cardMenuItems.css";
 import { useNavigate } from "react-router-dom";
-import carrito from "../../../images/carrito.png";
+import { RiShoppingCart2Line } from "react-icons/ri";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import {
@@ -33,12 +32,12 @@ function CardMenuItems({
     price,
     image,
     cont: 0,
-  }); // Inicializa cont en 0
+  });
   const [isRestored, setIsRestored] = useState(false);
   const token = useSelector((state) => state.token.data);
+  const URLBACK="https://fastfoodback3-production.up.railway.app";
 
   useEffect(() => {
-    // Obtener el contador del localStorage al montar el component
     const cont = obtenerContCarrito(id);
     if (id_Card.cont !== cont) {
       setId_Card((prevState) => ({ ...prevState, cont }));
@@ -49,7 +48,7 @@ function CardMenuItems({
     const fetchMenuState = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/menuitems/${id}`
+          URLBACK+`/menuitems/${id}`
         );
         setIsRestored(response.data.active);
       } catch (error) {
@@ -57,7 +56,7 @@ function CardMenuItems({
       }
     };
 
-    fetchMenuState(); // Llamar a la función al montar el componente
+    fetchMenuState();
   }, [id]);
 
   const handleSumar = () => {
@@ -88,12 +87,12 @@ function CardMenuItems({
   const toggleItemState = async () => {
     try {
       const url = isRestored
-        ? `http://localhost:5000/menuitems/delete/${id}`
-        : `http://localhost:5000/menuitems/restore/${id}`;
+        ? URLBACK+`/menuitems/delete/${id}`
+        : URLBACK+`/menuitems/restore/${id}`;
       configureAxios(token);
-      const response = await axiosInstance.put(url); // Usamos POST pero asegúrate de que coincide con el método esperado en tu backend
-      setIsRestored(!isRestored); // Cambiamos el estado después de la solicitud
-      console.log(response.data); // Manejo opcional de la respuesta
+      const response = await axiosInstance.put(url);
+      setIsRestored(!isRestored);
+      console.log(response.data);
     } catch (error) {
       console.error("Hubo un error al realizar la solicitud", error);
     }
@@ -102,53 +101,63 @@ function CardMenuItems({
   return (
     <div>
       {viewCard && <Carrito onClose={handleMenuCarrito} />}
-      <div className="cardMenuContainer">
+      <div className="cardMenuContainer bg-gray-100 shadow-md rounded-lg overflow-hidden cursor-pointer transform transition duration-300 hover:shadow-lg hover:-translate-y-1 mb-8 mx-3 w-80 h-[400px]">
         <img
           alt="imagemenuitems"
           src={image}
-          className="cardImage"
+          className="cardImage w-full h-40 object-cover rounded-t-lg"
           onClick={handleClick}
         />
-
-        <div className="cardContent">
-          <h2 className="cardTitle">{name}</h2>
-          <p className="cardDescription">{description.substring(0, 30)}...</p>
-          <div className="OrdenarCompra">
-            <h2 className="cardPrice">${price}</h2>
-            {!hideCartButtons && (
-              <div className="botonesCarrito">
-                <div className="botones-flex">
-                  <div className="buttonDecInc-Menu">
-                    <label className="aumentardisminuir" onClick={handleRestar}>
-                      -
-                    </label>
-                    <input
-                      className="inputcard"
-                      type="text"
-                      value={obtenerContCarrito(id_Card.id)}
-                      disabled
-                    />
-                    <label className="aumentardisminuir" onClick={handleSumar}>
-                      +
-                    </label>
-                  </div>
-                  <img
-                    src={carrito}
-                    title="Ve Al Carrito"
-                    alt="Carrito"
-                    className="carritoIcon"
-                    onClick={handleMenuCarrito}
-                  />
-                </div>
-                <p className="agregarCarritoTitulo"></p>
+        <div className="cardContent flex flex-col justify-between p-4 h-[250px]">
+          <h2 className="cardTitle text-xl font-bold text-gray-800">{name}</h2>
+          <p className="cardDescription text-gray-600 mb-4">
+            {description.substring(0, 30)}...
+          </p>
+          
+          {/* <div className="flex items-center justify-between mt-auto"> */}
+          {!hideCartButtons && (
+            <div className="flex items-center">
+              <h2 className="cardPrice text-xl font-bold text-red-500">${price}</h2>
+              <div className="buttonDecInc-Menu flex items-center space-x-2">
+                <button
+                  className="aumentardisminuir w-8 h-8 flex items-center justify-center bg-gray-200 border border-gray-300 rounded"
+                  onClick={handleRestar}
+                >
+                  -
+                </button>
+                <input
+                  className="inputcard w-12 text-center text-lg font-semibold"
+                  type="text"
+                  value={obtenerContCarrito(id_Card.id)}
+                  disabled
+                />
+                <button
+                  className="aumentardisminuir w-8 h-8 flex items-center justify-center bg-gray-200 border border-gray-300 rounded"
+                  onClick={handleSumar}
+                >
+                  +
+                </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+ {!hideCartButtons && (
+            <div
+              onClick={handleMenuCarrito}
+              className="carritoIcon w-10 h-10 flex items-center justify-center cursor-pointer transition-transform duration-300 transform hover:scale-110 bg-red-500 text-white rounded-full"
+              title="Ve Al Carrito"
+            >
+              <RiShoppingCart2Line className="text-white" />
+            </div>
+          )}
+    
+          
           {showEyeIcon && (
             <div
               onClick={toggleItemState}
-              className={`iconoOjo ${
-                isRestored ? "iconoOjoOcultar" : "iconoOjoMostrar"
+              className={`iconoOjo px-5 py-1 text-sm rounded cursor-pointer ${
+                isRestored
+                  ? "bg-red-500 text-white"
+                  : "bg-gray-500 text-gray-300"
               }`}
             >
               {isRestored ? "👁 Ocultar" : "👁 Mostrar"}

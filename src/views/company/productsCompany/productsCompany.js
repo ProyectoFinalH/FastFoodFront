@@ -33,6 +33,9 @@ function ProductsCompany() {
 
   return (
     <div className="mainContainer">
+      <div className="restaurantH2">
+        <h2>Productos</h2>
+      </div>
       <div className="linktocreate">
         <ReactModal
           isOpen={showCreateCategoryModal}

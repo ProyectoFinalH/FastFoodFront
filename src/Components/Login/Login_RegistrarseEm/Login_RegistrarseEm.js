@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import "./Login_RegistrarseEm.css";
-import icono_ver from "../Login_imagenes/iconos/cerrar-ojo-black.png";
-import icono_ocultar from "../Login_imagenes/iconos/ojo-con-pestanas-black.png";
+import {
+  RiUserLine,
+  RiLockPasswordLine,
+  RiEyeLine,
+  RiEyeCloseLine,
+} from "react-icons/ri";
 import { register_business } from "../../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import alertify from 'alertifyjs';
-import 'alertifyjs/build/css/alertify.css';
-import 'alertifyjs/build/css/themes/default.css'; 
+import alertify from "alertifyjs";
+import "alertifyjs/build/css/alertify.css";
+import "alertifyjs/build/css/themes/default.css";
+import imagen from "../Login_imagenes/logo.png";
 
 const RegistrarseEmpresa = ({ setView }) => {
   const dispatch = useDispatch();
   const Register = useSelector((state) => state.RegisterUserData);
   const [keyVisible, setKeyVisible] = useState(false);
+  const [confirmKeyVisible, setConfirmKeyVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -22,6 +27,10 @@ const RegistrarseEmpresa = ({ setView }) => {
 
   const toggleVisibility = () => {
     setKeyVisible(!keyVisible);
+  };
+
+  const toggleConfirmVisibility = () => {
+    setConfirmKeyVisible(!confirmKeyVisible);
   };
 
   const handleChange = (event) => {
@@ -40,14 +49,18 @@ const RegistrarseEmpresa = ({ setView }) => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Datos del formulario:", userData);
-     const result = dispatch(register_business(userData));
-     if(result){
-      alertify.alert("Creado", "<div>Usuario Creado Correctamente</div><br/><div>Ahora ingresa con tu usuario y contraseña</div>", function() {
-        window.location.href = '/';
-      });
-    }else{
-      alertify.waring("Error", "No se pude registrar la Empresa")
-     }
+      const result = dispatch(register_business(userData));
+      if (result) {
+        alertify.alert(
+          "Creado",
+          "<div>Usuario Creado Correctamente</div><br/><div>Ahora ingresa con tu usuario y contraseña</div>",
+          function () {
+            window.location.href = "/";
+          }
+        );
+      } else {
+        alertify.warning("Error", "No se pudo registrar la Empresa");
+      }
     }
   };
 
@@ -139,82 +152,132 @@ const RegistrarseEmpresa = ({ setView }) => {
   }, [Register, setView]);
 
   return (
-    <div className="bodyregister">
-      <form className="formRegister" onSubmit={handleSubmit}>
-        <h2>Registrarse</h2>
-        <div className="formGroup">
-          <label htmlFor="username">Nombre de usuario</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={userData.username}
-            maxLength={45}
-            title="Solo se adminten 45 caractres"
-            onChange={handleChange}
-          />
-          {errors.username && (
-            <span className="errorMessage">{errors.username}</span>
-          )}
-        </div>
-        <div className="formGroup">
-          <label htmlFor="email">Correo electrónico</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={userData.email}
-            maxLength={60}
-            title="Solo se adminten 60 caractres"
-            onChange={handleChange}
-          />
-          {errors.email && <span className="errorMessage">{errors.email}</span>}
-        </div>
-        <div className="formGroup">
-          <label htmlFor="password">Contraseña</label>
-          <div className="pass_display_flex">
-            <input
-              type={keyVisible ? "text" : "password"}
-              id="password"
-              name="password"
-              maxLength={15}
-              value={userData.password}
-              onChange={handleChange}
-              title="Solo se adminten 15 caractres"
-            />
-            <img
-              src={keyVisible ? icono_ocultar : icono_ver}
-              alt="Mostrar/Ocultar"
-              onClick={toggleVisibility}
-              className="ver"
-            />
-          </div>
+    <div className="login-container flex justify-center items-center h-screen">
+      <div className="login-body bg-white rounded-lg shadow-lg overflow-hidden w-96">
+        <div className="login-content p-6">
+          <form className="formRegister" onSubmit={handleSubmit}>
+            <div className="flex justify-center mb-6">
+              <img
+                src={imagen}
+                alt="Logo Fast Food"
+                className="login-image mx-auto mt-4 h-30"
+              />
+            </div>
+            <h2 className="text-center text-2xl font-bold mb-4">
+              Registrarse con empresa
+            </h2>
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
+              <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={userData.username}
+                maxLength={45}
+                title="Solo se admiten 45 caracteres"
+                onChange={handleChange}
+                placeholder="Nombre de usuario"
+                className="form-input pl-7 pr-10 w-full"
+              />
+            </div>
+            {errors.username && (
+              <span className="text-red-500 text-sm">{errors.username}</span>
+            )}
 
-          {errors.password && (
-            <span className="errorMessage">{errors.password}</span>
-          )}
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
+              <RiUserLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={userData.email}
+                maxLength={60}
+                title="Solo se admiten 60 caracteres"
+                onChange={handleChange}
+                placeholder="Correo electrónico"
+                className="form-input pl-7 pr-10 w-full"
+              />
+            </div>
+            {errors.email && (
+              <span className="text-red-500 text-sm">{errors.email}</span>
+            )}
+
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
+              <RiLockPasswordLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type={keyVisible ? "text" : "password"}
+                id="password"
+                name="password"
+                value={userData.password}
+                maxLength={15}
+                onChange={handleChange}
+                placeholder="Contraseña"
+                className="form-input pl-7 pr-10 w-full"
+              />
+              <div
+                className="password-toggle cursor-pointer absolute right-5 top-1/2 transform -translate-y-1/2"
+                onClick={toggleVisibility}
+              >
+                {keyVisible ? (
+                  <RiEyeCloseLine className="input-icon text-gray-400" />
+                ) : (
+                  <RiEyeLine className="input-icon text-gray-400" />
+                )}
+              </div>
+            </div>
+            {errors.password && (
+              <span className="text-red-500 text-sm">{errors.password}</span>
+            )}
+
+            <div className="input-group relative my-4 mb-0 border border-gray-500 rounded px-4 py-2 rounded-xl">
+              <RiLockPasswordLine className="input-icon absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type={confirmKeyVisible ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={userData.confirmPassword}
+                maxLength={15}
+                onChange={handleChange}
+                placeholder="Confirmar contraseña"
+                className="form-input pl-7 pr-10 w-full"
+              />
+              <div
+                className="password-toggle cursor-pointer absolute right-5 top-1/2 transform -translate-y-1/2"
+                onClick={toggleConfirmVisibility}
+              >
+                {confirmKeyVisible ? (
+                  <RiEyeCloseLine className="input-icon text-gray-400" />
+                ) : (
+                  <RiEyeLine className="input-icon text-gray-400" />
+                )}
+              </div>
+            </div>
+            {errors.confirmPassword && (
+              <span className="text-red-500 text-sm">
+                {errors.confirmPassword}
+              </span>
+            )}
+
+            <div className="button-wrapper mt-6">
+              <button
+                type="submit"
+                className="w-full py-2 px-4 bg-green-400 text-white rounded-xl hover:bg-green-500 transition-colors duration-300"
+              >
+                Registrarse
+              </button>
+            </div>
+            <p className="mt-4 text-center text-sm">
+              ¿Ya tienes una cuenta?{" "}
+              <button
+                className="text-blue-500 underline"
+                onClick={handleLoginLinkClick}
+              >
+                Inicia sesión aquí
+              </button>
+            </p>
+          </form>
         </div>
-        <div className="formGroup">
-          <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-          <input
-            type={keyVisible ? "text" : "password"}
-            id="confirmPassword"
-            name="confirmPassword"
-            value={userData.confirmPassword}
-            maxLength={15}
-            onChange={handleChange}
-          />
-          {errors.confirmPassword && (
-            <span className="errorMessage">{errors.confirmPassword}</span>
-          )}
-        </div>
-        <button type="submit" className="buttonSubmit" >
-          Registrarse con empresa
-        </button>
-        <div className="loginLink" onClick={handleLoginLinkClick}>
-          ¿Ya tienes una cuenta? Inicia sesión aquí
-        </div>
-      </form>
+      </div>
     </div>
   );
 };

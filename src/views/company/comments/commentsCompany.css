@@ -1,4 +1,4 @@
-.tableContainer{
+/* .tableContainer{
     display: flex;
     justify-content: center;
     margin-left: 10%;
@@ -52,3 +52,102 @@
     font-weight: bold;
     color: #009879;
   }
+
+
+  .RatingRestContainerCompany{
+    margin: 30px;
+    background-color: #fafafa;
+        padding: 5px;
+        /* padding: 15px; */
+        /* border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.RatingRestContainerCompany:hover{
+    transform: translateY(-5px);
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .commentsCompany ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.RatingRestContainerCompany.inactive {
+  background-color: #d6d6d6; /* Cambia el color de fondo a gris */
+/* }
+
+.RatingRestContainerCompany.inactive img {
+  filter: grayscale(100%); /* Aplica el filtro de escala de grises al 100% */
+/* } */
+
+.buttonComentariosCompany {
+  position: relative;
+ left: 95%;
+ 
+}   
+
+.ratingsContainer {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.CommentsContainer {
+  padding: 10px;
+}
+
+.CommentsContainer ul {
+  list-style-type: none;
+  padding: 0;
+  
+}
+
+.commentUserContainer {
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid 1px #d8d8d8;
+  margin: 20px;
+}
+.commentUser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.commentUserName {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.commentUserComment {
+  margin-top: -20px;
+  margin-left: 110px;
+  font-size: 17px;
+}
+
+.commentImage img{
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+  margin-right: 20px;
+}
+
+.commentUserDate{
+  color: #615f5f;
+}

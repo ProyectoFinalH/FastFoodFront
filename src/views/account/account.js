@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/navbar/navbar";
-import "./account.css";
 import {
   updateUser,
   Listado_Orders_Usuario,
@@ -19,6 +18,10 @@ import {
   obtenerIdUsuario,
   guardarNombreUsuario,
 } from "../../Components/Login/Login_Ingreso/LocalStorange_user/LocalStorange_user";
+import {
+  validarUsername,
+  validarPassword,
+} from "./Components/validacionAccount";
 
 function Account() {
   const user = useSelector((state) => state.AllDATAUSER);
@@ -35,23 +38,24 @@ function Account() {
   const [showOrders, setShowOrders] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const handleUsernameChange = (e) => {
     const value = e.target.value;
-    if (/^[a-zA-Z]{4,20}$/.test(value) || value === "") {
-      setUsername(value);
-    }
+    setUsername(value);
+    setUsernameError(validarUsername(value));
   };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
-    if (/^[a-zA-Z0-9]{5,20}$/.test(value) || value === "") {
-      setPassword(value);
-    }
+    setPassword(value);
+    setPasswordError(validarPassword(value));
   };
 
   const handleSubmit = async () => {
-    if (!email || !username) {
-      alert("Por favor, completa todos los campos.");
+    if (!email || !username || usernameError || passwordError) {
+      alert("Por favor, completa todos los campos correctamente.");
       return;
     }
 
@@ -124,12 +128,6 @@ function Account() {
     setShowOrders(false);
   };
 
-  const handleNotificationsClick = () => {
-    setShowAccountSettings(false);
-    setShowNotifications(true);
-    setShowOrders(false);
-  };
-
   const handleOrdersClick = () => {
     setShowAccountSettings(false);
     setShowNotifications(false);
@@ -149,113 +147,163 @@ function Account() {
   return (
     <div>
       <Navbar />
-      <div className="account-container">
-        <div className="account-sidebar">
-          <div className="profile-header">
-            <p className="welcome-message">Bienvenido {username}</p>
-            <label htmlFor="profile-image" className="profile-image-container">
-              {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="Perfil"
-                  className="profile-image"
+      <div className="flex justify-center items-start p-4 max-w-7xl mx-auto bg-white shadow-md rounded-lg my-10">
+        <div className="flex justify-center items-center">
+          <div className="w-72 p-6 border-r border-gray-300 flex flex-col items-center">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-gray-800 mb-4">
+                Bienvenido {username}
+              </p>
+            </div>
+            <div className="text-center mb-6">
+              <label
+                htmlFor="profile-image"
+                className="relative cursor-pointer"
+              >
+                {imagePreview ? (
+                  <img
+                    src={imagePreview}
+                    alt="Perfil"
+                    className="w-32 h-32 rounded-full object-cover mb-4"
+                  />
+                ) : user && user.image_url ? (
+                  <img
+                    src={user.image_url}
+                    alt="Perfil"
+                    className="w-32 h-32 rounded-full object-cover mb-4"
+                  />
+                ) : (
+                  <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center mb-4">
+                    No hay imagen
+                  </div>
+                )}
+                <input
+                  type="file"
+                  name="image_url"
+                  id="profile-image"
+                  onChange={handleImageChange}
+                  accept=".jpg,.png"
+                  className="hidden"
                 />
-              ) : user && user.image_url ? (
-                <img
-                  src={user.image_url}
-                  alt="Perfil"
-                  className="profile-image"
-                />
-              ) : (
-                <div className="no-image">No hay imagen</div>
-              )}
-              <input
-                type="file"
-                name="image_url"
-                id="profile-image"
-                onChange={handleImageChange}
-                accept=".jpg,.png"
-                style={{ display: "none" }}
-              />
-            </label>
-            <label htmlFor="profile-image" className="change-image-label">
-              Cambiar Imagen
-            </label>
+              </label>
+            </div>
+            <nav className="w-full">
+              <ul className="space-y-3">
+                <li>
+                  <Link
+                    to="#"
+                    onClick={handleAccountSettingsClick}
+                    className="block text-gray-600 hover:bg-gray-100 py-2 px-4 rounded"
+                  >
+                    Ajustes de cuenta
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="#"
+                    onClick={handleOrdersClick}
+                    className="block text-gray-600 hover:bg-gray-100 py-2 px-4 rounded"
+                  >
+                    Últimas órdenes
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
-          <nav className="menu">
-            <ul>
-              <li>
-                <Link to="#" onClick={handleAccountSettingsClick}>
-                  Ajustes de cuenta
-                </Link>
-              </li>
-              <li>
-                <Link to="#" onClick={handleNotificationsClick}>
-                  Centro de notificaciones
-                </Link>
-              </li>
-              <li>
-                <Link to="#" onClick={handleOrdersClick}>
-                  Últimas órdenes
-                </Link>
-              </li>
-            </ul>
-          </nav>
         </div>
-        <div className="account-info">
+        <div className="flex-1 p-6">
           {showAccountSettings && (
             <>
-              <h2>Información de tu cuenta</h2>
-              <div className="input-group-container">
-                <div className="input-group1">
-                  <label>Correo Electrónico</label>
-                  <input type="email" value={email} readOnly />
+              <h2 className="text-3xl font-bold text-gray-800 mb-6">
+                Información de tu cuenta
+              </h2>
+              <div className="space-y-6">
+                <div className="flex space-x-6">
+                  <div className="w-full">
+                    <label className="block text-lg font-medium text-gray-700">
+                      Correo Electrónico
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      readOnly
+                      className="w-full bg-gray-100 text-lg text-gray-800 border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+                <div className="flex space-x-6">
+                  <div className="w-1/2">
+                    <label className="block text-lg font-medium text-gray-700">
+                      Nombre de usuario
+                    </label>
+                    <input
+                      type="text"
+                      value={username}
+                      onChange={handleUsernameChange}
+                      onBlur={() => setUsernameError(validarUsername(username))}
+                      className={`w-full bg-gray-100 text-lg text-gray-800 border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:border-blue-500 ${
+                        usernameError ? "border-red-500" : ""
+                      }`}
+                    />
+                    {usernameError && (
+                      <div className="text-red-500 text-sm mt-2">
+                        {usernameError}
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-1/2">
+                    <label className="block text-lg font-medium text-gray-700">
+                      Cambiar Contraseña
+                      <input
+                        type="checkbox"
+                        checked={changePassword}
+                        onChange={() => setChangePassword(!changePassword)}
+                        className="ml-2"
+                      />
+                    </label>
+                    {changePassword && (
+                      <div className="">
+                        <input
+                          type="password"
+                          value={password}
+                          onChange={handlePasswordChange}
+                          onBlur={() =>
+                            setPasswordError(validarPassword(password))
+                          }
+                          className={`w-full bg-gray-100 text-lg text-gray-800 border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:border-blue-500 ${
+                            passwordError ? "border-red-500" : ""
+                          }`}
+                        />
+                        {passwordError && (
+                          <div className="text-red-500 text-sm mt-2">
+                            {passwordError}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="input-group-container">
-                <div className="input-group1">
-                  <label>Nombre de usuario </label>{" "}
-                  <input
-                    type="text"
-                    value={username}
-                    onChange={handleUsernameChange}
-                  />
-                </div>
-                <div className="input-group1">
-                  <label className="checkbox-label">
-                    <span>Cambiar Contraseña</span>
-                    <input
-                      type="checkbox"
-                      checked={changePassword}
-                      onChange={() => setChangePassword(!changePassword)}
-                    />
-                  </label>
-                  {changePassword && (
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={handlePasswordChange}
-                    />
-                  )}
-                </div>
-              </div>
-              <div className="button-group">
-                <button onClick={handleSubmit} className="update-button">
-                  Actualizar datos
+              <div className="mt-6 flex items-center space-x-6">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-red-500 hover:bg-green-500 text-white py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                >
+                  Guardar Cambios
                 </button>
                 {showSuccessNotification && (
-                  <Notification message="Datos actualizados correctamente" />
+                  <Notification
+                    message="Cambios guardados exitosamente."
+                    onClose={() => setShowSuccessNotification(false)}
+                  />
                 )}
-                <Link to="/" className="home-button">
-                  Volver al inicio
-                </Link>
               </div>
             </>
           )}
-          {showNotifications && <NotificationCenter />}
           {showOrders && <OrderUsers />}
         </div>
       </div>
+      {showNotifications && <NotificationCenter />}
     </div>
   );
 }

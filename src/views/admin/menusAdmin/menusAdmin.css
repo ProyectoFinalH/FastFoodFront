@@ -1,7 +1,13 @@
-.menusAdminContainerSegundo{
 
-    border-radius: 10px;
-    border: solid 1px rgba(0, 0, 0, 0.2);
+.CardsAdminContainer{
+  display: block;
+  margin-left: 20px;
+}
+
+.menusAdminContainerSegundo{
+  margin: 20px;
+  
+    
     background-color: white;
   padding: 15px;
   border-radius: 10px;
@@ -111,19 +117,19 @@
 
 .MenuItemmenu{
   display: flex;
-  flex-direction: column;
   width: 300px;
-  height: 400px;
+  /* height: 400px; */
   margin: 40px 20px;
   background-color: #f9f9f9;
   padding: 5px;
   /* padding: 15px; */
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  justify-content: space-between;
   align-items: center;
   cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-direction: column;
+  justify-content: space-around;
   }
   
   
@@ -162,15 +168,20 @@ margin-left: 20px;
 }
 
 .buttonactdesMenus{
+  display: flex;
+  width: 50px;
     width: 50px;
     height: 40px;
     margin-right: 10px;
     border: none;
     background: none;
+    justify-content: center;
+    align-items: center;
+    
   }
 
   .buttonactdesMenus img {
-    width: 100%;
+    width: 70%;
 overflow:auto;
 cursor: pointer;
 
@@ -242,7 +253,8 @@ justify-content: space-between;
 
 }
 .inputSearchMenuAdmin{
-display: flex;
+  display: flex;
+  align-items: center;
 
 }
 .SearchMenuAdmin input[type="search"] {
@@ -282,5 +294,78 @@ display: flex;
 }
 
 .h2MenuSelected{
-  margin-left: 20px;
+  padding: 5px;
+    margin: 10px;
+    display: flex;
+}
+.noResultsMessage{
+  display: flex;
+justify-content: center;
+width: 100%;
+}
+
+
+.SelectsContainerAdmin{
+  margin-left: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .menusAdminContainerSegundo {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .MenusAdminContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .MenuList {
+    min-width: auto;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .MenuItemsContainer {
+    margin-left: 0;
+  }
+
+  .MenuItemmenu {
+    width: 100%;
+    margin: 10px;
+  }
+
+  .imageItem img {
+    height: auto;
+  }
+
+  .infoCardItemMenu {
+    padding: 10px;
+  }
+
+  .perfilRestMenusAdmin img {
+    margin-right: 10px;
+    height: 60px; /* Ajusta según lo necesario */
+  }
+
+  .h2MenuSelected {
+    margin-left: 10px;
+  }
+}
+
+/* Estilos adicionales para tamaños muy pequeños, como celulares en posición vertical */
+@media only screen and (max-width: 480px) {
+  .menuLi {
+    display: block;
+  }
+
+  .buttonactdesMenus img {
+    width: 40px; /* Ajusta según lo necesario */
+  }
+
+  .inputSearchMenuAdmin input[type="search"],
+  .inputSearchItemMenuAdmin input[type="search"] {
+    font-size: 0.9rem; /* Ajusta según lo necesario */
+  }
 }
