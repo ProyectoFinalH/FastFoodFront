@@ -41,7 +41,7 @@ function Navbar() {
 
   return (
     <div className="navbar-container bg-white shadow-md px-6 py-1 flex justify-between items-center">
-      <div className="left-section flex items-center">
+      <div className="leftsection flex items-center">
         <NavLink to="/home" className="logo-container flex items-center">
           <img src={logo} alt="logo" className="logo w-16 h-auto" />
           <span className="fastfood-text text-2xl font-bold ml-4">
@@ -49,7 +49,7 @@ function Navbar() {
           </span>
         </NavLink>
       </div>
-      <div className="right-section flex items-center">
+      <div className="rightsection flex items-center">
         {!User || User.name !== "invitado" ? (
           <div
             className="carrito-container ml-auto mr-6 cursor-pointer"

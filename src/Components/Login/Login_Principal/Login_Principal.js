@@ -61,7 +61,7 @@ const LoginPrincipal = () => {
           {/* Contenido del lado izquierdo */}
         </div>
         <div className="w-full md:w-1/2 h-screen flex justify-center items-center">
-          <div className="w-full max-w-md p-8 bg-white bg-opacity-25 rounded-lg">
+          <div className="w-full p-8 bg-white bg-opacity-25 rounded-lg">
             {logueo === "login" && <LoginIngreso setView={setLogueo} />}
             {logueo === "recuperarkey" && <Recuperarkey setView={setLogueo} />}
             {logueo === "registro" && <Registrarse setView={setLogueo} />}
